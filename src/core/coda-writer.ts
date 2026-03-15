@@ -1,4 +1,4 @@
-import type { CamtStatement, CamtEntry, CamtTransactionDetail } from "./camt-parser.js";
+import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
 
 // ── Formatting helpers ──────────────────────────────────────────────────
@@ -323,7 +323,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   // Build filename
   const dateStr = stmt.reportDate.slice(0, 10);
   const acct = stmt.account.iban || stmt.account.otherId || "unknown";
-  const fileName = `${dateStr}-${acct}-${stmt.account.currency}-${stmt.statementId}-CAMT-053.cod`;
+  const fileName = `${dateStr}-${acct}-${stmt.account.currency}-${stmt.statementId}-CAMT-${stmt.camtVersion}.cod`;
 
   return {
     fileName,

@@ -1,70 +1,8 @@
 import { XMLParser } from "fast-xml-parser";
 import { readFileSync } from "fs";
+import type { CamtStatement, CamtEntry, TransactionDetail } from "./model.js";
 
-// ── Normalized CAMT model (version-independent) ────────────────────────
-
-export interface CamtStatement {
-  messageId: string;
-  creationDate: string;
-  statementId: string;
-  account: {
-    iban?: string;
-    otherId?: string;
-    currency: string;
-    ownerName?: string;
-    bic?: string;
-  };
-  openingBalance: {
-    amount: number;
-    creditDebit: "CRDT" | "DBIT";
-    date: string;
-  };
-  closingBalance: {
-    amount: number;
-    creditDebit: "CRDT" | "DBIT";
-    date: string;
-  };
-  entries: CamtEntry[];
-  reportDate: string;
-  sequence?: number;
-}
-
-export interface CamtEntry {
-  amount: number;
-  currency: string;
-  creditDebit: "CRDT" | "DBIT";
-  bookingDate?: string;
-  valueDate?: string;
-  entryRef?: string;
-  accountServicerRef?: string;
-  transactionCode?: {
-    domain?: string;
-    family?: string;
-    subFamily?: string;
-    proprietary?: string;
-  };
-  details: CamtTransactionDetail[];
-  batchCount?: number;
-}
-
-export interface CamtTransactionDetail {
-  refs?: {
-    endToEndId?: string;
-    txId?: string;
-    instrId?: string;
-  };
-  counterparty?: {
-    name?: string;
-    iban?: string;
-    bic?: string;
-  };
-  remittanceInfo?: {
-    unstructured?: string;
-    structured?: {
-      creditorRef?: string;
-    };
-  };
-}
+export type { CamtStatement, CamtEntry, TransactionDetail };
 
 // ── Parser ──────────────────────────────────────────────────────────────
 
@@ -159,6 +97,7 @@ function parseStatement(stmt: any, grpHdr: any): CamtStatement {
     str(grpHdr.CreDtTm);
 
   return {
+    camtVersion: "053",
     messageId: str(grpHdr.MsgId),
     creationDate: str(grpHdr.CreDtTm),
     statementId: str(stmt.Id),
@@ -203,6 +142,7 @@ function parseReport(rpt: any, grpHdr: any): CamtStatement {
   }));
 
   return {
+    camtVersion: "052",
     messageId: str(grpHdr.MsgId),
     creationDate: str(grpHdr.CreDtTm),
     statementId: str(rpt.Id),
@@ -271,7 +211,7 @@ function parseEntry(ntry: any): CamtEntry {
   };
 }
 
-function parseTxDetail(tx: any): CamtTransactionDetail {
+function parseTxDetail(tx: any): TransactionDetail {
   const refs = tx.Refs;
   const cdtr = tx.RltdPties?.Cdtr;
   const dbtr = tx.RltdPties?.Dbtr;
