@@ -1,6 +1,14 @@
 # CAMT-to-CODA Converter
 
-[![Build](https://github.com/Subite-eu/misc-camt-to-coda/actions/workflows/build-push-action.yml/badge.svg)](https://github.com/Subite-eu/misc-camt-to-coda/actions/workflows/build-push-action.yml)
+[![Build](https://github.com/Subite-eu/camt-to-coda/actions/workflows/build-push-action.yml/badge.svg)](https://github.com/Subite-eu/camt-to-coda/actions/workflows/build-push-action.yml)
+[![Release](https://img.shields.io/github/v/release/Subite-eu/camt-to-coda?include_prereleases&sort=semver)](https://github.com/Subite-eu/camt-to-coda/releases)
+[![Java](https://img.shields.io/badge/Java-23-orange)](https://openjdk.org/projects/jdk/23/)
+[![License](https://img.shields.io/github/license/Subite-eu/camt-to-coda)](LICENSE)
+[![Vibe Coded](https://img.shields.io/badge/vibe--coded-Claude_Code-blueviolet)](https://claude.ai/claude-code)
+
+> Built with a mix of human expertise + AI pair programming (Claude Code).
+> The XSLT mapping logic, anonymization engine, CLI, and test infrastructure were vibe-coded.
+> The core CAMT/CODA domain knowledge is human-driven.
 
 Converts bank statement files from **CAMT** (ISO 20022 XML) format to **CODA** (Belgian structured bank statement, 128 chars/line) format.
 
