@@ -30,6 +30,7 @@ import eu.subite.tools.DateToSequenceHelper;
 import eu.subite.tools.XsltErrorHelper;
 import eu.subite.validation.BusinessRuleValidator;
 import eu.subite.validation.CamtSchemaValidator;
+import eu.subite.validation.CodaValidator;
 import eu.subite.validation.ValidationResult;
 import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.SaxonApiException;
@@ -290,23 +291,15 @@ public abstract class CamtToCoda<T, P extends Params<T>> {
 	}
 
 	protected void validate(File targetFile) throws InvalidCodaFileException, IOException {
-		// TODO possible validations
-		// - line length => done
-		// - mandatory records are present
-		// - open + sum of statement = close
-		// - X statement => X full coda (records 0, 1, 2 for each Ntry, 8 & 9)
-		// - ?
-		var errors = new ArrayList<String>();
-		var lines = Files.readAllLines(targetFile.toPath());
-		int nb = 0;
-		for (String line : lines) {
-			nb++;
-			if (line.length() != 128) {
-				errors.add("line %s - Invalid line length".formatted(nb));
-			}
+		var codaValidator = new CodaValidator();
+		var result = codaValidator.validate(targetFile);
+
+		if (!result.warnings().isEmpty()) {
+			LOGGER.warn("CODA validation warnings for '{}': {}", targetFile.getName(), result.warnings());
 		}
-		if (errors.size() > 0) {
-			throw new InvalidCodaFileException(targetFile.getAbsolutePath(), errors);
+
+		if (!result.valid()) {
+			throw new InvalidCodaFileException(targetFile.getAbsolutePath(), result.errors());
 		}
 	}
 

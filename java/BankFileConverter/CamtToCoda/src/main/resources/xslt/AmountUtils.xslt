@@ -7,11 +7,12 @@
 	<xsl:function name="cf:getAmountSignCode">
 		<xsl:param name="amount" />
 		<xsl:choose>
+			<!-- CODA spec: 0 = credit, 1 = debit -->
 			<xsl:when test="$amount >= 0">
-				<xsl:sequence select="'1'" />
+				<xsl:sequence select="'0'" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:sequence select="'0'" />
+				<xsl:sequence select="'1'" />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
@@ -32,8 +33,9 @@
 	<xsl:function name="cf:formatBalance">
 		<xsl:param name="balance" />
 
-		<xsl:variable name="integer" select="cf:padLeft(substring-before($balance, '.'), 12, '0')" />
-		<xsl:variable name="decimals" select="cf:padRight(substring-after($balance, '.'), 3, '0')" />
+		<xsl:variable name="absBalance" select="string(abs(number($balance)))" />
+		<xsl:variable name="integer" select="cf:padLeft(substring-before($absBalance, '.'), 12, '0')" />
+		<xsl:variable name="decimals" select="cf:padRight(substring-after($absBalance, '.'), 3, '0')" />
 
 		<xsl:sequence select="concat($integer, $decimals)" />
 	</xsl:function>
