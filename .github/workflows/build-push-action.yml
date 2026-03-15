@@ -74,9 +74,11 @@ jobs:
 
       - name: OWASP Dependency Check
         shell: bash
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
           cd java/BankFileConverter
-          mvn org.owasp:dependency-check-maven:10.0.4:check || true
+          mvn org.owasp:dependency-check-maven:10.0.4:check -DnvdApiKey="$NVD_API_KEY" || true
 
       - name: Upload OWASP report
         if: always()
