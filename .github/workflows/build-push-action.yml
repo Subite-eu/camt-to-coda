@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - '**'
+      - main
   pull_request:
     branches:
       - main
@@ -52,12 +52,6 @@ jobs:
         run: |
           cd java/BankFileConverter
           mvn compile com.github.spotbugs:spotbugs-maven-plugin:4.8.6.4:check -pl CamtToCoda || true
-
-      - name: OWASP Dependency Check
-        shell: bash
-        run: |
-          cd java/BankFileConverter
-          mvn org.owasp:dependency-check-maven:10.0.4:check || true
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
