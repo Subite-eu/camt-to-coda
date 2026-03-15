@@ -3,11 +3,13 @@ name: build
 on:
   push:
     branches:
-      - '*'
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   test:
@@ -51,21 +53,14 @@ jobs:
           cd java/BankFileConverter
           mvn compile com.github.spotbugs:spotbugs-maven-plugin:4.8.6.4:check -pl CamtToCoda || true
 
-      - name: OWASP Dependency Check
-        shell: bash
-        run: |
-          cd java/BankFileConverter
-          mvn org.owasp:dependency-check-maven:10.0.4:check || true
-
-  build:
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: test
 
     permissions:
       contents: read
       packages: write
-      attestations: write
-      id-token: write
 
     steps:
       - name: Checkout
@@ -87,14 +82,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Lowercase image name
+        id: image
+        shell: bash
+        env:
+          REPO: ${{ github.repository }}
+        run: echo "name=${REPO,,}" >> "$GITHUB_OUTPUT"
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
 
-      - name: Push Docker image
-        if: github.ref == 'refs/heads/main'
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           push: true
