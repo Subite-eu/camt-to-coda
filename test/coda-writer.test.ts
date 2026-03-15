@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { padRight, padLeft, formatBalance, formatDate } from "../src/core/coda-writer.js";
+import { padRight, padLeft, formatBalance, formatDate } from "../src/core/formatting.js";
 import { parseCamt } from "../src/core/camt-parser.js";
 import { statementToCoda } from "../src/core/coda-writer.js";
 import { mapTransactionCode } from "../src/core/transaction-codes.js";
