@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-x64
+          - os: macos-latest
+            platform: macos-arm64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 23
+        uses: actions/setup-java@v4
+        with:
+          java-version: '23'
+          distribution: 'corretto'
+
+      - name: Build with Maven
+        shell: bash
+        run: |
+          cd java/BankFileConverter
+          mvn clean package -DskipTests
+
+      - name: Create distribution archive
+        shell: bash
+        env:
+          PLATFORM: ${{ matrix.platform }}
+        run: |
+          cd java/BankFileConverter/CamtToCoda/target
+          tar czf "camt2coda-${PLATFORM}.tar.gz" CamtToCoda-1.0.0/
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: camt2coda-${{ matrix.platform }}
+          path: java/BankFileConverter/CamtToCoda/target/camt2coda-${{ matrix.platform }}.tar.gz
+
+  create-release:
+    needs: build-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            camt2coda-linux-x64/*.tar.gz
+            camt2coda-macos-arm64/*.tar.gz

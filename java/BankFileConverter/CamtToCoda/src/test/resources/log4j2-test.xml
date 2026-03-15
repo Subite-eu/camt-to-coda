@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="LOG_FILE">target/log/BankFileConverter</Property>
+		<Property name="PATTERN">[%-5p] %d [%t] (%C{1}.%M():%L): %m%n
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="${PATTERN}" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="eu.subite" level="INFO" />
+		<Logger name="eu.subite.s3" level="INFO" />
+		<Root level="INFO">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</Configuration>

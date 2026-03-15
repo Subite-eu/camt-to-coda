@@ -1,0 +1,32 @@
+# CAMT Anonymization Configuration
+# Set each field to true to anonymize, false to keep original
+
+fields:
+  # Account identifiers
+  iban: true           # Replace IBANs with valid-format fakes
+  bic: true            # Replace BICs with realistic fakes
+  account_name: true   # Replace account holder names
+
+  # Counterparty info
+  counterparty_iban: true
+  counterparty_bic: true
+  counterparty_name: true
+  counterparty_address: true
+
+  # Financial data
+  amounts: false       # Keep amounts by default (useful for balance testing)
+  currency: false      # Keep currency codes
+
+  # Dates
+  dates: false         # Keep dates by default (useful for sequence testing)
+
+  # References & communications
+  references: true     # Replace message IDs, statement IDs, entry refs
+  remittance_info: true  # Replace unstructured remittance text
+  structured_comm: true  # Replace structured communication numbers
+
+# Replacement strategy
+strategy:
+  iban_country: "BE"   # Country code for generated IBANs (BE, LT, NL)
+  name_style: "company"  # "company" or "person"
+  seed: 42             # Fixed seed for reproducible anonymization
