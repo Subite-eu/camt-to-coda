@@ -1,6 +1,7 @@
 import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
 import { padLeft, formatDate } from "./formatting.js";
+import { workingDaysFromJan1 } from "../holidays/holidays.js";
 import { record0 } from "./records/record0.js";
 import { record1 } from "./records/record1.js";
 import { record21 } from "./records/record21.js";
@@ -28,10 +29,19 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   const lines: string[] = [];
   const errors: string[] = [];
 
-  // Compute sequence (simplified: use statement sequence or "001")
+  // Compute sequence: use explicit sequence or fall back to working-day count
   const sequence = stmt.sequence
     ? padLeft(String(stmt.sequence % 1000), 3, "0")
-    : "001";
+    : padLeft(
+        String(
+          workingDaysFromJan1(
+            (stmt.account.iban || stmt.account.otherId || "").slice(0, 2),
+            stmt.reportDate
+          )
+        ),
+        3,
+        "0"
+      );
 
   // Record 0
   lines.push(record0(stmt));
