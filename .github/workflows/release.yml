@@ -5,20 +5,16 @@ on:
     tags:
       - 'v*'
 
+env:
+  REGISTRY: ghcr.io
+
 permissions:
   contents: write
+  packages: write
 
 jobs:
-  build-release:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            platform: linux-x64
-          - os: macos-latest
-            platform: macos-arm64
-
-    runs-on: ${{ matrix.os }}
+  release:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -36,31 +32,65 @@ jobs:
           cd java/BankFileConverter
           mvn clean package -DskipTests
 
-      - name: Create distribution archive
+      - name: Prepare release artifact
         shell: bash
         env:
-          PLATFORM: ${{ matrix.platform }}
+          TAG: ${{ github.ref_name }}
         run: |
           cd java/BankFileConverter/CamtToCoda/target
-          tar czf "camt2coda-${PLATFORM}.tar.gz" CamtToCoda-1.0.0/
+          ls -la *.zip
+          cp CamtToCoda-1.0.0.zip "camt2coda-${TAG}.zip"
 
-      - name: Upload release artifact
-        uses: actions/upload-artifact@v4
+      # Docker image tagged with version
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
         with:
-          name: camt2coda-${{ matrix.platform }}
-          path: java/BankFileConverter/CamtToCoda/target/camt2coda-${{ matrix.platform }}.tar.gz
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-  create-release:
-    needs: build-release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
+      - name: Lowercase image name
+        id: image
+        shell: bash
+        env:
+          REPO: ${{ github.repository }}
+        run: echo "name=${REPO,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push versioned Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          file: ./java/BankFileConverter/docker/run/Dockerfile
+          context: ./java/BankFileConverter
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}:${{ github.ref_name }}
+            ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}:latest
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
-          files: |
-            camt2coda-linux-x64/*.tar.gz
-            camt2coda-macos-arm64/*.tar.gz
+          body: |
+            ## Installation
+
+            **Docker** (easiest):
+            ```bash
+            docker pull ghcr.io/${{ steps.image.outputs.name }}:${{ github.ref_name }}
+            ```
+
+            **Download & run** (requires JDK 23):
+            1. Download `camt2coda-${{ github.ref_name }}.zip` below
+            2. Unzip: `unzip camt2coda-${{ github.ref_name }}.zip`
+            3. Run: `sh CamtToCoda.sh -v 53 -i input/ -o output/`
+
+            **From source**:
+            ```bash
+            git clone https://github.com/${{ github.repository }}.git
+            cd camt-to-coda/java/BankFileConverter
+            mvn clean package
+            ```
+          files: java/BankFileConverter/CamtToCoda/target/camt2coda-*.zip
