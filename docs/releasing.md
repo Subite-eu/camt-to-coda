@@ -11,47 +11,44 @@
 ### 1. Update version numbers
 
 ```bash
-# Update version in parent POM
-# java/BankFileConverter/pom.xml → <version>X.Y.Z</version>
-
-# Update version in CLI
-# CamtToCoda/src/main/java/eu/subite/cli/CamtToCodaCli.java → version = "camt2coda X.Y.Z"
+# Update version in package.json
+npm version patch   # or minor / major
 
 # Update CHANGELOG.md — rename [Unreleased] to [X.Y.Z] - YYYY-MM-DD
 ```
 
-### 2. Commit version bump
+`npm version` automatically:
+- Bumps the version in `package.json`
+- Creates a git commit (`"X.Y.Z"`)
+- Creates a git tag (`vX.Y.Z`)
+
+### 2. Push the commit and tag
 
 ```bash
-git add -A
-git commit -m "Release vX.Y.Z"
 git push origin main
+git push origin vX.Y.Z
 ```
 
 ### 3. Wait for CI to pass
 
 Check: https://github.com/Subite-eu/camt-to-coda/actions
 
-### 4. Create and push a tag
+### 4. Verify the release
 
-```bash
-git tag -a vX.Y.Z -m "Release vX.Y.Z"
-git push origin vX.Y.Z
-```
-
-This triggers the **release workflow** (`.github/workflows/release.yml`) which:
-- Builds distribution archives for linux-x64 and macos-arm64
+Pushing the tag triggers the **release workflow** (`.github/workflows/build-push-action.yml`) which:
+- Runs all tests (`npx vitest run`)
+- Builds the TypeScript project (`npm run build`)
+- Packages a distribution archive
 - Creates a GitHub Release with auto-generated release notes
-- Attaches the build artifacts
+- Attaches build artifacts to the release
+- Pushes the Docker image to `ghcr.io` tagged with both `main` and `vX.Y.Z`
 
-### 5. Verify the release
+Go to https://github.com/Subite-eu/camt-to-coda/releases and confirm:
+- The release was created with the correct tag
+- Artifacts are attached
+- Release notes look correct (edit if needed)
 
-- Go to https://github.com/Subite-eu/camt-to-coda/releases
-- Confirm the release was created with the correct tag
-- Confirm artifacts are attached
-- Confirm release notes look correct (edit if needed)
-
-### 6. Docker image
+### 5. Docker image
 
 The Docker image is automatically pushed to `ghcr.io` on every push to `main`:
 
@@ -65,21 +62,29 @@ For tagged releases, the image is also tagged with the version:
 docker pull ghcr.io/subite-eu/camt-to-coda:vX.Y.Z
 ```
 
+### 6. npm package (optional)
+
+If you want to publish to the npm registry:
+
+```bash
+npm publish --access public
+```
+
+Requires an npm account with publish rights to the `camt2coda` package.
+
 ## Version Numbering
 
 Follow [Semantic Versioning](https://semver.org/):
 
-- **MAJOR** (X): Breaking changes to CLI interface, CODA output format changes
-- **MINOR** (Y): New features (new CAMT version support, new CLI commands)
+- **MAJOR** (X): Breaking changes to CLI interface or CODA output format
+- **MINOR** (Y): New features (new CAMT version support, new CLI subcommands)
 - **PATCH** (Z): Bug fixes, documentation updates
 
-## First Release Checklist
+## Release Checklist
 
-For the very first public release:
-
-- [ ] Change repo visibility to **Public** on GitHub (Settings → Danger Zone)
-- [ ] Verify the README badge URLs work with the public repo
-- [ ] Create `v1.0.0` tag and push
-- [ ] Verify GitHub Actions runs successfully on the public repo
-- [ ] Verify Docker image is publicly pullable
-- [ ] Consider adding a LICENSE file if not present
+- [ ] `CHANGELOG.md` has an entry for the new version
+- [ ] `package.json` version matches the intended tag
+- [ ] All tests pass locally: `npm test`
+- [ ] TypeScript compiles cleanly: `npm run typecheck`
+- [ ] Docker build passes locally: `docker build .`
+- [ ] README badges point to the correct repo URLs

@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased] - Quality Expansion
+## [2.0.0] - 2026-03-15
+
+### Changed
+- Complete rewrite from Java/XSLT to TypeScript
+- 288+ tests (unit, integration, property-based)
+- Pure-function record builders (individually testable)
+- Storage abstraction (filesystem + S3/MinIO)
+- Commander-based CLI with subcommands
+- Minimal web UI (drag-drop, preview, download)
+- CODA output anonymization (--anonymize flag)
+- Holiday calculator for BE/LT/NL working-day sequences
+- ~1500 lines of TypeScript (vs ~5000 lines Java + XSLT)
+
+## [1.x] - Quality Expansion (Java)
 
 ### Added
 - **Record 3.x (Information Records)** — Full implementation of CODA records 3.1, 3.2, 3.3 for batch detail entries in both CAMT 052 and 053 XSLTs
