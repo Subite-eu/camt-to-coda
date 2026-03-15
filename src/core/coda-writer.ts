@@ -1,173 +1,19 @@
 import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
-import { padRight, padLeft, formatBalance, formatDate, signCode, movementSign, accountStructure, signedAmount } from "./formatting.js";
+import { padLeft, formatDate } from "./formatting.js";
+import { record0 } from "./records/record0.js";
+import { record1 } from "./records/record1.js";
+import { record21 } from "./records/record21.js";
+import { record22 } from "./records/record22.js";
+import { record23 } from "./records/record23.js";
+import { record31 } from "./records/record31.js";
+import { record32 } from "./records/record32.js";
+import { record33 } from "./records/record33.js";
+import { record8 } from "./records/record8.js";
+import { record9 } from "./records/record9.js";
 
-// ── Record builders (each returns exactly 128 chars) ────────────────────
-
-function record0(stmt: CamtStatement): string {
-  const date = formatDate(stmt.reportDate);
-  const bic = stmt.account.bic || "";
-  return [
-    "0",                      // 1     record id
-    "0000",                   // 2-5   zeros
-    date,                     // 6-11  creation date
-    "000",                    // 12-14 bank id
-    "05",                     // 15-16 application code
-    " ",                      // 17    duplicate indicator
-    padRight("", 7),          // 18-24 blanks
-    padRight("", 10),         // 25-34 file reference
-    padRight("", 26),         // 35-60 addressee name
-    padRight(bic, 11),        // 61-71 BIC
-    padRight("", 11),         // 72-82 company number
-    " ",                      // 83    blank
-    padLeft("", 5, "0"),      // 84-88 separate application
-    padRight("", 16),         // 89-104 transaction ref
-    padRight("", 16),         // 105-120 related ref
-    padRight("", 7),          // 121-127 blanks
-    "2",                      // 128   version code
-  ].join("");
-}
-
-function record1(stmt: CamtStatement, sequence: string): string {
-  const acctNum = stmt.account.iban || stmt.account.otherId || "";
-  const bal = stmt.openingBalance;
-  return [
-    "1",                                          // 1     record id
-    accountStructure(acctNum),                    // 2     account structure
-    sequence,                                     // 3-5   sequence
-    padRight(acctNum, 34),                        // 6-39  account number
-    padRight(stmt.account.currency, 3),           // 40-42 currency
-    signCode(signedAmount(bal.amount, bal.creditDebit)), // 43 sign
-    formatBalance(bal.amount),                    // 44-58 balance
-    formatDate(bal.date),                         // 59-64 balance date
-    padRight(stmt.account.ownerName || "", 26),   // 65-90 holder name
-    padRight("", 35),                             // 91-125 description
-    sequence,                                     // 126-128 sequence
-  ].join("");
-}
-
-function record21(
-  entry: CamtEntry,
-  seqNum: string,
-  comm: string,
-  commType: string,
-  txCode: string,
-  entryDate: string,
-  hasMore: boolean
-): string {
-  const valueDate = entry.valueDate
-    ? formatDate(entry.valueDate)
-    : entry.bookingDate
-    ? formatDate(entry.bookingDate)
-    : "000000";
-
-  const refs = entry.details
-    .flatMap((d) =>
-      [d.refs?.endToEndId, d.refs?.txId, d.refs?.instrId].filter(
-        (r) => r && r !== "NOTPROVIDED"
-      )
-    )
-    .join("/");
-
-  return [
-    "2",                                  // 1     record id
-    "1",                                  // 2     article code
-    seqNum,                               // 3-6   sequence number
-    "0000",                               // 7-10  detail number
-    padRight(refs || entry.entryRef || "", 21), // 11-31 bank ref
-    movementSign(entry.creditDebit),      // 32    movement sign
-    formatBalance(entry.amount),          // 33-47 amount
-    valueDate,                            // 48-53 value date
-    padRight(txCode, 8),                  // 54-61 transaction code
-    commType,                             // 62    comm type
-    padRight(comm.slice(0, 53), 53),      // 63-115 communication
-    entryDate,                            // 116-121 entry date
-    "000",                                // 122-124 sequence
-    "1",                                  // 125   globalisation code
-    hasMore ? "1" : "0",                  // 126   next code
-    " ",                                  // 127   blank
-    "0",                                  // 128   link code
-  ].join("");
-}
-
-function record22(
-  seqNum: string,
-  comm: string,
-  counterpartBic: string,
-  hasMore: boolean
-): string {
-  return [
-    "2",                                  // 1     record id
-    "2",                                  // 2     article code
-    seqNum,                               // 3-6   sequence
-    "0000",                               // 7-10  detail number
-    padRight(comm, 53),                   // 11-63 communication ctd
-    padRight("", 35),                     // 64-98 customer ref
-    padRight(counterpartBic, 11),         // 99-109 BIC
-    padRight("", 3),                      // 110-112 blanks
-    " ",                                  // 113   R-transaction type
-    padRight("", 4),                      // 114-117 ISO reason
-    padRight("", 4),                      // 118-121 category purpose
-    padRight("", 4),                      // 122-125 purpose
-    hasMore ? "1" : "0",                  // 126   next code
-    " ",                                  // 127   blank
-    "0",                                  // 128   link code
-  ].join("");
-}
-
-function record23(
-  seqNum: string,
-  comm: string,
-  counterpartIban: string,
-  currency: string,
-  counterpartName: string
-): string {
-  return [
-    "2",                                  // 1     record id
-    "3",                                  // 2     article code
-    seqNum,                               // 3-6   sequence
-    "0000",                               // 7-10  detail number
-    padRight(counterpartIban, 34),        // 11-44 counterparty account
-    padRight(currency, 3),                // 45-47 currency
-    padRight(counterpartName, 35),        // 48-82 counterparty name
-    padRight(comm, 43),                   // 83-125 communication ctd
-    "0",                                  // 126   next code
-    " ",                                  // 127   blank
-    "0",                                  // 128   link code
-  ].join("");
-}
-
-function record8(stmt: CamtStatement, sequence: string): string {
-  const acctNum = stmt.account.iban || stmt.account.otherId || "";
-  const bal = stmt.closingBalance;
-  return [
-    "8",                                          // 1     record id
-    sequence,                                     // 2-4   sequence
-    padRight(acctNum, 34),                        // 5-38  account number
-    padRight(stmt.account.currency, 3),           // 39-41 currency
-    signCode(signedAmount(bal.amount, bal.creditDebit)), // 42 sign
-    formatBalance(bal.amount),                    // 43-57 balance
-    formatDate(bal.date),                         // 58-63 balance date
-    padRight("", 64),                             // 64-127 blanks
-    "0",                                          // 128   link code
-  ].join("");
-}
-
-function record9(
-  recordCount: number,
-  sumDebits: number,
-  sumCredits: number
-): string {
-  return [
-    "9",                                  // 1     record id
-    padRight("", 15),                     // 2-16  blanks
-    padLeft(String(recordCount), 6, "0"), // 17-22 record count
-    formatBalance(sumDebits),             // 23-37 sum debits
-    formatBalance(sumCredits),            // 38-52 sum credits
-    padRight("", 75),                     // 53-127 blanks
-    "2",                                  // 128   last file
-  ].join("");
-}
+// Re-export individual record builders for external consumers
+export { record0, record1, record21, record22, record23, record31, record32, record33, record8, record9 };
 
 // ── Main conversion ─────────────────────────────────────────────────────
 
@@ -232,19 +78,33 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
     const counterpartName = detail?.counterparty?.name || "";
 
     const needRec22 = comm.length > 53 || counterpartBic.length > 0;
-    const needRec23 =
-      comm.length > 106 || counterpartIban.length > 0;
+    const needRec23 = comm.length > 106 || counterpartIban.length > 0;
+    const needRecord3 = entry.details.length > 1;
 
     // Record 2.1
     lines.push(
-      record21(entry, seqNum, comm, commType, txCode, entryDate, needRec22 || needRec23)
+      record21({
+        entry,
+        seqNum,
+        comm,
+        commType,
+        txCode,
+        entryDate,
+        hasMore: needRec22 || needRec23,
+        needRecord3,
+      })
     );
     recordCount++;
 
     // Record 2.2
     if (needRec22) {
       lines.push(
-        record22(seqNum, comm.slice(53, 106), counterpartBic, needRec23)
+        record22({
+          seqNum,
+          comm: comm.slice(53, 106),
+          counterpartBic,
+          hasMore: needRec23,
+        })
       );
       recordCount++;
     }
@@ -252,15 +112,69 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
     // Record 2.3
     if (needRec23) {
       lines.push(
-        record23(
+        record23({
           seqNum,
-          comm.slice(106, 149),
+          comm: comm.slice(106, 149),
           counterpartIban,
-          entry.currency,
-          counterpartName
-        )
+          currency: entry.currency,
+          counterpartName,
+          needRecord3,
+        })
       );
       recordCount++;
+    }
+
+    // Records 3.x: batch detail entries (when entry has multiple TxDtls)
+    if (needRecord3) {
+      for (let d = 0; d < entry.details.length; d++) {
+        const detailEntry = entry.details[d];
+        const txRefs = [detailEntry.refs?.endToEndId, detailEntry.refs?.txId]
+          .filter((r) => r && r !== "NOTPROVIDED")
+          .join("/");
+        const txComm =
+          detailEntry.remittanceInfo?.unstructured &&
+          detailEntry.remittanceInfo.unstructured !== "NOTPROVIDED"
+            ? detailEntry.remittanceInfo.unstructured
+            : txRefs || "";
+
+        const hasRecord32 = txComm.length > 73;
+        const hasRecord33 = txComm.length > 178;
+
+        lines.push(
+          record31({
+            seqNum,
+            detailNum: d + 1,
+            bankRef: txRefs,
+            txCode,
+            commType: "0",
+            comm: txComm.slice(0, 73),
+            entryDate,
+            hasRecord32,
+          })
+        );
+        recordCount++; // count ONE per detail
+
+        if (hasRecord32) {
+          lines.push(
+            record32({
+              seqNum,
+              detailNum: d + 1,
+              comm: txComm.slice(73, 178),
+              hasRecord33,
+            })
+          );
+        }
+
+        if (hasRecord33) {
+          lines.push(
+            record33({
+              seqNum,
+              detailNum: d + 1,
+              comm: txComm.slice(178, 268),
+            })
+          );
+        }
+      }
     }
   }
 
@@ -268,7 +182,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   lines.push(record8(stmt, sequence));
 
   // Record 9
-  lines.push(record9(recordCount, sumDebits, sumCredits));
+  lines.push(record9({ recordCount, sumDebits, sumCredits }));
 
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {
@@ -292,7 +206,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   };
 }
 
-function resolveCommunication(entry: CamtEntry): {
+export function resolveCommunication(entry: CamtEntry): {
   comm: string;
   commType: string;
 } {
@@ -302,7 +216,7 @@ function resolveCommunication(entry: CamtEntry): {
   if (detail?.remittanceInfo?.structured?.creditorRef) {
     const ref = detail.remittanceInfo.structured.creditorRef;
     return {
-      comm: "101" + padRight(ref, 12, "0"),
+      comm: "101" + padLeft(ref, 12, "0"),
       commType: "1",
     };
   }
