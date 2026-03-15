@@ -61,7 +61,7 @@ public class CamtSchemaValidator {
 		return ValidationResult.of(errors, warnings);
 	}
 
-	String detectVersion(File xmlFile) throws IOException {
+	public String detectVersion(File xmlFile) throws IOException {
 		var lines = java.nio.file.Files.readAllLines(xmlFile.toPath());
 		for (String line : lines) {
 			var matcher = VERSION_PATTERN.matcher(line);
