@@ -13,6 +13,12 @@
 
 Converts bank statement files between **CAMT** (ISO 20022 XML) and **CODA** (Belgian structured bank statement, 128 chars/line) formats — in both directions.
 
+**Try it now** — no install needed, runs entirely in your browser:
+- **[camt2coda.subite.io](https://camt2coda.subite.io)** — Convert CAMT to CODA
+- **[coda2camt.subite.io](https://coda2camt.subite.io)** — Convert CODA to CAMT
+
+Drop a file, inspect any field, download the result. All conversion happens client-side — your data never leaves your browser.
+
 ## Architecture
 
 ```
@@ -162,6 +168,10 @@ Environment variables also work: `MODE=S3 IN=camt-bucket OUT=coda-bucket EP=... 
 
 The web UI runs **entirely in the browser** — no server required. All CAMT/CODA conversion happens client-side via a 67KB JavaScript bundle.
 
+### Hosted
+
+Available at **[camt2coda.subite.io](https://camt2coda.subite.io)** and **[coda2camt.subite.io](https://coda2camt.subite.io)** — hosted on Cloudflare Pages, auto-deployed on every push to `main`. Your data never leaves your browser.
+
 ### Local development
 
 ```bash
@@ -169,34 +179,17 @@ npx tsx src/cli.ts serve              # dev server with hot HTML reload
 camt2coda serve                       # after npm run build + npm link
 ```
 
-### Static build (for hosting)
+### Self-hosting
 
 ```bash
 npm run build:web                     # → dist-web/index.html + dist-web/camt2coda.js
-npx serve dist-web                    # preview locally
 ```
 
-### Deploy to Cloudflare Pages
-
-1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create**
-2. Select **Pages** → **Connect to Git**
-3. Pick your repository and configure:
-
-   | Setting | Value |
-   |---|---|
-   | Build command | `npm run build:web` |
-   | Build output directory | `dist-web` |
-   | Node.js version | `22` (set via environment variable `NODE_VERSION=22`) |
-
-4. Click **Save and Deploy**
-
-Every push to `main` will auto-deploy. PR branches get automatic preview URLs.
-
-Optionally, enable **Web Analytics** in the Cloudflare dashboard (Web Analytics → Add site) for free, privacy-friendly, cookie-less analytics — auto-injected at the edge, no code changes needed.
+The `dist-web/` directory is a static site — deploy it anywhere (Cloudflare Pages, Netlify, Nginx, S3, etc.). To deploy to Cloudflare Pages, connect your GitHub repo and set build command to `npm run build:web`, output directory to `dist-web`, and `NODE_VERSION=22`.
 
 ### Features
 
-A three-panel field inspector at `http://localhost:3000` (or your Cloudflare Pages URL):
+A three-panel field inspector:
 - **Bidirectional** — drop CAMT XML or CODA files, auto-detects direction
 - **Source panel** (left) — shows your input file
 - **Output panel** (right) — shows the conversion result
@@ -217,7 +210,7 @@ A three-panel field inspector at `http://localhost:3000` (or your Cloudflare Pag
 - **Storage abstraction** — Filesystem and S3/MinIO backends share the same interface
 - **CODA-to-CAMT reverse conversion** — Parse CODA files back to ISO 20022 CAMT XML
 - **Three-panel web inspector** — Bidirectional field inspector with cross-highlighting
-- **490+ tests** — Unit, integration, property-based, and round-trip tests (vitest + fast-check)
+- **500+ tests** — Unit, integration, property-based, and round-trip tests (vitest + fast-check)
 - **Multi-platform Docker** — `linux/amd64` and `linux/arm64`
 
 ## Project Structure
