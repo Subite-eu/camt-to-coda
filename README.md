@@ -178,8 +178,6 @@ npx serve dist-web                    # preview locally
 
 ### Deploy to Cloudflare Pages
 
-**Option A: Connect your GitHub repo (recommended)**
-
 1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create**
 2. Select **Pages** → **Connect to Git**
 3. Pick your repository and configure:
@@ -192,29 +190,9 @@ npx serve dist-web                    # preview locally
 
 4. Click **Save and Deploy**
 
-Every push to `main` will auto-deploy. PR branches get preview URLs.
+Every push to `main` will auto-deploy. PR branches get automatic preview URLs.
 
-**Option B: Direct upload**
-
-```bash
-npm run build:web
-npx wrangler pages deploy dist-web --project-name=camt2coda
-```
-
-**Option C: GitHub Actions (automated)**
-
-A workflow is included at `.github/workflows/deploy-pages.yml` — it builds and deploys to Cloudflare Pages on every push to `main`. You need to set two repository secrets:
-
-| Secret | Where to find it |
-|---|---|
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Dashboard → any page → right sidebar → **Account ID** |
-| `CLOUDFLARE_API_TOKEN` | Cloudflare Dashboard → **My Profile** → **API Tokens** → Create Token → use the **Edit Cloudflare Workers** template |
-
-Then create the Pages project once:
-
-```bash
-npx wrangler pages project create camt2coda --production-branch main
-```
+Optionally, enable **Web Analytics** in the Cloudflare dashboard (Web Analytics → Add site) for free, privacy-friendly, cookie-less analytics — auto-injected at the edge, no code changes needed.
 
 ### Features
 
