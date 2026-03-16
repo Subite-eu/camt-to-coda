@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mapTransactionCode } from "../../src/core/transaction-codes.js";
+import { mapTransactionCode, reverseMapTransactionCode } from "../../src/core/transaction-codes.js";
 
 describe("mapTransactionCode", () => {
   it("PMNT/RCDT/ESCT → 04500001 (incoming SEPA CT)", () =>
@@ -30,4 +30,39 @@ describe("mapTransactionCode", () => {
     expect(mapTransactionCode(undefined, undefined, undefined)).toBe("        "));
   it("missing family → 8 spaces", () =>
     expect(mapTransactionCode("PMNT", undefined, undefined)).toBe("        "));
+});
+
+describe("reverseMapTransactionCode", () => {
+  it("04500001 → PMNT/RCDT/ESCT", () => {
+    const result = reverseMapTransactionCode("04500001");
+    expect(result).toEqual({ domain: "PMNT", family: "RCDT", subFamily: "ESCT" });
+  });
+
+  it("13010001 → PMNT/ICDT/ESCT", () => {
+    const result = reverseMapTransactionCode("13010001");
+    expect(result).toEqual({ domain: "PMNT", family: "ICDT", subFamily: "ESCT" });
+  });
+
+  it("04370000 → PMNT/CCRD/OTHR (synthetic)", () => {
+    const result = reverseMapTransactionCode("04370000");
+    expect(result).toEqual({ domain: "PMNT", family: "CCRD", subFamily: "OTHR" });
+  });
+
+  it("unknown code → undefined", () => {
+    expect(reverseMapTransactionCode("99999999")).toBeUndefined();
+  });
+
+  it("8 spaces → undefined", () => {
+    expect(reverseMapTransactionCode("        ")).toBeUndefined();
+  });
+
+  it("all known codes round-trip", () => {
+    const codes = ["04500001", "13010001", "41010000", "41500000",
+                   "05010000", "05500000", "02500001", "02010001",
+                   "35010000", "80370000", "04370000"];
+    for (const code of codes) {
+      const result = reverseMapTransactionCode(code);
+      expect(result).toBeDefined();
+    }
+  });
 });

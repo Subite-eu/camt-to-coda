@@ -94,41 +94,41 @@ describe("full conversion", () => {
     const result = statementToCoda(stmts[0]);
     expect(result.validation.valid).toBe(true);
     for (const line of result.lines) {
-      expect(line).toHaveLength(128);
+      expect(line.raw).toHaveLength(128);
     }
   });
 
   it("produces correct record types", () => {
     const stmts = parseCamt(SAMPLE_053);
     const result = statementToCoda(stmts[0]);
-    expect(result.lines[0][0]).toBe("0"); // header
-    expect(result.lines[1][0]).toBe("1"); // opening balance
-    expect(result.lines[2][0]).toBe("2"); // movement 2.1
-    expect(result.lines[3][0]).toBe("2"); // movement 2.2
-    expect(result.lines[4][0]).toBe("2"); // movement 2.3
-    expect(result.lines[5][0]).toBe("8"); // closing balance
-    expect(result.lines[6][0]).toBe("9"); // trailer
+    expect(result.lines[0].raw[0]).toBe("0"); // header
+    expect(result.lines[1].raw[0]).toBe("1"); // opening balance
+    expect(result.lines[2].raw[0]).toBe("2"); // movement 2.1
+    expect(result.lines[3].raw[0]).toBe("2"); // movement 2.2
+    expect(result.lines[4].raw[0]).toBe("2"); // movement 2.3
+    expect(result.lines[5].raw[0]).toBe("8"); // closing balance
+    expect(result.lines[6].raw[0]).toBe("9"); // trailer
   });
 
   it("maps transaction code correctly", () => {
     const stmts = parseCamt(SAMPLE_053);
     const result = statementToCoda(stmts[0]);
     const rec21 = result.lines[2];
-    expect(rec21.slice(53, 61)).toBe("04500001"); // PMNT/RCDT/ESCT
+    expect(rec21.raw.slice(53, 61)).toBe("04500001"); // PMNT/RCDT/ESCT
   });
 
   it("includes counterparty BIC in record 2.2", () => {
     const stmts = parseCamt(SAMPLE_053);
     const result = statementToCoda(stmts[0]);
     const rec22 = result.lines[3];
-    expect(rec22.slice(98, 106)).toContain("SNDRBEBB");
+    expect(rec22.raw.slice(98, 106)).toContain("SNDRBEBB");
   });
 
   it("includes counterparty IBAN in record 2.3", () => {
     const stmts = parseCamt(SAMPLE_053);
     const result = statementToCoda(stmts[0]);
     const rec23 = result.lines[4];
-    expect(rec23.slice(10, 26)).toContain("BE91516952884376");
+    expect(rec23.raw.slice(10, 26)).toContain("BE91516952884376");
   });
 
   it("empty statement produces 4 records (0, 1, 8, 9)", () => {
@@ -136,6 +136,6 @@ describe("full conversion", () => {
     const stmts = parseCamt(xml);
     const result = statementToCoda(stmts[0]);
     expect(result.lines).toHaveLength(4);
-    expect(result.lines.map((l) => l[0])).toEqual(["0", "1", "8", "9"]);
+    expect(result.lines.map((l) => l.raw[0])).toEqual(["0", "1", "8", "9"]);
   });
 });

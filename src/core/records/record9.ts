@@ -1,4 +1,6 @@
 import { padRight, padLeft, formatBalance } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD9_FIELDS } from "../field-defs/record9-fields.js";
 
 export interface Record9Params {
   recordCount: number;
@@ -6,15 +8,31 @@ export interface Record9Params {
   sumCredits: number;
 }
 
-export function record9(p: Record9Params): string {
+export function record9(p: Record9Params): CodaLine {
   const { recordCount, sumDebits, sumCredits } = p;
-  return [
-    "9",                                          // 1     record id
-    padRight("", 15),                             // 2-16  blanks
-    padLeft(String(recordCount), 6, "0"),         // 17-22 record count
-    formatBalance(sumDebits),                     // 23-37 sum debits
-    formatBalance(sumCredits),                    // 38-52 sum credits
-    padRight("", 75),                             // 53-127 blanks
-    "2",                                          // 128   last file
-  ].join("");
+
+  const values: Record<string, string> = {
+    recordType: "9",
+    blanks1: padRight("", 15),
+    recordCount: padLeft(String(recordCount), 6, "0"),
+    sumDebits: formatBalance(sumDebits),
+    sumCredits: formatBalance(sumCredits),
+    blanks2: padRight("", 75),
+    lastFile: "2",
+  };
+
+  const fields = RECORD9_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "9",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }

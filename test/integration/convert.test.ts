@@ -65,7 +65,7 @@ describe("CAMT 053 v02 file conversion", () => {
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
       for (const line of result.lines) {
-        expect(line).toHaveLength(128);
+        expect(line.raw).toHaveLength(128);
       }
     }
   });
@@ -73,8 +73,8 @@ describe("CAMT 053 v02 file conversion", () => {
   it("record 0 starts with '0', record 9 ends the file", () => {
     const stmts = parseCamtFile(FILE_V02);
     const result = statementToCoda(stmts[0]);
-    expect(result.lines[0][0]).toBe("0");
-    expect(result.lines[result.lines.length - 1][0]).toBe("9");
+    expect(result.lines[0].raw[0]).toBe("0");
+    expect(result.lines[result.lines.length - 1].raw[0]).toBe("9");
   });
 
   it("produces a fileName with .cod extension", () => {
@@ -101,7 +101,7 @@ describe("CAMT 053 v08 file conversion", () => {
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
       for (const line of result.lines) {
-        expect(line).toHaveLength(128);
+        expect(line.raw).toHaveLength(128);
       }
     }
   });
@@ -109,22 +109,22 @@ describe("CAMT 053 v08 file conversion", () => {
   it("record 0 starts with '0', record 9 ends the file", () => {
     const stmts = parseCamtFile(FILE_V08);
     const result = statementToCoda(stmts[0]);
-    expect(result.lines[0][0]).toBe("0");
-    expect(result.lines[result.lines.length - 1][0]).toBe("9");
+    expect(result.lines[0].raw[0]).toBe("0");
+    expect(result.lines[result.lines.length - 1].raw[0]).toBe("9");
   });
 
   it("record 1 starts with '1' (opening balance)", () => {
     const stmts = parseCamtFile(FILE_V08);
     const result = statementToCoda(stmts[0]);
-    expect(result.lines[1][0]).toBe("1");
+    expect(result.lines[1].raw[0]).toBe("1");
   });
 
   it("record 8 (closing balance) appears before record 9", () => {
     const stmts = parseCamtFile(FILE_V08);
     const result = statementToCoda(stmts[0]);
     const n = result.lines.length;
-    expect(result.lines[n - 2][0]).toBe("8");
-    expect(result.lines[n - 1][0]).toBe("9");
+    expect(result.lines[n - 2].raw[0]).toBe("8");
+    expect(result.lines[n - 1].raw[0]).toBe("9");
   });
 });
 
@@ -135,14 +135,14 @@ describe("Empty statement conversion", () => {
     const stmts = parseCamt(EMPTY_STMT_XML);
     const result = statementToCoda(stmts[0]);
     expect(result.lines).toHaveLength(4);
-    expect(result.lines.map((l) => l[0])).toEqual(["0", "1", "8", "9"]);
+    expect(result.lines.map((l) => l.raw[0])).toEqual(["0", "1", "8", "9"]);
   });
 
   it("all 4 lines are 128 chars", () => {
     const stmts = parseCamt(EMPTY_STMT_XML);
     const result = statementToCoda(stmts[0]);
     for (const line of result.lines) {
-      expect(line).toHaveLength(128);
+      expect(line.raw).toHaveLength(128);
     }
   });
 
@@ -190,7 +190,7 @@ describe("128-char line invariant across multiple real files", () => {
       for (const stmt of stmts) {
         const result = statementToCoda(stmt);
         for (const line of result.lines) {
-          expect(line).toHaveLength(128);
+          expect(line.raw).toHaveLength(128);
         }
       }
     });
@@ -204,7 +204,7 @@ describe("Record ordering invariant", () => {
     const stmts = parseCamtFile(FILE_V02);
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
-      expect(result.lines[0][0]).toBe("0");
+      expect(result.lines[0].raw[0]).toBe("0");
     }
   });
 
@@ -212,7 +212,7 @@ describe("Record ordering invariant", () => {
     const stmts = parseCamtFile(FILE_V02);
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
-      expect(result.lines[1][0]).toBe("1");
+      expect(result.lines[1].raw[0]).toBe("1");
     }
   });
 
@@ -220,7 +220,7 @@ describe("Record ordering invariant", () => {
     const stmts = parseCamtFile(FILE_V02);
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
-      expect(result.lines[result.lines.length - 1][0]).toBe("9");
+      expect(result.lines[result.lines.length - 1].raw[0]).toBe("9");
     }
   });
 
@@ -229,7 +229,7 @@ describe("Record ordering invariant", () => {
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
       const n = result.lines.length;
-      expect(result.lines[n - 2][0]).toBe("8");
+      expect(result.lines[n - 2].raw[0]).toBe("8");
     }
   });
 });
@@ -283,7 +283,7 @@ describe("Structured remittance info", () => {
     const result = statementToCoda(stmts[0]);
     // Record 2.1 is at lines[2]; commType is at position 61 (0-indexed)
     const rec21 = result.lines[2];
-    expect(rec21[61]).toBe("1");
+    expect(rec21.raw[61]).toBe("1");
   });
 
   it("encodes creditor ref in communication field", () => {
@@ -291,7 +291,7 @@ describe("Structured remittance info", () => {
     const result = statementToCoda(stmts[0]);
     // Record 2.1: communication starts at position 62 (0-indexed), 53 chars
     const rec21 = result.lines[2];
-    const commField = rec21.slice(62, 115);
+    const commField = rec21.raw.slice(62, 115);
     // Structured: "101" + zero-padded ref (12 chars)
     expect(commField).toContain("101");
     expect(commField).toContain("123456789012");
@@ -302,7 +302,7 @@ describe("Structured remittance info", () => {
     const result = statementToCoda(stmts[0]);
     expect(result.validation.valid).toBe(true);
     for (const line of result.lines) {
-      expect(line).toHaveLength(128);
+      expect(line.raw).toHaveLength(128);
     }
   });
 });
@@ -314,10 +314,10 @@ describe("Transaction code mapping", () => {
     const stmts = parseCamtFile(FILE_V02);
     const result = statementToCoda(stmts[0]);
     // Find a record 2.1 line; txCode is at positions 53-60 (0-indexed)
-    const rec21Lines = result.lines.filter((l) => l[0] === "2" && l[1] === "1");
+    const rec21Lines = result.lines.filter((l) => l.raw[0] === "2" && l.raw[1] === "1");
     expect(rec21Lines.length).toBeGreaterThan(0);
     // At least one entry should have a non-blank transaction code
-    const hasTxCode = rec21Lines.some((l) => l.slice(53, 61).trim() !== "");
+    const hasTxCode = rec21Lines.some((l) => l.raw.slice(53, 61).trim() !== "");
     expect(hasTxCode).toBe(true);
   });
 });
@@ -325,7 +325,7 @@ describe("Transaction code mapping", () => {
 // ── Test 10: Dry-run: statementToCoda returns output without side effects ─
 
 describe("statementToCoda dry-run (no side effects)", () => {
-  it("returns ConversionResult with lines, fileName, recordCount, validation", () => {
+  it("returns AnnotatedCodaOutput with lines, fileName, recordCount, validation", () => {
     const stmts = parseCamt(EMPTY_STMT_XML);
     const result = statementToCoda(stmts[0]);
     expect(result).toHaveProperty("lines");
@@ -334,6 +334,8 @@ describe("statementToCoda dry-run (no side effects)", () => {
     expect(result).toHaveProperty("validation");
     expect(result.validation).toHaveProperty("valid");
     expect(result.validation).toHaveProperty("errors");
+    expect(result.validation).toHaveProperty("warnings");
+    expect(result.validation.warnings).toEqual([]);
   });
 
   it("calling statementToCoda twice on same input yields identical output", () => {

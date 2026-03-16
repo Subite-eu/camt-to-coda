@@ -6,6 +6,14 @@ import { record1 } from "../../src/core/records/record1.js";
 import { record8 } from "../../src/core/records/record8.js";
 import { record9 } from "../../src/core/records/record9.js";
 import type { CamtStatement } from "../../src/core/model.js";
+import { codaToCamt } from "../../src/core/reverse.js";
+import { parseCoda } from "../../src/core/coda-parser.js";
+import { statementToCoda } from "../../src/core/coda-writer.js";
+import { extractFields } from "../../src/core/field-defs/extract.js";
+import {
+  RECORD0_FIELDS, RECORD1_FIELDS, RECORD21_FIELDS, RECORD22_FIELDS,
+  RECORD23_FIELDS, RECORD8_FIELDS, RECORD9_FIELDS,
+} from "../../src/core/field-defs/index.js";
 
 describe("property: formatting invariants", () => {
   it("formatBalance always returns 15 chars", () => {
@@ -80,7 +88,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 11 }),
       (bic) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, bic } };
-        expect(record0(stmt)).toHaveLength(128);
+        expect(record0(stmt).raw).toHaveLength(128);
       }
     ));
   });
@@ -95,7 +103,7 @@ describe("property: record length invariants", () => {
           account: { ...arbStmt.account, iban },
           openingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
         };
-        expect(record1(stmt, "001")).toHaveLength(128);
+        expect(record1(stmt, "001").raw).toHaveLength(128);
       }
     ));
   });
@@ -110,7 +118,7 @@ describe("property: record length invariants", () => {
           account: { ...arbStmt.account, iban },
           closingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
         };
-        expect(record8(stmt, "001")).toHaveLength(128);
+        expect(record8(stmt, "001").raw).toHaveLength(128);
       }
     ));
   });
@@ -121,7 +129,7 @@ describe("property: record length invariants", () => {
       fc.double({ min: 0, max: 999999999, noNaN: true, noDefaultInfinity: true }),
       fc.double({ min: 0, max: 999999999, noNaN: true, noDefaultInfinity: true }),
       (recordCount, sumDebits, sumCredits) => {
-        expect(record9({ recordCount, sumDebits, sumCredits })).toHaveLength(128);
+        expect(record9({ recordCount, sumDebits, sumCredits }).raw).toHaveLength(128);
       }
     ));
   });
@@ -131,7 +139,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 11 }),
       (bic) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, bic } };
-        expect(record0(stmt)[0]).toBe("0");
+        expect(record0(stmt).raw[0]).toBe("0");
       }
     ));
   });
@@ -141,7 +149,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 34 }),
       (iban) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, iban } };
-        expect(record1(stmt, "001")[0]).toBe("1");
+        expect(record1(stmt, "001").raw[0]).toBe("1");
       }
     ));
   });
@@ -151,7 +159,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 34 }),
       (iban) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, iban } };
-        expect(record8(stmt, "001")[0]).toBe("8");
+        expect(record8(stmt, "001").raw[0]).toBe("8");
       }
     ));
   });
@@ -160,8 +168,94 @@ describe("property: record length invariants", () => {
     fc.assert(fc.property(
       fc.integer({ min: 0, max: 999999 }),
       (recordCount) => {
-        expect(record9({ recordCount, sumDebits: 0, sumCredits: 0 })[0]).toBe("9");
+        expect(record9({ recordCount, sumDebits: 0, sumCredits: 0 }).raw[0]).toBe("9");
       }
     ));
+  });
+});
+
+describe("property: field-defs", () => {
+  const allFieldDefs = [
+    RECORD0_FIELDS, RECORD1_FIELDS, RECORD21_FIELDS, RECORD22_FIELDS,
+    RECORD23_FIELDS, RECORD8_FIELDS, RECORD9_FIELDS,
+  ];
+
+  it("extractFields always produces fields summing to 128 chars", () => {
+    fc.assert(
+      fc.property(
+        fc.constantFrom(...allFieldDefs),
+        (defs) => {
+          const line = "X".repeat(128);
+          const fields = extractFields(line, defs);
+          const total = fields.reduce((s, f) => s + f.value.length, 0);
+          return total === 128;
+        }
+      )
+    );
+  });
+});
+
+describe("property: round-trip", () => {
+  it("forward-then-reverse preserves account IBAN", () => {
+    fc.assert(
+      fc.property(
+        fc.record({
+          iban: fc.stringMatching(/^[A-Z]{2}\d{14,30}$/).filter(s => s.length <= 34),
+          currency: fc.constantFrom("EUR", "USD", "GBP"),
+          amount: fc.integer({ min: 0, max: 999999999 }),
+        }),
+        ({ iban, currency, amount }) => {
+          const stmt = {
+            camtVersion: "053" as const,
+            messageId: "M",
+            creationDate: "2024-01-01",
+            statementId: "S",
+            account: { iban, currency, bic: "TESTBEBB" },
+            openingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
+            closingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
+            entries: [],
+            reportDate: "2024-01-01",
+          };
+
+          const coda = statementToCoda(stmt);
+          const codaContent = coda.lines.map(l => l.raw).join("\n");
+          const reverse = codaToCamt(codaContent);
+          return reverse.statement.account.iban === iban;
+        }
+      ),
+      { numRuns: 50 }
+    );
+  });
+
+  it("parseCoda always succeeds on statementToCoda output", () => {
+    fc.assert(
+      fc.property(
+        fc.record({
+          iban: fc.stringMatching(/^[A-Z]{2}\d{14,30}$/).filter(s => s.length <= 34),
+          currency: fc.constantFrom("EUR", "USD", "GBP"),
+          amount: fc.integer({ min: 0, max: 999999999 }),
+        }),
+        ({ iban, currency, amount }) => {
+          const stmt = {
+            camtVersion: "053" as const,
+            messageId: "M",
+            creationDate: "2024-01-01",
+            statementId: "S",
+            account: { iban, currency, bic: "TESTBEBB" },
+            openingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
+            closingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
+            entries: [],
+            reportDate: "2024-01-01",
+          };
+
+          const coda = statementToCoda(stmt);
+          const codaContent = coda.lines.map(l => l.raw).join("\n");
+          // Must not throw — parser accepts anything the builder produces
+          const parsed = parseCoda(codaContent);
+          return parsed.length === coda.lines.length;
+        }
+      ),
+      { numRuns: 50 }
+    );
   });
 });

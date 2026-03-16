@@ -9,42 +9,49 @@ describe("record33", () => {
   };
 
   it("returns exactly 128 characters", () => {
-    expect(record33(baseParams)).toHaveLength(128);
+    expect(record33(baseParams).raw).toHaveLength(128);
   });
 
   it("starts with '33'", () => {
-    expect(record33(baseParams).slice(0, 2)).toBe("33");
+    expect(record33(baseParams).raw.slice(0, 2)).toBe("33");
   });
 
   it("places sequence number at positions 2-5", () => {
-    expect(record33(baseParams).slice(2, 6)).toBe("0001");
+    expect(record33(baseParams).raw.slice(2, 6)).toBe("0001");
   });
 
   it("places detail number at positions 6-9 (zero-padded)", () => {
-    expect(record33(baseParams).slice(6, 10)).toBe("0001");
-    expect(record33({ ...baseParams, detailNum: 2 }).slice(6, 10)).toBe("0002");
+    expect(record33(baseParams).raw.slice(6, 10)).toBe("0001");
+    expect(record33({ ...baseParams, detailNum: 2 }).raw.slice(6, 10)).toBe("0002");
   });
 
   it("places comm at positions 10-99 (90 chars)", () => {
-    const r = record33(baseParams);
+    const r = record33(baseParams).raw;
     expect(r.slice(10, 100)).toHaveLength(90);
     expect(r.slice(10, 100).trimEnd()).toBe(baseParams.comm);
   });
 
   it("places 25 blank chars at positions 100-124", () => {
-    const r = record33(baseParams);
+    const r = record33(baseParams).raw;
     expect(r.slice(100, 125)).toBe("                         ");
   });
 
   it("next code at position 125 is always '0'", () => {
-    expect(record33(baseParams)[125]).toBe("0");
+    expect(record33(baseParams).raw[125]).toBe("0");
   });
 
   it("blank at position 126", () => {
-    expect(record33(baseParams)[126]).toBe(" ");
+    expect(record33(baseParams).raw[126]).toBe(" ");
   });
 
   it("link code '0' at position 127", () => {
-    expect(record33(baseParams)[127]).toBe("0");
+    expect(record33(baseParams).raw[127]).toBe("0");
+  });
+
+  it("returns CodaLine with fields array", () => {
+    const result = record33(baseParams);
+    expect(result.recordType).toBe("3.3");
+    expect(result.fields.length).toBeGreaterThan(0);
+    expect(result.fields.reduce((sum, f) => sum + f.value.length, 0)).toBe(128);
   });
 });

@@ -21,37 +21,44 @@ const baseStmt: CamtStatement = {
 
 describe("record0", () => {
   it("returns exactly 128 characters", () => {
-    expect(record0(baseStmt)).toHaveLength(128);
+    expect(record0(baseStmt).raw).toHaveLength(128);
   });
 
   it("starts with record id '0'", () => {
-    expect(record0(baseStmt)[0]).toBe("0");
+    expect(record0(baseStmt).raw[0]).toBe("0");
   });
 
   it("ends with version code '2' at position 127", () => {
-    const r = record0(baseStmt);
+    const r = record0(baseStmt).raw;
     expect(r[127]).toBe("2");
   });
 
   it("positions 1-4 are zeros", () => {
-    expect(record0(baseStmt).slice(1, 5)).toBe("0000");
+    expect(record0(baseStmt).raw.slice(1, 5)).toBe("0000");
   });
 
   it("places creation date at positions 5-10 (DDMMYY)", () => {
-    const r = record0(baseStmt);
+    const r = record0(baseStmt).raw;
     // 2024-06-15 → 150624
     expect(r.slice(5, 11)).toBe("150624");
   });
 
   it("places BIC at positions 60-70 (padded to 11)", () => {
-    const r = record0(baseStmt);
+    const r = record0(baseStmt).raw;
     expect(r.slice(60, 71)).toBe("TESTBE20   ");
   });
 
   it("handles missing BIC with spaces", () => {
     const stmt = { ...baseStmt, account: { ...baseStmt.account, bic: undefined } };
-    const r = record0(stmt);
+    const r = record0(stmt).raw;
     expect(r).toHaveLength(128);
     expect(r.slice(60, 71)).toBe("           ");
+  });
+
+  it("returns CodaLine with fields array", () => {
+    const result = record0(baseStmt);
+    expect(result.recordType).toBe("0");
+    expect(result.fields.length).toBeGreaterThan(0);
+    expect(result.fields.reduce((sum, f) => sum + f.value.length, 0)).toBe(128);
   });
 });

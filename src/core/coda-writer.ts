@@ -12,21 +12,18 @@ import { record32 } from "./records/record32.js";
 import { record33 } from "./records/record33.js";
 import { record8 } from "./records/record8.js";
 import { record9 } from "./records/record9.js";
+import type { CodaLine, AnnotatedCodaOutput } from "./field-defs/types.js";
 
 // Re-export individual record builders for external consumers
 export { record0, record1, record21, record22, record23, record31, record32, record33, record8, record9 };
 
+// Re-export AnnotatedCodaOutput as ConversionResult for backwards compatibility
+export type { AnnotatedCodaOutput as ConversionResult };
+
 // ── Main conversion ─────────────────────────────────────────────────────
 
-export interface ConversionResult {
-  fileName: string;
-  lines: string[];
-  recordCount: number;
-  validation: { valid: boolean; errors: string[] };
-}
-
-export function statementToCoda(stmt: CamtStatement): ConversionResult {
-  const lines: string[] = [];
+export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
+  const lines: CodaLine[] = [];
   const errors: string[] = [];
 
   // Compute sequence: use explicit sequence or fall back to working-day count
@@ -196,9 +193,9 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
 
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].length !== 128) {
+    if (lines[i].raw.length !== 128) {
       errors.push(
-        `Line ${i + 1} (record ${lines[i][0]}): ${lines[i].length} chars (expected 128)`
+        `Line ${i + 1} (record ${lines[i].raw[0]}): ${lines[i].raw.length} chars (expected 128)`
       );
     }
   }
@@ -212,7 +209,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
     fileName,
     lines,
     recordCount,
-    validation: { valid: errors.length === 0, errors },
+    validation: { valid: errors.length === 0, errors, warnings: [] },
   };
 }
 

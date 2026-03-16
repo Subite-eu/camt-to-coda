@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import type { CodaLine } from "../core/field-defs/types.js";
 
 // ── Position map (0-indexed, end is exclusive) ───────────────────────────────
 //
@@ -152,13 +153,14 @@ function replacePart(
  * @param seed   Optional numeric seed (default 0)
  * @returns      New array with sensitive fields replaced
  */
-export function anonymizeCodaLines(lines: string[], seed = 0): string[] {
+export function anonymizeCodaLines(lines: (CodaLine | string)[], seed = 0): string[] {
   // Per-call caches keyed by field content so the same value always maps to the same fake
   const ibanCache = new Map<string, string>();
   const bicCache = new Map<string, string>();
   const nameCache = new Map<string, string>();
 
-  return lines.map((line) => {
+  return lines.map((lineOrObj) => {
+    let line = typeof lineOrObj === "string" ? lineOrObj : lineOrObj.raw;
     if (line.length !== 128) return line; // skip malformed lines
 
     const rec = line[0];

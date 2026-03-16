@@ -1,5 +1,7 @@
 import type { CamtEntry } from "../model.js";
 import { padRight, padLeft, formatBalance, formatDate, movementSign } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD21_FIELDS } from "../field-defs/record21-fields.js";
 
 export interface Record21Params {
   entry: CamtEntry;
@@ -12,7 +14,7 @@ export interface Record21Params {
   needRecord3: boolean;  // globalisation code + link code
 }
 
-export function record21(p: Record21Params): string {
+export function record21(p: Record21Params): CodaLine {
   const { entry, seqNum, comm, commType, txCode, entryDate, hasMore, needRecord3 } = p;
 
   const valueDate = entry.valueDate
@@ -29,23 +31,38 @@ export function record21(p: Record21Params): string {
     )
     .join("/");
 
-  return [
-    "2",                                  // 1     record id
-    "1",                                  // 2     article code
-    seqNum,                               // 3-6   sequence number
-    "0000",                               // 7-10  detail number
-    padRight(refs || entry.entryRef || "", 21), // 11-31 bank ref
-    movementSign(entry.creditDebit),      // 32    movement sign
-    formatBalance(entry.amount),          // 33-47 amount
-    valueDate,                            // 48-53 value date
-    padRight(txCode, 8),                  // 54-61 transaction code
-    commType,                             // 62    comm type
-    padRight(comm.slice(0, 53), 53),      // 63-115 communication
-    entryDate,                            // 116-121 entry date
-    "000",                                // 122-124 sequence
-    needRecord3 ? "1" : "0",             // 125   globalisation code
-    hasMore ? "1" : "0",                 // 126   next code
-    " ",                                  // 127   blank
-    needRecord3 ? "1" : "0",             // 128   link code
-  ].join("");
+  const values: Record<string, string> = {
+    recordType: "2",
+    articleNumber: "1",
+    sequenceNumber: seqNum,
+    detailNumber: "0000",
+    bankReference: padRight(refs || entry.entryRef || "", 21),
+    amountSign: movementSign(entry.creditDebit),
+    amount: formatBalance(entry.amount),
+    valueDate,
+    transactionCode: padRight(txCode, 8),
+    communicationType: commType,
+    communication: padRight(comm.slice(0, 53), 53),
+    entryDate,
+    statementSequence: "000",
+    globalisationCode: needRecord3 ? "1" : "0",
+    nextCode: hasMore ? "1" : "0",
+    blank: " ",
+    linkCode: needRecord3 ? "1" : "0",
+  };
+
+  const fields = RECORD21_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "2.1",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }

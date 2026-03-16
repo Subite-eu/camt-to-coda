@@ -7,6 +7,7 @@ import { statementToCoda } from "../core/coda-writer.js";
 import { validateCoda } from "../validation/coda-validator.js";
 import { validateCamt } from "../validation/camt-validator.js";
 import { anonymizeCodaLines } from "../anonymize/anonymizer.js";
+import { codaToCamt } from "../core/reverse.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -94,6 +95,37 @@ async function handleHealth(res: ServerResponse): Promise<void> {
 
 async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise<void> {
   const contentType = req.headers["content-type"] ?? "";
+  const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
+  const directionOverride = url.searchParams.get("direction");
+  const camtVersion = url.searchParams.get("camt-version") ?? undefined;
+
+  const body = await readBody(req);
+
+  let direction: "camt-to-coda" | "coda-to-camt";
+
+  if (directionOverride === "camt-to-coda" || directionOverride === "coda-to-camt") {
+    direction = directionOverride;
+  } else if (contentType.includes("multipart/form-data")) {
+    direction = "camt-to-coda";
+  } else {
+    const text = body.toString("utf-8").trim();
+    if (text.startsWith("<?xml") || text.includes("xmlns")) {
+      direction = "camt-to-coda";
+    } else {
+      direction = "coda-to-camt";
+    }
+  }
+
+  if (direction === "camt-to-coda") {
+    await handleForwardConvert(req, res, body, contentType);
+  } else {
+    await handleReverseConvert(res, body, camtVersion);
+  }
+}
+
+async function handleForwardConvert(
+  req: IncomingMessage, res: ServerResponse, body: Buffer, contentType: string
+): Promise<void> {
   const boundaryMatch = contentType.match(/boundary=([^\s;]+)/);
   if (!boundaryMatch) {
     res.writeHead(400, { "Content-Type": "application/json" });
@@ -102,7 +134,6 @@ async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise
   }
 
   const boundary = boundaryMatch[1];
-  const body = await readBody(req);
   const parts = parseMultipart(body, boundary);
 
   const xmlPart = parts.find(
@@ -127,11 +158,13 @@ async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise
       const result = statementToCoda(stmt);
       const codaValidation = validateCoda(result.lines);
 
-      const lines = doAnonymize ? anonymizeCodaLines(result.lines) : result.lines;
+      const rawLines: string[] = doAnonymize
+        ? anonymizeCodaLines(result.lines)
+        : result.lines.map((l) => l.raw);
 
       return {
         fileName: result.fileName,
-        lines,
+        lines: doAnonymize ? rawLines : result.lines,
         recordCount: result.recordCount,
         validation: {
           valid: camtValidation.valid && result.validation.valid && codaValidation.valid,
@@ -142,16 +175,56 @@ async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise
     });
 
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ files, version }));
+    res.end(JSON.stringify({ direction: "camt-to-coda", files, version }));
   } catch (err) {
     res.writeHead(500, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: (err as Error).message }));
   }
 }
 
+async function handleReverseConvert(
+  res: ServerResponse, body: Buffer, camtVersion?: string
+): Promise<void> {
+  try {
+    const content = body.toString("utf-8");
+    const result = codaToCamt(content, camtVersion);
+
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      direction: "coda-to-camt",
+      xml: result.xml,
+      lines: result.lines,
+      warnings: result.warnings,
+      validation: { valid: true, errors: [] },
+    }));
+  } catch (err) {
+    res.writeHead(400, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: (err as Error).message }));
+  }
+}
+
+async function findIndexHtml(): Promise<string> {
+  // Try co-located (works with tsx in dev and after build with copy)
+  const colocated = join(__dirname, "index.html");
+  try {
+    await readFile(colocated, "utf-8");
+    return colocated;
+  } catch { /* not found, try source tree */ }
+
+  // Fallback: resolve from src/web/ relative to project root
+  // This handles running compiled dist/ when HTML wasn't copied
+  const fromDist = join(__dirname, "..", "..", "src", "web", "index.html");
+  try {
+    await readFile(fromDist, "utf-8");
+    return fromDist;
+  } catch { /* not there either */ }
+
+  throw new Error("index.html not found");
+}
+
 async function handleIndex(res: ServerResponse): Promise<void> {
   try {
-    const htmlPath = join(__dirname, "index.html");
+    const htmlPath = await findIndexHtml();
     const html = await readFile(htmlPath, "utf-8");
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.end(html);
@@ -163,7 +236,7 @@ async function handleIndex(res: ServerResponse): Promise<void> {
 
 // ── Server ────────────────────────────────────────────────────────────────────
 
-export function startServer(port = 3000): void {
+export function startServer(port = 3000): ReturnType<typeof createServer> {
   const server = createServer(async (req, res) => {
     const url = req.url ?? "/";
     const method = req.method ?? "GET";
@@ -184,7 +257,7 @@ export function startServer(port = 3000): void {
         await handleIndex(res);
       } else if (url === "/api/health" && method === "GET") {
         await handleHealth(res);
-      } else if (url === "/api/convert" && method === "POST") {
+      } else if (url.startsWith("/api/convert") && method === "POST") {
         await handleConvert(req, res);
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
@@ -199,4 +272,6 @@ export function startServer(port = 3000): void {
   server.listen(port, () => {
     console.log(`camt2coda web UI running at http://localhost:${port}`);
   });
+
+  return server;
 }

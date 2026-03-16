@@ -20,45 +20,45 @@ const baseStmt: CamtStatement = {
 
 describe("record1", () => {
   it("returns exactly 128 characters", () => {
-    expect(record1(baseStmt, "001")).toHaveLength(128);
+    expect(record1(baseStmt, "001").raw).toHaveLength(128);
   });
 
   it("starts with record id '1'", () => {
-    expect(record1(baseStmt, "001")[0]).toBe("1");
+    expect(record1(baseStmt, "001").raw[0]).toBe("1");
   });
 
   it("places account structure at position 1", () => {
     // BE IBAN → '2'
-    expect(record1(baseStmt, "001")[1]).toBe("2");
+    expect(record1(baseStmt, "001").raw[1]).toBe("2");
   });
 
   it("places sequence at positions 2-4", () => {
-    expect(record1(baseStmt, "042").slice(2, 5)).toBe("042");
+    expect(record1(baseStmt, "042").raw.slice(2, 5)).toBe("042");
   });
 
   it("places IBAN at positions 5-38", () => {
-    const r = record1(baseStmt, "001");
+    const r = record1(baseStmt, "001").raw;
     expect(r.slice(5, 39)).toContain("BE68793230773034");
   });
 
   it("places currency at positions 39-41", () => {
-    const r = record1(baseStmt, "001");
+    const r = record1(baseStmt, "001").raw;
     expect(r.slice(39, 42)).toBe("EUR");
   });
 
   it("places sign at position 42 (0 = credit)", () => {
-    const r = record1(baseStmt, "001");
+    const r = record1(baseStmt, "001").raw;
     expect(r[42]).toBe("0"); // credit balance
   });
 
   it("places opening balance amount at positions 43-57", () => {
-    const r = record1(baseStmt, "001");
+    const r = record1(baseStmt, "001").raw;
     // 5000 → 000000005000000
     expect(r.slice(43, 58)).toBe("000000005000000");
   });
 
   it("ends sequence at positions 125-127", () => {
-    const r = record1(baseStmt, "007");
+    const r = record1(baseStmt, "007").raw;
     expect(r.slice(125, 128)).toBe("007");
   });
 
@@ -67,8 +67,15 @@ describe("record1", () => {
       ...baseStmt,
       account: { ...baseStmt.account, iban: undefined, otherId: "1234567890" },
     };
-    const r = record1(stmt, "001");
+    const r = record1(stmt, "001").raw;
     expect(r).toHaveLength(128);
     expect(r[1]).toBe("0");
+  });
+
+  it("returns CodaLine with fields array", () => {
+    const result = record1(baseStmt, "001");
+    expect(result.recordType).toBe("1");
+    expect(result.fields.length).toBeGreaterThan(0);
+    expect(result.fields.reduce((sum, f) => sum + f.value.length, 0)).toBe(128);
   });
 });

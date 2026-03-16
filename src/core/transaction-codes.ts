@@ -1,4 +1,5 @@
 // ISO 20022 Domain/Family/SubFamily → 8-char CODA transaction code
+import type { TransactionCode } from "./model.js";
 
 const TRANSACTION_CODE_MAP: Record<string, string> = {
   "PMNT/RCDT/ESCT": "04500001", // Incoming SEPA credit transfer
@@ -16,6 +17,21 @@ const TRANSACTION_CODE_MAP: Record<string, string> = {
 // Card payments: any SubFamily under PMNT/CCRD
 const CARD_FAMILY = "PMNT/CCRD";
 const CARD_CODE = "04370000";
+
+// Build reverse map from existing forward map
+const REVERSE_MAP: Record<string, TransactionCode> = {};
+for (const [key, code] of Object.entries(TRANSACTION_CODE_MAP)) {
+  const [domain, family, subFamily] = key.split("/");
+  REVERSE_MAP[code] = { domain, family, subFamily };
+}
+// Card code: synthetic SubFamily since original is lost
+REVERSE_MAP[CARD_CODE] = { domain: "PMNT", family: "CCRD", subFamily: "OTHR" };
+
+export function reverseMapTransactionCode(codaCode: string): TransactionCode | undefined {
+  const trimmed = codaCode.trim();
+  if (trimmed.length === 0) return undefined;
+  return REVERSE_MAP[trimmed];
+}
 
 export function mapTransactionCode(
   domain?: string,

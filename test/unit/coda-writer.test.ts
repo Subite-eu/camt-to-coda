@@ -273,7 +273,7 @@ describe("Record 3 emission for batch entries", () => {
   it("emits record 3.1 lines when entry has multiple TxDtls", () => {
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);
-    const rec3Lines = result.lines.filter((l) => l[0] === "3");
+    const rec3Lines = result.lines.filter((l) => l.raw[0] === "3");
     expect(rec3Lines.length).toBeGreaterThan(0);
   });
 
@@ -281,7 +281,7 @@ describe("Record 3 emission for batch entries", () => {
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);
     for (const line of result.lines) {
-      expect(line).toHaveLength(128);
+      expect(line.raw).toHaveLength(128);
     }
   });
 
@@ -290,21 +290,22 @@ describe("Record 3 emission for batch entries", () => {
     const result = statementToCoda(stmts[0]);
     expect(result.validation.valid).toBe(true);
     expect(result.validation.errors).toHaveLength(0);
+    expect(result.validation.warnings).toEqual([]);
   });
 
   it("emits exactly 2 record 3.1 lines for 2 TxDtls", () => {
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);
-    const rec31Lines = result.lines.filter((l) => l[0] === "3" && l[1] === "1");
+    const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
     expect(rec31Lines).toHaveLength(2);
   });
 
   it("record 3.1 line starts with '3' and '1'", () => {
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);
-    const rec31Lines = result.lines.filter((l) => l[0] === "3" && l[1] === "1");
-    expect(rec31Lines[0][0]).toBe("3");
-    expect(rec31Lines[0][1]).toBe("1");
+    const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
+    expect(rec31Lines[0].raw[0]).toBe("3");
+    expect(rec31Lines[0].raw[1]).toBe("1");
   });
 
   it("recordCount includes record 3 lines", () => {
@@ -322,14 +323,14 @@ describe("Record 3.2 and 3.3 for long batch communication", () => {
   it("emits record 3.2 lines when txComm > 73 chars", () => {
     const stmts = parseCamt(LONG_TXCOMM_XML);
     const result = statementToCoda(stmts[0]);
-    const rec32Lines = result.lines.filter((l) => l[0] === "3" && l[1] === "2");
+    const rec32Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "2");
     expect(rec32Lines.length).toBeGreaterThan(0);
   });
 
   it("emits record 3.3 lines when txComm > 178 chars", () => {
     const stmts = parseCamt(LONG_TXCOMM_XML);
     const result = statementToCoda(stmts[0]);
-    const rec33Lines = result.lines.filter((l) => l[0] === "3" && l[1] === "3");
+    const rec33Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "3");
     expect(rec33Lines.length).toBeGreaterThan(0);
   });
 
@@ -337,7 +338,7 @@ describe("Record 3.2 and 3.3 for long batch communication", () => {
     const stmts = parseCamt(LONG_TXCOMM_XML);
     const result = statementToCoda(stmts[0]);
     for (const line of result.lines) {
-      expect(line).toHaveLength(128);
+      expect(line.raw).toHaveLength(128);
     }
   });
 
@@ -355,10 +356,10 @@ describe("Record 2.3 with needRecord3=true sets link code '1'", () => {
     // Multi TxDtls entry with counterpart IBAN and BIC → triggers rec22, rec23, rec31
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);
-    const rec23Lines = result.lines.filter((l) => l[0] === "2" && l[1] === "3");
+    const rec23Lines = result.lines.filter((l) => l.raw[0] === "2" && l.raw[1] === "3");
     expect(rec23Lines.length).toBeGreaterThan(0);
     // Link code is last character (position 127)
-    expect(rec23Lines[0][127]).toBe("1");
+    expect(rec23Lines[0].raw[127]).toBe("1");
   });
 });
 
@@ -425,7 +426,7 @@ describe("sequence computation", () => {
     expect(result.validation.valid).toBe(true);
     // Record 1 layout: "1"(1) + accountStructure(1) + sequence(3) + ...
     // sequence 42 → "042" starting at index 2 (0-based)
-    expect(result.lines[1].slice(2, 5)).toBe("042");
+    expect(result.lines[1].raw.slice(2, 5)).toBe("042");
   });
 
   it("uses working-days fallback when no sequence", () => {
@@ -433,7 +434,7 @@ describe("sequence computation", () => {
     const result = statementToCoda(stmt);
     expect(result.validation.valid).toBe(true);
     // Just verify something non-zero (working days >= 1)
-    const seqStr = result.lines[1].slice(1, 4);
+    const seqStr = result.lines[1].raw.slice(1, 4);
     expect(parseInt(seqStr, 10)).toBeGreaterThan(0);
   });
 });
@@ -471,7 +472,7 @@ describe("recordCount correctness", () => {
     const result = statementToCoda(stmts[0]);
     // lines excluding rec0 and rec9
     const nonHeaderTrailer = result.lines.filter(
-      (l) => l[0] !== "0" && l[0] !== "9"
+      (l) => l.raw[0] !== "0" && l.raw[0] !== "9"
     );
     expect(result.recordCount).toBe(nonHeaderTrailer.length);
   });
@@ -490,7 +491,7 @@ describe("debit vs credit entry tracking", () => {
     // Record 9 contains sumDebits; just verify valid output
     expect(result.validation.valid).toBe(true);
     const rec9 = result.lines[result.lines.length - 1];
-    expect(rec9[0]).toBe("9");
+    expect(rec9.raw[0]).toBe("9");
   });
 });
 
@@ -512,7 +513,7 @@ describe("entry date fallback", () => {
     //   movementSign(1)+formatBalance(15)+valueDate(6)+txCode(8)+commType(1)+
     //   comm(53)+entryDate(6)+...
     // entryDate at position 116-121 (1-indexed) = slice(115,121) (0-indexed): 150624
-    expect(rec21.slice(115, 121)).toBe("150624");
+    expect(rec21.raw.slice(115, 121)).toBe("150624");
   });
 });
 
@@ -537,7 +538,7 @@ describe("Record 3 with NOTPROVIDED refs uses empty comm", () => {
     });
     const result = statementToCoda(stmt);
     // Should produce record 3.1 lines and be valid
-    const rec31Lines = result.lines.filter((l) => l[0] === "3" && l[1] === "1");
+    const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
     expect(rec31Lines).toHaveLength(2);
     expect(result.validation.valid).toBe(true);
   });
