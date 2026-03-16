@@ -1,4 +1,6 @@
 import { padRight } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD22_FIELDS } from "../field-defs/record22-fields.js";
 
 export interface Record22Params {
   seqNum: string;
@@ -7,23 +9,39 @@ export interface Record22Params {
   hasMore: boolean;
 }
 
-export function record22(p: Record22Params): string {
+export function record22(p: Record22Params): CodaLine {
   const { seqNum, comm, counterpartBic, hasMore } = p;
-  return [
-    "2",                                  // 1     record id
-    "2",                                  // 2     article code
-    seqNum,                               // 3-6   sequence
-    "0000",                               // 7-10  detail number
-    padRight(comm, 53),                   // 11-63 communication ctd
-    padRight("", 35),                     // 64-98 customer ref
-    padRight(counterpartBic, 11),         // 99-109 BIC
-    padRight("", 3),                      // 110-112 blanks
-    " ",                                  // 113   R-transaction type
-    padRight("", 4),                      // 114-117 ISO reason
-    padRight("", 4),                      // 118-121 category purpose
-    padRight("", 4),                      // 122-125 purpose
-    hasMore ? "1" : "0",                 // 126   next code
-    " ",                                  // 127   blank
-    "0",                                  // 128   link code
-  ].join("");
+
+  const values: Record<string, string> = {
+    recordType: "2",
+    articleNumber: "2",
+    sequenceNumber: seqNum,
+    detailNumber: "0000",
+    communication: padRight(comm, 53),
+    customerRef: padRight("", 35),
+    counterpartBic: padRight(counterpartBic, 11),
+    blanks: padRight("", 3),
+    rTransactionType: " ",
+    isoReason: padRight("", 4),
+    categoryPurpose: padRight("", 4),
+    purpose: padRight("", 4),
+    nextCode: hasMore ? "1" : "0",
+    blank: " ",
+    linkCode: "0",
+  };
+
+  const fields = RECORD22_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "2.2",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }

@@ -1,20 +1,38 @@
 import type { CamtStatement } from "../model.js";
 import { padRight, formatBalance, formatDate, signCode, accountStructure, signedAmount } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD1_FIELDS } from "../field-defs/record1-fields.js";
 
-export function record1(stmt: CamtStatement, sequence: string): string {
+export function record1(stmt: CamtStatement, sequence: string): CodaLine {
   const acctNum = stmt.account.iban || stmt.account.otherId || "";
   const bal = stmt.openingBalance;
-  return [
-    "1",                                          // 1     record id
-    accountStructure(acctNum),                    // 2     account structure
-    sequence,                                     // 3-5   sequence
-    padRight(acctNum, 34),                        // 6-39  account number
-    padRight(stmt.account.currency, 3),           // 40-42 currency
-    signCode(signedAmount(bal.amount, bal.creditDebit)), // 43 sign
-    formatBalance(bal.amount),                    // 44-58 balance
-    formatDate(bal.date),                         // 59-64 balance date
-    padRight(stmt.account.ownerName || "", 26),   // 65-90 holder name
-    padRight("", 35),                             // 91-125 description
-    sequence,                                     // 126-128 sequence
-  ].join("");
+
+  const values: Record<string, string> = {
+    recordType: "1",
+    accountStructure: accountStructure(acctNum),
+    sequence,
+    accountNumber: padRight(acctNum, 34),
+    currency: padRight(stmt.account.currency, 3),
+    balanceSign: signCode(signedAmount(bal.amount, bal.creditDebit)),
+    balanceAmount: formatBalance(bal.amount),
+    balanceDate: formatDate(bal.date),
+    holderName: padRight(stmt.account.ownerName || "", 26),
+    description: padRight("", 35),
+    sequenceEnd: sequence,
+  };
+
+  const fields = RECORD1_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "1",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }

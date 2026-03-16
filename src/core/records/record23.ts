@@ -1,4 +1,6 @@
 import { padRight } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD23_FIELDS } from "../field-defs/record23-fields.js";
 
 export interface Record23Params {
   seqNum: string;
@@ -9,19 +11,35 @@ export interface Record23Params {
   needRecord3: boolean;
 }
 
-export function record23(p: Record23Params): string {
+export function record23(p: Record23Params): CodaLine {
   const { seqNum, comm, counterpartIban, currency, counterpartName, needRecord3 } = p;
-  return [
-    "2",                                  // 1     record id
-    "3",                                  // 2     article code
-    seqNum,                               // 3-6   sequence
-    "0000",                               // 7-10  detail number
-    padRight(counterpartIban, 34),        // 11-44 counterparty account
-    padRight(currency, 3),                // 45-47 currency
-    padRight(counterpartName, 35),        // 48-82 counterparty name
-    padRight(comm, 43),                   // 83-125 communication ctd
-    "0",                                  // 126   next code (always 0)
-    " ",                                  // 127   blank
-    needRecord3 ? "1" : "0",             // 128   link code
-  ].join("");
+
+  const values: Record<string, string> = {
+    recordType: "2",
+    articleNumber: "3",
+    sequenceNumber: seqNum,
+    detailNumber: "0000",
+    counterpartAccount: padRight(counterpartIban, 34),
+    currency: padRight(currency, 3),
+    counterpartName: padRight(counterpartName, 35),
+    communication: padRight(comm, 43),
+    nextCode: "0",
+    blank: " ",
+    linkCode: needRecord3 ? "1" : "0",
+  };
+
+  const fields = RECORD23_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "2.3",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }

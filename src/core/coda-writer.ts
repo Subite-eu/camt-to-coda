@@ -44,10 +44,10 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
       );
 
   // Record 0
-  lines.push(record0(stmt));
+  lines.push(record0(stmt).raw);
 
   // Record 1
-  lines.push(record1(stmt, sequence));
+  lines.push(record1(stmt, sequence).raw);
 
   // Records 2.x per entry
   let recordCount = 2; // rec1 + rec8
@@ -102,7 +102,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
         entryDate,
         hasMore: needRec22 || needRec23,
         needRecord3,
-      })
+      }).raw
     );
     recordCount++;
 
@@ -114,7 +114,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
           comm: comm.slice(53, 106),
           counterpartBic,
           hasMore: needRec23,
-        })
+        }).raw
       );
       recordCount++;
     }
@@ -129,7 +129,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
           currency: entry.currency,
           counterpartName,
           needRecord3,
-        })
+        }).raw
       );
       recordCount++;
     }
@@ -160,7 +160,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
             comm: txComm.slice(0, 73),
             entryDate,
             hasRecord32,
-          })
+          }).raw
         );
         recordCount++; // count ONE per detail
 
@@ -171,7 +171,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
               detailNum: d + 1,
               comm: txComm.slice(73, 178),
               hasRecord33,
-            })
+            }).raw
           );
         }
 
@@ -181,7 +181,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
               seqNum,
               detailNum: d + 1,
               comm: txComm.slice(178, 268),
-            })
+            }).raw
           );
         }
       }
@@ -189,10 +189,10 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   }
 
   // Record 8
-  lines.push(record8(stmt, sequence));
+  lines.push(record8(stmt, sequence).raw);
 
   // Record 9
-  lines.push(record9({ recordCount, sumDebits, sumCredits }));
+  lines.push(record9({ recordCount, sumDebits, sumCredits }).raw);
 
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {

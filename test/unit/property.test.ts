@@ -80,7 +80,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 11 }),
       (bic) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, bic } };
-        expect(record0(stmt)).toHaveLength(128);
+        expect(record0(stmt).raw).toHaveLength(128);
       }
     ));
   });
@@ -95,7 +95,7 @@ describe("property: record length invariants", () => {
           account: { ...arbStmt.account, iban },
           openingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
         };
-        expect(record1(stmt, "001")).toHaveLength(128);
+        expect(record1(stmt, "001").raw).toHaveLength(128);
       }
     ));
   });
@@ -110,7 +110,7 @@ describe("property: record length invariants", () => {
           account: { ...arbStmt.account, iban },
           closingBalance: { amount, creditDebit: "CRDT" as const, date: "2024-01-01" },
         };
-        expect(record8(stmt, "001")).toHaveLength(128);
+        expect(record8(stmt, "001").raw).toHaveLength(128);
       }
     ));
   });
@@ -121,7 +121,7 @@ describe("property: record length invariants", () => {
       fc.double({ min: 0, max: 999999999, noNaN: true, noDefaultInfinity: true }),
       fc.double({ min: 0, max: 999999999, noNaN: true, noDefaultInfinity: true }),
       (recordCount, sumDebits, sumCredits) => {
-        expect(record9({ recordCount, sumDebits, sumCredits })).toHaveLength(128);
+        expect(record9({ recordCount, sumDebits, sumCredits }).raw).toHaveLength(128);
       }
     ));
   });
@@ -131,7 +131,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 11 }),
       (bic) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, bic } };
-        expect(record0(stmt)[0]).toBe("0");
+        expect(record0(stmt).raw[0]).toBe("0");
       }
     ));
   });
@@ -141,7 +141,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 34 }),
       (iban) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, iban } };
-        expect(record1(stmt, "001")[0]).toBe("1");
+        expect(record1(stmt, "001").raw[0]).toBe("1");
       }
     ));
   });
@@ -151,7 +151,7 @@ describe("property: record length invariants", () => {
       fc.string({ maxLength: 34 }),
       (iban) => {
         const stmt = { ...arbStmt, account: { ...arbStmt.account, iban } };
-        expect(record8(stmt, "001")[0]).toBe("8");
+        expect(record8(stmt, "001").raw[0]).toBe("8");
       }
     ));
   });
@@ -160,7 +160,7 @@ describe("property: record length invariants", () => {
     fc.assert(fc.property(
       fc.integer({ min: 0, max: 999999 }),
       (recordCount) => {
-        expect(record9({ recordCount, sumDebits: 0, sumCredits: 0 })[0]).toBe("9");
+        expect(record9({ recordCount, sumDebits: 0, sumCredits: 0 }).raw[0]).toBe("9");
       }
     ));
   });

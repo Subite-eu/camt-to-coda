@@ -1,4 +1,6 @@
 import { padRight, padLeft } from "../formatting.js";
+import type { CodaLine } from "../field-defs/types.js";
+import { RECORD32_FIELDS } from "../field-defs/record32-fields.js";
 
 export interface Record32Params {
   seqNum: string;
@@ -7,17 +9,33 @@ export interface Record32Params {
   hasRecord33: boolean;
 }
 
-export function record32(p: Record32Params): string {
+export function record32(p: Record32Params): CodaLine {
   const { seqNum, detailNum, comm, hasRecord33 } = p;
-  return [
-    "3",                                          // 1     record id
-    "2",                                          // 2     article code
-    seqNum,                                       // 3-6   continuous sequence number
-    padLeft(String(detailNum), 4, "0"),           // 7-10  detail number
-    padRight(comm.slice(0, 105), 105),            // 11-115 communication (105 chars)
-    padRight("", 10),                             // 116-125 blanks (10 chars)
-    hasRecord33 ? "1" : "0",                     // 126   next code
-    " ",                                          // 127   blank
-    "0",                                          // 128   link code (always 0 for record 3)
-  ].join("");
+
+  const values: Record<string, string> = {
+    recordType: "3",
+    articleNumber: "2",
+    sequenceNumber: seqNum,
+    detailNumber: padLeft(String(detailNum), 4, "0"),
+    communication: padRight(comm.slice(0, 105), 105),
+    blanks: padRight("", 10),
+    nextCode: hasRecord33 ? "1" : "0",
+    blank: " ",
+    linkCode: "0",
+  };
+
+  const fields = RECORD32_FIELDS.map((def) => ({
+    name: def.name,
+    start: def.start,
+    length: def.length,
+    value: values[def.name] ?? " ".repeat(def.length),
+    sourceXPath: def.sourceXPath,
+    description: def.description,
+  }));
+
+  return {
+    recordType: "3.2",
+    raw: fields.map((f) => f.value).join(""),
+    fields,
+  };
 }
