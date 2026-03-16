@@ -32,5 +32,6 @@ git-history-cleanup.md
 __pycache__/
 node_modules/
 dist/
+dist-web/
 coverage/
 *.tgz

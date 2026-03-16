@@ -11,12 +11,13 @@
 > The mapping logic, anonymization engine, CLI, and test infrastructure were vibe-coded.
 > The core CAMT/CODA domain knowledge is human-driven.
 
-Converts bank statement files from **CAMT** (ISO 20022 XML) format to **CODA** (Belgian structured bank statement, 128 chars/line) format.
+Converts bank statement files between **CAMT** (ISO 20022 XML) and **CODA** (Belgian structured bank statement, 128 chars/line) formats — in both directions.
 
 ## Architecture
 
 ```
-CAMT XML → Parser → Model → Writer → CODA
+CAMT XML → Parser → Model → Writer → CODA     (forward)
+CODA     → Parser → Model → Writer → CAMT XML  (reverse)
 ```
 
 The converter uses a **pure-function pipeline**:
@@ -49,6 +50,32 @@ The converter uses a **pure-function pipeline**:
 
 ## Quick Start
 
+### From Source (development)
+
+```bash
+git clone https://github.com/Subite-eu/camt-to-coda.git
+cd camt-to-coda
+npm install
+
+# Run any command via npx tsx (no build step needed):
+npx tsx src/cli.ts convert -i input/ -o output/
+npx tsx src/cli.ts serve --port 8080
+npx tsx src/cli.ts reverse -i input.cod -o output/
+```
+
+### Build + Install (production)
+
+```bash
+npm run build                     # Compiles TypeScript to dist/ (CLI + server)
+npm run build:web                 # Builds static site to dist-web/ (browser-only)
+
+node dist/cli.js convert -i input/ -o output/
+
+# Or install globally:
+npm link                          # Creates 'camt2coda' command
+camt2coda convert -i input/ -o output/
+```
+
 ### Docker
 
 ```bash
@@ -59,22 +86,6 @@ docker run --rm \
   -v /path/to/coda:/out \
   -e MODE=FS -e VERSION=53 -e IN=/in -e OUT=/out \
   ghcr.io/subite-eu/camt-to-coda:main
-```
-
-### npx (no install)
-
-```bash
-npx camt2coda convert -v 53 -i input/ -o output/
-```
-
-### From Source
-
-```bash
-git clone https://github.com/Subite-eu/camt-to-coda.git
-cd camt-to-coda
-npm install
-npm run build
-node dist/cli.js convert -v 53 -i input/ -o output/
 ```
 
 ## CLI Commands
@@ -110,6 +121,17 @@ camt2coda info statement.xml
 
 Shows CAMT version, account IBANs, currency, entry count, statement count, and dates.
 
+### reverse
+
+Convert CODA files back to CAMT XML (best-effort reconstruction):
+
+```bash
+camt2coda reverse -i statement.cod -o output/
+camt2coda reverse -i coda-dir/ -o camt-output/
+camt2coda reverse -i input.cod -o output/ --camt-version camt.053.001.02
+camt2coda reverse -i input/ -o output/ --dry-run
+```
+
 ### serve
 
 Launch the web UI:
@@ -119,7 +141,7 @@ camt2coda serve
 camt2coda serve --port 8080
 ```
 
-Opens a browser interface with drag-and-drop upload, inline CODA preview, and download.
+Opens a three-panel field inspector at `http://localhost:3000` — drop a CAMT or CODA file, click any field to see its mapping in the other format.
 
 ## S3 Mode
 
@@ -138,14 +160,73 @@ Environment variables also work: `MODE=S3 IN=camt-bucket OUT=coda-bucket EP=... 
 
 ## Web UI
 
+The web UI runs **entirely in the browser** — no server required. All CAMT/CODA conversion happens client-side via a 67KB JavaScript bundle.
+
+### Local development
+
 ```bash
-camt2coda serve
+npx tsx src/cli.ts serve              # dev server with hot HTML reload
+camt2coda serve                       # after npm run build + npm link
 ```
 
-A minimal browser interface at `http://localhost:3000` with:
-- Drag-and-drop CAMT file upload
-- Inline CODA preview before download
-- Single-file and batch conversion
+### Static build (for hosting)
+
+```bash
+npm run build:web                     # → dist-web/index.html + dist-web/camt2coda.js
+npx serve dist-web                    # preview locally
+```
+
+### Deploy to Cloudflare Pages
+
+**Option A: Connect your GitHub repo (recommended)**
+
+1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create**
+2. Select **Pages** → **Connect to Git**
+3. Pick your repository and configure:
+
+   | Setting | Value |
+   |---|---|
+   | Build command | `npm run build:web` |
+   | Build output directory | `dist-web` |
+   | Node.js version | `22` (set via environment variable `NODE_VERSION=22`) |
+
+4. Click **Save and Deploy**
+
+Every push to `main` will auto-deploy. PR branches get preview URLs.
+
+**Option B: Direct upload**
+
+```bash
+npm run build:web
+npx wrangler pages deploy dist-web --project-name=camt2coda
+```
+
+**Option C: GitHub Actions (automated)**
+
+A workflow is included at `.github/workflows/deploy-pages.yml` — it builds and deploys to Cloudflare Pages on every push to `main`. You need to set two repository secrets:
+
+| Secret | Where to find it |
+|---|---|
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Dashboard → any page → right sidebar → **Account ID** |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare Dashboard → **My Profile** → **API Tokens** → Create Token → use the **Edit Cloudflare Workers** template |
+
+Then create the Pages project once:
+
+```bash
+npx wrangler pages project create camt2coda --production-branch main
+```
+
+### Features
+
+A three-panel field inspector at `http://localhost:3000` (or your Cloudflare Pages URL):
+- **Bidirectional** — drop CAMT XML or CODA files, auto-detects direction
+- **Source panel** (left) — shows your input file
+- **Output panel** (right) — shows the conversion result
+- **Inspector drawer** (bottom) — click any CODA field or CAMT element to see the mapping: field name, character positions, XPath, and description
+- **Cross-highlighting** — clicking a field highlights the corresponding element in the other panel
+- **Keyboard accessible** — Tab through fields, Enter/Space to inspect, Escape to close
+- **Responsive** — stacks vertically on tablets/mobile
+- **Zero server dependency** — all conversion runs in-browser, works offline after first load
 
 ## Features
 
@@ -156,7 +237,9 @@ A minimal browser interface at `http://localhost:3000` with:
 - **Holiday calculator** — Working-day sequence numbers with country-aware holidays for BE, LT, NL
 - **CODA anonymization** — `--anonymize` flag replaces sensitive data with deterministic fakes
 - **Storage abstraction** — Filesystem and S3/MinIO backends share the same interface
-- **288+ tests** — Unit, integration, and property-based tests (vitest + fast-check)
+- **CODA-to-CAMT reverse conversion** — Parse CODA files back to ISO 20022 CAMT XML
+- **Three-panel web inspector** — Bidirectional field inspector with cross-highlighting
+- **490+ tests** — Unit, integration, property-based, and round-trip tests (vitest + fast-check)
 - **Multi-platform Docker** — `linux/amd64` and `linux/arm64`
 
 ## Project Structure
@@ -164,16 +247,25 @@ A minimal browser interface at `http://localhost:3000` with:
 ```
 src/
 ├── cli.ts                  # Commander-based CLI entry point
-├── core/                   # Conversion pipeline
-│   ├── parser.ts           # CAMT XML → typed model
-│   ├── converter.ts        # Orchestrates record builders
+├── core/
+│   ├── camt-parser.ts      # CAMT XML → CamtStatement model
+│   ├── coda-writer.ts      # CamtStatement → CodaLine[] (forward)
+│   ├── coda-parser.ts      # CODA text → CodaLine[] (reverse)
+│   ├── coda-to-statement.ts# CodaLine[] → CamtStatement (reverse)
+│   ├── camt-writer.ts      # CamtStatement → CAMT XML (reverse)
+│   ├── reverse.ts          # Orchestrates CODA→CAMT pipeline
 │   ├── records/            # Pure-function builders per record type
+│   ├── field-defs/         # FieldDef arrays (shared by builder, parser, inspector)
 │   └── model.ts            # Shared TypeScript types
 ├── holidays/               # Working-day calculator (BE/LT/NL)
 ├── validation/             # Pre-flight CAMT + post-conversion CODA checks
 ├── storage/                # Filesystem + S3 storage abstraction
-├── anonymize/              # CAMT anonymization engine
-└── web/                    # Minimal web UI (serve subcommand)
+├── anonymize/              # CODA anonymization engine
+└── web/
+    ├── index.html          # Single-file three-panel UI
+    ├── browser-entry.ts    # Browser bundle entry point
+    ├── server.ts           # Dev server (CLI 'serve' command)
+    └── fs-shim.ts          # Node.js shim for browser bundle
 ```
 
 ## Configuration

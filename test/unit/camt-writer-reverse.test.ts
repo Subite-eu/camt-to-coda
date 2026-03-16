@@ -131,9 +131,13 @@ describe("statementToXml", () => {
 
   it("maps CRDT counterparty as Dbtr (payer)", () => {
     const xml = statementToXml(stmt);
-    expect(xml).toContain("<Dbtr><Nm>Sender</Nm></Dbtr>");
-    expect(xml).toContain("<DbtrAcct><Id><IBAN>BE91516952884376</IBAN></Id></DbtrAcct>");
-    expect(xml).toContain("<DbtrAgt><FinInstnId><BIC>SNDRBEBB</BIC></FinInstnId></DbtrAgt>");
+    expect(xml).toContain("<Dbtr>");
+    expect(xml).toContain("<Nm>Sender</Nm>");
+    expect(xml).toContain("</Dbtr>");
+    expect(xml).toContain("<DbtrAcct>");
+    expect(xml).toContain("<IBAN>BE91516952884376</IBAN>");
+    expect(xml).toContain("<DbtrAgt>");
+    expect(xml).toContain("<BIC>SNDRBEBB</BIC>");
   });
 
   it("maps DBIT counterparty as Cdtr (payee)", () => {
@@ -152,9 +156,13 @@ describe("statementToXml", () => {
       ],
     };
     const xml = statementToXml(debitStmt);
-    expect(xml).toContain("<Cdtr><Nm>Payee</Nm></Cdtr>");
-    expect(xml).toContain("<CdtrAcct><Id><IBAN>BE12345678901234</IBAN></Id></CdtrAcct>");
-    expect(xml).toContain("<CdtrAgt><FinInstnId><BIC>PAYEBEBB</BIC></FinInstnId></CdtrAgt>");
+    expect(xml).toContain("<Cdtr>");
+    expect(xml).toContain("<Nm>Payee</Nm>");
+    expect(xml).toContain("</Cdtr>");
+    expect(xml).toContain("<CdtrAcct>");
+    expect(xml).toContain("<IBAN>BE12345678901234</IBAN>");
+    expect(xml).toContain("<CdtrAgt>");
+    expect(xml).toContain("<BIC>PAYEBEBB</BIC>");
   });
 
   it("includes remittance info (unstructured)", () => {
@@ -223,7 +231,9 @@ describe("statementToXml", () => {
       entries: [],
     };
     const xml = statementToXml(stmtOther);
-    expect(xml).toContain("<Othr><Id>ACC-12345</Id></Othr>");
+    expect(xml).toContain("<Othr>");
+    expect(xml).toContain("<Id>ACC-12345</Id>");
+    expect(xml).toContain("</Othr>");
     // The account Id section should use Othr, not IBAN
     const acctSection = xml.slice(xml.indexOf("<Acct>"), xml.indexOf("</Acct>") + 7);
     expect(acctSection).not.toContain("<IBAN>");

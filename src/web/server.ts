@@ -203,9 +203,28 @@ async function handleReverseConvert(
   }
 }
 
+async function findIndexHtml(): Promise<string> {
+  // Try co-located (works with tsx in dev and after build with copy)
+  const colocated = join(__dirname, "index.html");
+  try {
+    await readFile(colocated, "utf-8");
+    return colocated;
+  } catch { /* not found, try source tree */ }
+
+  // Fallback: resolve from src/web/ relative to project root
+  // This handles running compiled dist/ when HTML wasn't copied
+  const fromDist = join(__dirname, "..", "..", "src", "web", "index.html");
+  try {
+    await readFile(fromDist, "utf-8");
+    return fromDist;
+  } catch { /* not there either */ }
+
+  throw new Error("index.html not found");
+}
+
 async function handleIndex(res: ServerResponse): Promise<void> {
   try {
-    const htmlPath = join(__dirname, "index.html");
+    const htmlPath = await findIndexHtml();
     const html = await readFile(htmlPath, "utf-8");
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.end(html);
@@ -217,7 +236,7 @@ async function handleIndex(res: ServerResponse): Promise<void> {
 
 // ── Server ────────────────────────────────────────────────────────────────────
 
-export function startServer(port = 3000): void {
+export function startServer(port = 3000): ReturnType<typeof createServer> {
   const server = createServer(async (req, res) => {
     const url = req.url ?? "/";
     const method = req.method ?? "GET";
@@ -253,4 +272,6 @@ export function startServer(port = 3000): void {
   server.listen(port, () => {
     console.log(`camt2coda web UI running at http://localhost:${port}`);
   });
+
+  return server;
 }

@@ -434,6 +434,7 @@
       flex-shrink: 0;
     }
 
+    .inspector-header h2,
     .inspector-header h3 {
       font-size: 13px;
       font-weight: 600;
@@ -513,6 +514,28 @@
       padding-bottom: var(--inspector-height);
     }
 
+    /* ── Reduced motion ────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .inspector { transition: none; }
+      .field-tooltip { transition: none; }
+      .coda-field { transition: none; }
+      .xml-element { transition: none; }
+      .spinner { animation: none; }
+    }
+
+    /* ── Responsive: mobile/tablet ─────────────────────────── */
+    @media (max-width: 900px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto 1fr 1fr;
+      }
+      .panel { border-right: none; border-bottom: 1px solid var(--border); }
+      .panel:last-of-type { border-bottom: none; }
+      .btn { min-height: 44px; padding: 10px 16px; }
+      .direction-select { min-height: 44px; padding: 8px 10px; }
+      .inspector-close { padding: 8px 12px; font-size: 20px; }
+    }
+
     /* ── Scrollbar styling ───────────────────────────────────── */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -542,7 +565,7 @@
   <span class="badge">v2.0</span>
   <span class="version-label" id="detected-version"></span>
   <div class="header-spacer"></div>
-  <select class="direction-select" id="direction-select">
+  <select class="direction-select" id="direction-select" aria-label="Conversion direction">
     <option value="auto">Auto-detect</option>
     <option value="camt-to-coda">CAMT -&gt; CODA</option>
     <option value="coda-to-camt">CODA -&gt; CAMT</option>
@@ -552,18 +575,21 @@
 <!-- Drop Bar -->
 <div class="drop-bar">
   <div class="drop-zone" id="drop-zone">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
     </svg>
     <span class="drop-text"><strong>Drop a CAMT XML or CODA file</strong>, or click to browse</span>
-    <input type="file" id="file-input" accept=".xml,.cod,.coda,application/xml,text/xml,text/plain" />
+    <input type="file" id="file-input" accept=".xml,.cod,.coda,application/xml,text/xml,text/plain" aria-label="Upload CAMT or CODA file" />
   </div>
   <button class="btn btn-primary" id="download-btn" disabled>Download</button>
 </div>
 
 <!-- Status bar -->
-<div class="status-bar" id="status"></div>
+<div class="status-bar" id="status" role="status" aria-live="polite"></div>
+
+<!-- Main content area -->
+<main style="display:contents">
 
 <!-- Source Panel (left) -->
 <div class="panel" id="source-panel">
@@ -594,19 +620,22 @@
   </div>
 </div>
 
+</main>
+
 <!-- Tooltip -->
 <div class="field-tooltip" id="tooltip"></div>
 
 <!-- Inspector Drawer -->
 <div class="inspector" id="inspector">
   <div class="inspector-header">
-    <h3 id="inspector-title">Field Inspector</h3>
+    <h2 id="inspector-title" style="font-size:13px;font-weight:600">Field Inspector</h2>
     <button class="inspector-close" id="inspector-close" aria-label="Close inspector">&times;</button>
   </div>
   <div class="inspector-body" id="inspector-body">
   </div>
 </div>
 
+<script src="camt2coda.js"></script>
 <script>
 (function () {
   'use strict';
@@ -667,6 +696,9 @@
 
   // ── Inspector ────────────────────────────────────────────
   inspectorClose.addEventListener('click', closeInspector);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeInspector();
+  });
 
   function openInspector(fieldData) {
     // Clear previous content safely
@@ -949,129 +981,131 @@
     reader.readAsText(file);
   }
 
+  // ── Rendering helpers (shared by client-side and server modes) ──
+
+  function showForwardResult(data, content) {
+    currentOutputData = data;
+
+    if (data.version) {
+      versionLabel.textContent = data.version;
+    }
+
+    sourceTitle.textContent = 'Source (CAMT XML)';
+    sourceMeta.textContent = currentFileName;
+    renderXmlPanel(sourceBody, content);
+    sourcePlaceholder.style.display = 'none';
+    clearContainer(sourceValidation);
+
+    if (data.files && data.files.length > 0) {
+      var fileData = data.files[0];
+      var allValid = data.files.every(function (f) { return f.validation.valid; });
+
+      outputTitle.textContent = 'Output (CODA)';
+      outputMeta.textContent = fileData.fileName + ' -- ' + fileData.recordCount + ' records';
+      currentOutputFileName = fileData.fileName;
+
+      renderValidation(outputValidation, fileData.validation);
+      renderCodaPanel(outputBody, fileData.lines);
+      outputPlaceholder.style.display = 'none';
+
+      currentOutputContent = buildCodaDownloadContent(fileData.lines);
+      downloadBtn.disabled = false;
+
+      setStatus(
+        allValid
+          ? 'Converted ' + data.files.length + ' statement(s) successfully'
+          : 'Converted with validation issues',
+        allValid ? 'success' : 'error'
+      );
+    }
+  }
+
+  function showReverseResult(data, content) {
+    currentOutputData = data;
+
+    sourceTitle.textContent = 'Source (CODA)';
+    sourceMeta.textContent = currentFileName;
+    clearContainer(sourceValidation);
+
+    if (data.lines && data.lines.length > 0) {
+      renderCodaPanel(sourceBody, data.lines);
+    } else {
+      renderRawCoda(sourceBody, content);
+    }
+    sourcePlaceholder.style.display = 'none';
+
+    outputTitle.textContent = 'Output (CAMT XML)';
+    var xmlStr = data.xml || '';
+    currentOutputFileName = currentFileName.replace(/\.(cod|coda)$/i, '') + '.xml';
+    outputMeta.textContent = currentOutputFileName;
+
+    renderValidation(outputValidation, data.validation || { valid: true, errors: [], warnings: [] });
+
+    if (data.warnings && data.warnings.length > 0) {
+      var warnBar = document.createElement('div');
+      warnBar.className = 'validation-bar';
+      for (var i = 0; i < data.warnings.length; i++) {
+        var badge = document.createElement('span');
+        badge.className = 'badge-item badge-warn';
+        badge.textContent = data.warnings[i];
+        warnBar.appendChild(badge);
+      }
+      outputValidation.appendChild(warnBar);
+    }
+
+    renderXmlPanel(outputBody, xmlStr);
+    outputPlaceholder.style.display = 'none';
+
+    currentOutputContent = xmlStr;
+    downloadBtn.disabled = false;
+
+    setStatus('Reverse conversion completed', 'success');
+  }
+
+  // ── Conversion: client-side bundle or server API fallback ──
+
   function convertForward(file, content) {
+    if (window.camt2coda && window.camt2coda.convertForward) {
+      try {
+        showForwardResult(window.camt2coda.convertForward(content), content);
+      } catch (err) {
+        setStatus('Conversion failed: ' + err.message, 'error');
+      }
+      return;
+    }
+
+    // Fallback: server API
     var form = new FormData();
     form.append('file', file, file.name);
-
     fetch('/api/convert', { method: 'POST', body: form })
-      .then(function (resp) {
-        return resp.json().then(function (data) {
-          return { ok: resp.ok, data: data };
-        });
-      })
+      .then(function (resp) { return resp.json().then(function (d) { return { ok: resp.ok, data: d }; }); })
       .then(function (result) {
-        if (!result.ok) {
-          setStatus('Error: ' + (result.data.error || 'Unknown error'), 'error');
-          return;
-        }
-
-        var data = result.data;
-        currentOutputData = data;
-
-        if (data.version) {
-          versionLabel.textContent = data.version;
-        }
-
-        // Show source as XML
-        sourceTitle.textContent = 'Source (CAMT XML)';
-        sourceMeta.textContent = currentFileName;
-        renderXmlPanel(sourceBody, content);
-        sourcePlaceholder.style.display = 'none';
-        clearContainer(sourceValidation);
-
-        // Show output as CODA
-        if (data.files && data.files.length > 0) {
-          var fileData = data.files[0];
-          var allValid = data.files.every(function (f) { return f.validation.valid; });
-
-          outputTitle.textContent = 'Output (CODA)';
-          outputMeta.textContent = fileData.fileName + ' -- ' + fileData.recordCount + ' records';
-          currentOutputFileName = fileData.fileName;
-
-          renderValidation(outputValidation, fileData.validation);
-          renderCodaPanel(outputBody, fileData.lines);
-          outputPlaceholder.style.display = 'none';
-
-          currentOutputContent = buildCodaDownloadContent(fileData.lines);
-          downloadBtn.disabled = false;
-
-          setStatus(
-            allValid
-              ? 'Converted ' + data.files.length + ' statement(s) successfully'
-              : 'Converted with validation issues',
-            allValid ? 'success' : 'error'
-          );
-        }
+        if (!result.ok) { setStatus('Error: ' + (result.data.error || 'Unknown error'), 'error'); return; }
+        showForwardResult(result.data, content);
       })
-      .catch(function (err) {
-        setStatus('Request failed: ' + err.message, 'error');
-      });
+      .catch(function (err) { setStatus('Request failed: ' + err.message, 'error'); });
   }
 
   function convertReverse(content) {
+    if (window.camt2coda && window.camt2coda.convertReverse) {
+      try {
+        showReverseResult(window.camt2coda.convertReverse(content), content);
+      } catch (err) {
+        setStatus('Conversion failed: ' + err.message, 'error');
+      }
+      return;
+    }
+
+    // Fallback: server API
     fetch('/api/convert?direction=coda-to-camt', {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body: content
+      method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: content
     })
-      .then(function (resp) {
-        return resp.json().then(function (data) {
-          return { ok: resp.ok, data: data };
-        });
-      })
+      .then(function (resp) { return resp.json().then(function (d) { return { ok: resp.ok, data: d }; }); })
       .then(function (result) {
-        if (!result.ok) {
-          setStatus('Error: ' + (result.data.error || 'Unknown error'), 'error');
-          return;
-        }
-
-        var data = result.data;
-        currentOutputData = data;
-
-        // Show source as CODA
-        sourceTitle.textContent = 'Source (CODA)';
-        sourceMeta.textContent = currentFileName;
-        clearContainer(sourceValidation);
-
-        if (data.lines && data.lines.length > 0) {
-          renderCodaPanel(sourceBody, data.lines);
-        } else {
-          renderRawCoda(sourceBody, content);
-        }
-        sourcePlaceholder.style.display = 'none';
-
-        // Show output as CAMT XML
-        outputTitle.textContent = 'Output (CAMT XML)';
-        var xmlStr = data.xml || '';
-        currentOutputFileName = currentFileName.replace(/\.(cod|coda)$/i, '') + '.xml';
-        outputMeta.textContent = currentOutputFileName;
-
-        renderValidation(outputValidation, data.validation || { valid: true, errors: [], warnings: [] });
-
-        // Warnings
-        if (data.warnings && data.warnings.length > 0) {
-          var warnBar = document.createElement('div');
-          warnBar.className = 'validation-bar';
-          for (var i = 0; i < data.warnings.length; i++) {
-            var badge = document.createElement('span');
-            badge.className = 'badge-item badge-warn';
-            badge.textContent = data.warnings[i];
-            warnBar.appendChild(badge);
-          }
-          outputValidation.appendChild(warnBar);
-        }
-
-        renderXmlPanel(outputBody, xmlStr);
-        outputPlaceholder.style.display = 'none';
-
-        currentOutputContent = xmlStr;
-        downloadBtn.disabled = false;
-
-        setStatus('Reverse conversion completed', 'success');
+        if (!result.ok) { setStatus('Error: ' + (result.data.error || 'Unknown error'), 'error'); return; }
+        showReverseResult(result.data, content);
       })
-      .catch(function (err) {
-        setStatus('Request failed: ' + err.message, 'error');
-      });
+      .catch(function (err) { setStatus('Request failed: ' + err.message, 'error'); });
   }
 
   // ── Download ─────────────────────────────────────────────
@@ -1211,10 +1245,18 @@
         recordType: lineData.recordType
       };
 
+      span.setAttribute('tabindex', '0');
+      span.setAttribute('role', 'button');
       span.addEventListener('mouseenter', onCodaFieldHover);
       span.addEventListener('mousemove', onCodaFieldMove);
       span.addEventListener('mouseleave', onCodaFieldLeave);
       span.addEventListener('click', onCodaFieldClick);
+      span.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          onCodaFieldClick(ev);
+        }
+      });
 
       lineEl.appendChild(span);
       pos = field.start + field.length;

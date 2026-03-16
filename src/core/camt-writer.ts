@@ -33,10 +33,16 @@ function indent(xml: string, level: number): string {
 function balanceXml(bal: Balance, type: "OPBD" | "CLBD"): string {
   return [
     "<Bal>",
-    `  <Tp><CdOrPrtry><Cd>${type}</Cd></CdOrPrtry></Tp>`,
+    "  <Tp>",
+    "    <CdOrPrtry>",
+    `      ${tag("Cd", type)}`,
+    "    </CdOrPrtry>",
+    "  </Tp>",
     `  ${amountTag(bal.amount, "EUR")}`,
-    `  <CdtDbtInd>${esc(bal.creditDebit)}</CdtDbtInd>`,
-    `  <Dt><Dt>${esc(bal.date)}</Dt></Dt>`,
+    `  ${tag("CdtDbtInd", bal.creditDebit)}`,
+    "  <Dt>",
+    `    ${tag("Dt", bal.date)}`,
+    "  </Dt>",
     "</Bal>",
   ].join("\n");
 }
@@ -68,17 +74,23 @@ function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): 
     const agentElementName = creditDebit === "CRDT" ? "DbtrAgt" : "CdtrAgt";
 
     if (cp.name) {
-      lines.push(`  <${elementName}><Nm>${esc(cp.name)}</Nm></${elementName}>`);
+      lines.push(`  <${elementName}>`);
+      lines.push(`    ${tag("Nm", cp.name)}`);
+      lines.push(`  </${elementName}>`);
     }
     if (cp.iban) {
-      lines.push(
-        `  <${acctElementName}><Id><IBAN>${esc(cp.iban)}</IBAN></Id></${acctElementName}>`
-      );
+      lines.push(`  <${acctElementName}>`);
+      lines.push("    <Id>");
+      lines.push(`      ${tag("IBAN", cp.iban)}`);
+      lines.push("    </Id>");
+      lines.push(`  </${acctElementName}>`);
     }
     if (cp.bic) {
-      lines.push(
-        `  <${agentElementName}><FinInstnId><BIC>${esc(cp.bic)}</BIC></FinInstnId></${agentElementName}>`
-      );
+      lines.push(`  <${agentElementName}>`);
+      lines.push("    <FinInstnId>");
+      lines.push(`      ${tag("BIC", cp.bic)}`);
+      lines.push("    </FinInstnId>");
+      lines.push(`  </${agentElementName}>`);
     }
   }
 
@@ -90,9 +102,11 @@ function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): 
       riLines.push(`  ${tag("Ustrd", ri.unstructured)}`);
     }
     if (ri.structured?.creditorRef) {
-      riLines.push(
-        `  <Strd><CdtrRefInf><Ref>${esc(ri.structured.creditorRef)}</Ref></CdtrRefInf></Strd>`
-      );
+      riLines.push("  <Strd>");
+      riLines.push("    <CdtrRefInf>");
+      riLines.push(`      ${tag("Ref", ri.structured.creditorRef)}`);
+      riLines.push("    </CdtrRefInf>");
+      riLines.push("  </Strd>");
     }
     riLines.push("</RmtInf>");
     lines.push(...riLines.map((l) => "  " + l));
@@ -137,7 +151,9 @@ function entryXml(entry: CamtEntry): string {
       tcLines.push("  </Domn>");
     }
     if (tc.proprietary) {
-      tcLines.push(`  <Prtry>${tag("Cd", tc.proprietary)}</Prtry>`);
+      tcLines.push("  <Prtry>");
+      tcLines.push(`    ${tag("Cd", tc.proprietary)}`);
+      tcLines.push("  </Prtry>");
     }
     tcLines.push("</BkTxCd>");
     lines.push(...tcLines.map((l) => "  " + l));
@@ -185,17 +201,23 @@ export function statementToXml(stmt: CamtStatement, version?: string): string {
   if (acct.iban) {
     lines.push(`          ${tag("IBAN", acct.iban)}`);
   } else if (acct.otherId) {
-    lines.push(`          <Othr>${tag("Id", acct.otherId)}</Othr>`);
+    lines.push("          <Othr>");
+    lines.push(`            ${tag("Id", acct.otherId)}`);
+    lines.push("          </Othr>");
   }
   lines.push("        </Id>");
   lines.push(`        ${tag("Ccy", acct.currency)}`);
   if (acct.ownerName) {
-    lines.push(`        <Ownr>${tag("Nm", acct.ownerName)}</Ownr>`);
+    lines.push("        <Ownr>");
+    lines.push(`          ${tag("Nm", acct.ownerName)}`);
+    lines.push("        </Ownr>");
   }
   if (acct.bic) {
-    lines.push(
-      `        <Svcr><FinInstnId>${tag("BIC", acct.bic)}</FinInstnId></Svcr>`
-    );
+    lines.push("        <Svcr>");
+    lines.push("          <FinInstnId>");
+    lines.push(`            ${tag("BIC", acct.bic)}`);
+    lines.push("          </FinInstnId>");
+    lines.push("        </Svcr>");
   }
   lines.push("      </Acct>");
 

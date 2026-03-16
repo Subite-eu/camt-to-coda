@@ -8,8 +8,10 @@
     "camt2coda": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/web/index.html dist/web/index.html",
+    "build:web": "esbuild src/web/browser-entry.ts --bundle --format=iife --global-name=camt2coda --outfile=dist-web/camt2coda.js --minify --sourcemap --alias:fs=./src/web/fs-shim.ts --alias:crypto=./src/web/crypto-shim.ts && cp src/web/index.html dist-web/index.html",
     "dev": "tsx src/cli.ts",
+    "dev:web": "npm run build:web && npx -y serve dist-web",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
     "tsx": "^4.21.0",
     "typescript": "^5.7.0",
     "vitest": "^2.1.0",
