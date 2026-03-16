@@ -278,6 +278,17 @@
     .badge-ok     { background: #1a3a1a; color: var(--green); }
     .badge-error  { background: #3a1a1a; color: var(--red); }
     .badge-warn   { background: #3a2e1a; color: var(--yellow); }
+    .badge-clickable { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; }
+    .badge-clickable:hover { filter: brightness(1.2); }
+    .badge-details {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .badge-details-error { background: #3a1a1a; color: var(--red); }
+    .badge-details-warn  { background: #3a2e1a; color: var(--yellow); }
 
     /* ── CODA rendering ──────────────────────────────────────── */
     .coda-content {
@@ -1155,21 +1166,59 @@
 
     if (validation.errors && validation.errors.length > 0) {
       var errBadge = document.createElement('span');
-      errBadge.className = 'badge-item badge-error';
+      errBadge.className = 'badge-item badge-error badge-clickable';
       errBadge.textContent = validation.errors.length + ' error(s)';
-      errBadge.title = validation.errors.join('\n');
+      errBadge.setAttribute('tabindex', '0');
+      errBadge.setAttribute('role', 'button');
+      errBadge.setAttribute('aria-expanded', 'false');
       bar.appendChild(errBadge);
+
+      var errDetails = document.createElement('div');
+      errDetails.className = 'badge-details badge-details-error';
+      errDetails.style.display = 'none';
+      for (var ei = 0; ei < validation.errors.length; ei++) {
+        var errLine = document.createElement('div');
+        errLine.textContent = validation.errors[ei];
+        errDetails.appendChild(errLine);
+      }
+      bar.appendChild(errDetails);
+      errBadge.addEventListener('click', function () { toggleDetails(errBadge, errDetails); });
+      errBadge.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleDetails(errBadge, errDetails); }
+      });
     }
 
     if (validation.warnings && validation.warnings.length > 0) {
       var warnBadge = document.createElement('span');
-      warnBadge.className = 'badge-item badge-warn';
+      warnBadge.className = 'badge-item badge-warn badge-clickable';
       warnBadge.textContent = validation.warnings.length + ' warning(s)';
-      warnBadge.title = validation.warnings.join('\n');
+      warnBadge.setAttribute('tabindex', '0');
+      warnBadge.setAttribute('role', 'button');
+      warnBadge.setAttribute('aria-expanded', 'false');
       bar.appendChild(warnBadge);
+
+      var warnDetails = document.createElement('div');
+      warnDetails.className = 'badge-details badge-details-warn';
+      warnDetails.style.display = 'none';
+      for (var wi = 0; wi < validation.warnings.length; wi++) {
+        var warnLine = document.createElement('div');
+        warnLine.textContent = validation.warnings[wi];
+        warnDetails.appendChild(warnLine);
+      }
+      bar.appendChild(warnDetails);
+      warnBadge.addEventListener('click', function () { toggleDetails(warnBadge, warnDetails); });
+      warnBadge.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleDetails(warnBadge, warnDetails); }
+      });
     }
 
     container.appendChild(bar);
+  }
+
+  function toggleDetails(badge, details) {
+    var visible = details.style.display !== 'none';
+    details.style.display = visible ? 'none' : 'block';
+    badge.setAttribute('aria-expanded', visible ? 'false' : 'true');
   }
 
   // ── Render CODA panel with field spans ───────────────────

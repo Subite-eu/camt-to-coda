@@ -1,6 +1,4 @@
-import { getBelgiumHolidays } from "./belgium.js";
-import { getLithuaniaHolidays } from "./lithuania.js";
-import { getNetherlandsHolidays } from "./netherlands.js";
+import { getEeaHolidays } from "./eea.js";
 
 // ── Easter computation (Computus algorithm) ──────────────────────────────────
 // Ported from HolidaysFactory.java (originally from Wikipedia/Computus)
@@ -26,16 +24,7 @@ export function easterSunday(year: number): Date {
 // ── Holiday lookup by country ─────────────────────────────────────────────────
 
 function getHolidaysForYear(country: string, year: number): Set<string> {
-  switch (country.toUpperCase()) {
-    case "BE":
-      return getBelgiumHolidays(year);
-    case "LT":
-      return getLithuaniaHolidays(year);
-    case "NL":
-      return getNetherlandsHolidays(year);
-    default:
-      return new Set<string>();
-  }
+  return getEeaHolidays(country, year) ?? new Set<string>();
 }
 
 // ── Working day counter ───────────────────────────────────────────────────────
