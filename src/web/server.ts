@@ -127,11 +127,13 @@ async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise
       const result = statementToCoda(stmt);
       const codaValidation = validateCoda(result.lines);
 
-      const lines = doAnonymize ? anonymizeCodaLines(result.lines) : result.lines;
+      const rawLines: string[] = doAnonymize
+        ? anonymizeCodaLines(result.lines)
+        : result.lines.map((l) => l.raw);
 
       return {
         fileName: result.fileName,
-        lines,
+        lines: doAnonymize ? rawLines : result.lines,
         recordCount: result.recordCount,
         validation: {
           valid: camtValidation.valid && result.validation.valid && codaValidation.valid,

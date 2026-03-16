@@ -146,9 +146,9 @@ program
           }
 
           // Optionally anonymize
-          const lines = opts.anonymize
+          const lines: string[] = opts.anonymize
             ? anonymizeCodaLines(result.lines)
-            : result.lines;
+            : result.lines.map((l) => l.raw);
 
           const outPath = outputPath(inputFile, opts.output, result.fileName);
 
