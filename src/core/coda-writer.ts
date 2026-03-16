@@ -12,21 +12,18 @@ import { record32 } from "./records/record32.js";
 import { record33 } from "./records/record33.js";
 import { record8 } from "./records/record8.js";
 import { record9 } from "./records/record9.js";
+import type { CodaLine, AnnotatedCodaOutput } from "./field-defs/types.js";
 
 // Re-export individual record builders for external consumers
 export { record0, record1, record21, record22, record23, record31, record32, record33, record8, record9 };
 
+// Re-export AnnotatedCodaOutput as ConversionResult for backwards compatibility
+export type { AnnotatedCodaOutput as ConversionResult };
+
 // ── Main conversion ─────────────────────────────────────────────────────
 
-export interface ConversionResult {
-  fileName: string;
-  lines: string[];
-  recordCount: number;
-  validation: { valid: boolean; errors: string[] };
-}
-
-export function statementToCoda(stmt: CamtStatement): ConversionResult {
-  const lines: string[] = [];
+export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
+  const lines: CodaLine[] = [];
   const errors: string[] = [];
 
   // Compute sequence: use explicit sequence or fall back to working-day count
@@ -44,10 +41,10 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
       );
 
   // Record 0
-  lines.push(record0(stmt).raw);
+  lines.push(record0(stmt));
 
   // Record 1
-  lines.push(record1(stmt, sequence).raw);
+  lines.push(record1(stmt, sequence));
 
   // Records 2.x per entry
   let recordCount = 2; // rec1 + rec8
@@ -102,7 +99,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
         entryDate,
         hasMore: needRec22 || needRec23,
         needRecord3,
-      }).raw
+      })
     );
     recordCount++;
 
@@ -114,7 +111,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
           comm: comm.slice(53, 106),
           counterpartBic,
           hasMore: needRec23,
-        }).raw
+        })
       );
       recordCount++;
     }
@@ -129,7 +126,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
           currency: entry.currency,
           counterpartName,
           needRecord3,
-        }).raw
+        })
       );
       recordCount++;
     }
@@ -160,7 +157,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
             comm: txComm.slice(0, 73),
             entryDate,
             hasRecord32,
-          }).raw
+          })
         );
         recordCount++; // count ONE per detail
 
@@ -171,7 +168,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
               detailNum: d + 1,
               comm: txComm.slice(73, 178),
               hasRecord33,
-            }).raw
+            })
           );
         }
 
@@ -181,7 +178,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
               seqNum,
               detailNum: d + 1,
               comm: txComm.slice(178, 268),
-            }).raw
+            })
           );
         }
       }
@@ -189,16 +186,16 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
   }
 
   // Record 8
-  lines.push(record8(stmt, sequence).raw);
+  lines.push(record8(stmt, sequence));
 
   // Record 9
-  lines.push(record9({ recordCount, sumDebits, sumCredits }).raw);
+  lines.push(record9({ recordCount, sumDebits, sumCredits }));
 
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {
-    if (lines[i].length !== 128) {
+    if (lines[i].raw.length !== 128) {
       errors.push(
-        `Line ${i + 1} (record ${lines[i][0]}): ${lines[i].length} chars (expected 128)`
+        `Line ${i + 1} (record ${lines[i].raw[0]}): ${lines[i].raw.length} chars (expected 128)`
       );
     }
   }
@@ -212,7 +209,7 @@ export function statementToCoda(stmt: CamtStatement): ConversionResult {
     fileName,
     lines,
     recordCount,
-    validation: { valid: errors.length === 0, errors },
+    validation: { valid: errors.length === 0, errors, warnings: [] },
   };
 }
 
