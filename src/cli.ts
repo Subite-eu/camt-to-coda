@@ -302,4 +302,73 @@ program
     startServer(port);
   });
 
+// ── reverse ──────────────────────────────────────────────────────────────────
+
+program
+  .command("reverse")
+  .description("Convert CODA file(s) to CAMT XML format")
+  .requiredOption("-i, --input <path>", "Input CODA file or directory (local or s3://)")
+  .requiredOption("-o, --output <path>", "Output directory (local or s3://)")
+  .option("--camt-version <version>", "CAMT version to generate", "camt.053.001.08")
+  .option("--dry-run", "Validate and preview without writing files")
+  .option("--endpoint <url>", "S3 endpoint URL")
+  .option("--access-key <key>", "S3 access key")
+  .option("--secret-key <key>", "S3 secret key")
+  .action(async (opts) => {
+    const { codaToCamt } = await import("./core/reverse.js");
+    const storageOpts: StorageOptions = {
+      endpoint: opts.endpoint,
+      accessKey: opts.accessKey,
+      secretKey: opts.secretKey,
+    };
+    const inputStorage = makeStorage(opts.input, storageOpts);
+    const outputStorage = makeStorage(opts.output, storageOpts);
+
+    let inputFiles: string[];
+    try {
+      if (opts.input.endsWith(".cod") || opts.input.endsWith(".coda")) {
+        inputFiles = [opts.input];
+      } else {
+        inputFiles = await inputStorage.list(opts.input);
+      }
+    } catch {
+      inputFiles = [opts.input];
+    }
+
+    if (inputFiles.length === 0) {
+      console.error("No CODA files found at input path");
+      process.exit(1);
+    }
+
+    console.log(`Reverse-converting ${inputFiles.length} file(s)...`);
+    let allOk = true;
+
+    for (const inputFile of inputFiles) {
+      const name = isS3Path(inputFile) ? inputFile.split("/").pop()! : basename(inputFile);
+      try {
+        const content = await inputStorage.read(inputFile);
+        const result = codaToCamt(content, opts.camtVersion);
+
+        if (result.warnings.length > 0) {
+          result.warnings.forEach((w) => console.warn(`  WARN: ${w}`));
+        }
+
+        const outName = name.replace(/\.(cod|coda)$/i, ".xml");
+        const outPath = outputPath(inputFile, opts.output, outName);
+
+        if (opts.dryRun) {
+          console.log(`  [dry-run] ${name} → ${outName} (${result.statement.entries.length} entries)`);
+        } else {
+          await outputStorage.write(outPath, result.xml);
+          console.log(`  ${name} → ${outName} (${result.statement.entries.length} entries)`);
+        }
+      } catch (err) {
+        console.error(`  ERROR processing ${name}: ${(err as Error).message}`);
+        allOk = false;
+      }
+    }
+
+    process.exit(allOk ? 0 : 1);
+  });
+
 program.parse(process.argv);
