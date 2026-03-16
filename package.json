@@ -1,0 +1,36 @@
+{
+  "name": "camt2coda",
+  "version": "2.0.0",
+  "description": "CAMT to CODA bank statement converter",
+  "type": "module",
+  "main": "dist/cli.js",
+  "bin": {
+    "camt2coda": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["camt", "coda", "iso20022", "bank-statement", "converter"],
+  "author": "Subite",
+  "license": "MIT",
+  "dependencies": {
+    "fast-xml-parser": "^5.5.5",
+    "commander": "^13.1.0"
+  },
+  "optionalDependencies": {
+    "@aws-sdk/client-s3": "^3.750.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "fast-check": "^3.22.0"
+  }
+}

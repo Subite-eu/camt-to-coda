@@ -5,19 +5,31 @@
 ### Docker (recommended)
 
 ```bash
-docker pull ghcr.io/subite-eu/misc-camt-to-coda:main
+docker pull ghcr.io/subite-eu/camt-to-coda:main
+```
+
+### npm / npx
+
+```bash
+# Run without installing
+npx camt2coda --help
+
+# Install globally
+npm install -g camt2coda
 ```
 
 ### From Source
 
-Requires JDK 23+ and Maven.
+Requires **Node 22+** and npm.
 
 ```bash
-cd java/BankFileConverter
-mvn clean package -DskipTests
+git clone https://github.com/Subite-eu/camt-to-coda.git
+cd camt-to-coda
+npm install
+npm run build
+# The compiled CLI is at dist/cli.js
+node dist/cli.js --help
 ```
-
-The distribution ZIP is at `CamtToCoda/target/CamtToCoda-1.0.0.zip`.
 
 ## Usage
 
@@ -43,10 +55,20 @@ camt2coda convert -v 53 -i input/ -o output/ --dry-run
 ```
 
 Output shows:
-- Which XSLT would be used
-- Whether validation passes
+- Which CAMT version was detected
+- Whether pre-flight validation passes
 - How many output files would be created
 - Record counts per file
+
+### Anonymization
+
+Replace sensitive data in-line during conversion (IBANs, BICs, names, references replaced with deterministic fakes):
+
+```bash
+camt2coda convert -v 53 -i input/ -o output/ --anonymize
+```
+
+This is useful for generating test fixtures from real statements. The anonymization is deterministic: the same input always produces the same fake values, preserving referential integrity.
 
 ### Validation Only
 
@@ -58,7 +80,7 @@ camt2coda validate statement.xml
 
 Checks:
 - XML well-formedness
-- XSD schema compliance (if schema available)
+- XSD schema compliance
 - Account identifier present
 - Currency present
 - Opening/closing balances present
@@ -74,20 +96,20 @@ camt2coda info statement.xml
 
 Shows: CAMT version, account IBANs, currency, entry count, statement count, dates.
 
-### Anonymization
+### Web UI
 
-Replace sensitive data for safe sharing and testing:
+Start a local web server with a drag-and-drop interface:
 
 ```bash
-# Anonymize with default config
-camt2coda anonymize -i private/real-data/ -o examples/sanitized/
-
-# Anonymize with custom config
-camt2coda anonymize -i private/ -o examples/ --config my-config.yaml
-
-# Preview without writing
-camt2coda anonymize -i private/ -o examples/ --dry-run
+camt2coda serve
+# or with a custom port:
+camt2coda serve --port 8080
 ```
+
+Open `http://localhost:3000` in your browser. You can:
+- Drag and drop one or more CAMT files
+- Preview the converted CODA output inline
+- Download the result as a `.cod` file
 
 ### S3 Mode
 
@@ -102,29 +124,58 @@ camt2coda convert -v 53 \
   --secret-key mysecret
 ```
 
-### Docker Compose
+Using environment variables (suitable for Docker):
 
 ```bash
-cd java/BankFileConverter
-docker compose up java-run
+docker run --rm \
+  -e MODE=S3 \
+  -e VERSION=53 \
+  -e IN=camt-bucket \
+  -e OUT=coda-bucket \
+  -e EP=http://minio:9000 \
+  -e AK=mykey \
+  -e SK=mysecret \
+  ghcr.io/subite-eu/camt-to-coda:main
 ```
 
-Environment variables: `MODE`, `VERSION`, `IN`, `OUT`, `ARCHIVE`, `ERROR`, `EP`, `AK`, `SK`.
+### Docker Compose (local dev with MinIO)
+
+```bash
+docker compose up
+```
+
+This starts MinIO (S3-compatible) alongside the converter. See `docker-compose.yml` for the full configuration.
+
+## Environment Variables
+
+| Variable | Description | Default |
+|---|---|---|
+| `MODE` | `FS` (filesystem) or `S3` | `FS` |
+| `VERSION` | CAMT version (`52` or `53`) | Required |
+| `IN` | Input path or S3 bucket name | Required |
+| `OUT` | Output path or S3 bucket name | Required |
+| `ARCHIVE` | Archive path for processed files | `/tmp` |
+| `ERROR` | Error path for failed files | `/tmp` |
+| `EP` | S3 endpoint URL | AWS default |
+| `AK` | S3 access key | — |
+| `SK` | S3 secret key | — |
 
 ## Troubleshooting
 
-### "CAMT Namespace version not found"
+### "CAMT namespace version not found"
 
-The input XML doesn't contain a recognized CAMT namespace. Check that:
+The input XML does not contain a recognized CAMT namespace. Check that:
 - The file is valid XML
 - The `xmlns` attribute matches `urn:iso:std:iso:20022:tech:xsd:camt.0XX...`
 - The `-v` flag matches the file type (52 or 53)
 
-### "Invalid line length"
+### "Invalid line length: expected 128, got N"
 
-The XSLT produced a CODA line that isn't 128 characters. This usually indicates:
-- A field value that's longer than expected (truncation may be needed)
-- A missing field producing empty output
+A record builder produced a line that is not 128 characters wide. This usually means:
+- A field value is longer than the CODA field allows (the value is truncated to fit)
+- A required field is missing in the source CAMT file, leaving a field empty
+
+Run `camt2coda validate statement.xml` first to check for missing required fields.
 
 ### "BIC not found"
 
@@ -132,4 +183,20 @@ For CAMT 053, a BIC is required. Check that the file contains `Acct/Svcr/FinInst
 
 ### "Balances are inconsistent"
 
-The opening balance + sum of movements doesn't equal the closing balance. This is usually a data issue in the source CAMT file.
+The opening balance + sum of movements does not equal the closing balance. This is usually a data quality issue in the source CAMT file and is reported as a pre-flight warning, not a hard error.
+
+### S3 connection errors
+
+- Confirm `EP` (endpoint), `AK` (access key), and `SK` (secret key) are set correctly
+- For MinIO, make sure the MinIO service is running: `docker compose up minio`
+- Check that the input and output buckets exist in MinIO
+
+### Node version
+
+The converter requires **Node 22+**. Check your version:
+
+```bash
+node --version
+```
+
+If you are on an older version, use the Docker image which bundles the correct runtime.

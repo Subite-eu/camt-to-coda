@@ -26,10 +26,11 @@ Temporary Items
 .apdisk
 .vscode
 
-/**/.project
-/**/target/
-
 .claude/
 CLAUDE.md
 git-history-cleanup.md
 __pycache__/
+node_modules/
+dist/
+coverage/
+*.tgz
