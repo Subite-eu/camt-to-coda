@@ -77,10 +77,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
 
     // Determine which records are needed
     const detail = entry.details[0];
-    const counterpartBic =
-      (entry.creditDebit === "DBIT"
-        ? detail?.counterparty?.bic
-        : detail?.counterparty?.bic) || "";
+    const counterpartBic = detail?.counterparty?.bic || "";
     const counterpartIban = detail?.counterparty?.iban || "";
     const counterpartName = detail?.counterparty?.name || "";
 
