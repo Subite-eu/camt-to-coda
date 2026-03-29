@@ -36,8 +36,19 @@ export function reverseMapTransactionCode(codaCode: string): TransactionCode | u
 export function mapTransactionCode(
   domain?: string,
   family?: string,
-  subFamily?: string
+  subFamily?: string,
+  proprietary?: string,
+  proprietaryIssuer?: string,
 ): string {
+  // BBA proprietary code IS the CODA transaction code
+  if (proprietary && proprietaryIssuer === "BBA" && /^\d{8}$/.test(proprietary)) {
+    return proprietary;
+  }
+  // Also accept raw 8-digit proprietary without issuer when no domain
+  if (proprietary && !domain && /^\d{8}$/.test(proprietary)) {
+    return proprietary;
+  }
+
   if (!domain || !family) return "        ";
 
   // Check card payments first (wildcard SubFamily)

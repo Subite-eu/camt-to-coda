@@ -204,6 +204,7 @@ function parseEntry(ntry: any): CamtEntry {
           family: str(get(txCode, "Domn.Fmly.Cd")) || undefined,
           subFamily: str(get(txCode, "Domn.Fmly.SubFmlyCd")) || undefined,
           proprietary: str(get(txCode, "Prtry.Cd")) || undefined,
+          proprietaryIssuer: str(get(txCode, "Prtry.Issr")) || undefined,
         }
       : undefined,
     details: detailsArr.map(parseTxDetail),

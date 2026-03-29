@@ -148,6 +148,8 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
         // Use raw field to preserve spaces within the communication zone
         commZone1 = getRawField(line, "communication");
 
+        const mappedCode = reverseMapTransactionCode(transactionCode);
+
         currentEntry = {
           amount,
           currency: account.currency,
@@ -155,7 +157,9 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
           bookingDate: bookingDate || undefined,
           valueDate: valueDate || undefined,
           entryRef: bankReference || undefined,
-          transactionCode: reverseMapTransactionCode(transactionCode),
+          transactionCode: mappedCode ?? (transactionCode.trim().length > 0
+            ? { proprietary: transactionCode.trim(), proprietaryIssuer: "BBA" }
+            : undefined),
           details: [],
         };
 

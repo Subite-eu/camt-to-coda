@@ -517,6 +517,91 @@ describe("entry date fallback", () => {
   });
 });
 
+// ── BBA proprietary transaction code in Record 2.1 ──────────────────────
+
+describe("BBA proprietary transaction code", () => {
+  it("BBA proprietary code appears at positions 53-60 in Record 2.1", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          transactionCode: { proprietary: "01500001", proprietaryIssuer: "BBA" },
+          details: [{ remittanceInfo: { unstructured: "test" } }],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
+    expect(rec21).toBeDefined();
+    // Transaction code: 8 chars starting at offset 53 (0-indexed) = slice(53,61)
+    expect(rec21!.raw.slice(53, 61)).toBe("01500001");
+    expect(result.validation.valid).toBe(true);
+  });
+
+  it("BBA proprietary wins over domain/family/subFamily", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          transactionCode: {
+            domain: "PMNT",
+            family: "RCDT",
+            subFamily: "ESCT",
+            proprietary: "01500001",
+            proprietaryIssuer: "BBA",
+          },
+          details: [{ remittanceInfo: { unstructured: "test" } }],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
+    expect(rec21).toBeDefined();
+    // BBA wins: 01500001, not 04500001 (PMNT/RCDT/ESCT)
+    expect(rec21!.raw.slice(53, 61)).toBe("01500001");
+  });
+
+  it("non-8-digit proprietary falls back to domain mapping or blanks", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          transactionCode: {
+            domain: "PMNT",
+            family: "RCDT",
+            subFamily: "ESCT",
+            proprietary: "ATSISK",
+            proprietaryIssuer: "BBA",
+          },
+          details: [{ remittanceInfo: { unstructured: "test" } }],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
+    expect(rec21).toBeDefined();
+    // Falls back to domain mapping: PMNT/RCDT/ESCT → 04500001
+    expect(rec21!.raw.slice(53, 61)).toBe("04500001");
+    expect(result.validation.valid).toBe(true);
+  });
+
+  it("non-8-digit proprietary without domain produces blanks", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          transactionCode: {
+            proprietary: "ATSISK",
+            proprietaryIssuer: "BBA",
+          },
+          details: [{ remittanceInfo: { unstructured: "test" } }],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
+    expect(rec21).toBeDefined();
+    expect(rec21!.raw.slice(53, 61)).toBe("        ");
+    expect(result.validation.valid).toBe(true);
+  });
+});
+
 // ── Record 2.3 NOTPROVIDED txRefs in Record 3 ────────────────────────────
 
 describe("Record 3 with NOTPROVIDED refs uses empty comm", () => {
