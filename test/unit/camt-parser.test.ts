@@ -536,6 +536,50 @@ describe("sequence field parsing", () => {
   });
 });
 
+// ── Multiple Ustrd handling ──────────────────────────────────────────────
+
+describe("multiple Ustrd elements", () => {
+  const MULTI_USTRD_XML = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr><MsgId>MSG-MULTI-USTRD</MsgId><CreDtTm>2024-06-15T12:00:00Z</CreDtTm></GrpHdr>
+    <Stmt>
+      <Id>STMT-MULTI-USTRD</Id>
+      <Acct><Id><IBAN>BE68793230773034</IBAN></Id><Ccy>EUR</Ccy></Acct>
+      <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1100</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Ntry>
+        <Amt Ccy="EUR">100</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <BookgDt><Dt>2024-06-15</Dt></BookgDt>
+        <NtryDtls><TxDtls>
+          <Refs><EndToEndId>E2E-USTRD</EndToEndId></Refs>
+          <RmtInf>
+            <Ustrd>Line one of remittance</Ustrd>
+            <Ustrd>Line two of remittance</Ustrd>
+            <Ustrd>Line three</Ustrd>
+          </RmtInf>
+        </TxDtls></NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>`;
+
+  it("concatenates multiple Ustrd elements with space separator", () => {
+    const stmts = parseCamt(MULTI_USTRD_XML);
+    const detail = stmts[0].entries[0].details[0];
+    expect(detail.remittanceInfo?.unstructured).toBe(
+      "Line one of remittance Line two of remittance Line three"
+    );
+  });
+
+  it("still parses single Ustrd normally", () => {
+    const stmts = parseCamt(CAMT_053_MULTI_TXDTLS_XML);
+    const detail = stmts[0].entries[0].details[0];
+    expect(detail.remittanceInfo?.unstructured).toBe("Payment for invoice A");
+  });
+});
+
 // ── counterparty direction logic ─────────────────────────────────────────
 
 describe("counterparty direction-aware resolution", () => {

@@ -105,12 +105,15 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
 
     // Record 2.2
     if (needRec22) {
+      const endToEndId = detail?.refs?.endToEndId;
+      const customerRef = endToEndId && endToEndId !== "NOTPROVIDED" ? endToEndId : "";
       lines.push(
         record22({
           seqNum,
           comm: comm.slice(53, 106),
           counterpartBic,
           hasMore: needRec23,
+          customerRef,
         })
       );
       recordCount++;

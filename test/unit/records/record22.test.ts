@@ -53,6 +53,30 @@ describe("record22", () => {
     expect(r[127]).toBe("0");
   });
 
+  it("places customerRef at positions 63-97 (35 chars) when provided", () => {
+    const r = record22({ seqNum: "0001", comm: "", counterpartBic: "", hasMore: false, customerRef: "E2E-REF-12345" }).raw;
+    expect(r.slice(63, 98)).toHaveLength(35);
+    expect(r.slice(63, 98).trimEnd()).toBe("E2E-REF-12345");
+  });
+
+  it("positions 63-97 are blank when customerRef is not provided", () => {
+    const r = record22({ seqNum: "0001", comm: "", counterpartBic: "", hasMore: false }).raw;
+    expect(r.slice(63, 98)).toBe(" ".repeat(35));
+  });
+
+  it("positions 63-97 are blank when customerRef is empty string", () => {
+    const r = record22({ seqNum: "0001", comm: "", counterpartBic: "", hasMore: false, customerRef: "" }).raw;
+    expect(r.slice(63, 98)).toBe(" ".repeat(35));
+  });
+
+  it("truncates customerRef longer than 35 chars", () => {
+    const longRef = "A".repeat(40);
+    const r = record22({ seqNum: "0001", comm: "", counterpartBic: "", hasMore: false, customerRef: longRef }).raw;
+    expect(r.slice(63, 98)).toHaveLength(35);
+    // padRight will pad/truncate to 35
+    expect(r.slice(63, 98)).toBe("A".repeat(35));
+  });
+
   it("returns CodaLine with fields array", () => {
     const result = record22({ seqNum: "0001", comm: "", counterpartBic: "", hasMore: false });
     expect(result.recordType).toBe("2.2");
