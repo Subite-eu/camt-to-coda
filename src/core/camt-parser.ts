@@ -106,7 +106,7 @@ function parseStatement(stmt: any, grpHdr: any): CamtStatement {
     closingBalance: parseBalance(closeBal),
     entries: (stmt.Ntry || []).map(parseEntry),
     reportDate,
-    sequence: num(get(stmt, "LglSeqNb")) || num(get(stmt, "ElctrncSeqNb")) || undefined,
+    sequence: num(get(stmt, "ElctrncSeqNb")) || num(get(stmt, "LglSeqNb")) || undefined,
   };
 }
 
@@ -207,12 +207,12 @@ function parseEntry(ntry: any): CamtEntry {
           proprietaryIssuer: str(get(txCode, "Prtry.Issr")) || undefined,
         }
       : undefined,
-    details: detailsArr.map(parseTxDetail),
+    details: detailsArr.map((d) => parseTxDetail(d, str(ntry.CdtDbtInd) as "CRDT" | "DBIT")),
     batchCount: num(get(ntry, "NtryDtls.Btch.NbOfTxs")) || undefined,
   };
 }
 
-function parseTxDetail(tx: any): TransactionDetail {
+function parseTxDetail(tx: any, direction: "CRDT" | "DBIT"): TransactionDetail {
   const refs = tx.Refs;
   const cdtr = tx.RltdPties?.Cdtr;
   const dbtr = tx.RltdPties?.Dbtr;
@@ -220,6 +220,19 @@ function parseTxDetail(tx: any): TransactionDetail {
   const dbtrAcct = get(tx, "RltdPties.DbtrAcct.Id.IBAN");
   const cdtrBic = get(tx, "RltdAgts.CdtrAgt.FinInstnId.BIC") || get(tx, "RltdAgts.CdtrAgt.FinInstnId.BICFI");
   const dbtrBic = get(tx, "RltdAgts.DbtrAgt.FinInstnId.BIC") || get(tx, "RltdAgts.DbtrAgt.FinInstnId.BICFI");
+
+  // Counterparty depends on direction:
+  // DBIT (money left our account) → counterparty is Creditor (receiver)
+  // CRDT (money came in) → counterparty is Debtor (sender)
+  const counterpartyName = direction === "DBIT"
+    ? str(cdtr?.Nm || dbtr?.Nm)
+    : str(dbtr?.Nm || cdtr?.Nm);
+  const counterpartyIban = direction === "DBIT"
+    ? str(cdtrAcct || dbtrAcct)
+    : str(dbtrAcct || cdtrAcct);
+  const counterpartyBic = direction === "DBIT"
+    ? str(cdtrBic || dbtrBic)
+    : str(dbtrBic || cdtrBic);
 
   return {
     refs: refs
@@ -230,9 +243,9 @@ function parseTxDetail(tx: any): TransactionDetail {
         }
       : undefined,
     counterparty: {
-      name: str(cdtr?.Nm || dbtr?.Nm) || undefined,
-      iban: str(cdtrAcct || dbtrAcct) || undefined,
-      bic: str(cdtrBic || dbtrBic) || undefined,
+      name: counterpartyName || undefined,
+      iban: counterpartyIban || undefined,
+      bic: counterpartyBic || undefined,
     },
     remittanceInfo: {
       unstructured: str(get(tx, "RmtInf.Ustrd")) || undefined,

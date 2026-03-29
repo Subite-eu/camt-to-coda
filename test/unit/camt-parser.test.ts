@@ -515,4 +515,105 @@ describe("sequence field parsing", () => {
     const stmts = parseCamt(CAMT_053_PRCD_BAL_XML);
     expect(stmts[0].sequence).toBeUndefined();
   });
+
+  it("prefers ElctrncSeqNb over LglSeqNb when both present", () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr><MsgId>MSG-SEQ</MsgId><CreDtTm>2024-06-15T12:00:00Z</CreDtTm></GrpHdr>
+    <Stmt>
+      <Id>STMT-SEQ</Id>
+      <ElctrncSeqNb>44</ElctrncSeqNb>
+      <LglSeqNb>99</LglSeqNb>
+      <Acct><Id><IBAN>BE68793230773034</IBAN></Id><Ccy>EUR</Ccy></Acct>
+      <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">0</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">0</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>`;
+    const stmts = parseCamt(xml);
+    expect(stmts[0].sequence).toBe(44);
+  });
+});
+
+// ── counterparty direction logic ─────────────────────────────────────────
+
+describe("counterparty direction-aware resolution", () => {
+  it("CRDT entry with both Cdtr and Dbtr picks Debtor as counterparty", () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr><MsgId>MSG-DIR-CRDT</MsgId><CreDtTm>2024-06-15T12:00:00Z</CreDtTm></GrpHdr>
+    <Stmt>
+      <Id>STMT-DIR-CRDT</Id>
+      <Acct><Id><IBAN>BE68793230773034</IBAN></Id><Ccy>EUR</Ccy></Acct>
+      <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1500</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Ntry>
+        <Amt Ccy="EUR">500</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <BookgDt><Dt>2024-06-15</Dt></BookgDt>
+        <NtryDtls><TxDtls>
+          <Refs><EndToEndId>E2E-CRDT</EndToEndId></Refs>
+          <RltdPties>
+            <Dbtr><Nm>Sender Corp</Nm></Dbtr>
+            <DbtrAcct><Id><IBAN>DE89370400440532013000</IBAN></Id></DbtrAcct>
+            <Cdtr><Nm>Our Company</Nm></Cdtr>
+            <CdtrAcct><Id><IBAN>BE68793230773034</IBAN></Id></CdtrAcct>
+          </RltdPties>
+          <RltdAgts>
+            <DbtrAgt><FinInstnId><BICFI>COBADEFFXXX</BICFI></FinInstnId></DbtrAgt>
+            <CdtrAgt><FinInstnId><BICFI>BNAGBEBB</BICFI></FinInstnId></CdtrAgt>
+          </RltdAgts>
+        </TxDtls></NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>`;
+    const stmts = parseCamt(xml);
+    const detail = stmts[0].entries[0].details[0];
+    // CRDT → counterparty is Debtor (sender)
+    expect(detail.counterparty?.name).toBe("Sender Corp");
+    expect(detail.counterparty?.iban).toBe("DE89370400440532013000");
+    expect(detail.counterparty?.bic).toBe("COBADEFFXXX");
+  });
+
+  it("DBIT entry with both Cdtr and Dbtr picks Creditor as counterparty", () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr><MsgId>MSG-DIR-DBIT</MsgId><CreDtTm>2024-06-15T12:00:00Z</CreDtTm></GrpHdr>
+    <Stmt>
+      <Id>STMT-DIR-DBIT</Id>
+      <Acct><Id><IBAN>BE68793230773034</IBAN></Id><Ccy>EUR</Ccy></Acct>
+      <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">2000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1500</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Ntry>
+        <Amt Ccy="EUR">500</Amt>
+        <CdtDbtInd>DBIT</CdtDbtInd>
+        <BookgDt><Dt>2024-06-15</Dt></BookgDt>
+        <NtryDtls><TxDtls>
+          <Refs><EndToEndId>E2E-DBIT</EndToEndId></Refs>
+          <RltdPties>
+            <Dbtr><Nm>Our Company</Nm></Dbtr>
+            <DbtrAcct><Id><IBAN>BE68793230773034</IBAN></Id></DbtrAcct>
+            <Cdtr><Nm>Receiver Corp</Nm></Cdtr>
+            <CdtrAcct><Id><IBAN>NL91ABNA0417164300</IBAN></Id></CdtrAcct>
+          </RltdPties>
+          <RltdAgts>
+            <DbtrAgt><FinInstnId><BICFI>BNAGBEBB</BICFI></FinInstnId></DbtrAgt>
+            <CdtrAgt><FinInstnId><BICFI>ABNANL2AXXX</BICFI></FinInstnId></CdtrAgt>
+          </RltdAgts>
+        </TxDtls></NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>`;
+    const stmts = parseCamt(xml);
+    const detail = stmts[0].entries[0].details[0];
+    // DBIT → counterparty is Creditor (receiver)
+    expect(detail.counterparty?.name).toBe("Receiver Corp");
+    expect(detail.counterparty?.iban).toBe("NL91ABNA0417164300");
+    expect(detail.counterparty?.bic).toBe("ABNANL2AXXX");
+  });
 });
