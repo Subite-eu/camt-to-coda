@@ -93,6 +93,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
       record21({
         entry,
         seqNum,
+        sequence,
         comm,
         commType,
         txCode,
@@ -150,6 +151,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
         lines.push(
           record31({
             seqNum,
+            sequence,
             detailNum: d + 1,
             bankRef: txRefs,
             txCode,
