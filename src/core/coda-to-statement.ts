@@ -220,6 +220,12 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
             detail.remittanceInfo = { unstructured: communication31 };
           }
 
+          // Merge counterparty info from Record 2.x (held in currentDetail)
+          // into the first Record 3.1 detail
+          if (currentDetail?.counterparty && currentEntry.details.length === 0) {
+            detail.counterparty = currentDetail.counterparty;
+          }
+
           currentEntry.details.push(detail);
         }
         break;
