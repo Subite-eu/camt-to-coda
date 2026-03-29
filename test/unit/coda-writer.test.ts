@@ -476,6 +476,19 @@ describe("recordCount correctness", () => {
     );
     expect(result.recordCount).toBe(nonHeaderTrailer.length);
   });
+
+  it("recordCount includes record 3.2 and 3.3 lines (long batch communication)", () => {
+    const stmts = parseCamt(LONG_TXCOMM_XML);
+    const result = statementToCoda(stmts[0]);
+    const nonHeaderTrailer = result.lines.filter(
+      (l) => l.raw[0] !== "0" && l.raw[0] !== "9"
+    );
+    // Record 9 count must include 3.2 and 3.3 records
+    expect(result.recordCount).toBe(nonHeaderTrailer.length);
+    // Verify there actually are 3.2 lines so this test is meaningful
+    const rec32Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "2");
+    expect(rec32Lines.length).toBeGreaterThan(0);
+  });
 });
 
 // ── Debit entry summing ───────────────────────────────────────────────────
