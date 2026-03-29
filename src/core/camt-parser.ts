@@ -11,6 +11,7 @@ const xmlParser = new XMLParser({
   attributeNamePrefix: "@_",
   removeNSPrefix: true, // strips namespace prefixes — key simplification
   isArray: (name) => ["Stmt", "Rpt", "Ntry", "Bal", "TxDtls"].includes(name),
+  numberParseOptions: { leadingZeros: false, hex: false },
 });
 
 /** Safely navigate nested objects */
