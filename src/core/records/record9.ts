@@ -6,10 +6,11 @@ export interface Record9Params {
   recordCount: number;
   sumDebits: number;
   sumCredits: number;
+  lastFile?: string;
 }
 
 export function record9(p: Record9Params): CodaLine {
-  const { recordCount, sumDebits, sumCredits } = p;
+  const { recordCount, sumDebits, sumCredits, lastFile = "2" } = p;
 
   const values: Record<string, string> = {
     recordType: "9",
@@ -18,7 +19,7 @@ export function record9(p: Record9Params): CodaLine {
     sumDebits: formatBalance(sumDebits),
     sumCredits: formatBalance(sumCredits),
     blanks2: padRight("", 75),
-    lastFile: "2",
+    lastFile: lastFile,
   };
 
   const fields = RECORD9_FIELDS.map((def) => ({

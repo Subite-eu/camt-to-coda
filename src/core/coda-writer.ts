@@ -171,6 +171,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
               hasRecord33,
             })
           );
+          recordCount++;
         }
 
         if (hasRecord33) {
@@ -181,6 +182,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
               comm: txComm.slice(178, 268),
             })
           );
+          recordCount++;
         }
       }
     }

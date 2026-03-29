@@ -35,8 +35,14 @@ describe("record9", () => {
     expect(r.slice(52, 127)).toBe(" ".repeat(75));
   });
 
-  it("ends with '2' (last file code) at position 127", () => {
+  it("ends with '2' (last file code) at position 127 by default", () => {
     expect(record9({ recordCount: 7, sumDebits: 0, sumCredits: 1000 }).raw[127]).toBe("2");
+  });
+
+  it("uses lastFile parameter when provided", () => {
+    const r = record9({ recordCount: 7, sumDebits: 0, sumCredits: 1000, lastFile: "1" }).raw;
+    expect(r[127]).toBe("1");
+    expect(r).toHaveLength(128);
   });
 
   it("handles zero counts and amounts", () => {

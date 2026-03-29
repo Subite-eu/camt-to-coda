@@ -55,6 +55,39 @@ describe("record0", () => {
     expect(r.slice(60, 71)).toBe("           ");
   });
 
+  it("uses creationDate (not reportDate) for positions 5-10", () => {
+    const stmt = {
+      ...baseStmt,
+      creationDate: "2025-01-20T08:00:00Z",
+      reportDate: "2025-01-19T12:00:00Z",
+    };
+    const r = record0(stmt).raw;
+    // creationDate 2025-01-20 → DDMMYY = 200125
+    expect(r.slice(5, 11)).toBe("200125");
+    // NOT reportDate 2025-01-19 → 190125
+    expect(r.slice(5, 11)).not.toBe("190125");
+  });
+
+  it("places statementId in fileReference at positions 24-33", () => {
+    const stmt = { ...baseStmt, statementId: "STMT-001" };
+    const r = record0(stmt).raw;
+    // fileReference: padRight("STMT-001", 10) = "STMT-001  "
+    expect(r.slice(24, 34)).toBe("STMT-001  ");
+  });
+
+  it("falls back to messageId when statementId is empty", () => {
+    const stmt = { ...baseStmt, statementId: "", messageId: "MSG001" };
+    const r = record0(stmt).raw;
+    expect(r.slice(24, 34)).toBe("MSG001    ");
+  });
+
+  it("truncates long statementId to 10 chars", () => {
+    const stmt = { ...baseStmt, statementId: "ABCDEFGHIJKLMNOP" };
+    const r = record0(stmt).raw;
+    expect(r.slice(24, 34)).toBe("ABCDEFGHIJ");
+    expect(r).toHaveLength(128);
+  });
+
   it("returns CodaLine with fields array", () => {
     const result = record0(baseStmt);
     expect(result.recordType).toBe("0");
