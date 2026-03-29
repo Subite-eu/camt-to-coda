@@ -100,9 +100,10 @@ function buildRec21(opts: {
 function buildRec22(opts: {
   communication?: string;
   counterpartBic?: string;
+  customerRef?: string;
 } = {}): string {
   const communication = (opts.communication ?? "").padEnd(53);
-  const customerRef = " ".repeat(35);
+  const customerRef = (opts.customerRef ?? "").padEnd(35);
   const counterpartBic = (opts.counterpartBic ?? "").padEnd(11);
   return (
     "2" +                         // [0]     recordType
@@ -480,5 +481,31 @@ describe("codaToStatement", () => {
     ].join("\n");
     const result = codaToStatement(parseCoda(content));
     expect(result.entries[0].currency).toBe("GBP");
+  });
+
+  it("extracts customerRef from Record 2.2 as endToEndId", () => {
+    const content = [
+      buildRec0(),
+      buildRec1(),
+      buildRec21(),
+      buildRec22({ customerRef: "E2E-REF-123456" }),
+      buildRec8(),
+      buildRec9(),
+    ].join("\n");
+    const result = codaToStatement(parseCoda(content));
+    expect(result.entries).toHaveLength(1);
+    expect(result.entries[0].details[0].refs?.endToEndId).toBe("E2E-REF-123456");
+  });
+
+  it("stores bankReference as accountServicerRef from Record 2.1", () => {
+    const content = [
+      buildRec0(),
+      buildRec1(),
+      buildRec21({ bankReference: "BANKREF123456789012" }),
+      buildRec8(),
+      buildRec9(),
+    ].join("\n");
+    const result = codaToStatement(parseCoda(content));
+    expect(result.entries[0].accountServicerRef).toBe("BANKREF123456789012");
   });
 });
