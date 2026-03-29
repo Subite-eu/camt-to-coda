@@ -21,6 +21,7 @@ const baseEntry: CamtEntry = {
 const baseParams = {
   entry: baseEntry,
   seqNum: "0001",
+  sequence: "000",
   comm: "Invoice payment",
   commType: "0",
   txCode: "04500001",
@@ -130,5 +131,13 @@ describe("record21", () => {
     expect(result.recordType).toBe("2.1");
     expect(result.fields.length).toBeGreaterThan(0);
     expect(result.fields.reduce((sum, f) => sum + f.value.length, 0)).toBe(128);
+  });
+
+  it("places statementSequence from sequence param at positions 121-123", () => {
+    expect(record21({ ...baseParams, sequence: "044" }).raw.substring(121, 124)).toBe("044");
+  });
+
+  it("places default '000' when sequence is '000'", () => {
+    expect(record21({ ...baseParams, sequence: "000" }).raw.substring(121, 124)).toBe("000");
   });
 });

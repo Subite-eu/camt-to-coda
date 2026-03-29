@@ -4,6 +4,7 @@ import { record31 } from "../../../src/core/records/record31.js";
 describe("record31", () => {
   const baseParams = {
     seqNum: "0001",
+    sequence: "000",
     detailNum: 1,
     bankRef: "E2E-001/TX001",
     txCode: "04500001",
@@ -59,8 +60,12 @@ describe("record31", () => {
     expect(record31(baseParams).raw.slice(114, 120)).toBe("150624");
   });
 
-  it("places sequence '000' at positions 120-122", () => {
-    expect(record31(baseParams).raw.slice(120, 123)).toBe("000");
+  it("places sequence '000' at positions 120-122 when sequence is '000'", () => {
+    expect(record31({ ...baseParams, sequence: "000" }).raw.slice(120, 123)).toBe("000");
+  });
+
+  it("places computed sequence at positions 120-122", () => {
+    expect(record31({ ...baseParams, sequence: "044" }).raw.slice(120, 123)).toBe("044");
   });
 
   it("places globalisation code '0' at position 123", () => {

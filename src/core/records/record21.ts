@@ -6,6 +6,7 @@ import { RECORD21_FIELDS } from "../field-defs/record21-fields.js";
 export interface Record21Params {
   entry: CamtEntry;
   seqNum: string;
+  sequence: string;
   comm: string;
   commType: string;
   txCode: string;
@@ -15,7 +16,7 @@ export interface Record21Params {
 }
 
 export function record21(p: Record21Params): CodaLine {
-  const { entry, seqNum, comm, commType, txCode, entryDate, hasMore, needRecord3 } = p;
+  const { entry, seqNum, sequence, comm, commType, txCode, entryDate, hasMore, needRecord3 } = p;
 
   const valueDate = entry.valueDate
     ? formatDate(entry.valueDate)
@@ -44,7 +45,7 @@ export function record21(p: Record21Params): CodaLine {
     communicationType: commType,
     communication: padRight(comm.slice(0, 53), 53),
     entryDate,
-    statementSequence: "000",
+    statementSequence: sequence,
     globalisationCode: needRecord3 ? "1" : "0",
     nextCode: hasMore ? "1" : "0",
     blank: " ",
