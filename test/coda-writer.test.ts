@@ -106,8 +106,9 @@ describe("full conversion", () => {
     expect(result.lines[2].raw[0]).toBe("2"); // movement 2.1
     expect(result.lines[3].raw[0]).toBe("2"); // movement 2.2
     expect(result.lines[4].raw[0]).toBe("2"); // movement 2.3
-    expect(result.lines[5].raw[0]).toBe("8"); // closing balance
-    expect(result.lines[6].raw[0]).toBe("9"); // trailer
+    expect(result.lines[5].raw[0]).toBe("3"); // information 3.1 (always generated)
+    expect(result.lines[6].raw[0]).toBe("8"); // closing balance
+    expect(result.lines[7].raw[0]).toBe("9"); // trailer
   });
 
   it("maps transaction code correctly", () => {

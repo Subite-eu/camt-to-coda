@@ -450,7 +450,7 @@ describe("recordCount correctness", () => {
     expect(result.lines).toHaveLength(4);
   });
 
-  it("single entry with no extra records has recordCount 3 (rec1 + rec21 + rec8)", () => {
+  it("single entry with no extra records has recordCount 4 (rec1 + rec21 + rec31 + rec8)", () => {
     const stmt = makeStatement({
       entries: [
         makeEntry({
@@ -463,8 +463,8 @@ describe("recordCount correctness", () => {
       ],
     });
     const result = statementToCoda(stmt);
-    // rec1 + rec21 + rec8 = 3
-    expect(result.recordCount).toBe(3);
+    // rec1 + rec21 + rec31 + rec8 = 4 (Record 3.1 always generated)
+    expect(result.recordCount).toBe(4);
   });
 
   it("recordCount matches actual number of non-0/9 records", () => {
@@ -638,6 +638,144 @@ describe("Record 3 with NOTPROVIDED refs uses empty comm", () => {
     // Should produce record 3.1 lines and be valid
     const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
     expect(rec31Lines).toHaveLength(2);
+    expect(result.validation.valid).toBe(true);
+  });
+});
+
+// ── Record 3.x always generated (bank convention) ───────────────────────
+
+describe("Record 3.x always generated per bank convention", () => {
+  it("single-detail entry generates Record 3.1", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              remittanceInfo: { unstructured: "Invoice 2024-001" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
+    expect(rec31Lines).toHaveLength(1);
+    expect(result.validation.valid).toBe(true);
+  });
+
+  it("single-detail entry has Record 2.1 linkCode '1'", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              remittanceInfo: { unstructured: "Invoice 2024-001" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
+    expect(rec21).toBeDefined();
+    // linkCode at position 127 (0-indexed) should be "1" when Record 3 follows
+    expect(rec21!.raw[127]).toBe("1");
+  });
+
+  it("single-detail entry with Record 2.3 has linkCode '1'", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              counterparty: { name: "CORP A", iban: "BE91516952884376", bic: "BNAGBEBB" },
+              remittanceInfo: { unstructured: "Invoice 2024-001" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec23 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "3");
+    expect(rec23).toBeDefined();
+    // linkCode at position 127 should be "1" when Record 3 follows
+    expect(rec23!.raw[127]).toBe("1");
+  });
+
+  it("entry with no details generates Record 3.1 with empty communication", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({ details: [] }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec31Lines = result.lines.filter((l) => l.raw[0] === "3" && l.raw[1] === "1");
+    expect(rec31Lines).toHaveLength(1);
+    expect(result.validation.valid).toBe(true);
+  });
+
+  it("Record 3.1 communication contains remittance info for single-detail entry", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              remittanceInfo: { unstructured: "Payment for services" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec31 = result.lines.find((l) => l.raw[0] === "3" && l.raw[1] === "1");
+    expect(rec31).toBeDefined();
+    // communication field in record 3.1 should contain the remittance info
+    expect(rec31!.raw).toContain("Payment for services");
+  });
+
+  it("recordCount includes Record 3.1 for single-detail entries", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              remittanceInfo: { unstructured: "short" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const nonHeaderTrailer = result.lines.filter(
+      (l) => l.raw[0] !== "0" && l.raw[0] !== "9"
+    );
+    expect(result.recordCount).toBe(nonHeaderTrailer.length);
+  });
+
+  it("all output lines are 128 chars when Record 3.1 is always generated", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              remittanceInfo: { unstructured: "Invoice 2024-001" },
+            },
+          ],
+        }),
+        makeEntry({
+          details: [
+            {
+              refs: { endToEndId: "E2E-X" },
+            },
+          ],
+        }),
+        makeEntry({ details: [] }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    for (const line of result.lines) {
+      expect(line.raw).toHaveLength(128);
+    }
     expect(result.validation.valid).toBe(true);
   });
 });

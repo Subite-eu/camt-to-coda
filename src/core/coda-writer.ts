@@ -85,7 +85,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
 
     const needRec22 = comm.length > 53 || counterpartBic.length > 0;
     const needRec23 = comm.length > 106 || counterpartIban.length > 0;
-    const needRecord3 = entry.details.length > 1;
+    const needRecord3 = true;  // Always generate Record 3
 
     // Record 2.1
     lines.push(
@@ -131,59 +131,61 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
       recordCount++;
     }
 
-    // Records 3.x: batch detail entries (when entry has multiple TxDtls)
-    if (needRecord3) {
-      for (let d = 0; d < entry.details.length; d++) {
-        const detailEntry = entry.details[d];
-        const txRefs = [detailEntry.refs?.endToEndId, detailEntry.refs?.txId]
-          .filter((r) => r && r !== "NOTPROVIDED")
-          .join("/");
-        const txComm =
-          detailEntry.remittanceInfo?.unstructured &&
-          detailEntry.remittanceInfo.unstructured !== "NOTPROVIDED"
-            ? detailEntry.remittanceInfo.unstructured
-            : txRefs || "";
+    // Records 3.x: always generate information records
+    const detailsToEmit = entry.details.length > 0
+      ? entry.details
+      : [{}]; // empty detail fallback for entries with no details
 
-        const hasRecord32 = txComm.length > 73;
-        const hasRecord33 = txComm.length > 178;
+    for (let d = 0; d < detailsToEmit.length; d++) {
+      const detailEntry = detailsToEmit[d];
+      const txRefs = [detailEntry.refs?.endToEndId, detailEntry.refs?.txId]
+        .filter((r) => r && r !== "NOTPROVIDED")
+        .join("/");
+      const txComm =
+        detailEntry.remittanceInfo?.unstructured &&
+        detailEntry.remittanceInfo.unstructured !== "NOTPROVIDED"
+          ? detailEntry.remittanceInfo.unstructured
+          : txRefs || comm || "";
 
+      const hasRecord32 = txComm.length > 73;
+      const hasRecord33 = txComm.length > 178;
+
+      lines.push(
+        record31({
+          seqNum,
+          sequence,
+          detailNum: d + 1,
+          bankRef: entry.accountServicerRef || entry.entryRef || txRefs || "",
+          txCode,
+          commType: "0",
+          comm: txComm.slice(0, 73),
+          entryDate,
+          hasRecord32,
+        })
+      );
+      recordCount++;
+
+      if (hasRecord32) {
         lines.push(
-          record31({
+          record32({
             seqNum,
-            sequence,
             detailNum: d + 1,
-            bankRef: txRefs,
-            txCode,
-            commType: "0",
-            comm: txComm.slice(0, 73),
-            entryDate,
-            hasRecord32,
+            comm: txComm.slice(73, 178),
+            hasRecord33,
           })
         );
-        recordCount++; // count ONE per detail
+        recordCount++;
+      }
 
-        if (hasRecord32) {
-          lines.push(
-            record32({
-              seqNum,
-              detailNum: d + 1,
-              comm: txComm.slice(73, 178),
-              hasRecord33,
-            })
-          );
-          recordCount++;
-        }
-
-        if (hasRecord33) {
-          lines.push(
-            record33({
-              seqNum,
-              detailNum: d + 1,
-              comm: txComm.slice(178, 268),
-            })
-          );
-          recordCount++;
-        }
+      if (hasRecord33) {
+        lines.push(
+          record33({
+            seqNum,
+            detailNum: d + 1,
+            comm: txComm.slice(178, 268),
+          })
+        );
+        recordCount++;
       }
     }
   }
