@@ -140,4 +140,23 @@ describe("record21", () => {
   it("places default '000' when sequence is '000'", () => {
     expect(record21({ ...baseParams, sequence: "000" }).raw.substring(121, 124)).toBe("000");
   });
+
+  it("uses accountServicerRef for bank reference (positions 10-31)", () => {
+    const entry: CamtEntry = {
+      ...baseEntry,
+      accountServicerRef: "ACCTSVCRREF123",
+    };
+    const r = record21({ ...baseParams, entry }).raw;
+    expect(r.slice(10, 31)).toBe("ACCTSVCRREF123       ");
+  });
+
+  it("prefers accountServicerRef over entryRef for bank reference", () => {
+    const entry: CamtEntry = {
+      ...baseEntry,
+      accountServicerRef: "ACCTSVCRREF123",
+      entryRef: "ENTREF001",
+    };
+    const r = record21({ ...baseParams, entry }).raw;
+    expect(r.slice(10, 31).trimEnd()).toBe("ACCTSVCRREF123");
+  });
 });

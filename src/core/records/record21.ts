@@ -37,7 +37,7 @@ export function record21(p: Record21Params): CodaLine {
     articleNumber: "1",
     sequenceNumber: seqNum,
     detailNumber: "0000",
-    bankReference: padRight(refs || entry.entryRef || "", 21),
+    bankReference: padRight(entry.accountServicerRef || entry.entryRef || refs || "", 21),
     amountSign: movementSign(entry.creditDebit),
     amount: formatBalance(entry.amount),
     valueDate,
