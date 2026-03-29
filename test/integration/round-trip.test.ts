@@ -123,6 +123,35 @@ describe("round-trip: CAMT → CODA → CAMT", () => {
     expect(reconstructed.entries[2].creditDebit).toBe("CRDT");
   });
 
+  it("preserves accountServicerRef through round-trip", () => {
+    const stmt: CamtStatement = {
+      camtVersion: "053",
+      messageId: "ASR001",
+      creationDate: "2024-03-15",
+      statementId: "STMT-ASR",
+      account: { iban: "BE68539007547034", currency: "EUR", bic: "BBRUBEBB" },
+      openingBalance: { amount: 1000, creditDebit: "CRDT", date: "2024-03-15" },
+      closingBalance: { amount: 1500, creditDebit: "CRDT", date: "2024-03-15" },
+      entries: [{
+        amount: 500, currency: "EUR", creditDebit: "CRDT",
+        bookingDate: "2024-03-15", valueDate: "2024-03-15",
+        accountServicerRef: "SVCR-REF-00001",
+        details: [{
+          counterparty: { name: "SENDER CORP", iban: "BE91516952884376", bic: "SNDRBEBB" },
+          remittanceInfo: { unstructured: "Invoice 12345" },
+        }],
+      }],
+      reportDate: "2024-03-15",
+    };
+
+    const codaResult = statementToCoda(stmt);
+    const codaContent = codaResult.lines.map(l => l.raw).join("\n");
+    const reverseResult = codaToCamt(codaContent);
+    const reconstructed = reverseResult.statement;
+
+    expect(reconstructed.entries[0].accountServicerRef).toBe("SVCR-REF-00001");
+  });
+
   it("preserves debit entries through round-trip", () => {
     const stmt: CamtStatement = {
       camtVersion: "053",

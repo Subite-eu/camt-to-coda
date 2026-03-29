@@ -157,6 +157,7 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
           bookingDate: bookingDate || undefined,
           valueDate: valueDate || undefined,
           entryRef: bankReference || undefined,
+          accountServicerRef: bankReference || undefined,
           transactionCode: mappedCode ?? (transactionCode.trim().length > 0
             ? { proprietary: transactionCode.trim(), proprietaryIssuer: "BBA" }
             : undefined),
@@ -168,7 +169,7 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
       }
 
       case "2.2": {
-        // Continuation: communication zone 2, counterpart BIC
+        // Continuation: communication zone 2, counterpart BIC, customer ref
         commZone2 = getRawField(line, "communication");
         const counterpartBic = getField(line, "counterpartBic");
 
@@ -177,6 +178,12 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
             currentDetail.counterparty = {};
           }
           currentDetail.counterparty.bic = counterpartBic;
+        }
+
+        const customerRef = getField(line, "customerRef");
+        if (currentDetail && customerRef) {
+          if (!currentDetail.refs) currentDetail.refs = {};
+          currentDetail.refs.endToEndId = customerRef;
         }
         break;
       }
