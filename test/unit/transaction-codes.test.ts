@@ -30,6 +30,25 @@ describe("mapTransactionCode", () => {
     expect(mapTransactionCode(undefined, undefined, undefined)).toBe("        "));
   it("missing family → 8 spaces", () =>
     expect(mapTransactionCode("PMNT", undefined, undefined)).toBe("        "));
+
+  // BBA proprietary code tests
+  it("BBA proprietary 8-digit code used directly", () =>
+    expect(mapTransactionCode(undefined, undefined, undefined, "01500001", "BBA")).toBe("01500001"));
+
+  it("BBA proprietary wins over domain/family/subFamily mapping", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "01500001", "BBA")).toBe("01500001"));
+
+  it("raw 8-digit proprietary without issuer used when no domain", () =>
+    expect(mapTransactionCode(undefined, undefined, undefined, "01500001", undefined)).toBe("01500001"));
+
+  it("non-8-digit proprietary falls back to domain mapping", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "ATSISK", "BBA")).toBe("04500001"));
+
+  it("non-8-digit proprietary without domain → 8 spaces", () =>
+    expect(mapTransactionCode(undefined, undefined, undefined, "ATSISK", undefined)).toBe("        "));
+
+  it("raw 8-digit proprietary with domain still uses domain mapping", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "01500001", undefined)).toBe("04500001"));
 });
 
 describe("reverseMapTransactionCode", () => {

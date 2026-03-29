@@ -19,6 +19,7 @@ export interface TransactionCode {
   family?: string;
   subFamily?: string;
   proprietary?: string;
+  proprietaryIssuer?: string;  // "BBA", "ISO", etc.
 }
 
 export interface TransactionDetail {

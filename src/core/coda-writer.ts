@@ -67,7 +67,9 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
       ? mapTransactionCode(
           entry.transactionCode.domain,
           entry.transactionCode.family,
-          entry.transactionCode.subFamily
+          entry.transactionCode.subFamily,
+          entry.transactionCode.proprietary,
+          entry.transactionCode.proprietaryIssuer,
         )
       : "        ";
 
