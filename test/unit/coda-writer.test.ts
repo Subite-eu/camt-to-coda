@@ -779,3 +779,99 @@ describe("Record 3.x always generated per bank convention", () => {
     expect(result.validation.valid).toBe(true);
   });
 });
+
+// ── Record 2.2 customerRef from EndToEndId ───────────────────────────────
+
+describe("Record 2.2 customerRef populated from EndToEndId", () => {
+  it("EndToEndId flows from parser to Record 2.2 customerRef (positions 63-97)", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              refs: { endToEndId: "E2E-CUSTREF-001" },
+              counterparty: { bic: "BNAGBEBB" },
+              remittanceInfo: { unstructured: "Payment for goods" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec22 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "2");
+    expect(rec22).toBeDefined();
+    // customerRef at positions 63-97 (35 chars, 0-indexed)
+    expect(rec22!.raw.slice(63, 98).trimEnd()).toBe("E2E-CUSTREF-001");
+    expect(result.validation.valid).toBe(true);
+  });
+
+  it("Record 2.2 customerRef is blank when EndToEndId is NOTPROVIDED", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              refs: { endToEndId: "NOTPROVIDED" },
+              counterparty: { bic: "BNAGBEBB" },
+              remittanceInfo: { unstructured: "Payment" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec22 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "2");
+    expect(rec22).toBeDefined();
+    expect(rec22!.raw.slice(63, 98)).toBe(" ".repeat(35));
+  });
+
+  it("Record 2.2 customerRef is blank when no refs present", () => {
+    const stmt = makeStatement({
+      entries: [
+        makeEntry({
+          details: [
+            {
+              counterparty: { bic: "BNAGBEBB" },
+              remittanceInfo: { unstructured: "Payment without ref" },
+            },
+          ],
+        }),
+      ],
+    });
+    const result = statementToCoda(stmt);
+    const rec22 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "2");
+    expect(rec22).toBeDefined();
+    expect(rec22!.raw.slice(63, 98)).toBe(" ".repeat(35));
+  });
+
+  it("EndToEndId from XML flows end-to-end through parser and writer", () => {
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08">
+  <BkToCstmrStmt>
+    <GrpHdr><MsgId>MSG-E2E</MsgId><CreDtTm>2024-06-15T12:00:00Z</CreDtTm></GrpHdr>
+    <Stmt>
+      <Id>STMT-E2E</Id>
+      <Acct><Id><IBAN>BE68793230773034</IBAN></Id><Ccy>EUR</Ccy></Acct>
+      <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1500</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-06-15</Dt></Dt></Bal>
+      <Ntry>
+        <Amt Ccy="EUR">500</Amt>
+        <CdtDbtInd>CRDT</CdtDbtInd>
+        <BookgDt><Dt>2024-06-15</Dt></BookgDt>
+        <NtryDtls><TxDtls>
+          <Refs><EndToEndId>MY-E2E-REF-12345</EndToEndId></Refs>
+          <RltdAgts><CdtrAgt><FinInstnId><BICFI>KREDBEBB</BICFI></FinInstnId></CdtrAgt></RltdAgts>
+          <RmtInf><Ustrd>Invoice payment</Ustrd></RmtInf>
+        </TxDtls></NtryDtls>
+      </Ntry>
+    </Stmt>
+  </BkToCstmrStmt>
+</Document>`;
+    const stmts = parseCamt(xml);
+    const result = statementToCoda(stmts[0]);
+    const rec22 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "2");
+    expect(rec22).toBeDefined();
+    expect(rec22!.raw.slice(63, 98).trimEnd()).toBe("MY-E2E-REF-12345");
+    expect(result.validation.valid).toBe(true);
+  });
+});

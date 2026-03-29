@@ -7,10 +7,11 @@ export interface Record22Params {
   comm: string;
   counterpartBic: string;
   hasMore: boolean;
+  customerRef?: string;
 }
 
 export function record22(p: Record22Params): CodaLine {
-  const { seqNum, comm, counterpartBic, hasMore } = p;
+  const { seqNum, comm, counterpartBic, hasMore, customerRef } = p;
 
   const values: Record<string, string> = {
     recordType: "2",
@@ -18,7 +19,7 @@ export function record22(p: Record22Params): CodaLine {
     sequenceNumber: seqNum,
     detailNumber: "0000",
     communication: padRight(comm, 53),
-    customerRef: padRight("", 35),
+    customerRef: padRight(customerRef || "", 35),
     counterpartBic: padRight(counterpartBic, 11),
     blanks: padRight("", 3),
     rTransactionType: " ",

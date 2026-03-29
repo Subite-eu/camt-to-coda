@@ -248,7 +248,11 @@ function parseTxDetail(tx: any, direction: "CRDT" | "DBIT"): TransactionDetail {
       bic: counterpartyBic || undefined,
     },
     remittanceInfo: {
-      unstructured: str(get(tx, "RmtInf.Ustrd")) || undefined,
+      unstructured: (() => {
+        const ustrd = get(tx, "RmtInf.Ustrd");
+        if (Array.isArray(ustrd)) return ustrd.map(String).join(" ") || undefined;
+        return str(ustrd) || undefined;
+      })(),
       structured: get(tx, "RmtInf.Strd.CdtrRefInf.Ref")
         ? { creditorRef: str(get(tx, "RmtInf.Strd.CdtrRefInf.Ref")) }
         : undefined,
