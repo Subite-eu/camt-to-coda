@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { anonymizeCodaLines } from "../../src/anonymize/anonymizer.js";
+import { statementToCoda } from "../../src/core/coda-writer.js";
+import type { CamtStatement } from "../../src/core/model.js";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -214,13 +216,70 @@ describe("anonymizeCodaLines()", () => {
     expect(result[0]).toBe(short);
   });
 
-  it("preserves non-sensitive records (2.1, 3.x, 9) unchanged", () => {
-    const rec21 = makeLine("21");
-    const rec9  = makeLine("9");
-    const lines = [rec21, rec9];
-    const result = anonymizeCodaLines(lines);
-    expect(result[0]).toBe(rec21);
-    expect(result[1]).toBe(rec9);
+  it("leaves genuinely non-sensitive records (9) unchanged", () => {
+    const rec9 = makeLine("9");
+    expect(anonymizeCodaLines([rec9])[0]).toBe(rec9);
+  });
+});
+
+// ── Free-text / identifier leak prevention (regression for the PII leak) ───────
+
+describe("anonymizeCodaLines() — fail-closed free-text scrubbing", () => {
+  function lineWith(prefix: string, value: string, start: number): string {
+    const base = prefix.padEnd(start, " ") + value;
+    return base.padEnd(128, " ");
+  }
+
+  it("blanks the Record 0 addressee (35-60) and company number (72-82)", () => {
+    const line = lineWith("0", "", 0)
+      .split("")
+      .map((c, i) => (i >= 34 && i < 60 ? "X" : i >= 71 && i < 82 ? "9" : c))
+      .join("");
+    const [out] = anonymizeCodaLines([line]);
+    expect(out.slice(34, 60)).not.toContain("X"); // addressee scrubbed
+    expect(out.slice(71, 82).trim()).toBe(""); // company number blanked
+    expect(out).toHaveLength(128);
+  });
+
+  it("blanks the Record 2.1 communication zone (63-115) and bank reference (11-31)", () => {
+    const line = lineWith("21", "JOHN DOE KERKSTRAAT 12 9000 GENT INV 2024/0042", 62);
+    const ref = line.slice(0, 10) + "SECRETREF1234567890XX" + line.slice(31);
+    const [out] = anonymizeCodaLines([ref]);
+    expect(out.slice(62, 115).trim()).toBe("");
+    expect(out.slice(10, 31).trim()).toBe("");
+    expect(out).not.toContain("JOHN DOE");
+    expect(out).not.toContain("SECRETREF");
+  });
+
+  it("blanks the Record 2.2 communication (11-63) and customer reference (64-98)", () => {
+    const comm = lineWith("22", "MARIE DUBOIS RUE DE LA LOI 1", 10);
+    const withRef = comm.slice(0, 63) + "ENDTOENDID-MARIE-DUBOIS-001".padEnd(35) + comm.slice(98);
+    const [out] = anonymizeCodaLines([withRef]);
+    expect(out).not.toContain("MARIE DUBOIS");
+    expect(out).not.toContain("ENDTOENDID");
+  });
+
+  it("end-to-end: PII in remittance does NOT survive --anonymize (the original leak)", () => {
+    const stmt: CamtStatement = {
+      camtVersion: "053", messageId: "M", creationDate: "2024-03-15", statementId: "S",
+      account: { iban: "BE68539007547034", currency: "EUR", bic: "GEBABEBB", ownerName: "JAN JANSSEN" },
+      openingBalance: { amount: 1000, creditDebit: "CRDT", date: "2024-03-15" },
+      closingBalance: { amount: 1500, creditDebit: "CRDT", date: "2024-03-15" },
+      reportDate: "2024-03-15",
+      entries: [{
+        amount: 500, currency: "EUR", creditDebit: "CRDT", bookingDate: "2024-03-15", valueDate: "2024-03-15",
+        details: [{
+          counterparty: { name: "MARIE DUBOIS", iban: "BE91516952884376" },
+          remittanceInfo: { unstructured: "Payment MARIE DUBOIS Kerkstraat 12 9000 GENT inv 2024/0042 BE91516952884376" },
+        }],
+      }],
+    };
+    const text = anonymizeCodaLines(statementToCoda(stmt).lines).join("\n");
+    expect(text).not.toContain("JAN JANSSEN");
+    expect(text).not.toContain("MARIE DUBOIS");
+    expect(text).not.toContain("Kerkstraat 12 9000 GENT");
+    expect(text).not.toContain("BE91516952884376");
+    expect(text).not.toContain("inv 2024/0042");
   });
 
   it("preserves country code in anonymized IBAN (Record 1)", () => {
