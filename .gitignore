@@ -39,3 +39,6 @@ private-examples/
 **/private-examples/
 # macOS/sync duplication artifacts ("file 2.ext", "dir 3/")
 *[ ][0-9].*
+
+# Brainstorming visual companion
+.superpowers/
