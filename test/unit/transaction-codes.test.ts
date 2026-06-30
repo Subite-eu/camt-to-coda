@@ -1,29 +1,31 @@
 import { describe, it, expect } from "vitest";
-import { mapTransactionCode, reverseMapTransactionCode } from "../../src/core/transaction-codes.js";
+import { mapTransactionCode, reverseMapTransactionCode, describeCodaCode } from "../../src/core/transaction-codes.js";
 
+// Codes per CODA 2.6 §3 + Annexe II: type(1)+family(2)+transaction(2)+category(3).
+// Verified against a real Belgian .cod: incoming SEPA CT = 00150000, outgoing = 00101000.
 describe("mapTransactionCode", () => {
-  it("PMNT/RCDT/ESCT → 04500001 (incoming SEPA CT)", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ESCT")).toBe("04500001"));
-  it("PMNT/ICDT/ESCT → 13010001 (outgoing SEPA CT)", () =>
-    expect(mapTransactionCode("PMNT", "ICDT", "ESCT")).toBe("13010001"));
-  it("PMNT/ICDT/ISCT → 41010000 (outgoing international)", () =>
-    expect(mapTransactionCode("PMNT", "ICDT", "ISCT")).toBe("41010000"));
-  it("PMNT/RCDT/ISCT → 41500000 (incoming international)", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ISCT")).toBe("41500000"));
-  it("PMNT/IDDT/ESDD → 05010000 (SEPA DD out)", () =>
-    expect(mapTransactionCode("PMNT", "IDDT", "ESDD")).toBe("05010000"));
-  it("PMNT/RDDT/ESDD → 05500000 (SEPA DD in)", () =>
-    expect(mapTransactionCode("PMNT", "RDDT", "ESDD")).toBe("05500000"));
-  it("PMNT/RCDT/INST → 02500001 (instant in)", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "INST")).toBe("02500001"));
-  it("PMNT/ICDT/INST → 02010001 (instant out)", () =>
-    expect(mapTransactionCode("PMNT", "ICDT", "INST")).toBe("02010001"));
-  it("PMNT/CCRD/anything → 04370000 (card wildcard)", () =>
-    expect(mapTransactionCode("PMNT", "CCRD", "VISA")).toBe("04370000"));
-  it("CAMT/ACCB/INTR → 35010000 (interest)", () =>
-    expect(mapTransactionCode("CAMT", "ACCB", "INTR")).toBe("35010000"));
-  it("CAMT/ACCB/CHRG → 80370000 (charges)", () =>
-    expect(mapTransactionCode("CAMT", "ACCB", "CHRG")).toBe("80370000"));
+  it("PMNT/ICDT/ESCT → 00101000 (outgoing SEPA CT, fam 01 tx 01)", () =>
+    expect(mapTransactionCode("PMNT", "ICDT", "ESCT")).toBe("00101000"));
+  it("PMNT/RCDT/ESCT → 00150000 (incoming SEPA CT, fam 01 tx 50)", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT")).toBe("00150000"));
+  it("PMNT/ICDT/INST → 00201000 (instant out, fam 02 tx 01)", () =>
+    expect(mapTransactionCode("PMNT", "ICDT", "INST")).toBe("00201000"));
+  it("PMNT/RCDT/INST → 00250000 (instant in, fam 02 tx 50)", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "INST")).toBe("00250000"));
+  it("PMNT/IDDT/ESDD → 00501000 (SEPA DD paid, fam 05 tx 01)", () =>
+    expect(mapTransactionCode("PMNT", "IDDT", "ESDD")).toBe("00501000"));
+  it("PMNT/RDDT/ESDD → 00550000 (SEPA DD collected, fam 05 tx 50)", () =>
+    expect(mapTransactionCode("PMNT", "RDDT", "ESDD")).toBe("00550000"));
+  it("PMNT/ICDT/ISCT → 04101000 (international out, fam 41 tx 01)", () =>
+    expect(mapTransactionCode("PMNT", "ICDT", "ISCT")).toBe("04101000"));
+  it("PMNT/RCDT/ISCT → 04150000 (international in, fam 41 tx 50)", () =>
+    expect(mapTransactionCode("PMNT", "RCDT", "ISCT")).toBe("04150000"));
+  it("PMNT/CCRD/anything → 00402000 (card wildcard, fam 04 tx 02)", () =>
+    expect(mapTransactionCode("PMNT", "CCRD", "VISA")).toBe("00402000"));
+  it("CAMT/ACCB/INTR → 03550000 (interest, fam 35)", () =>
+    expect(mapTransactionCode("CAMT", "ACCB", "INTR")).toBe("03550000"));
+  it("CAMT/ACCB/CHRG → 03537000 (charges, fam 35 tx 37)", () =>
+    expect(mapTransactionCode("CAMT", "ACCB", "CHRG")).toBe("03537000"));
   it("unknown → 8 spaces", () =>
     expect(mapTransactionCode("XXXX", "YYYY", "ZZZZ")).toBe("        "));
   it("missing domain → 8 spaces", () =>
@@ -33,55 +35,55 @@ describe("mapTransactionCode", () => {
 
   // BBA proprietary code tests
   it("BBA proprietary 8-digit code used directly", () =>
-    expect(mapTransactionCode(undefined, undefined, undefined, "01500001", "BBA")).toBe("01500001"));
-
+    expect(mapTransactionCode(undefined, undefined, undefined, "00150000", "BBA")).toBe("00150000"));
   it("BBA proprietary wins over domain/family/subFamily mapping", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "01500001", "BBA")).toBe("01500001"));
-
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "00101000", "BBA")).toBe("00101000"));
   it("raw 8-digit proprietary without issuer used when no domain", () =>
-    expect(mapTransactionCode(undefined, undefined, undefined, "01500001", undefined)).toBe("01500001"));
-
+    expect(mapTransactionCode(undefined, undefined, undefined, "00150000", undefined)).toBe("00150000"));
   it("non-8-digit proprietary falls back to domain mapping", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "ATSISK", "BBA")).toBe("04500001"));
-
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "ATSISK", "BBA")).toBe("00150000"));
   it("non-8-digit proprietary without domain → 8 spaces", () =>
     expect(mapTransactionCode(undefined, undefined, undefined, "ATSISK", undefined)).toBe("        "));
-
   it("raw 8-digit proprietary with domain still uses domain mapping", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "01500001", undefined)).toBe("04500001"));
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT", "00150000", undefined)).toBe("00150000"));
 });
 
 describe("reverseMapTransactionCode", () => {
-  it("04500001 → PMNT/RCDT/ESCT", () => {
-    const result = reverseMapTransactionCode("04500001");
-    expect(result).toEqual({ domain: "PMNT", family: "RCDT", subFamily: "ESCT" });
-  });
-
-  it("13010001 → PMNT/ICDT/ESCT", () => {
-    const result = reverseMapTransactionCode("13010001");
-    expect(result).toEqual({ domain: "PMNT", family: "ICDT", subFamily: "ESCT" });
-  });
-
-  it("04370000 → PMNT/CCRD/OTHR (synthetic)", () => {
-    const result = reverseMapTransactionCode("04370000");
-    expect(result).toEqual({ domain: "PMNT", family: "CCRD", subFamily: "OTHR" });
-  });
-
-  it("unknown code → undefined", () => {
-    expect(reverseMapTransactionCode("99999999")).toBeUndefined();
-  });
-
-  it("8 spaces → undefined", () => {
-    expect(reverseMapTransactionCode("        ")).toBeUndefined();
-  });
-
+  it("00150000 → PMNT/RCDT/ESCT", () =>
+    expect(reverseMapTransactionCode("00150000")).toEqual({ domain: "PMNT", family: "RCDT", subFamily: "ESCT" }));
+  it("00101000 → PMNT/ICDT/ESCT", () =>
+    expect(reverseMapTransactionCode("00101000")).toEqual({ domain: "PMNT", family: "ICDT", subFamily: "ESCT" }));
+  it("00402000 → PMNT/CCRD/OTHR (synthetic)", () =>
+    expect(reverseMapTransactionCode("00402000")).toEqual({ domain: "PMNT", family: "CCRD", subFamily: "OTHR" }));
+  it("unknown code → undefined", () =>
+    expect(reverseMapTransactionCode("99999999")).toBeUndefined());
+  it("8 spaces → undefined", () =>
+    expect(reverseMapTransactionCode("        ")).toBeUndefined());
   it("all known codes round-trip", () => {
-    const codes = ["04500001", "13010001", "41010000", "41500000",
-                   "05010000", "05500000", "02500001", "02010001",
-                   "35010000", "80370000", "04370000"];
-    for (const code of codes) {
-      const result = reverseMapTransactionCode(code);
-      expect(result).toBeDefined();
-    }
+    const codes = ["00101000", "00150000", "00201000", "00250000", "00501000",
+                   "00550000", "04101000", "04150000", "03550000", "03537000", "00402000"];
+    for (const code of codes) expect(reverseMapTransactionCode(code)).toBeDefined();
+  });
+});
+
+describe("describeCodaCode", () => {
+  it("decodes a real incoming SEPA credit transfer code", () => {
+    const d = describeCodaCode("00150000");
+    expect(d).toMatchObject({
+      type: "0", family: "01", transaction: "50", category: "000",
+      familyName: "Domestic or local SEPA credit transfers",
+      categoryDescription: "Net amount",
+    });
+    expect(d?.transactionDescription).toMatch(/transfer in your favour/i);
+  });
+  it("decodes an outgoing SEPA credit transfer code", () => {
+    const d = describeCodaCode("00101000");
+    expect(d?.family).toBe("01");
+    expect(d?.transaction).toBe("01");
+    expect(d?.transactionDescription).toMatch(/individual transfer order/i);
+  });
+  it("returns undefined for non-numeric codes", () => {
+    expect(describeCodaCode("        ")).toBeUndefined();
+    expect(describeCodaCode("ABCD1234")).toBeUndefined();
   });
 });

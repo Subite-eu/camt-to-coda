@@ -71,7 +71,7 @@ function buildRec21(opts: {
   const amountSign = opts.amountSign ?? "0";
   const amount = (opts.amount ?? "000000000500000").padStart(15, "0");
   const valueDate = opts.valueDate ?? "150324";
-  const transactionCode = (opts.transactionCode ?? "04500001").padEnd(8);
+  const transactionCode = (opts.transactionCode ?? "00150000").padEnd(8);
   const communicationType = opts.communicationType ?? "0";
   const communication = (opts.communication ?? "").padEnd(53);
   const entryDate = opts.entryDate ?? "150324";
@@ -178,14 +178,14 @@ describe("codaToCamt", () => {
     expect(result.warnings).toHaveLength(1);
     expect(result.warnings[0]).toContain("99887766");
     expect(result.warnings[0]).toContain("Unknown transaction code");
-    expect(result.warnings[0]).toContain("BkTxCd omitted");
+    expect(result.warnings[0]).toContain("carried as BBA proprietary");
   });
 
   it("does not report warning for known transaction codes", () => {
     const content = [
       buildRec0(),
       buildRec1(),
-      buildRec21({ transactionCode: "04500001" }),
+      buildRec21({ transactionCode: "00150000" }),
       buildRec8(),
       buildRec9(),
     ].join("\n");

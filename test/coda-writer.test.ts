@@ -35,9 +35,9 @@ describe("padding", () => {
 
 describe("transaction codes", () => {
   it("maps SEPA credit transfer", () =>
-    expect(mapTransactionCode("PMNT", "RCDT", "ESCT")).toBe("04500001"));
+    expect(mapTransactionCode("PMNT", "RCDT", "ESCT")).toBe("00150000"));
   it("maps card payment (wildcard)", () =>
-    expect(mapTransactionCode("PMNT", "CCRD", "ANYTHING")).toBe("04370000"));
+    expect(mapTransactionCode("PMNT", "CCRD", "ANYTHING")).toBe("00402000"));
   it("returns spaces for unknown", () =>
     expect(mapTransactionCode("XXXX", "YYYY", "ZZZZ")).toBe("        "));
   it("returns spaces for missing", () =>
@@ -115,7 +115,7 @@ describe("full conversion", () => {
     const stmts = parseCamt(SAMPLE_053);
     const result = statementToCoda(stmts[0]);
     const rec21 = result.lines[2];
-    expect(rec21.raw.slice(53, 61)).toBe("04500001"); // PMNT/RCDT/ESCT
+    expect(rec21.raw.slice(53, 61)).toBe("00150000"); // PMNT/RCDT/ESCT
   });
 
   it("includes counterparty BIC in record 2.2", () => {

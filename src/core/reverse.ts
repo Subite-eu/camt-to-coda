@@ -4,7 +4,7 @@ import type { CamtStatement } from "./model.js";
 import { parseCoda } from "./coda-parser.js";
 import { codaToStatement } from "./coda-to-statement.js";
 import { statementToXml } from "./camt-writer.js";
-import { reverseMapTransactionCode } from "./transaction-codes.js";
+import { reverseMapTransactionCode, describeCodaCode } from "./transaction-codes.js";
 
 export interface ReverseConversionResult {
   xml: string;
@@ -22,9 +22,11 @@ export function codaToCamt(content: string, camtVersion?: string): ReverseConver
   for (const line of lines) {
     if (line.recordType === "2.1") {
       const txField = line.fields.find((f) => f.name === "transactionCode");
-      const code = txField?.value ?? "";
-      if (code.trim().length > 0 && !reverseMapTransactionCode(code)) {
-        warnings.push(`Unknown transaction code "${code.trim()}", BkTxCd omitted`);
+      const code = (txField?.value ?? "").trim();
+      if (code.length > 0 && !reverseMapTransactionCode(code)) {
+        const desc = describeCodaCode(code);
+        const fam = desc?.familyName ? ` (CODA family ${desc.family} "${desc.familyName}")` : "";
+        warnings.push(`Unknown transaction code "${code}"${fam}; carried as BBA proprietary BkTxCd`);
       }
     }
   }

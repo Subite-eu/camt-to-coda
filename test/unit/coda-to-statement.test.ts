@@ -72,7 +72,7 @@ function buildRec21(opts: {
   const amountSign = opts.amountSign ?? "0";
   const amount = (opts.amount ?? "000000000500000").padStart(15, "0");
   const valueDate = opts.valueDate ?? "150324";
-  const transactionCode = (opts.transactionCode ?? "04500001").padEnd(8);
+  const transactionCode = (opts.transactionCode ?? "00150000").padEnd(8);
   const communicationType = opts.communicationType ?? "0";
   const communication = (opts.communication ?? "").padEnd(53);
   const entryDate = opts.entryDate ?? "150324";
@@ -291,7 +291,7 @@ describe("codaToStatement", () => {
       buildRec21({
         amountSign: "0",
         amount: "000000000500000",
-        transactionCode: "04500001",
+        transactionCode: "00150000",
         valueDate: "150324",
         entryDate: "150324",
       }),
@@ -320,7 +320,7 @@ describe("codaToStatement", () => {
       buildRec21({
         amountSign: "1",
         amount: "000000000250000",
-        transactionCode: "13010001",
+        transactionCode: "00101000",
       }),
       buildRec8(),
       buildRec9(),

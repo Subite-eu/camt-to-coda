@@ -606,7 +606,7 @@ describe("BBA proprietary transaction code", () => {
     const result = statementToCoda(stmt);
     const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
     expect(rec21).toBeDefined();
-    // BBA wins: 01500001, not 04500001 (PMNT/RCDT/ESCT)
+    // BBA wins: 01500001, not 00150000 (PMNT/RCDT/ESCT)
     expect(rec21!.raw.slice(53, 61)).toBe("01500001");
   });
 
@@ -628,8 +628,8 @@ describe("BBA proprietary transaction code", () => {
     const result = statementToCoda(stmt);
     const rec21 = result.lines.find((l) => l.raw[0] === "2" && l.raw[1] === "1");
     expect(rec21).toBeDefined();
-    // Falls back to domain mapping: PMNT/RCDT/ESCT → 04500001
-    expect(rec21!.raw.slice(53, 61)).toBe("04500001");
+    // Falls back to domain mapping: PMNT/RCDT/ESCT → 00150000
+    expect(rec21!.raw.slice(53, 61)).toBe("00150000");
     expect(result.validation.valid).toBe(true);
   });
 
