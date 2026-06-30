@@ -10,6 +10,7 @@ import type {
   AccountInfo,
 } from "./model.js";
 import { reverseMapTransactionCode } from "./transaction-codes.js";
+import { fromMillis } from "./money.js";
 
 // ── Helpers ──────────────────────────────────────────────────────────────
 
@@ -33,11 +34,11 @@ function parseDate(ddmmyy: string): string {
 }
 
 function parseAmount(raw: string): number {
+  // The CODA amount field is 15 digits = integer thousandths (12 int + 3 dec).
   const trimmed = raw.replace(/\s/g, "");
   if (trimmed.length === 0) return 0;
-  const integer = parseInt(trimmed.slice(0, -3), 10) || 0;
-  const decimal = parseInt(trimmed.slice(-3), 10) || 0;
-  return integer + decimal / 1000;
+  const millis = parseInt(trimmed, 10);
+  return Number.isNaN(millis) ? 0 : fromMillis(millis);
 }
 
 function parseSign(sign: string): "CRDT" | "DBIT" {

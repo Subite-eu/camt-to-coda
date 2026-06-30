@@ -1,5 +1,7 @@
 // ── Formatting helpers ──────────────────────────────────────────────────
 
+import { toMillis, formatMillis } from "./money.js";
+
 export function padRight(s: string, len: number, char = " "): string {
   return s.slice(0, len).padEnd(len, char);
 }
@@ -9,9 +11,8 @@ export function padLeft(s: string, len: number, char = " "): string {
 }
 
 export function formatBalance(amount: number): string {
-  const abs = Math.abs(amount);
-  const [integer, decimals = "0"] = abs.toFixed(3).split(".");
-  return padLeft(integer, 12, "0") + padRight(decimals, 3, "0");
+  // 12 integer + 3 decimal digits, per CODA 2.6 Annexe I. See money.ts.
+  return formatMillis(toMillis(amount));
 }
 
 export function formatDate(dateStr: string): string {

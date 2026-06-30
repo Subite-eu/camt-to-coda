@@ -1,6 +1,7 @@
 import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
 import { padLeft, formatDate } from "./formatting.js";
+import { toMillis, fromMillis, addMillis } from "./money.js";
 import { workingDaysFromJan1 } from "../holidays/holidays.js";
 import { record0 } from "./records/record0.js";
 import { record1 } from "./records/record1.js";
@@ -42,16 +43,17 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
 
   // Records 2.x per entry
   let recordCount = 2; // rec1 + rec8
-  let sumDebits = 0;
-  let sumCredits = 0;
+  // Accumulate in integer thousandths so Record 9 totals are exact (no float drift).
+  let sumDebitsMillis = 0;
+  let sumCreditsMillis = 0;
 
   for (let i = 0; i < stmt.entries.length; i++) {
     const entry = stmt.entries[i];
     const seqNum = padLeft(String(i + 1), 4, "0");
 
     // Track sums
-    if (entry.creditDebit === "DBIT") sumDebits += entry.amount;
-    else sumCredits += entry.amount;
+    if (entry.creditDebit === "DBIT") sumDebitsMillis = addMillis(sumDebitsMillis, toMillis(entry.amount));
+    else sumCreditsMillis = addMillis(sumCreditsMillis, toMillis(entry.amount));
 
     // Resolve communication
     const { comm, commType } = resolveCommunication(entry);
@@ -191,7 +193,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
   lines.push(record8(stmt, sequence));
 
   // Record 9
-  lines.push(record9({ recordCount, sumDebits, sumCredits }));
+  lines.push(record9({ recordCount, sumDebits: fromMillis(sumDebitsMillis), sumCredits: fromMillis(sumCreditsMillis) }));
 
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {
