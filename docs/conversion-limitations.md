@@ -23,6 +23,8 @@ These CODA fields require data that is not present in standard CAMT 053 XML:
 
 The CODA sequence number (Record 1 pos 3-5, Record 8 pos 2-4) represents the bank's running counter for statements on that account. When `ElctrncSeqNb` is present in CAMT, it is used directly. Otherwise, a working-day count from January 1st is computed as an approximation -- this may not match the bank's actual counter.
 
+**Belgian working-day calendar.** The working-day count uses the statutory Belgian public holidays plus Good Friday, Easter Monday, Ascension, and Whit Monday. It does **not** model FEBELFIN's year-specific substitution/"bridge" days (e.g. the day after Ascension, or a weekday substitute when a fixed holiday falls on a weekend), because those are published per year rather than by a fixed rule. In years where such a substitution applies, the computed sequence may be off by one. The authoritative path remains `ElctrncSeqNb` from the CAMT file when present.
+
 ### Transaction Codes
 
 When the CAMT XML includes a BBA proprietary code (`BkTxCd/Prtry/Cd` with `Issr=BBA`), it is used directly as the 8-digit CODA transaction code. When only ISO Domain/Family/SubFamily codes are present, a mapping table is used. This table covers common SEPA transaction types but not all 150+ CODA transaction codes. Unmapped ISO codes produce blank transaction codes.

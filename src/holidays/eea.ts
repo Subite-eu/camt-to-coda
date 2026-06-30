@@ -73,7 +73,10 @@ const EEA_HOLIDAYS: Record<string, HolidayDef> = {
   },
   BE: { // Belgium
     fixed: ["01-01", "05-01", "07-21", "08-15", "11-01", "11-11", "12-25", "12-26"],
-    easterOffsets: [-2, 1, 39, 40, 50], // Good Fri, Easter Mon, Ascension, Ascension Fri, Whit Mon
+    // Good Fri, Easter Mon, Ascension, Whit Mon. The day after Ascension (Easter+40)
+    // is a year-specific FEBELFIN substitution day, NOT a fixed annual holiday, so
+    // it is not hard-coded here (see docs/conversion-limitations.md).
+    easterOffsets: [-2, 1, 39, 50],
   },
   BG: { // Bulgaria — uses Orthodox Easter
     fixed: ["01-01", "03-03", "05-01", "05-06", "05-24", "09-06", "09-22", "12-24", "12-25", "12-26"],

@@ -114,6 +114,15 @@ describe("workingDaysFromJan1", () => {
   it("IS: Jun 17 (National Day) is a holiday", () => {
     expect(getEeaHolidays("IS", 2024)!.has("2024-06-17")).toBe(true);
   });
+
+  it("BE: Ascension (Easter+39) is a holiday but the bridge Friday (Easter+40) is not", () => {
+    // 2024 Easter = Mar 31 → Ascension = May 9 (Thu), bridge Friday = May 10.
+    // The day after Ascension is a year-specific FEBELFIN substitution, not a
+    // fixed annual bank holiday, so it must not be hard-coded.
+    const h = getEeaHolidays("BE", 2024)!;
+    expect(h.has("2024-05-09")).toBe(true);
+    expect(h.has("2024-05-10")).toBe(false);
+  });
 });
 
 describe("orthodoxEasterSunday", () => {
