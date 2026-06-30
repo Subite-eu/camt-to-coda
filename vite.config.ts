@@ -11,6 +11,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": r("./src/web-app"),
+      "@src": r("./src"),
       "@core": r("./src/core"),
       "@web": r("./src/web"),
       // Reuse the existing browser shims so the in-browser core has no Node deps.
