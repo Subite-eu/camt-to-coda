@@ -2,6 +2,7 @@
 // Serializes a CamtStatement back into a CAMT 053 XML string.
 
 import type { CamtStatement, CamtEntry, Balance, TransactionDetail } from "./model.js";
+import { isOgmVcs } from "./ogm-vcs.js";
 
 const DEFAULT_VERSION = "camt.053.001.08";
 
@@ -102,9 +103,20 @@ function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): 
       riLines.push(`  ${tag("Ustrd", ri.unstructured)}`);
     }
     if (ri.structured?.creditorRef) {
+      // FEBELFIN AOS1: a creditor reference must carry Tp/CdOrPrtry/Cd=SCOR;
+      // the Belgian OGM-VCS (12-digit) additionally carries Issr=BBA.
+      const ref = ri.structured.creditorRef;
       riLines.push("  <Strd>");
       riLines.push("    <CdtrRefInf>");
-      riLines.push(`      ${tag("Ref", ri.structured.creditorRef)}`);
+      riLines.push("      <Tp>");
+      riLines.push("        <CdOrPrtry>");
+      riLines.push(`          ${tag("Cd", "SCOR")}`);
+      riLines.push("        </CdOrPrtry>");
+      if (isOgmVcs(ref)) {
+        riLines.push(`        ${tag("Issr", "BBA")}`);
+      }
+      riLines.push("      </Tp>");
+      riLines.push(`      ${tag("Ref", ref)}`);
       riLines.push("    </CdtrRefInf>");
       riLines.push("  </Strd>");
     }

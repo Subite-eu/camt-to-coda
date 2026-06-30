@@ -170,24 +170,31 @@ describe("statementToXml", () => {
     expect(xml).toContain("<Ustrd>Invoice payment</Ustrd>");
   });
 
-  it("includes structured remittance info", () => {
-    const stmtWithStrd: CamtStatement = {
+  function withCreditorRef(creditorRef: string): CamtStatement {
+    return {
       ...stmt,
       entries: [
         {
           ...stmt.entries[0],
-          details: [
-            {
-              remittanceInfo: {
-                structured: { creditorRef: "RF18539007547034" },
-              },
-            },
-          ],
+          details: [{ remittanceInfo: { structured: { creditorRef } } }],
         },
       ],
     };
-    const xml = statementToXml(stmtWithStrd);
+  }
+
+  it("includes structured remittance info with the AOS1 SCOR wrapper", () => {
+    // ISO 11649 RF reference: SCOR type, but NOT the Belgian BBA issuer
+    const xml = statementToXml(withCreditorRef("RF18539007547034"));
     expect(xml).toContain("<Ref>RF18539007547034</Ref>");
+    expect(xml).toContain("<Cd>SCOR</Cd>");
+    expect(xml).not.toContain("<Issr>BBA</Issr>");
+  });
+
+  it("marks a Belgian 12-digit OGM-VCS reference with Issr=BBA", () => {
+    const xml = statementToXml(withCreditorRef("010806817183"));
+    expect(xml).toContain("<Cd>SCOR</Cd>");
+    expect(xml).toContain("<Issr>BBA</Issr>");
+    expect(xml).toContain("<Ref>010806817183</Ref>");
   });
 
   it("includes end-to-end id in refs", () => {
