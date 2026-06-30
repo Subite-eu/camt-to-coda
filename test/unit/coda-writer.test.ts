@@ -293,6 +293,44 @@ describe("Record 3 emission for batch entries", () => {
     expect(result.validation.warnings).toEqual([]);
   });
 
+  describe("balance reconciliation (CODA 2.6: Record 8 == Record 1 + movements)", () => {
+    it("warns when opening + credits - debits != closing", () => {
+      const result = statementToCoda(makeStatement({
+        openingBalance: { amount: 1000, creditDebit: "CRDT", date: "2024-06-15" },
+        closingBalance: { amount: 1500, creditDebit: "CRDT", date: "2024-06-15" },
+        entries: [makeEntry({ amount: 100, creditDebit: "CRDT" })], // 1000+100=1100 != 1500
+      }));
+      expect(result.validation.warnings.some((w) => /balance/i.test(w))).toBe(true);
+    });
+
+    it("does not warn when balanced", () => {
+      const result = statementToCoda(makeStatement({
+        openingBalance: { amount: 1000, creditDebit: "CRDT", date: "2024-06-15" },
+        closingBalance: { amount: 1100, creditDebit: "CRDT", date: "2024-06-15" },
+        entries: [makeEntry({ amount: 100, creditDebit: "CRDT" })], // 1000+100=1100
+      }));
+      expect(result.validation.warnings.some((w) => /balance/i.test(w))).toBe(false);
+    });
+
+    it("reconciles debits correctly", () => {
+      const result = statementToCoda(makeStatement({
+        openingBalance: { amount: 5000, creditDebit: "CRDT", date: "2024-06-15" },
+        closingBalance: { amount: 4200, creditDebit: "CRDT", date: "2024-06-15" },
+        entries: [makeEntry({ amount: 800, creditDebit: "DBIT" })], // 5000-800=4200
+      }));
+      expect(result.validation.warnings.some((w) => /balance/i.test(w))).toBe(false);
+    });
+
+    it("reconciles exactly with fractional amounts (no float drift)", () => {
+      const result = statementToCoda(makeStatement({
+        openingBalance: { amount: 0, creditDebit: "CRDT", date: "2024-06-15" },
+        closingBalance: { amount: 1, creditDebit: "CRDT", date: "2024-06-15" },
+        entries: Array.from({ length: 10 }, () => makeEntry({ amount: 0.1, creditDebit: "CRDT" })), // 10*0.1 = 1.0
+      }));
+      expect(result.validation.warnings.some((w) => /balance/i.test(w))).toBe(false);
+    });
+  });
+
   it("emits exactly 2 record 3.1 lines for 2 TxDtls", () => {
     const stmts = parseCamt(MULTI_TXDTLS_XML);
     const result = statementToCoda(stmts[0]);

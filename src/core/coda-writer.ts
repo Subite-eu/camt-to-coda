@@ -195,6 +195,23 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
   // Record 9
   lines.push(record9({ recordCount, sumDebits: fromMillis(sumDebitsMillis), sumCredits: fromMillis(sumCreditsMillis) }));
 
+  const warnings: string[] = [];
+
+  // Reconcile: Record 8 closing balance must equal Record 1 opening + movements
+  // (CODA 2.6). Computed in integer thousandths so the check is exact.
+  const openSign = stmt.openingBalance.creditDebit === "CRDT" ? 1 : -1;
+  const closeSign = stmt.closingBalance.creditDebit === "CRDT" ? 1 : -1;
+  const openingMillis = openSign * toMillis(stmt.openingBalance.amount);
+  const closingMillis = closeSign * toMillis(stmt.closingBalance.amount);
+  const expectedClosingMillis = openingMillis + sumCreditsMillis - sumDebitsMillis;
+  if (expectedClosingMillis !== closingMillis) {
+    warnings.push(
+      `Balance mismatch: opening ${fromMillis(openingMillis)} + credits ${fromMillis(sumCreditsMillis)} ` +
+        `- debits ${fromMillis(sumDebitsMillis)} = ${fromMillis(expectedClosingMillis)}, ` +
+        `but closing balance is ${fromMillis(closingMillis)}`
+    );
+  }
+
   // Validate all lines are 128 chars
   for (let i = 0; i < lines.length; i++) {
     if (lines[i].raw.length !== 128) {
@@ -213,7 +230,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
     fileName,
     lines,
     recordCount,
-    validation: { valid: errors.length === 0, errors, warnings: [] },
+    validation: { valid: errors.length === 0, errors, warnings },
   };
 }
 
