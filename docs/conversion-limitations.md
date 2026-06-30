@@ -27,7 +27,9 @@ The CODA sequence number (Record 1 pos 3-5, Record 8 pos 2-4) represents the ban
 
 ### Transaction Codes
 
-When the CAMT XML includes a BBA proprietary code (`BkTxCd/Prtry/Cd` with `Issr=BBA`), it is used directly as the 8-digit CODA transaction code. When only ISO Domain/Family/SubFamily codes are present, a mapping table is used. This table covers common SEPA transaction types but not all 150+ CODA transaction codes. Unmapped ISO codes produce blank transaction codes.
+When the CAMT XML includes a BBA proprietary code (`BkTxCd/Prtry/Cd` with `Issr=BBA`), it is used directly as the 8-digit CODA transaction code. When only ISO Domain/Family/SubFamily codes are present, a mapping table is used (see `src/core/transaction-codes.ts`, derived from CODA 2.6 Annexe II and verified against a real `.cod`). This table covers common SEPA/direct-debit/international/card/interest cases; the full Annexe II reference is encoded in `src/core/coda-transaction-codes.ts`. Unmapped ISO codes produce blank transaction codes.
+
+**No `BkTxCd` at all.** Some real bank CAMT files carry no `BkTxCd` element; the bank assigns the CODA transaction code from its own systems. When the element is absent the converter cannot derive a code and leaves the CODA transaction-code field blank.
 
 ## CODA to CAMT: Fields that cannot be reconstructed
 
