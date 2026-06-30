@@ -94,8 +94,8 @@ An extra `txCodeType` byte at pos 32 shifts the 8-char transaction code and ever
 ## Record 3.2 / 3.3 — Information cont.  — ✅ aligned
 `record32-fields.ts` (comm 11–115, blank 116–125, next 126, link 128) and `record33-fields.ts` (comm 11–100, blank 101–125, next 126, link 128) match the spec.
 
-## Record 4 — Free communication  (`record4-fields.ts`) — ❌ header misaligned (latent)
-Spec: pos 2 blank, 3–6 sequence, 7–10 detail. Current: `detailNumber` 1/4 (pos 2–5), `sequenceNumber` 5/4 (pos 6–9). Text field (33–112) is correct. **Low impact: Record 4 is never generated** — flag, fix if it is ever emitted.
+## Record 4 — Free communication  (`record4-fields.ts`) — ✅ aligned (fixed)
+Header fields were misplaced (detailNumber at pos 2–5, sequence at 6–9); corrected to the spec (blank pos 2, sequence 3–6, detail 7–10). Record 4 is parse-only (never generated), so this was latent.
 
 ## Record 8 — New balance  (`record8-fields.ts`) — ✅ aligned
 seq 2–4, account+ccy 5–41, sign 42, balance 43–57 (12+3), date 58–63, blank 64–127, link 128. Matches spec; reconciled against Record 1 + movements (see coda-writer).
@@ -111,6 +111,6 @@ record count (1,2.x,3.x,8) 17–22, debit sum 23–37 (12+3), credit sum 38–52
 2. **⚠️ Statement sequence (Record 1 pos 3–5 vs 126–128).** Spec allows pos 3–5 to be zeros; the *incrementing* CODA file counter belongs in pos 126–128. The converter puts the working-day approximation in pos 3–5. Acceptable approximation, already noted in `conversion-limitations.md`; revisit if a bank rejects it.
 3. **✅ Transaction codes (corrected + expanded).** The forward ISO→CODA fallback codes were non-conformant (e.g. incoming SEPA CT was `04500001` → family 45, which doesn't exist; corrected to `00150000` = type 0/family 01/tx 50/cat 000, verified against a real `.cod`). All SEPA/DD/international/card codes corrected; interest/charges mapped to family 35 as documented approximations. Full Annexe II table encoded in `coda-transaction-codes.ts` (16 families, 314 transactions, ~95 categories) and exposed via `describeCodaCode()`. BBA proprietary passthrough remains the primary path.
 4. **✅ Record 2.2 slots (mapped).** R-transaction type (113) and ISO reason (114–117) now map to/from `Ntry/RvslInd` + `TxDtls/RtrInf/Rsn/Cd` per EPC173-14 (`src/core/sdd-reason-codes.ts`); type = Reversal→4, else a booked return→2. Purpose (122–125) maps to/from `TxDtls/Purp/Cd`. **CategoryPurpose (118–121)** is parsed on the forward path but has **no camt.053 element** to reconstruct into, so it is not round-tripped (documented).
-5. **❌ Record 4 header (LOW, latent).** Misaligned but never generated.
+5. **✅ Record 4 header — fixed.** Was misaligned (latent, never generated); positions corrected to the spec.
 
 Records 0, 1, 2.1, 2.2, 2.3, 3.2, 3.3, 8, 9 field positions are spec-correct.
