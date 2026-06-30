@@ -240,13 +240,16 @@ export function resolveCommunication(entry: CamtEntry): {
 } {
   const detail = entry.details[0];
 
-  // Structured communication takes priority
+  // Structured communication takes priority.
+  // CODA structured type "101" is the Belgian OGM-VCS (12 numeric digits).
+  // Non-numeric references (e.g. ISO 11649 "RF...") are not OGM-VCS, so they
+  // are carried as free communication rather than mislabelled as type 101.
   if (detail?.remittanceInfo?.structured?.creditorRef) {
     const ref = detail.remittanceInfo.structured.creditorRef;
-    return {
-      comm: "101" + padLeft(ref, 12, "0"),
-      commType: "1",
-    };
+    if (/^\d{1,12}$/.test(ref)) {
+      return { comm: "101" + padLeft(ref, 12, "0"), commType: "1" };
+    }
+    return { comm: ref, commType: "0" };
   }
 
   // Unstructured remittance
