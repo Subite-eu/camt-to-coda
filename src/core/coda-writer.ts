@@ -152,13 +152,11 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
       lines.push(
         record31({
           seqNum,
-          sequence,
           detailNum: d + 1,
           bankRef: entry.accountServicerRef || entry.entryRef || txRefs || "",
           txCode,
           commType: "0",
           comm: txComm.slice(0, 73),
-          entryDate,
           hasRecord32,
         })
       );

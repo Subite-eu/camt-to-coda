@@ -4,18 +4,16 @@ import { RECORD31_FIELDS } from "../field-defs/record31-fields.js";
 
 export interface Record31Params {
   seqNum: string;
-  sequence: string;
   detailNum: number;
   bankRef: string;
   txCode: string;
   commType: string;
   comm: string;
-  entryDate: string;
   hasRecord32: boolean;
 }
 
 export function record31(p: Record31Params): CodaLine {
-  const { seqNum, sequence, detailNum, bankRef, txCode, commType, comm, entryDate, hasRecord32 } = p;
+  const { seqNum, detailNum, bankRef, txCode, commType, comm, hasRecord32 } = p;
 
   const values: Record<string, string> = {
     recordType: "3",
@@ -23,17 +21,13 @@ export function record31(p: Record31Params): CodaLine {
     sequenceNumber: seqNum,
     detailNumber: padLeft(String(detailNum), 4, "0"),
     bankReference: padRight(bankRef, 21),
-    txCodeType: "1",
     transactionCode: padRight(txCode, 8),
     communicationType: commType,
     communication: padRight(comm.slice(0, 73), 73),
-    entryDate,
-    sequence: p.sequence,
-    globalisationCode: "0",
+    blanks: padRight("", 12),
     nextCode: hasRecord32 ? "1" : "0",
-    blank1: " ",
+    blank: " ",
     linkCode: "0",
-    padding: " ",
   };
 
   const fields = RECORD31_FIELDS.map((def) => ({
