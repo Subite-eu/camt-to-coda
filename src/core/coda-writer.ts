@@ -14,12 +14,6 @@ import { record8 } from "./records/record8.js";
 import { record9 } from "./records/record9.js";
 import type { CodaLine, AnnotatedCodaOutput } from "./field-defs/types.js";
 
-// Re-export individual record builders for external consumers
-export { record0, record1, record21, record22, record23, record31, record32, record33, record8, record9 };
-
-// Re-export AnnotatedCodaOutput as ConversionResult for backwards compatibility
-export type { AnnotatedCodaOutput as ConversionResult };
-
 // ── Main conversion ─────────────────────────────────────────────────────
 
 export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {

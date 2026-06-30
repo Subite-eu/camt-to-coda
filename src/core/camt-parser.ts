@@ -2,7 +2,7 @@ import { XMLParser } from "fast-xml-parser";
 import { readFileSync } from "fs";
 import type { CamtStatement, CamtEntry, TransactionDetail } from "./model.js";
 
-export type { CamtStatement, CamtEntry, TransactionDetail };
+export type { CamtStatement };
 
 // ── Parser ──────────────────────────────────────────────────────────────
 
