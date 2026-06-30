@@ -2,116 +2,100 @@
 
 ## Design Philosophy
 
-The converter is built around **pure functions** and **data transformation**. Each CODA record type is produced by an isolated function that takes a typed model and returns a fixed-width 128-character string. There are no global state, class hierarchies, or XSLT templates.
+The converter is built around **pure functions** and **data transformation**. A version-independent `CamtStatement` model sits at the centre; both conversion directions pivot through it. Each CODA record type is produced by an isolated function that takes typed data and returns a fixed-width 128-character string. There is no global state, no class hierarchy, and no XSLT.
 
 ## Pipeline Overview
 
 ```
-CAMT XML → Parser → CamtStatement model → Record Builders → CODA lines → Output
+Forward:  CAMT XML → camt-parser → CamtStatement → coda-writer (record builders) → CODA lines
+Reverse:  CODA text → coda-parser → CodaLine[] → coda-to-statement → CamtStatement → camt-writer → CAMT XML
 ```
 
-1. **Parse** — `fast-xml-parser` reads the XML into a raw JS object; a parser function maps it to a `CamtStatement` typed model
-2. **Detect** — Namespace regex identifies the CAMT message type (e.g., `camt.053.001.08`)
-3. **Convert** — The orchestrator calls each record builder in sequence
-4. **Validate** — Post-conversion: every line must be exactly 128 characters
-5. **Store** — The storage abstraction writes the output file (filesystem or S3)
+1. **Parse** — `fast-xml-parser` reads CAMT XML into a raw object; `camt-parser.ts` maps it to a `CamtStatement`.
+2. **Detect** — a namespace regex identifies the CAMT message type (e.g. `camt.053.001.08`).
+3. **Convert** — `coda-writer.ts` orchestrates the per-record builders in sequence.
+4. **Validate** — every output line must be exactly 128 characters.
+5. **Store** — the storage abstraction writes the `.cod` file (filesystem or S3).
 
-## Module Diagram
+The reverse direction mirrors this: `coda-parser.ts` slices fixed-width fields, `coda-to-statement.ts` rebuilds the model, and `camt-writer.ts` serialises CAMT 053 XML.
+
+## Module Map (actual files)
 
 ```
 src/
-├── cli.ts                    Commander CLI (subcommands: convert, validate, info, serve)
+├── cli.ts                         Commander CLI (convert, reverse, validate, info, serve, anonymize)
 │
 ├── core/
-│   ├── model.ts              Shared TypeScript types (CamtStatement, CamtEntry, ...)
-│   ├── parser.ts             CAMT XML → CamtStatement
-│   ├── converter.ts          Orchestrator: calls builders, collects lines
-│   └── records/
-│       ├── record0.ts        Header
-│       ├── record1.ts        Opening balance
-│       ├── record21.ts       Movement
-│       ├── record22.ts       Counterparty BIC
-│       ├── record23.ts       Counterparty account/name
-│       ├── record3.ts        Information records (3.1, 3.2, 3.3)
-│       ├── record8.ts        Closing balance
-│       └── record9.ts        Trailer
+│   ├── model.ts                   Shared types (CamtStatement, CamtEntry, TransactionDetail, ...)
+│   ├── camt-parser.ts             CAMT XML → CamtStatement
+│   ├── coda-writer.ts             CamtStatement → CODA lines (orchestrator + resolveCommunication)
+│   ├── coda-parser.ts             CODA text → CodaLine[] (fixed-width slicing)
+│   ├── coda-to-statement.ts       CodaLine[] → CamtStatement
+│   ├── camt-writer.ts             CamtStatement → CAMT 053 XML
+│   ├── reverse.ts                 CODA → CAMT pipeline wrapper (+ warnings)
+│   ├── transaction-codes.ts       ISO Domain/Family/SubFamily ↔ 8-char CODA code
+│   ├── formatting.ts              padLeft/padRight, date, balance, sign helpers
+│   ├── field-defs/               Fixed-width field tables per record (record{0,1,21,22,23,31,32,33,4,8,9}-fields.ts)
+│   │   ├── types.ts               FieldDef, CodaField, CodaLine, AnnotatedCodaOutput
+│   │   ├── extract.ts             Slice a line into fields from a FieldDef table
+│   │   └── index.ts               Barrel re-export
+│   └── records/                   Record builders (record{0,1,21,22,23,31,32,33,8,9}.ts)
 │
 ├── holidays/
-│   └── calculator.ts         Working-day sequence numbers (BE/LT/NL holiday calendars)
+│   ├── holidays.ts                workingDaysFromJan1 (statement-sequence approximation)
+│   ├── eea.ts                     All 30 EEA country holiday calendars (single source of truth)
+│   └── orthodox-easter.ts         Orthodox computus for GR/BG/RO/CY
 │
 ├── validation/
-│   ├── preflight.ts          CAMT pre-flight checks (schema, business rules)
-│   └── postflight.ts         CODA line-length validation
+│   ├── camt-validator.ts          CAMT business-rule checks
+│   ├── coda-validator.ts          CODA line-length + structure checks
+│   └── result.ts                  ValidationResult type
 │
 ├── storage/
-│   ├── storage.ts            Storage interface
-│   ├── fs.ts                 Filesystem implementation
-│   └── s3.ts                 S3/MinIO implementation
+│   ├── storage.ts                 Storage interface
+│   ├── fs-storage.ts              Filesystem implementation
+│   └── s3-storage.ts              S3/MinIO implementation (@aws-sdk/client-s3, optional dep)
 │
 ├── anonymize/
-│   ├── anonymizer.ts         CAMT anonymization engine
-│   └── generators.ts         Deterministic fake data generators (IBAN, BIC, names)
+│   └── anonymizer.ts              Deterministic CAMT anonymisation (SHA-256 derived fake data)
 │
 └── web/
-    ├── server.ts             HTTP server for the web UI
-    └── index.html            Drag-drop interface
+    ├── server.ts                  Node HTTP server for the web UI
+    ├── browser-entry.ts           Browser bundle entry (esbuild, IIFE)
+    ├── fs-shim.ts / crypto-shim.ts  Browser shims injected via esbuild --alias in build:web
+    └── index.html                 Drag-drop interface
 ```
 
 ## Record Builders
 
-Each record builder is a pure function with the signature:
+Each builder is a pure function returning exactly 128 characters, driven by a `field-defs` table so positions live in one place:
 
 ```typescript
-function buildRecord0(stmt: CamtStatement): string   // returns exactly 128 chars
-function buildRecord1(stmt: CamtStatement): string
-function buildRecord21(entry: CamtEntry, seq: number): string
+record0(stmt): CodaLine
+record1(stmt, sequence): CodaLine
+record21({ entry, seqNum, sequence, comm, ... }): CodaLine
 // ...
 ```
 
-This makes every record independently testable without mocking a conversion pipeline.
+This makes every record independently testable without mocking the pipeline (see `test/unit/records/`).
 
 ## Storage Abstraction
 
 ```
-StorageProvider interface
-├── FsStorage    (reads from / writes to local filesystem)
-└── S3Storage    (reads from / writes to S3-compatible bucket; uses @aws-sdk/client-s3)
+Storage interface
+├── FsStorage    (local filesystem)
+└── S3Storage    (S3-compatible bucket; MinIO locally via docker-compose)
 ```
 
-The orchestrator receives a `StorageProvider` instance and calls the same `read()` / `write()` / `archive()` / `error()` methods regardless of backend. MinIO is used as the local S3-compatible store in development and tests.
-
-## Data Flow
-
-```
-Input (CAMT XML)
-    │
-    ├── Namespace regex → version detection (e.g., camt.053.001.08)
-    │
-    ├── fast-xml-parser → raw JS object → CamtStatement model
-    │
-    ├── Pre-flight validation (optional):
-    │   ├── XSD schema check
-    │   └── Business rules (account ID, currency, balances, dates)
-    │
-    ├── Record builders:
-    │   ├── Record 0:  Header (BIC, creation date)
-    │   ├── Record 1:  Opening balance
-    │   ├── For each entry:
-    │   │   ├── Record 2.1: Movement (amount, tx code, communication)
-    │   │   ├── Record 2.2: Counterparty BIC (when present)
-    │   │   ├── Record 2.3: Counterparty account/name (when present)
-    │   │   └── Record 3.1–3.3: Batch details (when >1 TxDtls)
-    │   ├── Record 8:  Closing balance
-    │   └── Record 9:  Trailer (counts, sums)
-    │
-    ├── Post-flight validation: each line must be exactly 128 characters
-    │
-    └── Output: .cod file(s) via StorageProvider
-```
+The CLI selects an implementation by input/output scheme and uses the same `read()`/`write()`/`list()` methods regardless of backend.
 
 ## Testing Strategy
 
-- **Unit tests** — Each record builder is tested in isolation with fixture data
-- **Integration tests** — Full pipeline tests against real anonymized CAMT files, comparing output to golden `.cod` files
-- **Property-based tests** — `fast-check` generates random valid CAMT inputs to verify invariants (e.g., output line length is always 128)
-- **Total**: 288+ tests across all layers
+- **Unit tests** — each record builder, parser, formatter, and holiday calendar in isolation (`test/unit/`).
+- **Integration tests** — full forward pipeline against real anonymised CAMT files (`test/integration/convert.test.ts`); reverse + round-trip in `round-trip.test.ts`.
+- **Property-based tests** — `fast-check` invariants (output lines always 128 chars, field offsets sum to 128) in `test/unit/property.test.ts`.
+- **Golden tests** — *planned* (`test/golden/` currently holds only `DIFFERENCES.md`): byte-level cross-validation against a reference `.cod`. See `docs/superpowers/plans/2026-06-30-spec-conformance-and-cleanup.md`.
+
+## Specifications
+
+Authoritative references live in `specifications/`: CODA 2.6 (`CODA/standard-coda-2.6-en.pdf`), the Belgian CAMT053 implementation guideline (`CAMT/standard-camt053-statement-v2.1_0.pdf`), AOS1 OGM-VCS (`CAMT/aos.pdf`), ISO 20022 MDR parts, and the full CAMT 052/053/054 XSDs.
