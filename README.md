@@ -153,16 +153,17 @@ Opens a three-panel field inspector at `http://localhost:3000` — drop a CAMT o
 
 Read from / write to S3-compatible storage (AWS S3, MinIO, etc.):
 
-```bash
-camt2coda convert -v 53 \
-  -i camt-bucket -o coda-bucket \
-  --mode s3 \
-  --endpoint http://localhost:9000 \
-  --access-key mykey \
-  --secret-key mysecret
-```
+Credentials are read **only** from the standard AWS environment variables
+(`AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`) — never from CLI flags, which
+would leak via `ps` and shell history.
 
-Environment variables also work: `MODE=S3 IN=camt-bucket OUT=coda-bucket EP=... AK=... SK=...`
+```bash
+export AWS_ACCESS_KEY_ID=mykey
+export AWS_SECRET_ACCESS_KEY=mysecret
+camt2coda convert \
+  -i s3://camt-bucket -o s3://coda-bucket \
+  --endpoint http://localhost:9000
+```
 
 ## Web UI
 

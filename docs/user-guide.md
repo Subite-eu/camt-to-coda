@@ -115,13 +115,15 @@ Open `http://localhost:3000` in your browser. You can:
 
 Read from / write to S3-compatible storage:
 
+S3 credentials are read only from `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`
+(not CLI flags, which leak via `ps` and shell history):
+
 ```bash
-camt2coda convert -v 53 \
-  -i camt-bucket -o coda-bucket \
-  --mode s3 \
-  --endpoint http://localhost:9000 \
-  --access-key mykey \
-  --secret-key mysecret
+export AWS_ACCESS_KEY_ID=mykey
+export AWS_SECRET_ACCESS_KEY=mysecret
+camt2coda convert \
+  -i s3://camt-bucket -o s3://coda-bucket \
+  --endpoint http://localhost:9000
 ```
 
 Using environment variables (suitable for Docker):
