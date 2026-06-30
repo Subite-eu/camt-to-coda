@@ -71,14 +71,10 @@ program
   .option("--dry-run", "Run pipeline but skip writing and moving files")
   .option("--anonymize", "Anonymize sensitive data in CODA output")
   .option("--endpoint <url>", "S3 endpoint URL (for MinIO etc.)")
-  .option("--access-key <key>", "S3 access key (or use AWS_ACCESS_KEY_ID env var)")
-  .option("--secret-key <key>", "S3 secret key (or use AWS_SECRET_ACCESS_KEY env var)")
   .action(async (opts) => {
-    const storageOpts: StorageOptions = {
-      endpoint: opts.endpoint,
-      accessKey: opts.accessKey,
-      secretKey: opts.secretKey,
-    };
+    // S3 credentials come only from the environment (AWS_ACCESS_KEY_ID /
+    // AWS_SECRET_ACCESS_KEY) — never CLI flags, which leak via ps/shell history.
+    const storageOpts: StorageOptions = { endpoint: opts.endpoint };
 
     const inputStorage = makeStorage(opts.input, storageOpts);
     const outputStorage = makeStorage(opts.output, storageOpts);
@@ -296,10 +292,22 @@ program
   .command("serve")
   .description("Start the web UI server")
   .option("--port <n>", "Port to listen on", "3000")
+  .option("--host <host>", "Interface to bind (default 127.0.0.1; use 0.0.0.0 to expose externally)")
+  .option("--cors-origin <origin>", "Allow cross-origin requests from this exact origin (no wildcard)")
+  .option("--max-body-mb <n>", "Maximum upload size in MB", "10")
   .action(async (opts) => {
     const port = parseInt(opts.port, 10);
+    if (!Number.isInteger(port) || port < 1 || port > 65535) {
+      console.error(`Invalid port: ${opts.port}`);
+      process.exit(1);
+    }
+    const maxMb = parseFloat(opts.maxBodyMb);
     const { startServer } = await import("./web/server.js");
-    startServer(port);
+    startServer(port, {
+      host: opts.host,
+      corsOrigin: opts.corsOrigin,
+      maxBodyBytes: Number.isFinite(maxMb) && maxMb > 0 ? Math.round(maxMb * 1024 * 1024) : undefined,
+    });
   });
 
 // ── reverse ──────────────────────────────────────────────────────────────────
@@ -312,15 +320,10 @@ program
   .option("--camt-version <version>", "CAMT version to generate", "camt.053.001.08")
   .option("--dry-run", "Validate and preview without writing files")
   .option("--endpoint <url>", "S3 endpoint URL")
-  .option("--access-key <key>", "S3 access key")
-  .option("--secret-key <key>", "S3 secret key")
   .action(async (opts) => {
     const { codaToCamt } = await import("./core/reverse.js");
-    const storageOpts: StorageOptions = {
-      endpoint: opts.endpoint,
-      accessKey: opts.accessKey,
-      secretKey: opts.secretKey,
-    };
+    // S3 credentials come only from the environment — see note in `convert`.
+    const storageOpts: StorageOptions = { endpoint: opts.endpoint };
     const inputStorage = makeStorage(opts.input, storageOpts);
     const outputStorage = makeStorage(opts.output, storageOpts);
 

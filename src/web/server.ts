@@ -77,12 +77,46 @@ function parseMultipart(body: Buffer, boundary: string): ParsedFile[] {
 
 // ── Body reader ───────────────────────────────────────────────────────────────
 
-function readBody(req: IncomingMessage): Promise<Buffer> {
+function tooLarge(): Error & { statusCode: number } {
+  const err = new Error("Request body too large") as Error & { statusCode: number };
+  err.statusCode = 413;
+  return err;
+}
+
+function readBody(req: IncomingMessage, maxBytes: number): Promise<Buffer> {
   return new Promise((resolve, reject) => {
+    let settled = false;
+    const fail = (err: Error) => {
+      if (settled) return;
+      settled = true;
+      reject(err);
+    };
+
+    // Reject early when the declared size already exceeds the cap.
+    const declared = Number(req.headers["content-length"]);
+    if (Number.isFinite(declared) && declared > maxBytes) {
+      fail(tooLarge());
+      return;
+    }
+
     const chunks: Buffer[] = [];
-    req.on("data", (chunk: Buffer) => chunks.push(chunk));
-    req.on("end", () => resolve(Buffer.concat(chunks)));
-    req.on("error", reject);
+    let size = 0;
+    req.on("data", (chunk: Buffer) => {
+      if (settled) return; // already over the limit — stop buffering (bounds memory)
+      size += chunk.length;
+      if (size > maxBytes) {
+        fail(tooLarge());
+        return;
+      }
+      chunks.push(chunk);
+    });
+    req.on("end", () => {
+      if (!settled) {
+        settled = true;
+        resolve(Buffer.concat(chunks));
+      }
+    });
+    req.on("error", fail);
   });
 }
 
@@ -93,13 +127,13 @@ async function handleHealth(res: ServerResponse): Promise<void> {
   res.end(JSON.stringify({ status: "ok" }));
 }
 
-async function handleConvert(req: IncomingMessage, res: ServerResponse): Promise<void> {
+async function handleConvert(req: IncomingMessage, res: ServerResponse, maxBodyBytes: number): Promise<void> {
   const contentType = req.headers["content-type"] ?? "";
   const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
   const directionOverride = url.searchParams.get("direction");
   const camtVersion = url.searchParams.get("camt-version") ?? undefined;
 
-  const body = await readBody(req);
+  const body = await readBody(req, maxBodyBytes);
 
   let direction: "camt-to-coda" | "coda-to-camt";
 
@@ -236,18 +270,36 @@ async function handleIndex(res: ServerResponse): Promise<void> {
 
 // ── Server ────────────────────────────────────────────────────────────────────
 
-export function startServer(port = 3000): ReturnType<typeof createServer> {
+export interface ServerOptions {
+  /** Interface to bind. Defaults to 127.0.0.1 (loopback only). Use "0.0.0.0" to expose. */
+  host?: string;
+  /** Exact allowed CORS origin. When unset, no CORS header is sent (same-origin only). Never "*". */
+  corsOrigin?: string;
+  /** Max request body size in bytes. Defaults to 10 MiB. */
+  maxBodyBytes?: number;
+}
+
+const DEFAULT_MAX_BODY_BYTES = 10 * 1024 * 1024;
+
+export function startServer(port = 3000, opts: ServerOptions = {}): ReturnType<typeof createServer> {
+  const host = opts.host ?? "127.0.0.1";
+  const corsOrigin = opts.corsOrigin;
+  const maxBodyBytes = opts.maxBodyBytes ?? DEFAULT_MAX_BODY_BYTES;
+
   const server = createServer(async (req, res) => {
     const url = req.url ?? "/";
     const method = req.method ?? "GET";
 
-    // CORS headers for development
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    // CORS: opt-in and origin-specific only (never a wildcard).
+    if (corsOrigin) {
+      res.setHeader("Access-Control-Allow-Origin", corsOrigin);
+      res.setHeader("Vary", "Origin");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    }
 
     if (method === "OPTIONS") {
-      res.writeHead(204);
+      res.writeHead(corsOrigin ? 204 : 405);
       res.end();
       return;
     }
@@ -258,19 +310,22 @@ export function startServer(port = 3000): ReturnType<typeof createServer> {
       } else if (url === "/api/health" && method === "GET") {
         await handleHealth(res);
       } else if (url.startsWith("/api/convert") && method === "POST") {
-        await handleConvert(req, res);
+        await handleConvert(req, res, maxBodyBytes);
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Not found" }));
       }
     } catch (err) {
-      res.writeHead(500, { "Content-Type": "application/json" });
-      res.end(JSON.stringify({ error: (err as Error).message }));
+      const statusCode = (err as { statusCode?: number }).statusCode ?? 500;
+      if (!res.headersSent) {
+        res.writeHead(statusCode, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: (err as Error).message }));
+      }
     }
   });
 
-  server.listen(port, () => {
-    console.log(`camt2coda web UI running at http://localhost:${port}`);
+  server.listen(port, host, () => {
+    console.log(`camt2coda web UI running at http://${host}:${port}`);
   });
 
   return server;

@@ -160,4 +160,54 @@ describe("web server integration", () => {
     const res = await httpFetch("/nonexistent");
     expect(res.status).toBe(404);
   });
+
+  it("sends NO Access-Control-Allow-Origin header by default (no wildcard)", async () => {
+    const res = await httpFetch("/api/health");
+    expect(res.headers["access-control-allow-origin"]).toBeUndefined();
+  });
+});
+
+// ── Hardening (dedicated server instances with explicit options) ──────────────
+
+function fetchOn(p: number, path: string, opts: { method?: string; body?: string; headers?: Record<string, string> } = {}) {
+  return new Promise<{ status: number; headers: Record<string, string> }>((resolve, reject) => {
+    const req = request(`http://localhost:${p}${path}`, { method: opts.method ?? "GET", headers: opts.headers }, (res) => {
+      res.on("data", () => {});
+      res.on("end", () => resolve({ status: res.statusCode ?? 0, headers: res.headers as Record<string, string> }));
+    });
+    req.on("error", reject);
+    if (opts.body) req.write(opts.body);
+    req.end();
+  });
+}
+
+describe("web server hardening", () => {
+  it("echoes only the configured CORS origin, never a wildcard", async () => {
+    const p = 39200 + Math.floor(Math.random() * 300);
+    const srv = startServer(p, { corsOrigin: "https://app.example.com" });
+    await new Promise<void>((r) => srv.on("listening", () => r()));
+    try {
+      const res = await fetchOn(p, "/api/health");
+      expect(res.headers["access-control-allow-origin"]).toBe("https://app.example.com");
+      expect(res.headers["access-control-allow-origin"]).not.toBe("*");
+    } finally {
+      await new Promise<void>((r) => srv.close(() => r()));
+    }
+  });
+
+  it("rejects an over-limit request body with 413", async () => {
+    const p = 39600 + Math.floor(Math.random() * 300);
+    const srv = startServer(p, { maxBodyBytes: 100 }); // 100-byte cap
+    await new Promise<void>((r) => srv.on("listening", () => r()));
+    try {
+      const res = await fetchOn(p, "/api/convert?direction=coda-to-camt", {
+        method: "POST",
+        body: "X".repeat(5000),
+        headers: { "content-type": "text/plain" },
+      });
+      expect(res.status).toBe(413);
+    } finally {
+      await new Promise<void>((r) => srv.close(() => r()));
+    }
+  });
 });
