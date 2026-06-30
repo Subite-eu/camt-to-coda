@@ -190,6 +190,16 @@ function parseEntry(ntry: any): CamtEntry {
   const details = get(ntry, "NtryDtls.TxDtls");
   const detailsArr = Array.isArray(details) ? details : details ? [details] : [];
 
+  // SDD R-transaction info (EPC173-14): reversal flag + ISO reason code.
+  const rvsl = str(ntry.RvslInd);
+  const isReversal = rvsl === "true" || rvsl === "1" ? true : undefined;
+  const reasonCode =
+    str(get(ntry, "RtrInf.Rsn.Cd")) ||
+    (detailsArr[0] ? str(get(detailsArr[0], "RtrInf.Rsn.Cd")) : "") ||
+    undefined;
+  const returnInfo =
+    reasonCode || isReversal ? { reasonCode, isReversal } : undefined;
+
   return {
     amount,
     currency,
@@ -210,6 +220,7 @@ function parseEntry(ntry: any): CamtEntry {
       : undefined,
     details: detailsArr.map((d) => parseTxDetail(d, str(ntry.CdtDbtInd) as "CRDT" | "DBIT")),
     batchCount: num(get(ntry, "NtryDtls.Btch.NbOfTxs")) || undefined,
+    returnInfo,
   };
 }
 
@@ -258,5 +269,8 @@ function parseTxDetail(tx: any, direction: "CRDT" | "DBIT"): TransactionDetail {
         ? { creditorRef: str(get(tx, "RmtInf.Strd.CdtrRefInf.Ref")) }
         : undefined,
     },
+    purpose: str(get(tx, "Purp.Cd")) || undefined,
+    categoryPurpose:
+      str(get(tx, "PmtTpInf.CtgyPurp.Cd")) || str(get(tx, "CtgyPurp.Cd")) || undefined,
   };
 }

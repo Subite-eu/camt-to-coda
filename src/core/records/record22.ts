@@ -8,6 +8,14 @@ export interface Record22Params {
   counterpartBic: string;
   hasMore: boolean;
   customerRef?: string;
+  /** R-transaction type, pos 113 (1=Reject 2=Return 3=Refund 4=Reversal 5=Cancellation) */
+  rTransactionType?: string;
+  /** ISO reason code, pos 114-117 (e.g. AC01, AM04) */
+  isoReason?: string;
+  /** SEPA category purpose, pos 118-121 */
+  categoryPurpose?: string;
+  /** SEPA purpose, pos 122-125 */
+  purpose?: string;
 }
 
 export function record22(p: Record22Params): CodaLine {
@@ -22,10 +30,10 @@ export function record22(p: Record22Params): CodaLine {
     customerRef: padRight(customerRef || "", 35),
     counterpartBic: padRight(counterpartBic, 11),
     blanks: padRight("", 3),
-    rTransactionType: " ",
-    isoReason: padRight("", 4),
-    categoryPurpose: padRight("", 4),
-    purpose: padRight("", 4),
+    rTransactionType: (p.rTransactionType || " ").slice(0, 1),
+    isoReason: padRight(p.isoReason || "", 4),
+    categoryPurpose: padRight(p.categoryPurpose || "", 4),
+    purpose: padRight(p.purpose || "", 4),
     nextCode: hasMore ? "1" : "0",
     blank: " ",
     linkCode: "0",

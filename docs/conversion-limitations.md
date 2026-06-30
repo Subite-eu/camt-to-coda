@@ -14,10 +14,10 @@ These CODA fields require data that is not present in standard CAMT 053 XML:
 | 0 | Addressee | 35-60 | Name of the CODA file recipient | Client-specific, not in CAMT |
 | 0 | Company Number | 72-82 | Belgian company number (KBO/BCE) | Not part of ISO 20022 |
 | 1 | Account Description | 91-125 | Bank product name (e.g., "KBC-Business PRO-rekening") | Commercial name, not in CAMT |
-| 2.2 | R-Transaction Type | 113 | Reject/Return/Refund/Reversal/Cancellation indicator | Only partially derivable from ReversalIndicator |
-| 2.2 | ISO Reason Code | 114-117 | Reason code for R-transactions | Available in CAMT but not currently mapped |
-| 2.2 | CategoryPurpose | 118-121 | SEPA category purpose code | Available in CAMT `Purp` but not currently mapped |
-| 2.2 | Purpose | 122-125 | SEPA purpose code | Available in CAMT `Purp` but not currently mapped |
+| 2.2 | R-Transaction Type | 113 | Reject/Return/Refund/Reversal/Cancellation indicator | Mapped: `RvslInd`→Reversal (4), else a booked entry with a return reason→Return (2). Reject/Refund/Cancellation need message-type context absent from a booked camt.053 entry. |
+| 2.2 | ISO Reason Code | 114-117 | Reason code for R-transactions (EPC173-14) | Mapped from/to `TxDtls/RtrInf/Rsn/Cd` |
+| 2.2 | CategoryPurpose | 118-121 | SEPA category purpose code | Parsed forward; **no camt.053 element** exists to reconstruct it, so not round-tripped |
+| 2.2 | Purpose | 122-125 | SEPA purpose code | Mapped from/to `TxDtls/Purp/Cd` |
 
 ### Sequence Number
 

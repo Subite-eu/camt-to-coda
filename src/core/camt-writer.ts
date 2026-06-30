@@ -48,7 +48,11 @@ function balanceXml(bal: Balance, type: "OPBD" | "CLBD"): string {
   ].join("\n");
 }
 
-function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): string {
+function txDetailsXml(
+  detail: TransactionDetail,
+  creditDebit: "CRDT" | "DBIT",
+  returnReason?: string,
+): string {
   const lines: string[] = ["<TxDtls>"];
 
   // Refs
@@ -95,6 +99,14 @@ function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): 
     }
   }
 
+  // Purpose (SEPA Purp). CategoryPurpose has no camt.053 slot, so it is not
+  // reconstructed here (see docs/conversion-limitations.md).
+  if (detail.purpose) {
+    lines.push("  <Purp>");
+    lines.push(`    ${tag("Cd", detail.purpose)}`);
+    lines.push("  </Purp>");
+  }
+
   // Remittance info
   if (detail.remittanceInfo) {
     const ri = detail.remittanceInfo;
@@ -124,6 +136,15 @@ function txDetailsXml(detail: TransactionDetail, creditDebit: "CRDT" | "DBIT"): 
     lines.push(...riLines.map((l) => "  " + l));
   }
 
+  // SDD R-transaction reason (EPC173-14) — TxDtls/RtrInf per camt.053 schema.
+  if (returnReason) {
+    lines.push("  <RtrInf>");
+    lines.push("    <Rsn>");
+    lines.push(`      ${tag("Cd", returnReason)}`);
+    lines.push("    </Rsn>");
+    lines.push("  </RtrInf>");
+  }
+
   lines.push("</TxDtls>");
   return lines.join("\n");
 }
@@ -133,6 +154,11 @@ function entryXml(entry: CamtEntry): string {
 
   lines.push(`  ${amountTag(entry.amount, entry.currency)}`);
   lines.push(`  ${tag("CdtDbtInd", entry.creditDebit)}`);
+
+  // SDD R-transaction reversal flag (EPC173-14) — Ntry-level per camt.053 schema.
+  if (entry.returnInfo?.isReversal) {
+    lines.push(`  ${tag("RvslInd", "true")}`);
+  }
 
   if (entry.bookingDate) {
     lines.push(`  <BookgDt><Dt>${esc(entry.bookingDate)}</Dt></BookgDt>`);
@@ -174,10 +200,11 @@ function entryXml(entry: CamtEntry): string {
   // Entry details
   if (entry.details && entry.details.length > 0) {
     const dtlsLines: string[] = ["<NtryDtls>"];
-    for (const detail of entry.details) {
-      const txXml = txDetailsXml(detail, entry.creditDebit);
+    entry.details.forEach((detail, i) => {
+      // Carry the entry-level return reason on the first TxDtls only.
+      const txXml = txDetailsXml(detail, entry.creditDebit, i === 0 ? entry.returnInfo?.reasonCode : undefined);
       dtlsLines.push(...txXml.split("\n").map((l) => "  " + l));
-    }
+    });
     dtlsLines.push("</NtryDtls>");
     lines.push(...dtlsLines.map((l) => "  " + l));
   }

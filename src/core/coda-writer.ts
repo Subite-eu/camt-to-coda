@@ -2,6 +2,7 @@ import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
 import { padLeft, formatDate } from "./formatting.js";
 import { toMillis, fromMillis, addMillis } from "./money.js";
+import { CODA_RTRANSACTION_TYPE } from "./sdd-reason-codes.js";
 import { workingDaysFromJan1 } from "../holidays/holidays.js";
 import { record0 } from "./records/record0.js";
 import { record1 } from "./records/record1.js";
@@ -79,7 +80,24 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
     const counterpartIban = detail?.counterparty?.iban || "";
     const counterpartName = detail?.counterparty?.name || "";
 
-    const needRec22 = comm.length > 53 || counterpartBic.length > 0;
+    // SDD R-transaction (EPC173-14) → Record 2.2 pos 113 (type) + 114-117 (reason).
+    // Reversal → "4"; otherwise a booked entry carrying a return reason is a Return ("2").
+    const isoReason = entry.returnInfo?.reasonCode || "";
+    const rTransactionType = entry.returnInfo?.isReversal
+      ? CODA_RTRANSACTION_TYPE.Reversal
+      : isoReason
+        ? CODA_RTRANSACTION_TYPE.Return
+        : "";
+    const categoryPurpose = detail?.categoryPurpose || "";
+    const purpose = detail?.purpose || "";
+
+    const needRec22 =
+      comm.length > 53 ||
+      counterpartBic.length > 0 ||
+      isoReason.length > 0 ||
+      rTransactionType.length > 0 ||
+      categoryPurpose.length > 0 ||
+      purpose.length > 0;
     const needRec23 = comm.length > 106 || counterpartIban.length > 0;
     const needRecord3 = true;  // Always generate Record 3
 
@@ -110,6 +128,10 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
           counterpartBic,
           hasMore: needRec23,
           customerRef,
+          rTransactionType,
+          isoReason,
+          categoryPurpose,
+          purpose,
         })
       );
       recordCount++;

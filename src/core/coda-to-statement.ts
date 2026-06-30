@@ -186,6 +186,24 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
           if (!currentDetail.refs) currentDetail.refs = {};
           currentDetail.refs.endToEndId = customerRef;
         }
+
+        // SDD R-transaction (EPC173-14): type (pos 113) + ISO reason (114-117)
+        const rType = getField(line, "rTransactionType");
+        const isoReason = getField(line, "isoReason");
+        if (currentEntry && (rType || isoReason)) {
+          currentEntry.returnInfo = {
+            reasonCode: isoReason || undefined,
+            isReversal: rType === "4" ? true : undefined,
+          };
+        }
+
+        // SEPA category purpose (118-121) + purpose (122-125)
+        const categoryPurpose = getField(line, "categoryPurpose");
+        const purpose = getField(line, "purpose");
+        if (currentDetail) {
+          if (categoryPurpose) currentDetail.categoryPurpose = categoryPurpose;
+          if (purpose) currentDetail.purpose = purpose;
+        }
         break;
       }
 
@@ -228,10 +246,11 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
             detail.remittanceInfo = { unstructured: communication31 };
           }
 
-          // Merge counterparty info from Record 2.x (held in currentDetail)
-          // into the first Record 3.1 detail
-          if (currentDetail?.counterparty && currentEntry.details.length === 0) {
-            detail.counterparty = currentDetail.counterparty;
+          // Merge Record 2.x info (held in currentDetail) into the first 3.1 detail
+          if (currentDetail && currentEntry.details.length === 0) {
+            if (currentDetail.counterparty) detail.counterparty = currentDetail.counterparty;
+            if (currentDetail.purpose) detail.purpose = currentDetail.purpose;
+            if (currentDetail.categoryPurpose) detail.categoryPurpose = currentDetail.categoryPurpose;
           }
 
           currentEntry.details.push(detail);

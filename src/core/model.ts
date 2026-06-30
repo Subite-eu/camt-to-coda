@@ -39,6 +39,10 @@ export interface TransactionDetail {
       creditorRef?: string;
     };
   };
+  /** SEPA purpose / category purpose (CAMT Purp / CtgyPurp).
+   *  Map to CODA Record 2.2 pos 118-121 (CategoryPurpose) and 122-125 (Purpose). */
+  purpose?: string;
+  categoryPurpose?: string;
 }
 
 export interface CamtEntry {
@@ -52,6 +56,12 @@ export interface CamtEntry {
   transactionCode?: TransactionCode;
   details: TransactionDetail[];
   batchCount?: number;
+  /** SDD R-transaction info (EPC173-14): ISO reason code + reversal flag.
+   *  Maps to CODA Record 2.2 — type (pos 113) and ISO reason (pos 114-117). */
+  returnInfo?: {
+    reasonCode?: string;
+    isReversal?: boolean;
+  };
 }
 
 export interface CamtStatement {
