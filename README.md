@@ -167,23 +167,24 @@ camt2coda convert \
 
 ## Web UI
 
-The web UI runs **entirely in the browser** — no server required. All CAMT/CODA conversion happens client-side via a 67KB JavaScript bundle.
+A **React + shadcn/ui** field inspector (Vite build) that runs **entirely in the browser** — no server required. All CAMT/CODA conversion happens client-side using the same `src/core` engine; your data never leaves your machine. Drop a CAMT or CODA file, then click any field to see its cross-format mapping.
 
 ### Hosted
 
-Available at **[camt2coda.subite.io](https://camt2coda.subite.io)** and **[coda2camt.subite.io](https://coda2camt.subite.io)** — hosted on Cloudflare Pages, auto-deployed on every push to `main`. Your data never leaves your browser.
+Available at **[camt2coda.subite.io](https://camt2coda.subite.io)** and **[coda2camt.subite.io](https://coda2camt.subite.io)** — hosted on Cloudflare Pages, auto-deployed on every push to `main`.
 
 ### Local development
 
 ```bash
-npx tsx src/cli.ts serve              # dev server with hot HTML reload
-camt2coda serve                       # after npm run build + npm link
+npm run dev:app                       # Vite dev server with hot reload → http://localhost:5173
 ```
 
 ### Self-hosting
 
 ```bash
-npm run build:web                     # → dist-web/index.html + dist-web/camt2coda.js
+npm run build:app                     # → dist-web/ (static: index.html + hashed assets)
+npm run dev:web                       # build + serve dist-web locally
+camt2coda serve                       # Node server that serves the built dist-web/ (after npm run build + npm link)
 ```
 
 The `dist-web/` directory is a static site — deploy it anywhere (Cloudflare Pages, Netlify, Nginx, S3, etc.). To deploy to Cloudflare Pages, connect your GitHub repo and set build command to `npm run build:web`, output directory to `dist-web`, and `NODE_VERSION=22`.

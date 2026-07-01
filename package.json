@@ -8,7 +8,7 @@
     "camt2coda": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc && cp src/web/index.html dist/web/index.html",
+    "build": "tsc",
     "build:web": "vite build",
     "build:app": "vite build",
     "dev": "tsx src/cli.ts",
