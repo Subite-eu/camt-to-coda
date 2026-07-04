@@ -1,7 +1,7 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
-import { dirname, join } from "path";
+import { dirname, join, extname, normalize } from "path";
 import { parseCamt, detectVersion } from "../core/camt-parser.js";
 import { statementToCoda } from "../core/coda-writer.js";
 import { validateCoda } from "../validation/coda-validator.js";
@@ -237,34 +237,47 @@ async function handleReverseConvert(
   }
 }
 
-async function findIndexHtml(): Promise<string> {
-  // Try co-located (works with tsx in dev and after build with copy)
-  const colocated = join(__dirname, "index.html");
-  try {
-    await readFile(colocated, "utf-8");
-    return colocated;
-  } catch { /* not found, try source tree */ }
+// Serve the built Vite app (dist-web/) — index.html + hashed assets, with an
+// SPA fallback. dist-web sits two levels up from src/web/ (and dist/web/).
+const DIST_DIR = join(__dirname, "..", "..", "dist-web");
+const MIME: Record<string, string> = {
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript",
+  ".mjs": "text/javascript",
+  ".css": "text/css",
+  ".map": "application/json",
+  ".json": "application/json",
+  ".svg": "image/svg+xml",
+  ".ico": "image/x-icon",
+  ".png": "image/png",
+  ".woff2": "font/woff2",
+};
 
-  // Fallback: resolve from src/web/ relative to project root
-  // This handles running compiled dist/ when HTML wasn't copied
-  const fromDist = join(__dirname, "..", "..", "src", "web", "index.html");
+async function serveStatic(res: ServerResponse, urlPath: string): Promise<void> {
+  let rel = decodeURIComponent(urlPath.split("?")[0]);
+  if (rel === "/" || rel === "") rel = "/index.html";
+  // Guard against path traversal.
+  const safe = normalize(rel).replace(/^(\.\.[/\\])+/, "");
+  const filePath = join(DIST_DIR, safe);
+  if (!filePath.startsWith(DIST_DIR)) {
+    res.writeHead(403, { "Content-Type": "text/plain" });
+    res.end("Forbidden");
+    return;
+  }
   try {
-    await readFile(fromDist, "utf-8");
-    return fromDist;
-  } catch { /* not there either */ }
-
-  throw new Error("index.html not found");
-}
-
-async function handleIndex(res: ServerResponse): Promise<void> {
-  try {
-    const htmlPath = await findIndexHtml();
-    const html = await readFile(htmlPath, "utf-8");
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.end(html);
+    const data = await readFile(filePath);
+    res.writeHead(200, { "Content-Type": MIME[extname(filePath)] ?? "application/octet-stream" });
+    res.end(data);
   } catch {
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("index.html not found");
+    // SPA fallback: serve index.html for unknown (non-asset) routes.
+    try {
+      const html = await readFile(join(DIST_DIR, "index.html"));
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(html);
+    } catch {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("Web app not built. Run: npm run build:app");
+    }
   }
 }
 
@@ -305,12 +318,12 @@ export function startServer(port = 3000, opts: ServerOptions = {}): ReturnType<t
     }
 
     try {
-      if (url === "/" && method === "GET") {
-        await handleIndex(res);
-      } else if (url === "/api/health" && method === "GET") {
+      if (url === "/api/health" && method === "GET") {
         await handleHealth(res);
       } else if (url.startsWith("/api/convert") && method === "POST") {
         await handleConvert(req, res, maxBodyBytes);
+      } else if (method === "GET") {
+        await serveStatic(res, url);
       } else {
         res.writeHead(404, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Not found" }));

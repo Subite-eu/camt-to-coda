@@ -60,11 +60,19 @@ src/
 │   └── anonymizer.ts              Deterministic CAMT anonymisation (SHA-256 derived fake data)
 │
 └── web/
-    ├── server.ts                  Node HTTP server for the web UI
-    ├── browser-entry.ts           Browser bundle entry (esbuild, IIFE)
-    ├── fs-shim.ts / crypto-shim.ts  Browser shims injected via esbuild --alias in build:web
-    └── index.html                 Drag-drop interface
+    ├── server.ts                  Node HTTP server: serves the built dist-web/ (static + SPA) + /api
+    ├── browser-entry.ts           Re-exports convertForward/convertReverse for the browser
+    └── fs-shim.ts / crypto-shim.ts  Browser shims aliased by Vite so the core has no Node deps
+
+src/web-app/                       React + Vite + Tailwind v4 + shadcn/ui field inspector
+├── App.tsx  main.tsx  index.html
+├── lib/{convert,fields,samples,download,cn}.ts   conversion wrapper + field-link model
+├── components/{Header,FileBar,DropZone,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
+├── components/ui/*                shadcn primitives
+└── styles/globals.css             Warm Ink theme tokens (light + dark)
 ```
+
+The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). See `docs/superpowers/specs/2026-07-01-web-ui-shadcn-redesign-design.md`.
 
 ## Record Builders
 

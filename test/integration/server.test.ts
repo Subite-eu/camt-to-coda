@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { request, Server } from "http";
+import { execFileSync } from "child_process";
+import { existsSync } from "fs";
 import { startServer } from "../../src/web/server.js";
 
 // ── Test helpers ────────────────────────────────────────────────────────────
@@ -68,13 +70,14 @@ const minimalCoda = [
 
 // ── Lifecycle ───────────────────────────────────────────────────────────────
 
-beforeAll(
-  () =>
-    new Promise<void>((resolve) => {
-      server = startServer(port);
-      server.on("listening", resolve);
-    }),
-);
+beforeAll(() => {
+  // The server serves the built Vite app; ensure it exists for the static-serving test.
+  if (!existsSync("dist-web/index.html")) execFileSync("npm", ["run", "build:app"], { stdio: "ignore" });
+  return new Promise<void>((resolve) => {
+    server = startServer(port);
+    server.on("listening", resolve);
+  });
+}, 120000);
 
 afterAll(
   () =>
@@ -90,7 +93,7 @@ describe("web server integration", () => {
     const res = await httpFetch("/");
     expect(res.status).toBe(200);
     expect(res.headers["content-type"]).toContain("text/html");
-    expect(res.body).toContain("<!DOCTYPE html>");
+    expect(res.body.toLowerCase()).toContain("<!doctype html>");
     expect(res.body).toContain("camt2coda");
   });
 
@@ -156,9 +159,10 @@ describe("web server integration", () => {
     expect(data.error).toBeDefined();
   });
 
-  it("GET /nonexistent returns 404", async () => {
+  it("serves the SPA (index.html) for unknown GET routes", async () => {
     const res = await httpFetch("/nonexistent");
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(200);
+    expect(res.body.toLowerCase()).toContain("<!doctype html>");
   });
 
   it("sends NO Access-Control-Allow-Origin header by default (no wildcard)", async () => {

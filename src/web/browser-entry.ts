@@ -65,6 +65,3 @@ export function convertReverse(content: string, camtVersion?: string): ReverseRe
     validation: { valid: true, errors: [] },
   };
 }
-
-// Expose on window for use by inline script in index.html
-(window as any).camt2coda = { convertForward, convertReverse };
