@@ -266,6 +266,15 @@ npx playwright install --with-deps chromium firefox webkit
 npm run test:e2e
 ```
 
+The browser suite also uploads all 76 original fixtures, checks invalid-input blocking and compares actual downloads with the verified converter. To exercise a deployed app instead of starting a local preview:
+
+```sh
+PLAYWRIGHT_BASE_URL=https://camt2coda.subite.io npm run test:e2e -- --workers=2
+PLAYWRIGHT_BASE_URL=https://coda2camt.subite.io npm run test:e2e -- --workers=2
+# Build first, then verify HTML references and exact JS/CSS/worker bytes.
+node scripts/verify-deployment.mjs https://camt2coda.subite.io https://coda2camt.subite.io
+```
+
 GitHub Actions runs conversion/build/coverage on Node 22 and 24, XSD checks using the bundled specifications, Chromium/Firefox/WebKit/mobile browser workflows with axe accessibility checks and actual downloads, a dependency audit, and a Docker CLI/web smoke test. Main image publication and tagged releases depend on those checks. Live MinIO read/write/list/move checks run in a dedicated required job; they can be enabled locally with `MINIO_ENDPOINT=http://localhost:9000`. Mocked pagination and failure regressions run in every Node test job.
 
 ## Specifications
