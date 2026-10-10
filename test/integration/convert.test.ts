@@ -40,7 +40,7 @@ const STRUCTURED_REMITTANCE_XML = `<?xml version="1.0" encoding="UTF-8"?>
         <BookgDt><Dt>2024-06-15</Dt></BookgDt>
         <BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
         <NtryDtls><TxDtls>
-          <RmtInf><Strd><CdtrRefInf><Ref>123456789012</Ref></CdtrRefInf></Strd></RmtInf>
+          <RmtInf><Strd><CdtrRefInf><Ref>010806817183</Ref></CdtrRefInf></Strd></RmtInf>
         </TxDtls></NtryDtls>
       </Ntry>
     </Stmt>
@@ -92,7 +92,9 @@ describe("CAMT 053 v08 file conversion", () => {
     expect(stmts.length).toBeGreaterThan(0);
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
-      expect(result.validation.valid).toBe(true);
+      expect(result.validation.valid).toBe(false);
+      expect(result.validation.errors).toContain("Invalid opening balance credit/debit indicator");
+      expect(result.validation.errors).toContain("Invalid closing balance credit/debit indicator");
     }
   });
 
@@ -163,11 +165,13 @@ describe("Multi-statement file conversion", () => {
     expect(results).toHaveLength(2);
   });
 
-  it("each CODA output is independently valid", () => {
+  it("each incomplete source statement reports missing mandatory balance signs", () => {
     const stmts = parseCamtFile(FILE_V08);
     for (const stmt of stmts) {
       const result = statementToCoda(stmt);
-      expect(result.validation.valid).toBe(true);
+      expect(result.validation.valid).toBe(false);
+      expect(result.validation.errors).toContain("Invalid opening balance credit/debit indicator");
+      expect(result.validation.errors).toContain("Invalid closing balance credit/debit indicator");
     }
   });
 
@@ -294,7 +298,7 @@ describe("Structured remittance info", () => {
     const commField = rec21.raw.slice(62, 115);
     // Structured: "101" + zero-padded ref (12 chars)
     expect(commField).toContain("101");
-    expect(commField).toContain("123456789012");
+    expect(commField).toContain("010806817183");
   });
 
   it("produces valid 128-char output", () => {

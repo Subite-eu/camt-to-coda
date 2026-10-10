@@ -2,6 +2,8 @@ import type { CamtStatement, CamtEntry } from "./model.js";
 import { mapTransactionCode } from "./transaction-codes.js";
 import { padLeft, formatDate } from "./formatting.js";
 import { toMillis, fromMillis, addMillis } from "./money.js";
+import { isValidOgmVcs } from "./ogm-vcs.js";
+import { validateCamt } from "../validation/camt-validator.js";
 import { CODA_RTRANSACTION_TYPE } from "./sdd-reason-codes.js";
 import { workingDaysFromJan1 } from "../holidays/holidays.js";
 import { record0 } from "./records/record0.js";
@@ -14,13 +16,16 @@ import { record32 } from "./records/record32.js";
 import { record33 } from "./records/record33.js";
 import { record8 } from "./records/record8.js";
 import { record9 } from "./records/record9.js";
+import { RECORD4_FIELDS } from "./field-defs/record4-fields.js";
 import type { CodaLine, AnnotatedCodaOutput } from "./field-defs/types.js";
 
 // ── Main conversion ─────────────────────────────────────────────────────
 
 export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
+  if (stmt.entries.length > 9999 || stmt.entries.some(e => e.details.length > 9999)) throw new Error("CODA sequence capacity exceeded: at most 9999 movements and details are supported per statement");
   const lines: CodaLine[] = [];
-  const errors: string[] = [];
+  const inputValidation = validateCamt(stmt);
+  const errors: string[] = [...inputValidation.errors];
 
   // Compute sequence: use explicit sequence or fall back to working-day count
   const sequence = stmt.sequence
@@ -48,13 +53,27 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
   let sumDebitsMillis = 0;
   let sumCreditsMillis = 0;
 
-  for (let i = 0; i < stmt.entries.length; i++) {
-    const entry = stmt.entries[i];
-    const seqNum = padLeft(String(i + 1), 4, "0");
+  // CODA §§6–7.1: nonzero detail numbers describe the aggregate movement;
+  // they are not extra account movements and are excluded from trailer totals.
+  const movements = stmt.entries.flatMap((entry, i) => [
+    { entry: { ...entry, details: entry.details.filter(d => d.amount === undefined) }, seq: i + 1, detail: 0 },
+    ...entry.details.filter(d => d.amount !== undefined).map((detail, d) => ({
+      entry: { ...entry, amount: detail.amount!, currency: detail.currency ?? entry.currency,
+        creditDebit: detail.creditDebit ?? entry.creditDebit,
+        accountServicerRef: detail.refs?.accountServicerRef ?? entry.accountServicerRef,
+        bookingDate: detail.bookingDate ?? entry.bookingDate, valueDate: detail.valueDate ?? entry.valueDate,
+        transactionCode: detail.transactionCode ?? entry.transactionCode, returnInfo: detail.returnInfo,
+        details: [{ ...detail, amount: undefined, currency: undefined, creditDebit: undefined }] },
+      seq: i + 1, detail: d + 1,
+    })),
+  ]);
+  for (const movement of movements) {
+    const entry = movement.entry;
+    const seqNum = padLeft(String(movement.seq), 4, "0");
 
     // Track sums
-    if (entry.creditDebit === "DBIT") sumDebitsMillis = addMillis(sumDebitsMillis, toMillis(entry.amount));
-    else sumCreditsMillis = addMillis(sumCreditsMillis, toMillis(entry.amount));
+    if (movement.detail === 0 && entry.creditDebit === "DBIT") sumDebitsMillis = addMillis(sumDebitsMillis, toMillis(entry.amount));
+    else if (movement.detail === 0) sumCreditsMillis = addMillis(sumCreditsMillis, toMillis(entry.amount));
 
     // Resolve communication
     const { comm, commType } = resolveCommunication(entry);
@@ -77,7 +96,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
     // Determine which records are needed
     const detail = entry.details[0];
     const counterpartBic = detail?.counterparty?.bic || "";
-    const counterpartIban = detail?.counterparty?.iban || "";
+    const counterpartIban = detail?.counterparty?.iban || detail?.counterparty?.otherId || "";
     const counterpartName = detail?.counterparty?.name || "";
 
     // SDD R-transaction (EPC173-14) → Record 2.2 pos 113 (type) + 114-117 (reason).
@@ -94,11 +113,12 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
     const needRec22 =
       comm.length > 53 ||
       counterpartBic.length > 0 ||
+      Boolean(detail?.refs?.endToEndId && detail.refs.endToEndId !== "NOTPROVIDED") ||
       isoReason.length > 0 ||
       rTransactionType.length > 0 ||
       categoryPurpose.length > 0 ||
       purpose.length > 0;
-    const needRec23 = comm.length > 106 || counterpartIban.length > 0;
+    const needRec23 = comm.length > 106 || counterpartIban.length > 0 || counterpartName.length > 0;
     const needRecord3 = true;  // Always generate Record 3
 
     // Record 2.1
@@ -162,11 +182,12 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
       const txRefs = [detailEntry.refs?.endToEndId, detailEntry.refs?.txId]
         .filter((r) => r && r !== "NOTPROVIDED")
         .join("/");
+      const resolvedDetail = resolveCommunication({ ...entry, details: [detailEntry] });
       const txComm =
         detailEntry.remittanceInfo?.unstructured &&
         detailEntry.remittanceInfo.unstructured !== "NOTPROVIDED"
           ? detailEntry.remittanceInfo.unstructured
-          : txRefs || comm || "";
+          : resolvedDetail.comm || txRefs || comm || "";
 
       const hasRecord32 = txComm.length > 73;
       const hasRecord33 = txComm.length > 178;
@@ -177,7 +198,7 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
           detailNum: d + 1,
           bankRef: entry.accountServicerRef || entry.entryRef || txRefs || "",
           txCode,
-          commType: "0",
+          commType: resolvedDetail.commType,
           comm: txComm.slice(0, 73),
           hasRecord32,
         })
@@ -207,15 +228,60 @@ export function statementToCoda(stmt: CamtStatement): AnnotatedCodaOutput {
         recordCount++;
       }
     }
+    // Builders default to the aggregate detail 0000; bind this movement's
+    // detail number on every 2.x continuation after all optional rows exist.
+    const detailNumber = padLeft(String(movement.detail), 4, "0");
+    for (let l = lines.length - 1; l >= 0; l--) {
+      if (lines[l].recordType === "2.1" || lines[l].recordType === "2.2" || lines[l].recordType === "2.3") {
+        const field = lines[l].fields.find(f => f.name === "detailNumber")!;
+        field.value = detailNumber;
+        lines[l].raw = lines[l].fields.map(f => f.value).join("");
+        if (lines[l].recordType === "2.1") break;
+      }
+    }
   }
 
   // Record 8
   lines.push(record8(stmt, sequence));
 
+  // CODA 2.6 free communication follows the closing balance and is excluded
+  // from the Record 9 count. Split into its 80-character physical zones.
+  const free = stmt.freeCommunications?.flatMap(text => text.match(/[\s\S]{1,80}/g) || []) || [];
+  if (free.length) {
+    const closing = lines[lines.length - 1];
+    closing.fields.find(f => f.name === "linkCode")!.value = "1";
+    closing.raw = closing.fields.map(f => f.value).join("");
+    free.forEach((communication, i) => {
+      const values: Record<string, string> = { recordType: "4", sequenceNumber: padLeft(String(i + 1), 4, "0"), detailNumber: "0000", communication: communication.padEnd(80), linkCode: i < free.length - 1 ? "1" : "0" };
+      const fields = RECORD4_FIELDS.map(def => ({ ...def, value: values[def.name] ?? " ".repeat(def.length) }));
+      lines.push({ recordType: "4", fields, raw: fields.map(f => f.value).join("") });
+    });
+  }
+
   // Record 9
   lines.push(record9({ recordCount, sumDebits: fromMillis(sumDebitsMillis), sumCredits: fromMillis(sumCreditsMillis) }));
 
-  const warnings: string[] = [];
+  const warnings: string[] = [...inputValidation.warnings];
+  for (const entry of stmt.entries) {
+    entry.details.forEach((d, i) => {
+      const comm = resolveCommunication({ ...entry, details: [d] }).comm;
+      if (comm.length > 268) warnings.push(`Remittance detail ${i + 1} truncated to CODA capacity 268 characters`);
+      if (d.refs?.endToEndId && d.refs.endToEndId.length > 35) warnings.push("EndToEndId truncated to 35 characters");
+      if (d.counterparty?.name && d.counterparty.name.length > 35) warnings.push("Counterparty name truncated to 35 characters");
+
+      if (d.categoryPurpose) warnings.push("CategoryPurpose is retained in CODA but is unavailable in CAMT 053 output before v10");
+      if (i > 0 && d.amount === undefined && (d.counterparty || d.refs)) warnings.push(`Counterparty/references on detail ${i + 1} cannot be represented independently by CODA information records`);
+      if (d.refs?.txId || d.refs?.instrId) warnings.push("Transaction/instruction references have no dedicated CODA field; only available as free communication when remittance is absent");
+    });
+  }
+  // CODA 2.6 §§5.5–5.6: compute links from the complete emitted sequence.
+  lines.forEach((line, i) => {
+    const field = line.fields.find(f => f.name === "linkCode");
+    if (field && /^[23]\./.test(line.recordType)) {
+      field.value = lines[i + 1]?.recordType === "3.1" ? "1" : "0";
+      line.raw = line.fields.map(f => f.value).join("");
+    }
+  });
 
   // Reconcile: Record 8 closing balance must equal Record 1 opening + movements
   // (CODA 2.6). Computed in integer thousandths so the check is exact.
@@ -266,7 +332,7 @@ export function resolveCommunication(entry: CamtEntry): {
   // are carried as free communication rather than mislabelled as type 101.
   if (detail?.remittanceInfo?.structured?.creditorRef) {
     const ref = detail.remittanceInfo.structured.creditorRef;
-    if (/^\d{1,12}$/.test(ref)) {
+    if (isValidOgmVcs(ref) && (!detail.remittanceInfo.structured.type || detail.remittanceInfo.structured.type === "SCOR") && (!detail.remittanceInfo.structured.issuer || detail.remittanceInfo.structured.issuer === "BBA")) {
       return { comm: "101" + padLeft(ref, 12, "0"), commType: "1" };
     }
     return { comm: ref, commType: "0" };

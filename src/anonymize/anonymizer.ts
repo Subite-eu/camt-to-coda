@@ -1,4 +1,4 @@
-import { createHash } from "crypto";
+import { sha256 } from "./sha256.js";
 import type { CodaLine } from "../core/field-defs/types.js";
 
 // ── PII zone map (0-indexed, end exclusive) ──────────────────────────────────
@@ -10,7 +10,7 @@ import type { CodaLine } from "../core/field-defs/types.js";
 // structurally faked and routinely contains names, addresses, IBANs and invoice
 // details. Positions follow the CODA 2.6 layout (see src/core/field-defs/).
 
-type Mode = "iban" | "bic" | "name" | "blank";
+type Mode = "iban" | "bban" | "bic" | "name" | "blank";
 interface Zone {
   start: number;
   end: number;
@@ -29,6 +29,7 @@ const ZONES: Record<string, Zone[]> = {
   "1": [
     { start: 5, end: 39, mode: "iban" }, // account
     { start: 64, end: 90, mode: "name" }, // account holder name
+    { start: 90, end: 125, mode: "blank" }, // free-text statement description
   ],
   // Record 2.1 — movement
   "2.1": [
@@ -71,9 +72,7 @@ function recordKey(line: string): string {
 
 /** Hash (original + seed) → hex string */
 function hash(value: string, seed: number): string {
-  return createHash("sha256")
-    .update(value + "\x00" + String(seed))
-    .digest("hex");
+  return sha256(value + "\x00" + String(seed));
 }
 
 /** Map hash byte at index `i` onto a charset (full 64-hex window, no aliasing). */
@@ -96,6 +95,13 @@ function fakeIban(original: string, seed: number, len: number): string {
     fake += body[i] === " " ? " " : charAt(h, i, chars);
   }
   return fake.slice(0, len).padEnd(len);
+}
+
+/** Demonstration Belgian account: numeric width is retained, no bank validity claim. */
+function fakeBban(original: string, seed: number, len: number): string {
+  if (!original.trim()) return original;
+  const h = hash(original.trim(), seed);
+  return Array.from({ length: len }, (_,i) => charAt(h,i,"0123456789")).join("");
 }
 
 /** Fake BIC: 4-letter bank code, then alphanumerics. */
@@ -161,16 +167,28 @@ function replacePart(
 export function anonymizeCodaLines(lines: (CodaLine | string)[], seed = 0): string[] {
   const caches: Record<Exclude<Mode, "blank">, Map<string, string>> = {
     iban: new Map(),
+    bban: new Map(),
     bic: new Map(),
     name: new Map(),
   };
-  const fakers = { iban: fakeIban, bic: fakeBic, name: fakeName };
+  const fakers = { iban: fakeIban, bban: fakeBban, bic: fakeBic, name: fakeName };
+  let structure = "2";
 
   return lines.map((lineOrObj) => {
     let line = typeof lineOrObj === "string" ? lineOrObj : lineOrObj.raw;
     if (line.length !== 128) return line; // skip malformed lines
 
-    const zones = ZONES[recordKey(line)];
+    if (line[0] === "0") structure = "2";
+    if (line[0] === "1") structure = line[1];
+    let zones = ZONES[recordKey(line)];
+    // CODA 2.6 §7.5: structure 0 packs a 12-character Belgian BBAN,
+    // currency, qualification and country into the account zone. Redacting
+    // the entire 34-character IBAN zone would corrupt those business fields.
+    if (structure === "0" && (line[0] === "1" || line[0] === "8")) {
+      zones = zones.map(z => z.mode === "iban" ? { ...z, end: z.start + 12, mode: "bban" as const } : z);
+      const start = line[0] === "1" ? 5 : 4;
+      zones = [...zones, { start: start + 22, end: start + 37, mode: "blank" }];
+    }
     if (!zones) return line;
 
     for (const z of zones) {

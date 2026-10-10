@@ -1,0 +1,1870 @@
+{
+  "provenance": "Synthetic original source fixtures authored independently from ISO 20022 XSDs and CODA 2.6 Annexe I; no converter imports or private bank data.",
+  "cases": [
+    {
+      "id": "camt.052.001.02",
+      "format": "camt",
+      "path": "camt/camt.052.001.02.xml",
+      "valid": true,
+      "schema": "camt.052.001.02",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.03",
+      "format": "camt",
+      "path": "camt/camt.052.001.03.xml",
+      "valid": true,
+      "schema": "camt.052.001.03",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.04",
+      "format": "camt",
+      "path": "camt/camt.052.001.04.xml",
+      "valid": true,
+      "schema": "camt.052.001.04",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.05",
+      "format": "camt",
+      "path": "camt/camt.052.001.05.xml",
+      "valid": true,
+      "schema": "camt.052.001.05",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.06",
+      "format": "camt",
+      "path": "camt/camt.052.001.06.xml",
+      "valid": true,
+      "schema": "camt.052.001.06",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.07",
+      "format": "camt",
+      "path": "camt/camt.052.001.07.xml",
+      "valid": true,
+      "schema": "camt.052.001.07",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.08",
+      "format": "camt",
+      "path": "camt/camt.052.001.08.xml",
+      "valid": true,
+      "schema": "camt.052.001.08",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.09",
+      "format": "camt",
+      "path": "camt/camt.052.001.09.xml",
+      "valid": true,
+      "schema": "camt.052.001.09",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.10",
+      "format": "camt",
+      "path": "camt/camt.052.001.10.xml",
+      "valid": true,
+      "schema": "camt.052.001.10",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.11",
+      "format": "camt",
+      "path": "camt/camt.052.001.11.xml",
+      "valid": true,
+      "schema": "camt.052.001.11",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.12",
+      "format": "camt",
+      "path": "camt/camt.052.001.12.xml",
+      "valid": true,
+      "schema": "camt.052.001.12",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.052.001.13",
+      "format": "camt",
+      "path": "camt/camt.052.001.13.xml",
+      "valid": true,
+      "schema": "camt.052.001.13",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.02",
+      "format": "camt",
+      "path": "camt/camt.053.001.02.xml",
+      "valid": true,
+      "schema": "camt.053.001.02",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.03",
+      "format": "camt",
+      "path": "camt/camt.053.001.03.xml",
+      "valid": true,
+      "schema": "camt.053.001.03",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.04",
+      "format": "camt",
+      "path": "camt/camt.053.001.04.xml",
+      "valid": true,
+      "schema": "camt.053.001.04",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.05",
+      "format": "camt",
+      "path": "camt/camt.053.001.05.xml",
+      "valid": true,
+      "schema": "camt.053.001.05",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.06",
+      "format": "camt",
+      "path": "camt/camt.053.001.06.xml",
+      "valid": true,
+      "schema": "camt.053.001.06",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.07",
+      "format": "camt",
+      "path": "camt/camt.053.001.07.xml",
+      "valid": true,
+      "schema": "camt.053.001.07",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.08",
+      "format": "camt",
+      "path": "camt/camt.053.001.08.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.09",
+      "format": "camt",
+      "path": "camt/camt.053.001.09.xml",
+      "valid": true,
+      "schema": "camt.053.001.09",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.10",
+      "format": "camt",
+      "path": "camt/camt.053.001.10.xml",
+      "valid": true,
+      "schema": "camt.053.001.10",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.11",
+      "format": "camt",
+      "path": "camt/camt.053.001.11.xml",
+      "valid": true,
+      "schema": "camt.053.001.11",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.12",
+      "format": "camt",
+      "path": "camt/camt.053.001.12.xml",
+      "valid": true,
+      "schema": "camt.053.001.12",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt.053.001.13",
+      "format": "camt",
+      "path": "camt/camt.053.001.13.xml",
+      "valid": true,
+      "schema": "camt.053.001.13",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42",
+          "remittance": "Example invoice 42"
+        }
+      ]
+    },
+    {
+      "id": "camt-prefixed-namespace",
+      "format": "camt",
+      "path": "camt/camt-prefixed-namespace.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "prefixed-namespace"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-single-quoted-namespace",
+      "format": "camt",
+      "path": "camt/camt-single-quoted-namespace.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "single-quoted-namespace"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-datetime-choices",
+      "format": "camt",
+      "path": "camt/camt-datetime-choices.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "datetime-choices"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-empty-statement",
+      "format": "camt",
+      "path": "camt/camt-empty-statement.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "empty-statement"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 100,
+          "amounts": [],
+          "signs": []
+        }
+      ]
+    },
+    {
+      "id": "camt-three-decimal-kwd",
+      "format": "camt",
+      "path": "camt/camt-three-decimal-kwd.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "currency",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "KWD",
+          "opening": 1.234,
+          "closing": 1.235,
+          "amounts": [
+            0.001
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-debit-and-zero",
+      "format": "camt",
+      "path": "camt/camt-debit-and-zero.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "debit-balance",
+        "zero-movement"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1,
+          "closing": 1,
+          "amounts": [
+            2,
+            0
+          ],
+          "signs": [
+            "DBIT",
+            "CRDT"
+          ],
+          "closingSign": "DBIT"
+        }
+      ]
+    },
+    {
+      "id": "camt-multiple-statements",
+      "format": "camt",
+      "path": "camt/camt-multiple-statements.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "multiple-statements"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        },
+        {
+          "account": "BE71096123456769",
+          "currency": "EUR",
+          "opening": 20,
+          "closing": 21,
+          "amounts": [
+            1
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-other-account",
+      "format": "camt",
+      "path": "camt/camt-other-account.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "other-account"
+      ],
+      "expected": [
+        {
+          "account": "EXAMPLE-LOCAL-001",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-structured-ogm",
+      "format": "camt",
+      "path": "camt/camt-structured-ogm.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "structured-ogm",
+        "checksum"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "structuredReference": "010806817183"
+        }
+      ]
+    },
+    {
+      "id": "camt-long-remittance",
+      "format": "camt",
+      "path": "camt/camt-long-remittance.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "long-remittance",
+        "multiple-unstructured",
+        "continuation-boundary-space"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "remittance": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+        }
+      ]
+    },
+    {
+      "id": "camt-repeated-entry-details",
+      "format": "camt",
+      "path": "camt/camt-repeated-entry-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "repeated-entry-details",
+        "multiple-details"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "remittance": "Detail two",
+          "detailCount": 2
+        }
+      ]
+    },
+    {
+      "id": "camt-return-purpose",
+      "format": "camt",
+      "path": "camt/camt-return-purpose.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "return-reason",
+        "reversal",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "reason": "AC01",
+          "reversal": true,
+          "purpose": "SALA"
+        }
+      ]
+    },
+    {
+      "id": "coda-basic-eur",
+      "format": "coda",
+      "path": "coda/coda-basic-eur.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "original-coda",
+        "three-decimals",
+        "customer-reference"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "remittance": "Example invoice 42",
+          "endToEndId": "E2E-EXAMPLE-42"
+        }
+      ]
+    },
+    {
+      "id": "coda-empty-statement",
+      "format": "coda",
+      "path": "coda/coda-empty-statement.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "empty-statement"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 100,
+          "amounts": [],
+          "signs": []
+        }
+      ]
+    },
+    {
+      "id": "coda-three-decimal-kwd",
+      "format": "coda",
+      "path": "coda/coda-three-decimal-kwd.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "currency",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "KWD",
+          "opening": 1.234,
+          "closing": 1.235,
+          "amounts": [
+            0.001
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-debit-and-zero",
+      "format": "coda",
+      "path": "coda/coda-debit-and-zero.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "debit-balance",
+        "zero-movement"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1,
+          "closing": 1,
+          "amounts": [
+            2,
+            0
+          ],
+          "signs": [
+            "DBIT",
+            "CRDT"
+          ],
+          "closingSign": "DBIT"
+        }
+      ]
+    },
+    {
+      "id": "coda-multiple-statements",
+      "format": "coda",
+      "path": "coda/coda-multiple-statements.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "multiple-statements",
+        "multiple-file-indicator"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        },
+        {
+          "account": "BE71096123456769",
+          "currency": "EUR",
+          "opening": 20,
+          "closing": 21,
+          "amounts": [
+            1
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-counterparty",
+      "format": "coda",
+      "path": "coda/coda-counterparty.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "counterparty-account",
+        "counterparty-name"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "counterparty": "Example Counterparty",
+          "endToEndId": "E2E-EXAMPLE-42"
+        }
+      ]
+    },
+    {
+      "id": "coda-structured-ogm",
+      "format": "coda",
+      "path": "coda/coda-structured-ogm.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "structured-ogm",
+        "information-record"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "structuredReference": "010806817183"
+        }
+      ]
+    },
+    {
+      "id": "coda-long-remittance",
+      "format": "coda",
+      "path": "coda/coda-long-remittance.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "record-3.3",
+        "long-remittance",
+        "continuation-boundary-space"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "remittance": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+        }
+      ]
+    },
+    {
+      "id": "coda-return-purpose",
+      "format": "coda",
+      "path": "coda/coda-return-purpose.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "return-reason",
+        "reversal",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "reason": "AC01",
+          "reversal": true,
+          "purpose": "SALA"
+        }
+      ]
+    },
+    {
+      "id": "coda-free-communication",
+      "format": "coda",
+      "path": "coda/coda-free-communication.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "record-4",
+        "documented-loss"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-crlf",
+      "format": "coda",
+      "path": "coda/coda-crlf.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "crlf"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-monetary-details",
+      "format": "camt",
+      "path": "camt/camt-monetary-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "monetary-details",
+        "no-double-counting"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "detailAmounts": [
+            6,
+            6.345
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-detail-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-detail-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "detail-subprecision"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-mixed-sign-details",
+      "format": "camt",
+      "path": "camt/camt-mixed-sign-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "mixed-sign-details",
+        "own-and-counterparty",
+        "creditor-role"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "detailAmounts": [
+            15,
+            2.655
+          ],
+          "detailSigns": [
+            "CRDT",
+            "DBIT"
+          ],
+          "detailCounterparties": [
+            "Example Counterparty",
+            "Paid Supplier"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-local-detail-return-reason",
+      "format": "camt",
+      "path": "camt/camt-local-detail-return-reason.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "detail-return-reason",
+        "no-sibling-contamination"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "detailAmounts": [
+            6,
+            6.345
+          ],
+          "detailReasons": [
+            "AC01",
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-monetary-details",
+      "format": "coda",
+      "path": "coda/coda-monetary-details.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "monetary-details",
+        "no-double-counting",
+        "detail-bank-reference"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "detailAmounts": [
+            6,
+            6.345
+          ],
+          "detailBankReferences": [
+            "DETAIL-BANK-1",
+            "DETAIL-BANK-2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-belgian-bban",
+      "format": "coda",
+      "path": "coda/coda-belgian-bban.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "belgian-bban",
+        "packed-currency"
+      ],
+      "expected": [
+        {
+          "account": "539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-maximum-coda-amount",
+      "format": "camt",
+      "path": "camt/camt-maximum-coda-amount.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "maximum-amount",
+        "fixed-point"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 0,
+          "closing": 999999999999.999,
+          "amounts": [
+            999999999999.999
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-maximum-amount",
+      "format": "coda",
+      "path": "coda/coda-maximum-amount.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "maximum-amount",
+        "fixed-point"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 0,
+          "closing": 999999999999.999,
+          "amounts": [
+            999999999999.999
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-negative-opening",
+      "format": "camt",
+      "path": "camt/camt-negative-opening.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "negative-opening",
+        "negative-closing"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 20,
+          "closing": 7.655,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "openingSign": "DBIT",
+          "closingSign": "DBIT"
+        }
+      ]
+    },
+    {
+      "id": "coda-negative-opening",
+      "format": "coda",
+      "path": "coda/coda-negative-opening.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "negative-opening",
+        "negative-closing"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 20,
+          "closing": 7.655,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "openingSign": "DBIT",
+          "closingSign": "DBIT"
+        }
+      ]
+    },
+    {
+      "id": "camt-foreign-iban",
+      "format": "camt",
+      "path": "camt/camt-foreign-iban.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "foreign-iban"
+      ],
+      "expected": [
+        {
+          "account": "NL91ABNA0417164300",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coda-foreign-iban",
+      "format": "coda",
+      "path": "coda/coda-foreign-iban.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "foreign-iban"
+      ],
+      "expected": [
+        {
+          "account": "NL91ABNA0417164300",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camt-mixed-currency",
+      "format": "camt",
+      "path": "invalid/camt-mixed-currency.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "mixed-currency"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "subprecision"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-tiny-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-tiny-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "tiny-subprecision",
+        "no-tolerance-rounding"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-large-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-large-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "large-subprecision",
+        "validate-before-float"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-overflow",
+      "format": "camt",
+      "path": "invalid/camt-overflow.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "overflow"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-unsupported-version",
+      "format": "camt",
+      "path": "invalid/camt-unsupported-version.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "unsupported-version"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-broken-continuation",
+      "format": "coda",
+      "path": "invalid/coda-broken-continuation.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "continuation-link"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-mismatched-closing-account",
+      "format": "coda",
+      "path": "invalid/coda-mismatched-closing-account.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "account-consistency"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-unclosed",
+      "format": "camt",
+      "path": "invalid/camt-unclosed.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "syntax"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-nonnumeric-amount",
+      "format": "camt",
+      "path": "invalid/camt-nonnumeric-amount.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "numeric-domain"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-missing-account",
+      "format": "camt",
+      "path": "invalid/camt-missing-account.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "required-account"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-invalid-ogm-checksum",
+      "format": "coda",
+      "path": "invalid/coda-invalid-ogm-checksum.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "invalid-ogm-checksum"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-empty",
+      "format": "coda",
+      "path": "invalid/coda-empty.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "empty-input"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-short-record",
+      "format": "coda",
+      "path": "invalid/coda-short-record.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "line-width"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-missing-trailer",
+      "format": "coda",
+      "path": "invalid/coda-missing-trailer.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "required-trailer"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-nonnumeric-amount",
+      "format": "coda",
+      "path": "invalid/coda-nonnumeric-amount.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "numeric-domain"
+      ],
+      "expected": []
+    },
+    {
+      "id": "coda-wrong-trailer-total",
+      "format": "coda",
+      "path": "invalid/coda-wrong-trailer-total.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "trailer-total"
+      ],
+      "expected": []
+    }
+  ]
+}

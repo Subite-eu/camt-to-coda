@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
+<GrpHdr><MsgId>PUBLIC-EXAMPLE</MsgId><CreDtTm>2026-10-09T12:00:00Z</CreDtTm></GrpHdr>
+<Stmt><Id>EXAMPLE-001</Id><ElctrncSeqNb>1</ElctrncSeqNb><CreDtTm>2026-10-09T12:00:00Z</CreDtTm>
+<Acct><Id><IBAN>BE68539007547034</IBAN></Id><Ccy>EUR</Ccy><Ownr><Nm>Example Company</Nm></Ownr><Svcr><FinInstnId><BICFI>EXAMBEBB</BICFI></FinInstnId></Svcr></Acct>
+<Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">100.000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-09</Dt></Dt></Bal>
+<Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">112.345</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-09</Dt></Dt></Bal>
+<Ntry><NtryRef>ENTRY-1</NtryRef><Amt Ccy="EUR">12.345</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-1</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>E2E-EXAMPLE-42</EndToEndId></Refs><Amt Ccy="EUR">1.0001</Amt><CdtDbtInd>CRDT</CdtDbtInd><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>Example invoice 42</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+</Stmt>
+</BkToCstmrStmt></Document>

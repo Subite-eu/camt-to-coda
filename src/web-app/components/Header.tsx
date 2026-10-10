@@ -12,13 +12,16 @@ export function Header(props: {
   onAnonymizeChange: (v: boolean) => void;
   onDownload: () => void;
   canDownload: boolean;
+  locked?: boolean;
 }) {
   return (
     <header className="flex flex-wrap items-center gap-3 px-4 py-3 border-b">
-      <span className="font-bold tracking-tight">
+      <p className="font-bold tracking-tight">
         camt2coda <span className="text-muted-foreground text-xs font-medium">field inspector</span>
-      </span>
+      </p>
       <ToggleGroup
+        aria-label="Conversion direction"
+        disabled={props.locked}
         type="single"
         value={props.direction}
         onValueChange={(v) => v && props.onDirectionChange(v as Direction)}
@@ -30,7 +33,7 @@ export function Header(props: {
       </ToggleGroup>
       <div className="ml-auto flex items-center gap-3">
         <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
-          <Switch checked={props.anonymize} onCheckedChange={props.onAnonymizeChange} />
+          <Switch aria-label="Anonymize exported artifact" checked={props.anonymize} onCheckedChange={props.onAnonymizeChange} />
           Anonymize
         </label>
         <ThemeToggle />

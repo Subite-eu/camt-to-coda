@@ -297,14 +297,9 @@ describe("CAMT 052 parsing", () => {
     expect(stmts[0].closingBalance.creditDebit).toBe("CRDT");
   });
 
-  it("converts non-OPAV/INFO balance entries to CamtEntry movements", () => {
-    const stmts = parseCamt(CAMT_052_XML);
-    // FWAV balance becomes a movement entry
-    expect(stmts[0].entries).toHaveLength(1);
-    expect(stmts[0].entries[0].amount).toBe(200);
-    expect(stmts[0].entries[0].creditDebit).toBe("CRDT");
-    expect(stmts[0].entries[0].details).toEqual([]);
-    expect(stmts[0].entries[0].batchCount).toBeUndefined();
+  it("does not invent movements from balance snapshots", () => {
+    // ISO 20022 separates Bal snapshots from Ntry movements in every version.
+    expect(parseCamt(CAMT_052_XML)[0].entries).toEqual([]);
   });
 
   it("uses GrpHdr.CreDtTm as reportDate", () => {
@@ -565,11 +560,11 @@ describe("multiple Ustrd elements", () => {
   </BkToCstmrStmt>
 </Document>`;
 
-  it("concatenates multiple Ustrd elements with space separator", () => {
+  it("concatenates multiple Ustrd elements without inventing separator characters", () => {
     const stmts = parseCamt(MULTI_USTRD_XML);
     const detail = stmts[0].entries[0].details[0];
     expect(detail.remittanceInfo?.unstructured).toBe(
-      "Line one of remittance Line two of remittance Line three"
+      "Line one of remittanceLine two of remittanceLine three"
     );
   });
 

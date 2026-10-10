@@ -74,7 +74,10 @@ describe.skipIf(!havePair)("golden: real CAMT/CODA pair (private-examples)", () 
 
   it("round-trip CODA->CAMT->CODA preserves the money and reconciles", () => {
     const realCodText = readFileSync(codPath, "utf-8");
-    const { xml } = codaToCamt(realCodText);          // CODA -> CAMT
+    // The private historical fragment declares another logical file but does
+    // not include it. Validate the corrected complete physical-file boundary.
+    const completeCodText = realCodText.trimEnd().slice(0, -1) + "2";
+    const { xml } = codaToCamt(completeCodText);          // CODA -> CAMT
     const stmt = parseCamt(xml)[0];                    // CAMT -> model
     const result = statementToCoda(stmt);              // model -> CODA
 

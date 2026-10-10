@@ -46,7 +46,7 @@ export function record21(p: Record21Params): CodaLine {
     communication: padRight(comm.slice(0, 53), 53),
     entryDate,
     statementSequence: sequence,
-    globalisationCode: needRecord3 && entry.details.length > 1 ? "1" : "0",
+    globalisationCode: "0", // Information records do not open a monetary globalisation.
     nextCode: hasMore ? "1" : "0",
     blank: " ",
     linkCode: needRecord3 && !hasMore ? "1" : "0",

@@ -1,0 +1,41 @@
+# Core conformance implementation report
+
+## Contracts and changes
+
+- `codaToCamt` adds `statements[]` and `validation`, retaining `statement` as the first element. It rejects invalid source CODA before XML generation. `statementsToXml` exports all statements in one document; `statementToXml` wraps it.
+- Browser reverse adds `statements[]`, returns genuine invalid results on errors, and forward aggregates validation and conversion warnings. Runtime results identify semantic checks and explicitly set `xsdValidated: false`; XSD checks run independently in tests/CI.
+- CAMT parsing validates XML syntax, root namespace binding, supported 052/053 v02–13, decimal lexical forms and mandatory amounts. It preserves namespace aliases/single quotes, leading zeros, actual 052 `Ntry` movements, repeated `NtryDtls`, modern `Pty` party choices, date/time choices and optional account currency derived from balances. Repeated `Ustrd` values concatenate their literal content without invented separators.
+- The serializer follows all twelve bundled 053 XSD sequences: balances precede entries; statement timestamps, entry status, mandatory transaction codes, related party/agent containers, BIC/BICFI and party/status choices are version-aware. It preserves currency and thousandths, splits `Ustrd` at 140 characters, emits deterministic midnight timestamps for CODA dates and rejects unsupported versions. v03–06 require explicit amounts for multiple transaction details rather than inventing them.
+- CODA reverse preserves all logical files, record 3.3, continuation boundary spaces, valid OGM references, standalone E2E references and name-only counterparties. Forward uses checksum + SCOR/BBA metadata for type101 and calculates completed-sequence link flags. Information-only details do not open monetary globalisation hierarchies.
+- Nonzero monetary detail numbers group under their same-sequence aggregate, preserving detail amount/currency/direction, bank reference, transaction code and return reason. Forward emits these as detailed 2.x records and excludes their amounts from trailer totals; neither direction double-counts account movements.
+- Added optional model fields for balance currency, monetary detail values, related fields, bank references and free communication. Belgian BBAN structure0 uses the packed account/currency positions in CODA §7.5; other non-IBAN accounts use structure1. Debit zero signs survive. Record4 communication survives model/XML/CODA round trips.
+- Validators check required records, ordering, numeric/sign/date/currency domains, identifiers, account consistency, continuation identity, next/link/boundary flags, trailer counts/totals, orphan monetary details and reconciliation warnings. More than9999 movements/details per statement explicitly reject before sequence digits could truncate; wrapped sequence output is not supported.
+
+## Evidence
+
+`test/unit/audit-core.test.ts` began with23/23 red behavioral regressions, including independent `xmllint` failures for all twelve generated schema versions. Successive red/green increments cover additional lexical, namespace, OGM metadata/checksum, currency, debit-zero, account layout, record4, monetary grouping/amount preservation, sequence capacity and detail XML fields. Final focused run:44/44 green. All supported output XSDs pass `xmllint` in that suite. Targeted existing core suites passed231 tests after specification-correct fixture/assertion updates.
+
+Final unrestricted `npm test` checkpoint:949 passed,5 existing optional MinIO skips,2 cross-owner failures. Both are actively edited elsewhere: `test/unit/s3-remediation.test.ts` absent-object/access-error classification and `src/web-app/lib/provenance.test.ts` repeated-Ustrd source mapping. Log: `/tmp/core-last.log`. Core and public example tests were green in that full run. Typecheck's last checkpoint has only the cross-owner `FieldEntry.sourceRanges` addition pending in the frontend provenance test; core typechecks passed immediately before that new test landed.
+
+Legacy test adjustments are specification justified: reject empty CODA, correct trailer counts/totals, require balance signs, use v08 BICFI and three decimals, stop inventing052 movements from balances, preserve literal repeated-Ustrd content, require valid OGM checksum and full12 digits, use correct foreign BBAN structure, and avoid unclosed monetary globalisation flags. The historical private golden fragment declares another file but omits it; its roundtrip test explicitly corrects only that physical boundary flag, retaining all money assertions. Public independent fixtures now provide the main clean-checkout assurance.
+
+## Remaining format limits
+
+- CODA information-only details cannot independently carry multiple counterparties/references; warnings identify those losses. Valued monetary details now have their own 2.x rows and retain those fields.
+- Individual CODA monetary-detail booking/value dates remain in the model. CAMT TxDtls has no direct equivalent; differing dates produce an explicit reverse warning while XML retains aggregate entry dates.
+- CategoryPurpose is serialized only from v10 where its schema slot exists; older output versions cannot preserve that field. Long fields and unsupported dedicated transaction/instruction reference slots emit conversion warnings.
+- Runtime validation does not execute an XSD engine. Schema validity is independently established by the required fixture/generated-output matrix; no runtime XSD claim is made.
+
+## Final review follow-ups
+
+Independent review additionally found four-decimal monetary detail acceptance, v02 detail amount shape and mixed-sign party selection. All were reproduced red before fixes. Details now use the same three-decimal check as aggregate entries, including independently authored original XML. v02 uses `AmtDtls/TxAmt/Amt`; an independent detail direction differing from its aggregate explicitly rejects because v02 lacks that direction slot. Both parser and writer select counterparties/agents with the effective transaction detail direction. Latest focused checkpoint:50 audit regressions +372 expanded public/version checks =422 passed (`/tmp/core-mixed-matrix.log`).
+
+The final review also reproduced nested return reasons leaking into the aggregate and siblings. Return reasons now remain local to independently valued details; CODA detail rows do not inherit aggregate reasons. XML uses an amountless summary when a separate aggregate reason must coexist with valued detail reasons. Reverse CODA business validation rejects malformed/checksum-invalid type101 OGM payloads per Annex III.
+
+Final verification supersedes the earlier cross-owner checkpoints: `npm test` **1171 passed,5 optional MinIO tests skipped,54 test files passed** (`/tmp/core-complete-review-suite.log`); `npm run typecheck` passed. Focused audit + expanded public matrix:54 +378 =432 passed (`/tmp/core-review-final.log`). All requested implementation and review fixes are uncommitted on the shared branch for root integration.
+
+## Exact precision boundary follow-up
+
+Removed the fixed precision tolerance from aggregate/detail model validation. Representability now requires `Math.round(amount * 1000) / 1000 === amount`; the XML amount serializer independently enforces the same condition. CAMT decimal parsing rejects any nonzero fractional source digit beyond the third before conversion to `Number`, preventing large decimal lexemes from losing the evidence of excess precision. Extra trailing zero digits remain accepted. New red/green regressions cover aggregate/detail `0.0000001`, source `999999999999.9990001`, permitted trailing zeros, direct XML serialization, and valid thousandths including maximum `999999999999.999`.
+
+Superseding verification: **1177 passed,5 optional MinIO skips,54 files passed** (`/tmp/core-exact-money-suite.log`); typecheck passed. Focused audit/public checks:58 +381 =439 passed. No core failures remain.

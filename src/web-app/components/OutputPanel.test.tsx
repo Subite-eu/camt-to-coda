@@ -13,9 +13,17 @@ describe("OutputPanel", () => {
     const idx = buildFieldIndex(r.codaLines);
     const onSelect = vi.fn();
     render(<OutputPanel title="Output · CODA" lines={r.codaLines} index={idx} selectedId={null} onSelect={onSelect} />);
+    await userEvent.type(screen.getByRole("textbox", { name: /Find a field/ }), "accountNumber");
     const fieldButton = screen.getAllByRole("button").find((b) => /BE68539007547034/.test(b.textContent || ""));
     expect(fieldButton).toBeDefined();
     await userEvent.click(fieldButton!);
     expect(onSelect).toHaveBeenCalledWith(expect.stringContaining("accountNumber"));
   });
+});
+
+it("names fields with record, position and value and exposes selection", () => {
+  const r = convert(CAMT,"camt-to-coda",false); const idx = buildFieldIndex(r.codaLines);
+  const field = idx.find(f => f.name === "accountNumber")!;
+  render(<OutputPanel title="CODA" lines={r.codaLines} index={idx} selectedId={field.id} onSelect={() => {}} />);
+  expect(screen.getByRole("button",{ name: /Record 1.*accountNumber.*6-39.*BE68539007547034/ })).toHaveAttribute("aria-pressed","true");
 });

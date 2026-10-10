@@ -16,7 +16,7 @@ These CODA fields require data that is not present in standard CAMT 053 XML:
 | 1 | Account Description | 91-125 | Bank product name (e.g., "KBC-Business PRO-rekening") | Commercial name, not in CAMT |
 | 2.2 | R-Transaction Type | 113 | Reject/Return/Refund/Reversal/Cancellation indicator | Mapped: `RvslInd`→Reversal (4), else a booked entry with a return reason→Return (2). Reject/Refund/Cancellation need message-type context absent from a booked camt.053 entry. |
 | 2.2 | ISO Reason Code | 114-117 | Reason code for R-transactions (EPC173-14) | Mapped from/to `TxDtls/RtrInf/Rsn/Cd` |
-| 2.2 | CategoryPurpose | 118-121 | SEPA category purpose code | Parsed forward; **no camt.053 element** exists to reconstruct it, so not round-tripped |
+| 2.2 | CategoryPurpose | 118-121 | SEPA category purpose code | Reconstructed as `PmtTpInf/CtgyPurp` in CAMT v10–13; older output versions cannot retain this field |
 | 2.2 | Purpose | 122-125 | SEPA purpose code | Mapped from/to `TxDtls/Purp/Cd` |
 
 ### Sequence Number
@@ -54,12 +54,25 @@ When converting CODA to CAMT, the 8-digit CODA transaction code is reverse-mappe
 
 ### Communication / Remittance Info
 
-- **CAMT to CODA**: Unstructured remittance info is split across communication zones (Record 2.1: 53 chars, Record 2.2: 53 chars, Record 2.3: 43 chars = 149 chars total). Text beyond 149 characters is truncated. Structured Belgian creditor references (OGM/VCS) are encoded as type "101" + 12-digit reference.
+- **CAMT to CODA**: Unstructured remittance info is split across communication zones (Record 2.1: 53 chars, Record 2.2: 53 chars, Record 2.3: 43 chars = 149 chars total). Record 3.1/3.2/3.3 preserve each detail communication up to 268 characters; text beyond that capacity is truncated with a visible warning. Structured Belgian creditor references (OGM/VCS) are encoded as type "101" + 12-digit reference.
 - **CODA to CAMT**: Communication zones are concatenated back into a single `RmtInf/Ustrd` string. Structured communications with type "101" are reconstructed as `RmtInf/Strd/CdtrRefInf/Ref`.
 
 ### Data Precision
 
-- **Amounts**: CODA uses 15 digits (12 integer + 3 decimal). Amounts with more than 3 decimal places are rounded. Amounts exceeding 999,999,999,999.999 cannot be represented.
+- **Amounts**: CODA uses 15 digits (12 integer + 3 decimal). Values not exactly representable in three decimals are rejected; mixed entry/account currencies are rejected instead of relabeled. Amounts exceeding 999,999,999,999.999 cannot be represented.
 - **Dates**: CODA uses DDMMYY format. Years before 1950 or after 2049 cannot be unambiguously represented in the YY to YYYY conversion.
 - **Names**: Account holder name is limited to 26 characters in Record 1. Counterparty name is limited to 35 characters in Record 2.3.
 - **IBAN**: Limited to 34 characters in CODA (sufficient for all current IBANs).
+
+
+## Validation, privacy and completeness boundaries
+
+Runtime validation checks XML syntax, supported namespace/message structure, required modeled fields, numeric domains, dates, CODA record order/width/continuations/counts/totals and balance reconciliation. It is deliberately labeled runtime validation and does not claim full XSD validation. CI independently checks public original CAMT documents and generated reverse XML against all supported bundled schemas. Unsupported output versions fail explicitly.
+
+All logical CODA files are reconstructed as statements in a single reverse CAMT document. `codaToCamt` exposes `statements` while retaining `statement` as the first statement for compatibility. Forward browser conversion exposes every generated CODA file. Record 4 free communications are modeled separately and carried through CAMT `AddtlStmtInf`, preserving them for a subsequent CODA conversion.
+
+Browser Anonymize applies to the exported artifact and result preview; the source pane intentionally retains the original. Names, accounts, bank identifiers, references and free text are removed or replaced. Amounts, dates, currency and transaction patterns remain, and deterministic pseudonyms can be linked across files. Reverse privacy XML uses synthetic Other account identifiers. Forward CODA privacy identifiers are demonstration data and must not be imported into banking software. Privacy conversion must succeed and produce a meaningful artifact; an empty result is never a successful privacy export.
+
+CODA movement and detail counters are four digits. Conversion rejects statements with more than 9,999 movements or more than 9,999 details in a movement before emitting output; split larger statements explicitly. The browser also rejects input beyond 5 MiB.
+
+CAMT v02 carries detail amounts through `AmtDtls/TxAmt/Amt` and inherits the aggregate direction. Opposite-sign monetary details cannot be emitted faithfully in v02 and are explicitly rejected; choose v03 or newer. v03–06 require an amount for every detail when more than one is present, and reject amountless multiple information details instead of inventing monetary values.

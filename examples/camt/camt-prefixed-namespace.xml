@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bank:Document xmlns:bank="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><bank:BkToCstmrStmt>
+<bank:GrpHdr><bank:MsgId>PUBLIC-EXAMPLE</bank:MsgId><bank:CreDtTm>2026-10-09T12:00:00Z</bank:CreDtTm></bank:GrpHdr>
+<bank:Stmt><bank:Id>EXAMPLE-001</bank:Id><bank:ElctrncSeqNb>1</bank:ElctrncSeqNb><bank:CreDtTm>2026-10-09T12:00:00Z</bank:CreDtTm>
+<bank:Acct><bank:Id><bank:IBAN>BE68539007547034</bank:IBAN></bank:Id><bank:Ccy>EUR</bank:Ccy><bank:Ownr><bank:Nm>Example Company</bank:Nm></bank:Ownr><bank:Svcr><bank:FinInstnId><bank:BICFI>EXAMBEBB</bank:BICFI></bank:FinInstnId></bank:Svcr></bank:Acct>
+<bank:Bal><bank:Tp><bank:CdOrPrtry><bank:Cd>OPBD</bank:Cd></bank:CdOrPrtry></bank:Tp><bank:Amt Ccy="EUR">100.000</bank:Amt><bank:CdtDbtInd>CRDT</bank:CdtDbtInd><bank:Dt><bank:Dt>2026-10-09</bank:Dt></bank:Dt></bank:Bal>
+<bank:Bal><bank:Tp><bank:CdOrPrtry><bank:Cd>CLBD</bank:Cd></bank:CdOrPrtry></bank:Tp><bank:Amt Ccy="EUR">112.345</bank:Amt><bank:CdtDbtInd>CRDT</bank:CdtDbtInd><bank:Dt><bank:Dt>2026-10-09</bank:Dt></bank:Dt></bank:Bal>
+<bank:Ntry><bank:NtryRef>ENTRY-1</bank:NtryRef><bank:Amt Ccy="EUR">12.345</bank:Amt><bank:CdtDbtInd>CRDT</bank:CdtDbtInd>
+<bank:Sts><bank:Cd>BOOK</bank:Cd></bank:Sts>
+<bank:BookgDt><bank:Dt>2026-10-09</bank:Dt></bank:BookgDt><bank:ValDt><bank:Dt>2026-10-09</bank:Dt></bank:ValDt><bank:AcctSvcrRef>BANK-EXAMPLE-1</bank:AcctSvcrRef>
+<bank:BkTxCd><bank:Domn><bank:Cd>PMNT</bank:Cd><bank:Fmly><bank:Cd>RCDT</bank:Cd><bank:SubFmlyCd>ESCT</bank:SubFmlyCd></bank:Fmly></bank:Domn></bank:BkTxCd>
+<bank:NtryDtls><bank:TxDtls><bank:Refs><bank:EndToEndId>E2E-EXAMPLE-42</bank:EndToEndId></bank:Refs><bank:RltdPties><bank:Dbtr><bank:Pty><bank:Nm>Example Counterparty</bank:Nm></bank:Pty></bank:Dbtr></bank:RltdPties><bank:RmtInf><bank:Ustrd>Example invoice 42</bank:Ustrd></bank:RmtInf></bank:TxDtls></bank:NtryDtls>
+</bank:Ntry>
+</bank:Stmt>
+</bank:BkToCstmrStmt></bank:Document>

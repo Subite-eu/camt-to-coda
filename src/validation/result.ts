@@ -2,6 +2,8 @@ export interface ValidationResult {
   valid: boolean;
   errors: string[];
   warnings: string[];
+  checks?: string[];
+  xsdValidated?: boolean;
 }
 
 export function success(): ValidationResult {

@@ -42,3 +42,8 @@ private-examples/
 
 # Brainstorming visual companion
 .superpowers/
+
+# Local audit evidence and browser test artifacts
+.impeccable/
+playwright-report/
+test-results/

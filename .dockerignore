@@ -1,0 +1,9 @@
+# Only build inputs enter the Docker context; exclude private bank examples,
+# repository history, credentials, dependencies and local audit artifacts.
+*
+!package.json
+!package-lock.json
+!tsconfig*.json
+!vite.config.ts
+!src/
+!src/**

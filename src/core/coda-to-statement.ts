@@ -37,8 +37,8 @@ function parseAmount(raw: string): number {
   // The CODA amount field is 15 digits = integer thousandths (12 int + 3 dec).
   const trimmed = raw.replace(/\s/g, "");
   if (trimmed.length === 0) return 0;
-  const millis = parseInt(trimmed, 10);
-  return Number.isNaN(millis) ? 0 : fromMillis(millis);
+  if (!/^\d{15}$/.test(trimmed)) throw new Error(`Invalid CODA amount: ${raw}`);
+  return fromMillis(Number(trimmed));
 }
 
 function parseSign(sign: string): "CRDT" | "DBIT" {
@@ -52,6 +52,7 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
   let openingBalance: Balance = { amount: 0, creditDebit: "CRDT", date: "" };
   let closingBalance: Balance = { amount: 0, creditDebit: "CRDT", date: "" };
   const entries: CamtEntry[] = [];
+  const freeCommunications: string[] = [];
 
   let messageId = "";
   let creationDate = "";
@@ -66,12 +67,15 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
   let commZone2 = "";
   let commZone3 = "";
   let communicationType = "0";
+  let currentSequence = "";
+  let currentMovementDetail = "0000";
+  const aggregateBySequence = new Map<string, CamtEntry>();
 
   function flushEntry(): void {
     if (!currentEntry) return;
 
     // Build communication from all 3 zones
-    const fullComm = (commZone1 + commZone2 + commZone3).trim();
+    const fullComm = (commZone1 + commZone2 + commZone3).trimEnd();
 
     // Populate remittance info on the first detail
     if (currentDetail) {
@@ -79,7 +83,7 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
         // Structured: Belgian creditor reference
         currentDetail.remittanceInfo = {
           structured: {
-            creditorRef: fullComm.slice(3).trim(),
+            creditorRef: fullComm.slice(3, 15),
           },
         };
       } else if (fullComm.length > 0) {
@@ -91,10 +95,42 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
       // Add detail if not already added
       if (currentEntry.details.length === 0) {
         currentEntry.details.push(currentDetail);
+      } else {
+        const first = currentEntry.details[0];
+        first.refs = { ...currentDetail.refs, ...first.refs };
+        first.counterparty = { ...currentDetail.counterparty, ...first.counterparty };
+        first.purpose ??= currentDetail.purpose;
+        first.categoryPurpose ??= currentDetail.categoryPurpose;
+        if (currentDetail.remittanceInfo?.structured) first.remittanceInfo = currentDetail.remittanceInfo;
       }
+      currentEntry.details.forEach(d => {
+        if (d.remittanceInfo?.unstructured) d.remittanceInfo.unstructured = d.remittanceInfo.unstructured.trimEnd();
+      });
     }
 
-    entries.push(currentEntry);
+    if (currentMovementDetail !== "0000") {
+      const aggregate = aggregateBySequence.get(currentSequence);
+      if (!aggregate) throw new Error(`Orphan CODA monetary detail ${currentSequence}/${currentMovementDetail}`);
+      // Discard only the empty information placeholder generated for an
+      // aggregate that has no summary communication or party information.
+      aggregate.details = aggregate.details.filter(d =>
+        d.amount !== undefined || d.purpose || d.categoryPurpose ||
+        Object.values(d.refs ?? {}).some(Boolean) || Object.values(d.counterparty ?? {}).some(Boolean) ||
+        d.remittanceInfo?.structured?.creditorRef || d.remittanceInfo?.unstructured);
+      const first = currentEntry.details[0] ?? {};
+      first.amount = currentEntry.amount;
+      first.currency = currentEntry.currency;
+      first.creditDebit = currentEntry.creditDebit;
+      first.bookingDate = currentEntry.bookingDate;
+      first.valueDate = currentEntry.valueDate;
+      first.transactionCode = currentEntry.transactionCode;
+      first.returnInfo = currentEntry.returnInfo;
+      first.refs = { accountServicerRef: currentEntry.accountServicerRef, ...first.refs };
+      aggregate.details.push(...currentEntry.details);
+    } else {
+      entries.push(currentEntry);
+      aggregateBySequence.set(currentSequence, currentEntry);
+    }
     currentEntry = null;
     currentDetail = null;
     commZone1 = "";
@@ -115,7 +151,8 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
 
       case "1": {
         // Old balance: IBAN, currency, opening balance, holder name
-        account.iban = getField(line, "accountNumber") || undefined;
+        if (["2", "3"].includes(getField(line, "accountStructure"))) account.iban = getField(line, "accountNumber") || undefined;
+        else account.otherId = getField(line, "accountNumber") || undefined;
         account.currency = getField(line, "currency") || "EUR";
         account.ownerName = getField(line, "holderName") || undefined;
 
@@ -136,6 +173,8 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
         // Flush any previous entry
         flushEntry();
 
+        currentSequence = getField(line, "sequenceNumber");
+        currentMovementDetail = getField(line, "detailNumber");
         // New movement entry
         const amountSign = getField(line, "amountSign");
         const creditDebit = parseSign(amountSign);
@@ -219,7 +258,8 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
               currentDetail.counterparty = {};
             }
             if (counterpartAccount) {
-              currentDetail.counterparty.iban = counterpartAccount;
+              if (/^[A-Z]{2}\d{2}[a-zA-Z0-9]{1,30}$/.test(counterpartAccount)) currentDetail.counterparty.iban = counterpartAccount;
+              else currentDetail.counterparty.otherId = counterpartAccount;
             }
             if (counterpartName) {
               currentDetail.counterparty.name = counterpartName;
@@ -235,12 +275,12 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
         if (currentEntry) {
           const detail: TransactionDetail = {};
 
-          const communication31 = getRawField(line, "communication").trim();
+          const communication31 = getRawField(line, "communication");
           const commType31 = getField(line, "communicationType");
 
           if (commType31 === "1" && communication31.startsWith("101")) {
             detail.remittanceInfo = {
-              structured: { creditorRef: communication31.slice(3).trim() },
+              structured: { creditorRef: communication31.slice(3, 15) },
             };
           } else if (communication31.length > 0) {
             detail.remittanceInfo = { unstructured: communication31 };
@@ -262,7 +302,7 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
         // Batch continuation: append communication to the last detail
         if (currentEntry && currentEntry.details.length > 0) {
           const lastDetail = currentEntry.details[currentEntry.details.length - 1];
-          const comm32 = getRawField(line, "communication").trim();
+          const comm32 = getRawField(line, "communication");
           if (comm32.length > 0 && lastDetail.remittanceInfo) {
             if (lastDetail.remittanceInfo.unstructured) {
               lastDetail.remittanceInfo.unstructured += comm32;
@@ -273,13 +313,15 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
       }
 
       case "3.3": {
-        // Batch counterparty: similar to 2.3 but for a detail line
-        // Append communication to the last detail if applicable
+        if (currentEntry?.details.length) {
+          const detail = currentEntry.details[currentEntry.details.length - 1];
+          if (detail.remittanceInfo?.unstructured) detail.remittanceInfo.unstructured += getRawField(line, "communication");
+        }
         break;
       }
 
       case "4": {
-        // Free communication: skip (not mapped to model)
+        freeCommunications.push(getRawField(line, "communication").trimEnd());
         break;
       }
 
@@ -316,5 +358,6 @@ export function codaToStatement(lines: CodaLine[]): CamtStatement {
     entries,
     reportDate,
     sequence,
+    freeCommunications: freeCommunications.length ? freeCommunications : undefined,
   };
 }

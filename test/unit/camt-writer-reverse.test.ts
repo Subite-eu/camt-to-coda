@@ -77,7 +77,7 @@ describe("statementToXml", () => {
 
   it("includes account BIC", () => {
     const xml = statementToXml(stmt);
-    expect(xml).toContain("<BIC>BBRUBEBB</BIC>");
+    expect(xml).toContain("<BICFI>BBRUBEBB</BICFI>");
   });
 
   it("includes account owner name", () => {
@@ -93,18 +93,18 @@ describe("statementToXml", () => {
   it("includes opening balance with OPBD type", () => {
     const xml = statementToXml(stmt);
     expect(xml).toContain("<Cd>OPBD</Cd>");
-    expect(xml).toContain('<Amt Ccy="EUR">1000.00</Amt>');
+    expect(xml).toContain('<Amt Ccy="EUR">1000.000</Amt>');
   });
 
   it("includes closing balance with CLBD type", () => {
     const xml = statementToXml(stmt);
     expect(xml).toContain("<Cd>CLBD</Cd>");
-    expect(xml).toContain('<Amt Ccy="EUR">1500.00</Amt>');
+    expect(xml).toContain('<Amt Ccy="EUR">1500.000</Amt>');
   });
 
   it("includes entry amount with currency attribute", () => {
     const xml = statementToXml(stmt);
-    expect(xml).toContain('<Amt Ccy="EUR">500.00</Amt>');
+    expect(xml).toContain('<Amt Ccy="EUR">500.000</Amt>');
   });
 
   it("includes entry credit/debit indicator", () => {
@@ -137,7 +137,7 @@ describe("statementToXml", () => {
     expect(xml).toContain("<DbtrAcct>");
     expect(xml).toContain("<IBAN>BE91516952884376</IBAN>");
     expect(xml).toContain("<DbtrAgt>");
-    expect(xml).toContain("<BIC>SNDRBEBB</BIC>");
+    expect(xml).toContain("<BICFI>SNDRBEBB</BICFI>");
   });
 
   it("maps DBIT counterparty as Cdtr (payee)", () => {
@@ -162,7 +162,7 @@ describe("statementToXml", () => {
     expect(xml).toContain("<CdtrAcct>");
     expect(xml).toContain("<IBAN>BE12345678901234</IBAN>");
     expect(xml).toContain("<CdtrAgt>");
-    expect(xml).toContain("<BIC>PAYEBEBB</BIC>");
+    expect(xml).toContain("<BICFI>PAYEBEBB</BICFI>");
   });
 
   it("includes remittance info (unstructured)", () => {
@@ -218,7 +218,7 @@ describe("statementToXml", () => {
       messageId: "MSG-001",
       creationDate: "2024-01-01",
       statementId: "S-001",
-      account: { currency: "EUR" },
+      account: { otherId: "SYNTHETIC-ACCOUNT", currency: "EUR" },
       openingBalance: { amount: 0, creditDebit: "CRDT", date: "2024-01-01" },
       closingBalance: { amount: 0, creditDebit: "CRDT", date: "2024-01-01" },
       entries: [],
@@ -226,7 +226,7 @@ describe("statementToXml", () => {
     };
     const xml = statementToXml(minimalStmt);
     expect(xml).not.toContain("<IBAN>");
-    expect(xml).not.toContain("<BIC>");
+    expect(xml).not.toContain("<BICFI>");
     expect(xml).not.toContain("<Ownr>");
     expect(xml).not.toContain("<Ntry>");
   });
@@ -279,6 +279,6 @@ describe("statementToXml", () => {
     const xml = statementToXml(stmtMulti);
     const ntryCount = (xml.match(/<Ntry>/g) ?? []).length;
     expect(ntryCount).toBe(2);
-    expect(xml).toContain('<Amt Ccy="EUR">250.00</Amt>');
+    expect(xml).toContain('<Amt Ccy="EUR">250.000</Amt>');
   });
 });
