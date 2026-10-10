@@ -9,6 +9,7 @@ function amt(a: number, c: string): string {
     if (!Number.isFinite(a) || a < 0)
         throw new Error('Invalid CAMT amount');
     const m = toMillis(a);
+    if (m / 1000 !== a) throw new Error("Invalid amount precision: CODA supports at most three decimals");
     return `<Amt Ccy="${esc(c)}">${Math.floor(m / 1000)}.${String(m % 1000).padStart(3, '0')}</Amt>`;
 }
 // CODA carries a calendar date only. Midnight is an explicit deterministic

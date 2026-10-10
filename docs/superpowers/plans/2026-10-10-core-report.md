@@ -33,3 +33,9 @@ Independent review additionally found four-decimal monetary detail acceptance, v
 The final review also reproduced nested return reasons leaking into the aggregate and siblings. Return reasons now remain local to independently valued details; CODA detail rows do not inherit aggregate reasons. XML uses an amountless summary when a separate aggregate reason must coexist with valued detail reasons. Reverse CODA business validation rejects malformed/checksum-invalid type101 OGM payloads per Annex III.
 
 Final verification supersedes the earlier cross-owner checkpoints: `npm test` **1171 passed,5 optional MinIO tests skipped,54 test files passed** (`/tmp/core-complete-review-suite.log`); `npm run typecheck` passed. Focused audit + expanded public matrix:54 +378 =432 passed (`/tmp/core-review-final.log`). All requested implementation and review fixes are uncommitted on the shared branch for root integration.
+
+## Exact precision boundary follow-up
+
+Removed the fixed precision tolerance from aggregate/detail model validation. Representability now requires `Math.round(amount * 1000) / 1000 === amount`; the XML amount serializer independently enforces the same condition. CAMT decimal parsing rejects any nonzero fractional source digit beyond the third before conversion to `Number`, preventing large decimal lexemes from losing the evidence of excess precision. Extra trailing zero digits remain accepted. New red/green regressions cover aggregate/detail `0.0000001`, source `999999999999.9990001`, permitted trailing zeros, direct XML serialization, and valid thousandths including maximum `999999999999.999`.
+
+Superseding verification: **1177 passed,5 optional MinIO skips,54 files passed** (`/tmp/core-exact-money-suite.log`); typecheck passed. Focused audit/public checks:58 +381 =439 passed. No core failures remain.

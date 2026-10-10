@@ -1700,6 +1700,30 @@
       "expected": []
     },
     {
+      "id": "camt-tiny-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-tiny-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "tiny-subprecision",
+        "no-tolerance-rounding"
+      ],
+      "expected": []
+    },
+    {
+      "id": "camt-large-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-large-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "large-subprecision",
+        "validate-before-float"
+      ],
+      "expected": []
+    },
+    {
       "id": "camt-overflow",
       "format": "camt",
       "path": "invalid/camt-overflow.xml",

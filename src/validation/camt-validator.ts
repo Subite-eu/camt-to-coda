@@ -31,7 +31,7 @@ export function validateCamt(stmt: CamtStatement): ValidationResult {
     for (const [name, value] of values) {
         if (!Number.isFinite(value.amount) || value.amount < 0 || value.amount >= 1e12)
             errors.push(`Invalid ${name} amount: requires a finite unsigned CODA amount below 10^12`);
-        else if (Math.abs(value.amount * 1000 - Math.round(value.amount * 1000)) > 0.001)
+        else if (Math.round(value.amount * 1000) / 1000 !== value.amount)
             errors.push(`Invalid ${name} amount: CODA supports at most three decimals`);
         if (!['CRDT', 'DBIT'].includes(value.creditDebit))
             errors.push(`Invalid ${name} credit/debit indicator`);
@@ -52,7 +52,7 @@ export function validateCamt(stmt: CamtStatement): ValidationResult {
         e.details.forEach((d, j) => {
             if (d.amount !== undefined && (!Number.isFinite(d.amount) || d.amount < 0 || d.amount >= 1e12))
                 errors.push(`Entry ${i + 1} detail ${j + 1}: invalid amount`);
-            else if (d.amount !== undefined && Math.abs(d.amount * 1000 - Math.round(d.amount * 1000)) > 0.001)
+            else if (d.amount !== undefined && Math.round(d.amount * 1000) / 1000 !== d.amount)
                 errors.push(`Entry ${i + 1} detail ${j + 1}: CODA supports at most three decimals`);
             if (d.creditDebit !== undefined && !['CRDT', 'DBIT'].includes(d.creditDebit))
                 errors.push(`Entry ${i + 1} detail ${j + 1}: invalid direction`);

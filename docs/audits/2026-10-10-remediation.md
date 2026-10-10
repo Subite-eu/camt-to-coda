@@ -23,7 +23,7 @@ The October 10 audit covered the converter, validation, browser workflow, privac
 
 ## Independent review
 
-A reviewer independently reproduced and verified repairs for monetary detail double counting, reverse API privacy omission, packed BBAN currency corruption, reverse filename collisions, four-digit counter truncation, repeated-remittance provenance, detail precision, v02 amount shape, mixed-sign creditor/debtor selection, nested return-reason contamination, OGM checksum handling, and temporary AWS credentials/region. These findings have behavioral regressions, including additional independently authored source fixtures. Monetary detail fields and v02 amount provenance were reviewed again after fixes.
+A reviewer independently reproduced and verified repairs for monetary detail double counting, reverse API privacy omission, packed BBAN currency corruption, reverse filename collisions, four-digit counter truncation, repeated-remittance provenance, detail precision, v02 amount shape, mixed-sign creditor/debtor selection, nested return-reason contamination, OGM checksum handling, and temporary AWS credentials/region. These findings have behavioral regressions, including additional independently authored source fixtures. Monetary detail fields and v02 amount provenance were reviewed again after fixes. A final precision review verified rejection of tiny sub-thousandth amounts and large excess-precision source decimals before JavaScript numeric conversion, while exact thousandths and extra trailing zeros remain valid. The focused review passed 439 checks plus independent boundary probes.
 
 ## Verification and CI
 
@@ -39,9 +39,9 @@ See `docs/conversion-limitations.md` for documented losses and unsupported shape
 
 ## Final local verification
 
-- 74 independently authored source fixtures; complete original/round-trip/output-version checks pass.
-- Full Vitest suite with live MinIO enabled: 1,176 tests passed, zero skipped (54 files).
-- Coverage: 94.94% lines, 84.92% branches; existing 90%/80% thresholds retained, S3 and browser adapters added to measurement.
+- 76 independently authored source fixtures; complete original/round-trip/output-version checks pass.
+- Full Vitest suite with live MinIO enabled: 1,182 tests passed, zero skipped (54 files).
+- Coverage: 94.94% lines, 84.96% branches; existing 90%/80% thresholds retained, S3 and browser adapters added to measurement.
 - Typecheck, Node build and production Vite build pass; dependency audit reports zero vulnerabilities.
 - Production Chromium, WebKit and mobile Chromium: 27 E2E tests passed (including a 2,000-movement valid statement with bounded DOM, pagination and complete download), including actual privacy/ZIP downloads and light/dark axe scans. Firefox is a required Linux CI project; the local macOS Firefox runtime could not resolve its temporary profile.
 - Docker image build, CLI version, HTTP health, HTML and actual bundled JavaScript smoke pass. Live MinIO built from pinned official source and all 29 storage tests pass.

@@ -300,7 +300,7 @@ describe('valued detail decimal precision', () => {
         expect(validateCamt(statement).errors).toContain('Entry 1 detail 1: CODA supports at most three decimals');
         expect(statementToCoda(statement).validation.valid).toBe(false);
     });
-    it('parses an original four-decimal detail accurately and rejects its CODA precision loss', () => {
+    it('rejects original four-decimal detail precision before Number conversion', () => {
         const xml = `<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
           <GrpHdr><MsgId>SYNTHETIC-PRECISION</MsgId><CreDtTm>2026-10-10T00:00:00Z</CreDtTm></GrpHdr>
           <Stmt><Id>DETAIL-PRECISION</Id><Acct><Id><IBAN>BE68539007547034</IBAN></Id><Ccy>KWD</Ccy></Acct>
@@ -309,10 +309,8 @@ describe('valued detail decimal precision', () => {
           <Ntry><Amt Ccy="KWD">1</Amt><CdtDbtInd>CRDT</CdtDbtInd><Sts><Cd>BOOK</Cd></Sts><BkTxCd/>
           <NtryDtls><TxDtls><Amt Ccy="KWD">1.0001</Amt><CdtDbtInd>CRDT</CdtDbtInd></TxDtls></NtryDtls></Ntry>
           </Stmt></BkToCstmrStmt></Document>`;
-        const parsed = parseCamt(xml)[0];
-        expect(parsed.entries[0].details[0].amount).toBe(1.0001);
-        expect(validateCamt(parsed).valid).toBe(false);
-        expect(convertForward(xml).files[0].validation.valid).toBe(false);
+        expect(() => parseCamt(xml)).toThrow(/amount precision|three decimals/);
+        expect(() => convertForward(xml)).toThrow(/amount precision|three decimals/);
     });
 });
 describe('CAMT v02 valued transaction details', () => {
@@ -405,4 +403,35 @@ describe('reverse OGM business validation', () => {
         expect(validateCoda(raw).valid).toBe(false);
         expect(()=>codaToCamt(raw.join('\n'))).toThrow(/OGM|checksum/);
     });
+});
+describe('exact money precision at numeric boundaries', () => {
+    it('rejects sub-thousandth model entries and valued details without a fixed tolerance', () => {
+        const entry = specimen();entry.entries[0].amount=0.0000001;
+        expect(validateCamt(entry).valid).toBe(false);
+        const detail = specimen();detail.entries[0].details[0].amount=0.0000001;
+        expect(validateCamt(detail).valid).toBe(false);
+    });
+    it('rejects source precision loss before converting a large decimal to Number', () => {
+        const source = `<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
+          <GrpHdr><MsgId>EXACT-DECIMALS</MsgId><CreDtTm>2026-10-10T00:00:00Z</CreDtTm></GrpHdr>
+          <Stmt><Id>LARGE-DECIMAL</Id><Acct><Id><IBAN>BE68539007547034</IBAN></Id><Ccy>KWD</Ccy></Acct>
+          <Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="KWD">999999999999.9990001</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-10</Dt></Dt></Bal>
+          <Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="KWD">999999999999.999</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-10</Dt></Dt></Bal>
+          </Stmt></BkToCstmrStmt></Document>`;
+        expect(() => parseCamt(source)).toThrow(/amount|precision|decimals/i);
+        const zeroPadding = parseCamt(source.replace('999999999999.9990001','999999999999.9990000'))[0];
+        expect(zeroPadding.openingBalance.amount).toBe(999999999999.999);
+        expect(validateCamt(zeroPadding).valid).toBe(true);
+    });
+    it('accepts exact representable thousandths, including the maximum CODA amount', () => {
+        for(const amount of [0,0.001,0.123,1.001,999999999999.999]){
+            const s=specimen();s.entries[0].amount=amount;s.entries[0].details[0].amount=amount;
+            s.openingBalance.amount=amount;s.closingBalance.amount=amount;
+            expect(validateCamt(s).errors, String(amount)).toEqual([]);
+        }
+    });
+});
+it('does not silently round an unsupported model amount during XML serialization', () => {
+    const s=specimen();s.entries[0].amount=0.0000001;
+    expect(()=>statementToXml(s)).toThrow(/amount|precision|decimals/i);
 });

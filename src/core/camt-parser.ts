@@ -39,6 +39,9 @@ function num(v: any): number {
 function amount(v: any): number {
   const raw = typeof v === "object" ? v?.["#text"] : v;
   if (!/^\d+(?:\.\d+)?$/.test(String(raw ?? ""))) throw new Error(`Invalid amount: ${raw}`);
+  // Check the source decimal before Number can erase insignificant-looking
+  // low-order digits on large values. CODA permits exactly thousandths.
+  if (/[1-9]/.test(String(raw).split(".")[1]?.slice(3) ?? "")) throw new Error(`Invalid amount precision: CODA supports at most three decimals`);
   return num(raw);
 }
 

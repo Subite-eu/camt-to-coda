@@ -241,6 +241,8 @@ def main():
     add("coda-foreign-iban", "coda", coda(account="NL91ABNA0417164300").replace("10001NL", "13001NL"), [expected(account="NL91ABNA0417164300")], ["foreign-iban"])
     add("camt-mixed-currency", "camt", camt().replace('<Ntry><NtryRef>ENTRY-1</NtryRef><Amt Ccy="EUR">', '<Ntry><NtryRef>ENTRY-1</NtryRef><Amt Ccy="USD">'), [], ["mixed-currency"], valid=False)
     add("camt-subprecision", "camt", camt().replace(">12.345</Amt>", ">12.3456</Amt>"), [], ["subprecision"], valid=False)
+    add("camt-tiny-subprecision", "camt", camt().replace(">12.345</Amt>", ">0.0000001</Amt>"), [], ["tiny-subprecision", "no-tolerance-rounding"], valid=False)
+    add("camt-large-subprecision", "camt", camt().replace(">12.345</Amt>", ">999999999999.9990001</Amt>"), [], ["large-subprecision", "validate-before-float"], valid=False)
     add("camt-overflow", "camt", camt().replace(">12.345</Amt>", ">1000000000000.000</Amt>"), [], ["overflow"], valid=False)
     add("camt-unsupported-version", "camt", camt().replace("camt.053.001.08", "camt.053.001.99"), [], ["unsupported-version"], valid=False)
     broken_link = coda().splitlines()
