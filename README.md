@@ -3,7 +3,7 @@
 [![Build](https://github.com/Subite-eu/camt-to-coda/actions/workflows/build-push-action.yml/badge.svg)](https://github.com/Subite-eu/camt-to-coda/actions/workflows/build-push-action.yml)
 [![Release](https://img.shields.io/github/v/release/Subite-eu/camt-to-coda?include_prereleases&sort=semver)](https://github.com/Subite-eu/camt-to-coda/releases)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
-[![Node](https://img.shields.io/badge/Node-22+-green)](https://nodejs.org/)
+[![Node](https://img.shields.io/badge/Node-22.12+_or_24-green)](https://nodejs.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Vibe Coded](https://img.shields.io/badge/vibe--coded-Claude_Code-blueviolet)](https://claude.ai/claude-code)
 
@@ -17,7 +17,9 @@ Converts bank statement files between **CAMT** (ISO 20022 XML) and **CODA** (Bel
 - **[camt2coda.subite.io](https://camt2coda.subite.io)** — Convert CAMT to CODA
 - **[coda2camt.subite.io](https://coda2camt.subite.io)** — Convert CODA to CAMT
 
-Drop a file, inspect any field, download the result. All conversion happens client-side — your data never leaves your browser.
+Drop a file, review statements, inspect any field and download the result. Bank statement contents are processed locally in a browser worker. The hosted page fetches site assets and may contact Cloudflare analytics; offline reload is not guaranteed.
+
+See the [documentation index](docs/README.md), [user guide](docs/user-guide.md), [HTTP API](docs/http-api.md), [conversion limitations](docs/conversion-limitations.md) and [contributor guide](CONTRIBUTING.md).
 
 ## Architecture
 
@@ -30,16 +32,18 @@ The converter uses a **pure-function pipeline**:
 
 1. **Parse** — `fast-xml-parser` reads the CAMT XML into a typed model
 2. **Detect** — Namespace scan identifies the CAMT version (e.g., `camt.053.001.08`)
-3. **Build records** — Individual pure-function builders produce each CODA record (0, 1, 2.1, 2.2, 2.3, 3.x, 8, 9)
+3. **Build records** — Pure conversion functions produce CODA records (0, 1, 2.1, 2.2, 2.3, 3.x, 4, 8, 9)
 4. **Validate** — Each output line must be exactly 128 characters
 5. **Store** — Filesystem or S3-compatible storage via a common abstraction
 
 ### Supported CAMT Versions
 
-| Version | Description | Status |
+| Version | CAMT input → CODA | CODA → CAMT output |
 |---|---|---|
-| camt.052.001.02–13 | Intraday Report | Supported |
-| camt.053.001.02–13 | End-of-day Statement | Supported |
+| camt.052.001.02–13 | Supported | Unsupported |
+| camt.053.001.02–13 | Supported | Supported; default .08 |
+
+CAMT 054 schemas are reference material; 054 conversion is unsupported. Runtime checks do not constitute full XSD validation or bank-profile certification.
 
 ### CODA Records Generated
 
@@ -50,7 +54,8 @@ The converter uses a **pure-function pipeline**:
 | 2.1 | Movement (amount, date, transaction code, communication) |
 | 2.2 | Movement continuation (counterparty BIC) |
 | 2.3 | Movement continuation (counterparty account, name) |
-| 3.1–3.3 | Information records (batch detail entries) |
+| 3.1–3.3 | Information records and long detail communications |
+| 4 | Free statement communication (`AddtlStmtInf`) |
 | 8 | Closing balance |
 | 9 | Trailer (record count, debit/credit sums) |
 
@@ -61,10 +66,12 @@ The converter uses a **pure-function pipeline**:
 ```bash
 git clone https://github.com/Subite-eu/camt-to-coda.git
 cd camt-to-coda
-npm install
+npm ci
 
-# Run any command via npx tsx (no build step needed):
+# Run conversion commands via tsx without compiling:
 npx tsx src/cli.ts convert -i input/ -o output/
+# Build browser assets before serving the UI:
+npm run build:web
 npx tsx src/cli.ts serve --port 8080
 npx tsx src/cli.ts reverse -i input.cod -o output/
 ```
@@ -107,6 +114,7 @@ camt2coda convert -i /path/to/camt/ -o /path/to/coda/
 camt2coda convert -i statement.xml -o output/
 camt2coda convert -i input/ -o output/ --dry-run
 camt2coda convert -i input/ -o output/ --anonymize
+camt2coda convert -i input/ -o output/ --archive archive/ --error errors/
 ```
 
 ### validate
@@ -167,7 +175,7 @@ camt2coda convert \
 
 ## Web UI
 
-A **React + shadcn/ui** field inspector (Vite build) that runs **entirely in the browser** — no server required. All CAMT/CODA conversion happens client-side using the same `src/core` engine; your data never leaves your machine. Drop a CAMT or CODA file, then click any field to see its cross-format mapping.
+A **React + shadcn/ui** review and field inspector (Vite build) that converts locally using the same `src/core` engine. Drop a CAMT or CODA file, review statements, then inspect fields to see their cross-format mappings. The optional Node [HTTP API](docs/http-api.md) separately processes explicit uploads on the server.
 
 ### Hosted
 
@@ -182,9 +190,10 @@ npm run dev:app                       # Vite dev server with hot reload → http
 ### Self-hosting
 
 ```bash
-npm run build:app                     # → dist-web/ (static: index.html + hashed assets)
-npm run dev:web                       # build + serve dist-web locally
-camt2coda serve                       # Node server that serves the built dist-web/ (after npm run build + npm link)
+npm run build                        # → dist/ (CLI + Node server)
+npm run build:web                    # → dist-web/ (static app + worker)
+node dist/cli.js serve               # serves both UI assets and the HTTP API
+# Or: npm run dev:web                # builds and serves only the static app
 ```
 
 The `dist-web/` directory is a static site — deploy it anywhere (Cloudflare Pages, Netlify, Nginx, S3, etc.). To deploy to Cloudflare Pages, connect your GitHub repo and set build command to `npm run build:web`, output directory to `dist-web`, and `NODE_VERSION=22`.
@@ -206,12 +215,12 @@ A conversion review workflow with an expert field inspector:
 
 ## Features
 
-- **Pure-function record builders** — Each CODA record type is a separate, individually testable function
+- **Pure-function record builders** — Dedicated builders and shared field tables make record layouts independently testable
 - **Transaction code mapping** — ISO 20022 Domain/Family/SubFamily to CODA 8-char codes
 - **Structured remittance** — Belgian structured communication (type 101) support
-- **Record 3 (Information Records)** — Batch detail entries for multi-transaction statements
-- **Holiday calculator** — Working-day sequence numbers with country-aware holidays for BE, LT, NL
-- **CODA anonymization** — `--anonymize` flag replaces sensitive data with deterministic fakes
+- **Transaction details and free communications** — Monetary detail records without double-counting, information records, and Record 4 statement text
+- **Holiday calculator** — Fallback statement sequences using all 30 EEA country calendars; explicit CAMT 053 sequences take precedence. This remains an approximation
+- **Privacy exports** — Forward CLI `--anonymize`, plus browser/API exports in both directions; financial patterns remain identifiable
 - **Storage abstraction** — Filesystem and S3/MinIO backends share the same interface
 - **CODA-to-CAMT reverse conversion** — Parse CODA files back to ISO 20022 CAMT XML
 - **Three-panel web inspector** — Bidirectional field inspector with cross-highlighting
@@ -222,27 +231,20 @@ A conversion review workflow with an expert field inspector:
 
 ```
 src/
-├── cli.ts                  # Commander-based CLI entry point
-├── core/
-│   ├── camt-parser.ts      # CAMT XML → CamtStatement model
-│   ├── coda-writer.ts      # CamtStatement → CodaLine[] (forward)
-│   ├── coda-parser.ts      # CODA text → CodaLine[] (reverse)
-│   ├── coda-to-statement.ts# CodaLine[] → CamtStatement (reverse)
-│   ├── camt-writer.ts      # CamtStatement → CAMT XML (reverse)
-│   ├── reverse.ts          # Orchestrates CODA→CAMT pipeline
-│   ├── records/            # Pure-function builders per record type
-│   ├── field-defs/         # FieldDef arrays (shared by builder, parser, inspector)
-│   └── model.ts            # Shared TypeScript types
-├── holidays/               # Working-day calculator (BE/LT/NL)
-├── validation/             # Pre-flight CAMT + post-conversion CODA checks
-├── storage/                # Filesystem + S3 storage abstraction
-├── anonymize/              # CODA anonymization engine
-└── web/
-    ├── index.html          # Single-file three-panel UI
-    ├── browser-entry.ts    # Browser bundle entry point
-    ├── server.ts           # Dev server (CLI 'serve' command)
-    └── fs-shim.ts          # Node.js shim for browser bundle
+├── cli.ts             # convert, reverse, validate, info, serve
+├── core/              # parsers, model, writers, money, transaction codes, record/field tables
+├── holidays/          # EEA working-day sequence approximation
+├── validation/        # CAMT and CODA runtime checks
+├── storage/           # filesystem + S3
+├── anonymize/         # CODA and statement privacy transforms + browser-safe SHA-256
+├── web/               # Node HTTP server, browser exports and shims
+└── web-app/           # React review/inspector UI and cancellable conversion worker
+examples/              # independent original CAMT and CODA fixtures + literal manifest
+test/                  # unit, integration, supplemental golden and browser tests
+specifications/        # authoritative format references and XSDs
 ```
+
+See [architecture](docs/architecture.md) for the module map.
 
 ## Configuration
 
@@ -252,7 +254,7 @@ Configure paths and format options with the CLI arguments shown above; the retir
 
 ## Testing and public examples
 
-The [public source library](examples/README.md) contains independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes CAMT 052/053 v02–13, multi-statement and empty files, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources.
+The [public source library](examples/README.md) contains independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes CAMT 052/053 v02–13, multi-statement and empty statements, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources.
 
 ```sh
 npm ci
@@ -281,7 +283,8 @@ GitHub Actions runs conversion/build/coverage on Node 22 and 24, XSD checks usin
 
 - **CAMT**: ISO 20022 — XSD schemas in `specifications/CAMT/`
 - **CODA**: Belgian CODA 2.6 — PDF specification in `specifications/CODA/`
-- **Format mapping**: See [docs/format-guide.md](docs/format-guide.md)
+- **Format mapping**: See the [format guide](docs/format-guide.md) and [mapping matrix](docs/mapping-matrix.md)
+- **Release history and process**: [Changelog](CHANGELOG.md), [releasing](docs/releasing.md)
 
 ## License
 

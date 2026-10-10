@@ -53,7 +53,9 @@ jobs:
             docker pull ghcr.io/${{ steps.image.outputs.name }}:${{ github.ref_name }}
             ```
 
-            **npm:**
+            **Run the CLI:**
             ```bash
-            npx camt2coda convert -i input/ -o output/
+            docker run --rm -v "$PWD/input:/in" -v "$PWD/output:/out" ghcr.io/${{ steps.image.outputs.name }}:${{ github.ref_name }} convert -i /in -o /out
             ```
+
+            For source installation and the browser app, see the [user guide](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/docs/user-guide.md).

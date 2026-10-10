@@ -1,95 +1,89 @@
 # Contributing
 
-## Development Setup
+## Development setup
 
-### Prerequisites
-
-- **Node 22+** — Required for local development
-- **npm** — Package manager (comes with Node)
-- **Docker** — For running integration tests with MinIO (S3-compatible storage)
-
-### Getting Started
+Use Node **22.12+ in the 22 series, or Node 24**, npm, Python 3 (independent example authoring), and `xmllint` (XSD tests). On Ubuntu, install `libxml2-utils`; on macOS, ensure `xmllint` is on your PATH. Docker is needed for the live MinIO and image smoke checks.
 
 ```bash
 git clone https://github.com/Subite-eu/camt-to-coda.git
 cd camt-to-coda
-npm install
+npm ci
+npx playwright install --with-deps chromium firefox webkit
 ```
-
-### Running Tests
 
 ```bash
-npm test                  # Run all tests once (vitest run)
-npm run test:watch        # Watch mode
-npm run test:coverage     # With coverage report
-npm run typecheck         # TypeScript type-check only
+npm run dev -- convert -i examples/camt/camt.053.001.08.xml -o /tmp/coda-example
+npm run dev -- reverse -i examples/coda/coda-basic-eur.cod -o /tmp/camt-example
+npm run dev:app            # Vite UI with hot reload, port 5173
+npm run build              # CLI/core/server → dist/
+npm run build:web          # React app and worker → dist-web/
+node dist/cli.js serve     # Needs both builds for the UI
 ```
 
-### Building
+Input CAMT versions are detected automatically; `--camt-version` is a reverse output option. See the [user guide](docs/user-guide.md) and [HTTP API](docs/http-api.md) for supported options.
+
+## Verification
 
 ```bash
-npm run build             # Compile TypeScript to dist/
-npm run dev               # Run CLI directly with tsx (no build step)
+npm run examples:check     # Check committed originals against independent author.py
+npm run typecheck          # Node and React TypeScript
+npm test                  # Node and UI unit/integration tests
+npm run test:watch
+npm run test:coverage
+npm run test:examples      # Public sources, literal expectations, XSDs and round trips
+npm run build
+npm run build:web
+npm run test:e2e           # Built app: Chromium, Firefox, WebKit and mobile Chromium
+# Combined local checks, after installing prerequisites:
+npm run test:ci
 ```
 
-### Running Locally
+`npm test` skips the optional live MinIO cases when `MINIO_ENDPOINT` is unset. CI runs those cases in a dedicated required job. To reproduce it locally:
 
 ```bash
-# Using tsx (no build needed — good for development)
-npm run dev -- convert -v 53 -i example-files/CAMT/ -o /tmp/out/
-
-# After building
-node dist/cli.js convert -v 53 -i example-files/CAMT/ -o /tmp/out/
+docker build -f scripts/Dockerfile.minio-test -t minio:test .
+docker run --detach --name camt2coda-minio-test -p 9000:9000 -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin minio:test server /data
+curl --fail --retry 20 --retry-connrefused --retry-all-errors --retry-delay 1 --max-time 2 http://localhost:9000/minio/health/live
+MINIO_ENDPOINT=http://localhost:9000 npx vitest run --project node test/unit/storage.test.ts
+docker rm -f camt2coda-minio-test
 ```
 
-## Code Style
+This uses the pinned source build in `scripts/Dockerfile.minio-test`, matching CI. The legacy `docker-compose.yml` defines MinIO and bucket initialization only; it does not launch the converter and its upstream images are not the CI-tested setup.
 
-- TypeScript source files use 2-space indentation
-- Follow existing naming conventions: `camelCase` for functions and variables, `PascalCase` for types and interfaces
-- Pure functions preferred — avoid mutable state and side effects in the `core/` and `records/` modules
-- Each CODA record builder lives in its own file (`src/core/records/record21.ts`, etc.)
+To verify a deployed static app with the same browser tests and compare its assets with a local build:
 
-## Testing
-
-- Unit tests live alongside the source: `test/unit/`
-- Integration tests: `test/integration/` — run the full pipeline against anonymized CAMT files
-- Property-based tests: `test/property/` — use `fast-check` to verify invariants
-- Golden files: `test/golden/` — expected `.cod` output for regression testing
-
-### Adding Test Data
-
-1. Place real CAMT files in `example-files/private/` (gitignored)
-2. Anonymize them: `npm run dev -- convert -v 53 -i example-files/private/ -o example-files/CAMT/ --anonymize`
-3. Commit the anonymized files in `example-files/CAMT/`
-4. Update the corresponding golden files in `test/golden/`
-
-## Project Structure
-
-```
-src/              TypeScript source
-test/             Tests (unit, integration, property-based, golden)
-example-files/    Anonymized CAMT example files
-specifications/   XSD schemas and CODA spec PDF
-docs/             Documentation
+```bash
+PLAYWRIGHT_BASE_URL=https://camt2coda.subite.io npm run test:e2e -- --workers=2
+node scripts/verify-deployment.mjs https://camt2coda.subite.io https://coda2camt.subite.io
 ```
 
-## Pull Request Process
+Build web assets from the intended commit first for byte comparison. Remote tests use the given deployment instead of starting a local preview. They restrict statement uploads to local browser file selection; unexpected network destinations fail the test. The known hosted Cloudflare analytics/CORS limitation is annotated explicitly in the suite and [deployment report](docs/audits/2026-10-10-deployed-verification.md).
 
-1. Create a feature branch from `main`: `git checkout -b feat/my-feature`
-2. Make your changes
-3. Add or update tests for any changed behaviour
-4. Run `npm test` — all tests must pass
-5. Run `npm run typecheck` — no type errors
-6. Open a PR against `main`
-7. CI will run all tests automatically
+## Code and test organization
 
-### PR Checklist
+| Location | Purpose |
+|---|---|
+| `src/core/` | Pure conversion pipeline, shared model, field definitions and record builders |
+| `src/web-app/` | React UI, worker and colocated component tests |
+| `src/web/` | Node HTTP server and browser exports/shims |
+| `test/unit/` | Parsers, builders, storage, validation, holidays; `property.test.ts` uses fast-check |
+| `test/integration/` | Public original sources/XSDs, CLI, API and regression tests |
+| `test/e2e/` | Real browser review, accessibility, privacy, errors and all original-source uploads/downloads |
+| `test/golden/` | Supplemental private-bank golden comparisons; see its differences document |
+| `examples/` | Required, independently authored public CAMT and CODA originals with literal expectations |
+| `specifications/` | Authoritative CODA, Belgian CAMT, AOS and ISO schemas |
 
-- [ ] Tests added or updated
-- [ ] `npm test` passes
-- [ ] `npm run typecheck` passes
-- [ ] `CHANGELOG.md` updated under `[Unreleased]` if this is a user-visible change
+Use ESM imports with `.js` extensions from TypeScript, 2-space indentation and existing naming conventions. Keep conversion logic pure and validate side effects at CLI/API/storage boundaries. CODA amounts use integer **thousandths**, not two-decimal cents. Cite the authoritative specification when changing field positions or mappings; see the [mapping matrix](docs/mapping-matrix.md) and [architecture](docs/architecture.md).
 
-## Architecture
+## Adding examples and regressions
 
-See [docs/architecture.md](docs/architecture.md) for the full architecture overview.
+1. Invent source identities and amounts; author original CAMT and CODA independently of the converter. Keep any private bank data in the ignored `private-examples/` directory and out of commits. An anonymized real statement is not automatically safe public test data.
+2. Extend `examples/author.py`, including the literal expectations it writes to `examples/manifest.json`. The authoring utility must not import or invoke the converter. Run `python3 examples/author.py` to regenerate the authored originals and `npm run examples:check` to verify them.
+3. Positive CAMT originals must validate against their bundled XSD; place intentional invalid inputs under `examples/invalid/` with expected failures. Run `npm run test:examples`.
+4. Add meaningful assertions for the changed behavior. Cover both directions where applicable, distinguish original-source expectations from generated round-trip output, and document unavoidable losses. Browser tests also exercise every manifest fixture.
+
+## Pull requests and CI
+
+Create a branch from `main`, implement the change and its regression coverage, update affected current guides and `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md), and open a PR against `main`.
+
+GitHub Actions requires Node 22/24 conversion, typecheck, build and coverage checks; independent public-source/XSD checks; four browser projects with accessibility and actual download assertions; a dependency audit; live MinIO; and Docker CLI/web smoke checks. At this revision the browser suite has 85 tests per project (340 total). Main Docker publication and tagged releases depend on these gates. All relevant checks and independent review must pass before merging. See [releasing](docs/releasing.md) for the separate release process.

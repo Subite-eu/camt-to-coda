@@ -1,5 +1,7 @@
 # Golden Cross-Validation
 
+These optional private-pair checks supplement the required [public original-source library](../../examples/README.md). Clean checkouts and CI run independent public CAMT/CODA examples and XSD checks without private data.
+
 The golden suite lives in `test/integration/golden.test.ts`. It validates the
 converter against a **real Belgian CAMT/CODA pair** for the same statement,
 kept in `specifications/private-examples/` (gitignored — real account data).
