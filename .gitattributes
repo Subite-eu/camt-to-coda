@@ -1,0 +1,3 @@
+# Original source fixture bytes (including the deliberate CRLF example) are contractual.
+examples/** -text
+examples/**/*.cod whitespace=cr-at-eol

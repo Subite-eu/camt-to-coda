@@ -9,6 +9,7 @@ export interface AccountInfo {
 }
 
 export interface Balance {
+  currency?: string;
   amount: number;
   creditDebit: "CRDT" | "DBIT";
   date: string;
@@ -23,7 +24,15 @@ export interface TransactionCode {
 }
 
 export interface TransactionDetail {
+  bookingDate?: string;
+  valueDate?: string;
+  transactionCode?: TransactionCode;
+  returnInfo?: { reasonCode?: string; isReversal?: boolean };
+  amount?: number;
+  currency?: string;
+  creditDebit?: "CRDT" | "DBIT";
   refs?: {
+    accountServicerRef?: string;
     endToEndId?: string;
     txId?: string;
     instrId?: string;
@@ -31,12 +40,15 @@ export interface TransactionDetail {
   counterparty?: {
     name?: string;
     iban?: string;
+    otherId?: string;
     bic?: string;
   };
   remittanceInfo?: {
     unstructured?: string;
     structured?: {
       creditorRef?: string;
+      type?: string;
+      issuer?: string;
     };
   };
   /** SEPA purpose / category purpose (CAMT Purp / CtgyPurp).
@@ -75,4 +87,5 @@ export interface CamtStatement {
   entries: CamtEntry[];
   reportDate: string;
   sequence?: number;
+  freeCommunications?: string[];
 }

@@ -31,7 +31,7 @@ function makeRecord0(bic: string): string {
 function makeRecord1(account: string, name: string): string {
   const line =
     "1" +                    // 0
-    "0" +                    // 1: account structure
+    "2" +                    // 1: Belgian IBAN account structure
     "001" +                  // 2-4: sequence
     account.padEnd(34) +     // 5-38: account
     "EUR" +                  // 39-41: currency

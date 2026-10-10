@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { request, Server } from "http";
 import { execFileSync } from "child_process";
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { resolve } from "node:path";
 import { startServer } from "../../src/web/server.js";
 
 // ── Test helpers ────────────────────────────────────────────────────────────
@@ -115,6 +116,8 @@ describe("web server integration", () => {
     const data = JSON.parse(res.body);
     expect(data.direction).toBe("camt-to-coda");
     expect(data.files).toHaveLength(1);
+    expect(data.validation.xsdValidated).toBe(false);
+    expect(data.validation.checks).toEqual(expect.arrayContaining(["syntax", "structure", "business", "reconciliation"]));
     // Each line is a CodaLine object with fields
     const line = data.files[0].lines[0];
     expect(line.recordType).toBeDefined();
@@ -157,6 +160,88 @@ describe("web server integration", () => {
     expect(res.status).toBe(400);
     const data = JSON.parse(res.body);
     expect(data.error).toBeDefined();
+  });
+
+  it("accepts raw CAMT XML without requiring multipart", async () => {
+    const res = await httpFetch("/api/convert", { method: "POST", body: minimalCamtXml, headers: { "content-type": "application/xml" } });
+    expect(res.status).toBe(200);
+    expect(JSON.parse(res.body).files).toHaveLength(1);
+  });
+
+  it("detects uploaded CODA from multipart content and accepts quoted boundaries", async () => {
+    const { body, boundary } = multipartBody("test.COD", minimalCoda);
+    const res = await httpFetch("/api/convert", { method: "POST", body, headers: { "content-type": `multipart/form-data; boundary="${boundary}"` } });
+    expect(res.status).toBe(200);
+    const data = JSON.parse(res.body);
+    expect(data.direction).toBe("coda-to-camt");
+    expect(data.statements).toHaveLength(1);
+    expect(data.validation.valid).toBe(true);
+    expect(data.validation.xsdValidated).toBe(false);
+    expect(data.validation.checks).toContain("reconciliation");
+  });
+
+  it("returns 422 without downloadable artifacts for invalid CAMT business fields", async () => {
+    const { body, boundary } = multipartBody("invalid.xml", minimalCamtXml.replace("<IBAN>BE68539007547034</IBAN>", "<IBAN></IBAN>"));
+    const res = await httpFetch("/api/convert", { method: "POST", body, headers: { "content-type": `multipart/form-data; boundary=${boundary}` } });
+    expect(res.status).toBe(422);
+    const data = JSON.parse(res.body);
+    expect(data.validation.valid).toBe(false);
+    expect(data.validation.errors.join(" ")).toMatch(/account identifier/i);
+    expect(data.files).toBeUndefined();
+  });
+
+  it("reports malformed XML as a client error", async () => {
+    const { body, boundary } = multipartBody("invalid.xml", "<Document><broken></Document>");
+    const res = await httpFetch("/api/convert", { method: "POST", body, headers: { "content-type": `multipart/form-data; boundary=${boundary}` } });
+    expect(res.status).toBe(400);
+  });
+
+  it("includes writer warnings in the forward API response", async () => {
+    const { body, boundary } = multipartBody("warning.xml", minimalCamtXml.replace(/>1000<\/Amt>/, ">999.999</Amt>"));
+    const res = await httpFetch("/api/convert", { method: "POST", body, headers: { "content-type": `multipart/form-data; boundary=${boundary}` } });
+    const data = JSON.parse(res.body);
+    // Reconciliation can invalidate the result, but its diagnosis must always remain visible.
+    const warnings = data.validation?.warnings ?? data.files?.flatMap((file: any) => file.validation.warnings);
+    expect(warnings.join(" ")).toMatch(/Balance mismatch/);
+  });
+
+  it("preserves all logical CODA files in reverse API output", async () => {
+    const res = await httpFetch("/api/convert", { method: "POST", body: minimalCoda.slice(0, -1) + "1\n" + minimalCoda, headers: { "content-type": "text/plain" } });
+    expect(res.status).toBe(200);
+    const data = JSON.parse(res.body);
+    expect(data.statements).toHaveLength(2);
+    expect(data.xml.match(/<Stmt>/g)).toHaveLength(2);
+  });
+
+  it("anonymizes reverse API artifacts and metadata for both query and multipart requests", async () => {
+    const original = readFileSync(resolve("examples/coda/coda-multiple-statements.cod"), "utf8");
+    const secrets = ["BE68539007547034", "BE71096123456769", "Example Company", "E2E-EXAMPLE", "BANK-EXAMPLE", "Example invoice"];
+    for (const multipart of [false, true]) {
+      const upload = multipartBody("original.cod", original);
+      const body = multipart ? upload.body.toString("utf8").replace(`--${upload.boundary}--`, `--${upload.boundary}\r\nContent-Disposition: form-data; name="anonymize"\r\n\r\ntrue\r\n--${upload.boundary}--`) : original;
+      const res = await httpFetch(multipart ? "/api/convert" : "/api/convert?anonymize=true", { method: "POST", body, headers: { "content-type": multipart ? `multipart/form-data; boundary=${upload.boundary}` : "text/plain" } });
+      expect(res.status).toBe(200);
+      const data = JSON.parse(res.body);
+      expect(data.statements).toHaveLength(2);
+      expect(data.xml.match(/<Stmt>/g)).toHaveLength(2);
+      expect(data.xml).toContain("ANON-");
+      expect(data.fileName).toMatch(/anonymized/);
+      expect(data.validation.valid).toBe(true);
+      for (const secret of secrets) expect(res.body).not.toContain(secret);
+    }
+  });
+
+  it("rejects invalid direction and unsupported request media types", async () => {
+    const direction = await httpFetch("/api/convert?direction=typo", { method: "POST", body: minimalCoda, headers: { "content-type": "text/plain" } });
+    expect(direction.status).toBe(400);
+    const media = await httpFetch("/api/convert", { method: "POST", body: "{}", headers: { "content-type": "application/json" } });
+    expect(media.status).toBe(415);
+  });
+
+  it("rejects encoded traversal and malformed static URLs", async () => {
+    expect((await httpFetch("/%2e%2e%2fpackage.json")).status).toBe(403);
+    expect((await httpFetch("/%zz")).status).toBe(400);
+    expect((await httpFetch("/missing.js")).status).toBe(404);
   });
 
   it("serves the SPA (index.html) for unknown GET routes", async () => {

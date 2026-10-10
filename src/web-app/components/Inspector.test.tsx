@@ -19,11 +19,19 @@ describe("Inspector", () => {
     render(<Inspector field={FIELD} />);
     expect(screen.getByText(/pos 6-39/)).toBeInTheDocument();
     expect(screen.getByText("Acct/Id/IBAN")).toBeInTheDocument();
-    expect(screen.getByText("accountNumber")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /accountNumber/ })).toBeInTheDocument();
   });
 
   it("renders nothing when no field is selected", () => {
     const { container } = render(<Inspector field={null} />);
     expect(container).toBeEmptyDOMElement();
   });
+});
+
+it("offers selectable fallback when clipboard access fails", async () => {
+  const { fireEvent } = await import("@testing-library/react");
+  Object.defineProperty(navigator,"clipboard",{ configurable: true, value: { writeText: () => Promise.reject(new Error("denied")) } });
+  render(<Inspector field={FIELD} />);
+  fireEvent.click(screen.getByRole("button",{ name: "Copy value" }));
+  expect(await screen.findByLabelText("Select value to copy manually")).toHaveValue(FIELD.value);
 });

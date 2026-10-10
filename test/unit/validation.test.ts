@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { success, merge } from "../../src/validation/result.js";
 import { validateCamt } from "../../src/validation/camt-validator.js";
 import { validateCoda } from "../../src/validation/coda-validator.js";
+import { statementToCoda } from "../../src/core/coda-writer.js";
 import type { CamtStatement } from "../../src/core/model.js";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -167,15 +168,16 @@ describe("validateCamt()", () => {
 
 describe("validateCoda()", () => {
   it("returns valid for correct CODA lines", () => {
-    const lines = [line("0"), line("1"), line("9")];
+    const lines = statementToCoda(makeStmt()).lines;
     const r = validateCoda(lines);
     expect(r.valid).toBe(true);
     expect(r.errors).toEqual([]);
   });
 
-  it("returns valid for an empty line array", () => {
+  it("rejects an empty line array", () => {
     const r = validateCoda([]);
-    expect(r.valid).toBe(true);
+    expect(r.valid).toBe(false);
+    expect(r.errors).toContain("Empty CODA input");
   });
 
   it("errors when a line is shorter than 128 chars", () => {

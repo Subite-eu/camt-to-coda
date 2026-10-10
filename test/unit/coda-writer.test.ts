@@ -63,7 +63,7 @@ const MULTI_TXDTLS_XML = `<?xml version="1.0" encoding="UTF-8"?>
             <Refs><EndToEndId>E2E-B</EndToEndId><TxId>TX-B</TxId></Refs>
             <RltdPties>
               <Cdtr><Nm>Creditor Beta</Nm></Cdtr>
-              <CdtrAcct><Id><IBAN>BE12345678901234</IBAN></Id></CdtrAcct>
+              <CdtrAcct><Id><IBAN>BE01080681718334</IBAN></Id></CdtrAcct>
             </RltdPties>
             <RmtInf><Ustrd>Payment for invoice B</Ustrd></RmtInf>
           </TxDtls>
@@ -151,17 +151,17 @@ describe("resolveCommunication", () => {
       details: [
         {
           remittanceInfo: {
-            structured: { creditorRef: "123456789012" },
+            structured: { creditorRef: "010806817183" },
           },
         },
       ],
     });
     const { comm, commType } = resolveCommunication(entry);
     expect(commType).toBe("1");
-    expect(comm).toBe("101123456789012");
+    expect(comm).toBe("101010806817183");
   });
 
-  it("zero-pads creditorRef shorter than 12 chars", () => {
+  it("keeps a short numeric reference as free communication", () => {
     const entry = makeEntry({
       details: [
         {
@@ -172,8 +172,8 @@ describe("resolveCommunication", () => {
       ],
     });
     const { comm } = resolveCommunication(entry);
-    // "101" + padLeft("12345", 12, "0") = "101" + "000000012345" = 15 chars
-    expect(comm).toBe("101000000012345");
+    // AOS1 OGM requires all 12 digits and a valid checksum.
+    expect(comm).toBe("12345");
   });
 
   it("returns unstructured with commType '0' when ustrd present", () => {
@@ -290,7 +290,12 @@ describe("Record 3 emission for batch entries", () => {
     const result = statementToCoda(stmts[0]);
     expect(result.validation.valid).toBe(true);
     expect(result.validation.errors).toHaveLength(0);
-    expect(result.validation.warnings).toEqual([]);
+    expect(result.validation.warnings).toEqual([
+      "No BIC found",
+      "Transaction/instruction references have no dedicated CODA field; only available as free communication when remittance is absent",
+      "Counterparty/references on detail 2 cannot be represented independently by CODA information records",
+      "Transaction/instruction references have no dedicated CODA field; only available as free communication when remittance is absent",
+    ]);
   });
 
   describe("balance reconciliation (CODA 2.6: Record 8 == Record 1 + movements)", () => {

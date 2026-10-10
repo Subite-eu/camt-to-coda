@@ -1,4 +1,5 @@
 // src/core/coda-parser.ts
+import { accountFields } from "./field-defs/account-fields.js";
 import type { CodaLine } from "./field-defs/types.js";
 import { extractFields } from "./field-defs/extract.js";
 import { RECORD0_FIELDS } from "./field-defs/record0-fields.js";
@@ -58,12 +59,14 @@ export function parseCoda(content: string): CodaLine[] {
     }
   }
 
+  let structure = "";
   return lines.map((line) => {
+    if (line[0] === "1") structure = line[1];
     const { recordType, fields: fieldDefs } = classifyLine(line);
     return {
       recordType,
       raw: line,
-      fields: extractFields(line, fieldDefs),
+      fields: extractFields(line, line[0] === "1" || line[0] === "8" ? accountFields(fieldDefs, structure) : fieldDefs),
     };
   });
 }

@@ -1,17 +1,16 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { execFileSync } from "child_process";
-import { mkdtempSync, rmSync, readdirSync, existsSync } from "fs";
+import { mkdtempSync, rmSync, readdirSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 
 // Exercises the CLI entrypoint end-to-end as a subprocess (it calls
 // process.exit and parses argv at load, so it cannot be imported in-process).
-const EXAMPLE = "example-files/CAMT/LT625883379695428516/CAMT_053/2024-03-07.xml";
-const haveExample = existsSync(EXAMPLE);
+const EXAMPLE = "examples/camt/camt.053.001.08.xml";
 
 function cli(args: string[]): { status: number; out: string } {
   try {
-    const out = execFileSync("npx", ["tsx", "src/cli.ts", ...args], {
+    const out = execFileSync(process.execPath, ["--import", "tsx", "src/cli.ts", ...args], {
       encoding: "utf-8",
       stdio: ["ignore", "pipe", "pipe"],
     });
@@ -21,7 +20,7 @@ function cli(args: string[]): { status: number; out: string } {
   }
 }
 
-describe.skipIf(!haveExample)("CLI integration", () => {
+describe("CLI integration", () => {
   let outDir: string;
   beforeAll(() => {
     outDir = mkdtempSync(join(tmpdir(), "camt2coda-"));

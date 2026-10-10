@@ -1,10 +1,11 @@
-import { parseS3Path } from "./storage.js";
+import { isS3Path, parseS3Path } from "./storage.js";
 import type { Storage } from "./storage.js";
 
 export interface S3StorageOptions {
   endpoint?: string;
   accessKeyId?: string;
   secretAccessKey?: string;
+  sessionToken?: string;
   region?: string;
 }
 
@@ -24,13 +25,14 @@ export class S3Storage implements Storage {
         const { S3Client } = await import("@aws-sdk/client-s3");
         return new S3Client({
           endpoint: this.options.endpoint,
-          region: this.options.region ?? "us-east-1",
+          region: this.options.region ?? process.env.AWS_REGION ?? process.env.AWS_DEFAULT_REGION ?? "us-east-1",
           forcePathStyle: true,
           credentials:
             this.options.accessKeyId && this.options.secretAccessKey
               ? {
                   accessKeyId: this.options.accessKeyId,
                   secretAccessKey: this.options.secretAccessKey,
+                  sessionToken: this.options.sessionToken,
                 }
               : undefined,
         });
@@ -44,15 +46,23 @@ export class S3Storage implements Storage {
     const client = await this.getClient();
     const { bucket, key: prefix } = parseS3Path(path);
 
-    const response = await client.send(
-      new ListObjectsV2Command({ Bucket: bucket, Prefix: prefix })
-    );
-
-    const contents = response.Contents ?? [];
-    return contents
-      .map((obj: { Key?: string }) => obj.Key ?? "")
-      .filter((k: string) => k.length > 0)
-      .map((k: string) => `s3://${bucket}/${k}`);
+    const paths: string[] = [];
+    const seenTokens = new Set<string>();
+    let continuationToken: string | undefined;
+    do {
+      const response = await client.send(new ListObjectsV2Command({
+        Bucket: bucket, Prefix: prefix, ContinuationToken: continuationToken,
+      }));
+      for (const object of response.Contents ?? []) {
+        if (object.Key && !object.Key.endsWith("/")) paths.push(`s3://${bucket}/${object.Key}`);
+      }
+      if (!response.IsTruncated) break;
+      const next = response.NextContinuationToken;
+      if (!next || seenTokens.has(next)) throw new Error("Invalid S3 listing continuation token");
+      seenTokens.add(next);
+      continuationToken = next;
+    } while (true);
+    return paths;
   }
 
   async read(path: string): Promise<string> {
@@ -78,6 +88,7 @@ export class S3Storage implements Storage {
   }
 
   async move(from: string, to: string): Promise<void> {
+    if (!isS3Path(from) || !isS3Path(to)) throw new Error("Cross-backend moves are unsupported");
     const { CopyObjectCommand, DeleteObjectCommand } = await import(
       "@aws-sdk/client-s3"
     );
@@ -89,7 +100,7 @@ export class S3Storage implements Storage {
       new CopyObjectCommand({
         Bucket: dstBucket,
         Key: dstKey,
-        CopySource: `${srcBucket}/${srcKey}`,
+        CopySource: `${srcBucket}/${srcKey.split("/").map(encodeURIComponent).join("/")}`,
       })
     );
 
@@ -107,16 +118,8 @@ export class S3Storage implements Storage {
       await client.send(new HeadObjectCommand({ Bucket: bucket, Key: key }));
       return true;
     } catch (err: unknown) {
-      const code =
-        (err as { name?: string; $metadata?: { httpStatusCode?: number } })
-          ?.name ??
-        (err as { $metadata?: { httpStatusCode?: number } })?.$metadata
-          ?.httpStatusCode;
-      if (
-        code === "NotFound" ||
-        code === "NoSuchKey" ||
-        code === 404
-      ) {
+      const response = err as { name?: string; $metadata?: { httpStatusCode?: number } };
+      if (response.name === "NotFound" || response.name === "NoSuchKey" || response.$metadata?.httpStatusCode === 404) {
         return false;
       }
       throw err;

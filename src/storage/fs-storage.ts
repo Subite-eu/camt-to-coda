@@ -7,16 +7,19 @@ import {
   access,
   stat,
 } from "fs/promises";
-import { dirname } from "path";
+import { dirname, join } from "path";
+import { isS3Path } from "./storage.js";
 import type { Storage } from "./storage.js";
 
 export class FsStorage implements Storage {
   /**
-   * List all .xml files in the given directory path.
+   * List regular files without imposing a conversion format.
    */
   async list(path: string): Promise<string[]> {
-    const entries = await readdir(path);
-    return entries.filter((e) => e.endsWith(".xml")).map((e) => `${path}/${e}`);
+    const info = await stat(path);
+    if (info.isFile()) return [path];
+    const entries = await readdir(path, { withFileTypes: true });
+    return entries.filter((entry) => entry.isFile()).map((entry) => join(path, entry.name));
   }
 
   async read(path: string): Promise<string> {
@@ -29,6 +32,7 @@ export class FsStorage implements Storage {
   }
 
   async move(from: string, to: string): Promise<void> {
+    if (isS3Path(from) || isS3Path(to)) throw new Error("Cross-backend moves are unsupported");
     await mkdir(dirname(to), { recursive: true });
     await rename(from, to);
   }

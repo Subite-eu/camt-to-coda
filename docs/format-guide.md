@@ -6,7 +6,7 @@
 |---|---|---|
 | camt.052 | `BkToCstmrAcctRpt` | Intraday bank account report |
 | camt.053 | `BkToCstmrStmt` | End-of-day bank statement |
-| camt.054 | `BkToCstmrDbtCdtNtfctn` | Debit/credit notification |
+| camt.054 | `BkToCstmrDbtCdtNtfctn` | Reference schemas only; conversion unsupported |
 
 ### Key Differences: camt.052 vs camt.053
 
@@ -14,8 +14,8 @@
 |---|---|---|
 | Granularity | Intraday | End-of-day |
 | Balance codes | OPAV/INFO | OPBD/CLBD |
-| BIC | Optional | Mandatory |
-| Iteration | Over `Bal` entries | Over `Ntry` entries |
+| BIC | Optional in ISO schema | Optional in ISO schema; bank profiles may require it |
+| Iteration | Over `Ntry` entries; balances remain balances | Over `Ntry` entries |
 
 ## CODA Record Reference
 
@@ -46,7 +46,7 @@ All records are exactly **128 characters** wide.
 | Position | Length | Description |
 |---|---|---|
 | 1 | 1 | Record ID = `1` |
-| 2 | 1 | Account structure (2=BE IBAN, 3=foreign IBAN) |
+| 2 | 1 | Account structure (0=BE BBAN, 1=foreign non-IBAN, 2=BE IBAN, 3=foreign IBAN) |
 | 3-5 | 3 | Sequence number |
 | 6-39 | 34 | Account number |
 | 40-42 | 3 | Currency code |
@@ -81,7 +81,7 @@ All records are exactly **128 characters** wide.
 
 ### Record 8 — Closing Balance
 
-Same structure as Record 1 but with closing balance values.
+Record 8 has its own positions: sequence 2–4, account 5–38, currency 39–41, sign 42, closing amount 43–57, date 58–63, link 128. For Belgian BBAN (structure 0 in Record 1), account and currency use the packed account zone described in CODA 2.6 §7.5; the generic IBAN positions above do not apply.
 
 ### Record 9 — Trailer
 
@@ -99,23 +99,27 @@ Same structure as Record 1 but with closing balance values.
 
 | ISO 20022 (Domain/Family/SubFamily) | CODA Code | Description |
 |---|---|---|
-| PMNT/RCDT/ESCT | 04500001 | Incoming SEPA credit transfer |
-| PMNT/ICDT/ESCT | 13010001 | Outgoing SEPA credit transfer |
-| PMNT/ICDT/ISCT | 41010000 | Outgoing international transfer |
-| PMNT/RCDT/ISCT | 41500000 | Incoming international transfer |
-| PMNT/IDDT/ESDD | 05010000 | SEPA direct debit outgoing |
-| PMNT/RDDT/ESDD | 05500000 | SEPA direct debit incoming |
-| PMNT/RCDT/INST | 02500001 | Instant SEPA credit transfer in |
-| PMNT/ICDT/INST | 02010001 | Instant SEPA credit transfer out |
-| PMNT/CCRD/* | 04370000 | Card payment |
-| CAMT/ACCB/INTR | 35010000 | Interest |
-| CAMT/ACCB/CHRG | 80370000 | Bank charges |
+| PMNT/RCDT/ESCT | 00150000 | Incoming SEPA credit transfer |
+| PMNT/ICDT/ESCT | 00101000 | Outgoing SEPA credit transfer |
+| PMNT/ICDT/ISCT | 04101000 | Outgoing international transfer |
+| PMNT/RCDT/ISCT | 04150000 | Incoming international transfer |
+| PMNT/IDDT/ESDD | 00501000 | SEPA direct debit outgoing |
+| PMNT/RDDT/ESDD | 00550000 | SEPA direct debit incoming |
+| PMNT/RCDT/INST | 00250000 | Instant SEPA credit transfer in |
+| PMNT/ICDT/INST | 00201000 | Instant SEPA credit transfer out |
+| PMNT/CCRD/* | 00402000 | Card payment |
+| CAMT/ACCB/INTR | 03550000 | Interest |
+| CAMT/ACCB/CHRG | 03537000 | Bank charges |
 | (unknown) | 8 spaces | Fallback |
 
 ## Structured Communication
 
 When `RmtInf/Strd/CdtrRefInf/Ref` is present in CAMT:
 - Communication type = `1` (structured)
-- Format: `101` + 12-digit reference (padded with zeros)
+- Format: `101` + valid 12-digit reference, including mod-97 checksum; an invalid checksum is preserved as unstructured communication with a warning
 
 Belgian structured communication format: `+++NNN/NNNN/NNNNN+++`
+
+## Conformance references
+
+Mappings are governed by CODA 2.6 Annexe I, §§5–7 (record sequence/links, monetary detail numbering, account layouts, trailer count and totals), AOS1 OGM-VCS for structured reference checksums, and the checked-in ISO `camt.052/053.001.02` through `.13` XSDs for namespace and version-specific XML choices. See the required public source manifest for independently authored examples and schema/semantic checks. Runtime validation does not claim full XSD compliance.

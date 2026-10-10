@@ -19,20 +19,23 @@ describe("App (integration)", () => {
     expect(screen.getByText(/drop a camt xml or coda file/i)).toBeInTheDocument();
     // load the CAMT sample
     await userEvent.click(screen.getByRole("button", { name: /sample: camt 053/i }));
+    await screen.findByRole("heading", { name: "Statement summary" });
+    await userEvent.click(screen.getByRole("button", { name: "Inspect fields" }));
     // panels render
     expect(screen.getByText(/Output · CODA/i)).toBeInTheDocument();
     expect(screen.getByText(/Source · CAMT/i)).toBeInTheDocument();
     // click the account field → inspector shows the mapping
-    const acctBtn = screen.getAllByRole("button").find((b) => /BE68539007547034/.test(b.textContent || ""));
+    await userEvent.type(screen.getByRole("textbox", { name: /Find a field/ }), "accountNumber");
+    const acctBtn = screen.getByRole("button", { name: /Record 1, accountNumber/ });
     expect(acctBtn).toBeDefined();
     await userEvent.click(acctBtn!);
-    expect(screen.getByText(/Field mapping/i)).toBeInTheDocument();
-    expect(screen.getByText(/accountNumber/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /Field mapping/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /accountNumber/ })).toBeInTheDocument();
   });
 
   it("shows the valid badge in the file bar after loading", async () => {
     renderApp();
     await userEvent.click(screen.getByRole("button", { name: /sample: camt 053/i }));
-    expect(screen.getByText(/✓ Valid/i)).toBeInTheDocument();
+    expect(await screen.findByText(/✓ Valid/i)).toBeInTheDocument();
   });
 });
