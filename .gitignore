@@ -47,3 +47,4 @@ private-examples/
 .impeccable/
 playwright-report/
 test-results/
+.playwright-mcp/
