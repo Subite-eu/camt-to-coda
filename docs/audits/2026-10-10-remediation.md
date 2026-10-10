@@ -43,6 +43,6 @@ See `docs/conversion-limitations.md` for documented losses and unsupported shape
 - Full Vitest suite with live MinIO enabled: 1,176 tests passed, zero skipped (54 files).
 - Coverage: 94.94% lines, 84.92% branches; existing 90%/80% thresholds retained, S3 and browser adapters added to measurement.
 - Typecheck, Node build and production Vite build pass; dependency audit reports zero vulnerabilities.
-- Production Chromium, WebKit and mobile Chromium: 24 E2E tests passed, including actual privacy/ZIP downloads and light/dark axe scans. Firefox is a required Linux CI project; the local macOS Firefox runtime could not resolve its temporary profile.
+- Production Chromium, WebKit and mobile Chromium: 27 E2E tests passed (including a 2,000-movement valid statement with bounded DOM, pagination and complete download), including actual privacy/ZIP downloads and light/dark axe scans. Firefox is a required Linux CI project; the local macOS Firefox runtime could not resolve its temporary profile.
 - Docker image build, CLI version, HTTP health, HTML and actual bundled JavaScript smoke pass. Live MinIO built from pinned official source and all 29 storage tests pass.
 - Independent final review: 471 conversion/storage/example/CLI tests and 14 privacy/provenance/UI checks passed; all confirmed findings resolved, no remaining concrete merge blockers identified before CI.

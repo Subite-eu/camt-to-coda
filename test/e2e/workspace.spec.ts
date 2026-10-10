@@ -127,3 +127,26 @@ test('dark theme review and expert views remain accessible', async ({ page }) =>
   await page.getByRole('button', { name: 'Inspect movement 1' }).click();
   await accessible(page);
 });
+
+test('large valid statements keep review and inspection rendering bounded', async ({ page }) => {
+  test.setTimeout(60_000);
+  const original = readFileSync(resolve('examples/camt/camt.053.001.08.xml'), 'utf8');
+  const movement = original.match(/<Ntry>[\s\S]*?<\/Ntry>/)![0];
+  const source = original.replace(movement, movement.repeat(2000)).replace('>112.345</Amt>', '>24790.000</Amt>');
+  expect(Buffer.byteLength(source)).toBeLessThan(5 * 1024 * 1024);
+  await page.goto('/');
+  await page.getByLabel('Choose CAMT or CODA file').setInputFiles({ name: 'large-valid.xml', mimeType: 'application/xml', buffer: Buffer.from(source) });
+  await expect(page.getByRole('heading', { name: 'Review conversion', exact: true })).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('region', { name: 'Statement summary' })).toContainText('24790.000 EUR');
+  await expect(page.getByRole('button', { name: /Inspect movement \d+/ })).toHaveCount(25);
+  await page.getByRole('button', { name: 'Next movements' }).click();
+  await expect(page.getByRole('button', { name: 'Inspect movement 26', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Inspect movement 26', exact: true }).click();
+  const resultTab = page.getByRole('tab', { name: 'Result', exact: true });
+  if (await resultTab.isVisible()) await resultTab.click();
+  await expect(page.getByRole('button', { name: /Record 2.1, amount, position 33-47/ })).toBeVisible();
+  expect(await page.getByRole('group', { name: 'CODA fields' }).getByRole('button').count()).toBeLessThan(40);
+  expect(await page.locator('*').count()).toBeLessThan(4000);
+  const artifact = await download(page);
+  expect(artifact.text.split('\n').filter(l => l.startsWith('21'))).toHaveLength(2000);
+});
