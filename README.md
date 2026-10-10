@@ -90,8 +90,10 @@ docker pull ghcr.io/subite-eu/camt-to-coda:main
 docker run --rm \
   -v /path/to/camt:/in \
   -v /path/to/coda:/out \
-  -e MODE=FS -e VERSION=53 -e IN=/in -e OUT=/out \
-  ghcr.io/subite-eu/camt-to-coda:main
+  ghcr.io/subite-eu/camt-to-coda:main convert -i /in -o /out
+
+# Serve the bundled web app:
+docker run --rm -p 3000:3000 ghcr.io/subite-eu/camt-to-coda:main serve --host 0.0.0.0
 ```
 
 ## CLI Commands
@@ -101,10 +103,10 @@ docker run --rm \
 Convert CAMT files to CODA:
 
 ```bash
-camt2coda convert -v 53 -i /path/to/camt/ -o /path/to/coda/
-camt2coda convert -v 52 -i statement.xml -o output/
-camt2coda convert -v 53 -i input/ -o output/ --dry-run
-camt2coda convert -v 53 -i input/ -o output/ --anonymize
+camt2coda convert -i /path/to/camt/ -o /path/to/coda/
+camt2coda convert -i statement.xml -o output/
+camt2coda convert -i input/ -o output/ --dry-run
+camt2coda convert -i input/ -o output/ --anonymize
 ```
 
 ### validate
@@ -115,7 +117,7 @@ Check a CAMT file without converting:
 camt2coda validate statement.xml
 ```
 
-Checks XML well-formedness, XSD schema compliance, account ID, currency, balances, and dates.
+Checks XML well-formedness, supported namespace/message structure, account ID, currency, numeric values, balances, dates, and reconciliation. Runtime validation does not run the full XSD; CI validates public original CAMT sources and generated XML against every supported bundled schema.
 
 ### info
 
@@ -147,15 +149,13 @@ camt2coda serve
 camt2coda serve --port 8080
 ```
 
-Opens a three-panel field inspector at `http://localhost:3000` — drop a CAMT or CODA file, click any field to see its mapping in the other format.
+Serves the conversion review and field inspector at `http://localhost:3000` — drop a CAMT or CODA file, click any field to see its mapping in the other format.
 
 ## S3 Mode
 
 Read from / write to S3-compatible storage (AWS S3, MinIO, etc.):
 
-Credentials are read **only** from the standard AWS environment variables
-(`AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`) — never from CLI flags, which
-would leak via `ps` and shell history.
+Credentials use the standard AWS SDK provider chain, including `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and temporary `AWS_SESSION_TOKEN`. Region uses `AWS_REGION`/`AWS_DEFAULT_REGION` with `us-east-1` fallback. Credentials are never CLI flags, which would leak through process listings and shell history.
 
 ```bash
 export AWS_ACCESS_KEY_ID=mykey
@@ -191,15 +191,18 @@ The `dist-web/` directory is a static site — deploy it anywhere (Cloudflare Pa
 
 ### Features
 
-A three-panel field inspector:
+A conversion review workflow with an expert field inspector:
+- **Statement review** — opening/closing balances, reconciliation, paginated movements, all-statement selection and ZIP download
 - **Bidirectional** — drop CAMT XML or CODA files, auto-detects direction
 - **Source panel** (left) — shows your input file
 - **Output panel** (right) — shows the conversion result
 - **Inspector drawer** (bottom) — click any CODA field or CAMT element to see the mapping: field name, character positions, XPath, and description
 - **Cross-highlighting** — clicking a field highlights the corresponding element in the other panel
-- **Keyboard accessible** — Tab through fields, Enter/Space to inspect, Escape to close
-- **Responsive** — stacks vertically on tablets/mobile
-- **Zero server dependency** — all conversion runs in-browser, works offline after first load
+- **Keyboard accessible** — one tab stop per record, arrow-key field navigation, search, jump-to-record, Enter/Space to inspect, Escape to close
+- **Responsive** — source/result tabs on mobile, bounded panels on desktop
+- **Local conversion** — conversion runs in a cancellable browser worker; maximum 5 MiB input; offline reload is not guaranteed
+- **Explicit download review** — runtime errors block download and conversion notes require acknowledgment
+- **Privacy exports** — source stays original; result preview and download share the same anonymized artifact. Amounts/dates remain identifiable and deterministic pseudonyms are linkable. Synthetic account identifiers are for review, never bank import.
 
 ## Features
 
@@ -212,7 +215,7 @@ A three-panel field inspector:
 - **Storage abstraction** — Filesystem and S3/MinIO backends share the same interface
 - **CODA-to-CAMT reverse conversion** — Parse CODA files back to ISO 20022 CAMT XML
 - **Three-panel web inspector** — Bidirectional field inspector with cross-highlighting
-- **500+ tests** — Unit, integration, property-based, and round-trip tests (vitest + fast-check)
+- **Required public examples and CI** — Unit, integration, property-based, independent XSD, round-trip, real-browser and accessibility checks
 - **Multi-platform Docker** — `linux/amd64` and `linux/arm64`
 
 ## Project Structure
@@ -243,19 +246,27 @@ src/
 
 ## Configuration
 
-### Environment Variables (Docker / S3 mode)
+### CLI and AWS environment
 
-| Variable | Description | Default |
-|---|---|---|
-| `MODE` | `FS` or `S3` | `FS` |
-| `VERSION` | CAMT version (`52` or `53`) | Required |
-| `IN` | Input path or bucket name | Required |
-| `OUT` | Output path or bucket name | Required |
-| `ARCHIVE` | Archive path | `/tmp` |
-| `ERROR` | Error path | `/tmp` |
-| `EP` | S3 endpoint URL | AWS default |
-| `AK` | S3 access key | — |
-| `SK` | S3 secret key | — |
+Configure paths and format options with the CLI arguments shown above; the retired `MODE`, `VERSION`, `IN`, `OUT`, `AK` and `SK` environment variables are not supported. For S3 use standard AWS credentials (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, optional `AWS_SESSION_TOKEN`) and region, with `--endpoint` for compatible services. Archive/error moves must use the same storage backend as the input; unsupported cross-backend moves fail before conversion.
+
+## Testing and public examples
+
+The [public source library](examples/README.md) contains independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes CAMT 052/053 v02–13, multi-statement and empty files, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources.
+
+```sh
+npm ci
+# Install xmllint first (Ubuntu: apt-get install libxml2-utils).
+npm run examples:check
+npm run typecheck
+npm run build
+npm run build:web
+npm run test:coverage
+npx playwright install --with-deps chromium firefox webkit
+npm run test:e2e
+```
+
+GitHub Actions runs conversion/build/coverage on Node 22 and 24, XSD checks using the bundled specifications, Chromium/Firefox/WebKit/mobile browser workflows with axe accessibility checks and actual downloads, a dependency audit, and a Docker CLI/web smoke test. Main image publication and tagged releases depend on those checks. Live MinIO read/write/list/move checks run in a dedicated required job; they can be enabled locally with `MINIO_ENDPOINT=http://localhost:9000`. Mocked pagination and failure regressions run in every Node test job.
 
 ## Specifications
 

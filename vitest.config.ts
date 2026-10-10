@@ -21,11 +21,8 @@ export default defineConfig({
       include: ["src/**/*.ts", "src/**/*.tsx"],
       exclude: [
         "src/cli.ts",
-        "src/web/browser-entry.ts",
         "src/web/fs-shim.ts",
-        "src/web/crypto-shim.ts",
         "src/core/model.ts",
-        "src/storage/s3-storage.ts",
         "src/web-app/components/ui/**",
         "src/web-app/main.tsx",
       ],

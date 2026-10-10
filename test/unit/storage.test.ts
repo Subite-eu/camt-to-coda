@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, beforeAll } from "vitest";
 import { tmpdir } from "node:os";
 import { mkdtemp, rm, writeFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
@@ -74,7 +74,7 @@ describe("FsStorage", () => {
   });
 
   describe("list()", () => {
-    it("returns xml files in the directory", async () => {
+    it("returns all regular files in the directory", async () => {
       const dir = await makeTempDir();
       await writeFile(join(dir, "a.xml"), "<doc/>");
       await writeFile(join(dir, "b.xml"), "<doc/>");
@@ -84,15 +84,15 @@ describe("FsStorage", () => {
       const names = results.map((p) => p.split("/").at(-1));
       expect(names).toContain("a.xml");
       expect(names).toContain("b.xml");
-      expect(names).not.toContain("ignore.txt");
+      expect(names).toContain("ignore.txt");
     });
 
-    it("returns empty array when directory has no xml files", async () => {
+    it("returns non-XML files without filtering", async () => {
       const dir = await makeTempDir();
       await writeFile(join(dir, "notes.txt"), "hello");
 
       const results = await storage.list(dir);
-      expect(results).toEqual([]);
+      expect(results).toEqual([join(dir, "notes.txt")]);
     });
 
     it("returns empty array for an empty directory", async () => {
@@ -235,16 +235,23 @@ describe("FsStorage", () => {
 
 // ── S3Storage (skipped: requires MinIO) ──────────────────────────────────────
 
-describe.skip("S3Storage (integration — needs MinIO)", () => {
+describe.skipIf(!process.env.MINIO_ENDPOINT)("S3Storage (live MinIO integration)", () => {
   const storage = new S3Storage({
-    endpoint: "http://localhost:9000",
+    endpoint: process.env.MINIO_ENDPOINT,
     accessKeyId: "minioadmin",
     secretAccessKey: "minioadmin",
     region: "us-east-1",
   });
 
   const bucket = "test-bucket";
-  const prefix = "camt2coda-test/";
+  const prefix = `camt2coda-test-${Date.now()}/`;
+  beforeAll(async () => {
+    const { S3Client, CreateBucketCommand } = await import("@aws-sdk/client-s3");
+    const client = new S3Client({ endpoint: process.env.MINIO_ENDPOINT, region: "us-east-1", forcePathStyle: true, credentials: { accessKeyId: "minioadmin", secretAccessKey: "minioadmin" } });
+    try { await client.send(new CreateBucketCommand({ Bucket: bucket })); }
+    catch (error) { if (!["BucketAlreadyOwnedByYou", "BucketAlreadyExists"].includes((error as Error).name)) throw error; }
+    client.destroy();
+  });
 
   it("writes and reads a file", async () => {
     const key = `${prefix}write-read-test.xml`;

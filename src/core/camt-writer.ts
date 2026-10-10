@@ -1,288 +1,120 @@
-// ── CAMT XML Writer ──────────────────────────────────────────────────────────
-// Serializes a CamtStatement back into a CAMT 053 XML string.
-
-import type { CamtStatement, CamtEntry, Balance, TransactionDetail } from "./model.js";
-import { isOgmVcs } from "./ogm-vcs.js";
-
-const DEFAULT_VERSION = "camt.053.001.08";
-
-function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+// Version adapters follow the bundled camt.053.001.02–13 XSD sequences.
+import type { CamtStatement, CamtEntry, Balance, TransactionDetail } from './model.js';
+import { isValidOgmVcs } from './ogm-vcs.js';
+import { toMillis } from './money.js';
+const DEFAULT_VERSION = 'camt.053.001.08';
+function esc(s: string): string { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function tag(n: string, v: string): string { return `<${n}>${esc(v)}</${n}>`; }
+function amt(a: number, c: string): string {
+    if (!Number.isFinite(a) || a < 0)
+        throw new Error('Invalid CAMT amount');
+    const m = toMillis(a);
+    return `<Amt Ccy="${esc(c)}">${Math.floor(m / 1000)}.${String(m % 1000).padStart(3, '0')}</Amt>`;
 }
-
-function tag(name: string, value: string, attrs = ""): string {
-  const attrStr = attrs ? " " + attrs : "";
-  return `<${name}${attrStr}>${esc(value)}</${name}>`;
+// CODA carries a calendar date only. Midnight is an explicit deterministic
+// serialization policy, not a claim that a source timestamp was preserved.
+function timestamp(s: string): string { return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s + 'T00:00:00Z' : s; }
+function dateChoice(n: string, d: string): string { return `<${n}>${tag(d.includes('T') ? 'DtTm' : 'Dt', d)}</${n}>`; }
+function balance(b: Balance, t: string, c: string): string { return `<Bal><Tp><CdOrPrtry>${tag('Cd', t)}</CdOrPrtry></Tp>${amt(b.amount, b.currency ?? c)}${tag('CdtDbtInd', b.creditDebit)}${dateChoice('Dt', b.date)}</Bal>`; }
+function tx(d: TransactionDetail, e: CamtEntry, v: number, reason?: string): string {
+    let x = '<TxDtls>';
+    if (d.refs && Object.values(d.refs).some(Boolean))
+        x += '<Refs>' + (['accountServicerRef', 'instrId', 'endToEndId', 'txId'] as const).map((k, i) => d.refs?.[k] ? tag(['AcctSvcrRef', 'InstrId', 'EndToEndId', 'TxId'][i], d.refs[k]!) : '').join('') + '</Refs>';
+    // v03–06 require detail amount and direction; for a sole detail the entry
+    // amount is exact. Multiple details must supply their own amounts.
+    if (v === 2 && d.amount !== undefined) {
+        if (d.creditDebit && d.creditDebit !== e.creditDebit) throw new Error('CAMT v02 cannot represent an independent transaction detail direction');
+        x += '<AmtDtls><TxAmt>' + amt(d.amount, d.currency ?? e.currency) + '</TxAmt></AmtDtls>';
+    } else if (d.amount !== undefined || (v >= 3 && v <= 6)) {
+        if (d.amount === undefined && e.details.length > 1)
+            throw new Error('CAMT v03–06 requires an amount for each transaction detail');
+        x += amt(d.amount ?? e.amount, d.currency ?? e.currency) + tag('CdtDbtInd', d.creditDebit ?? e.creditDebit);
+    }
+    if (d.transactionCode) {
+        const c = d.transactionCode;
+        x += '<BkTxCd>';
+        if (c.domain && c.family && c.subFamily)
+            x += '<Domn>' + tag('Cd', c.domain) + '<Fmly>' + tag('Cd', c.family) + tag('SubFmlyCd', c.subFamily) + '</Fmly></Domn>';
+        if (c.proprietary)
+            x += '<Prtry>' + tag('Cd', c.proprietary) + (c.proprietaryIssuer ? tag('Issr', c.proprietaryIssuer) : '') + '</Prtry>';
+        x += '</BkTxCd>';
+    }
+    reason = d.returnInfo?.reasonCode ?? reason;
+    const cp = d.counterparty, party = (d.creditDebit ?? e.creditDebit) === 'CRDT' ? 'Dbtr' : 'Cdtr';
+    if (cp?.name || cp?.iban || cp?.otherId) {
+        x += '<RltdPties>';
+        if (cp.name)
+            x += `<${party}>` + (v >= 7 ? '<Pty>' : '') + tag('Nm', cp.name) + (v >= 7 ? '</Pty>' : '') + `</${party}>`;
+        if (cp.iban || cp.otherId)
+            x += `<${party}Acct><Id>` + (cp.iban ? tag('IBAN', cp.iban) : '<Othr>' + tag('Id', cp.otherId!) + '</Othr>') + `</Id></${party}Acct>`;
+        x += '</RltdPties>';
+    }
+    if (cp?.bic)
+        x += `<RltdAgts><${party}Agt><FinInstnId>${tag(v === 2 ? 'BIC' : 'BICFI', cp.bic)}</FinInstnId></${party}Agt></RltdAgts>`;
+    if (d.categoryPurpose && v >= 10)
+        x += '<PmtTpInf><CtgyPurp>' + tag('Cd', d.categoryPurpose) + '</CtgyPurp></PmtTpInf>';
+    if (d.purpose)
+        x += '<Purp>' + tag('Cd', d.purpose) + '</Purp>';
+    const ri = d.remittanceInfo;
+    if (ri?.unstructured || ri?.structured?.creditorRef) {
+        x += '<RmtInf>';
+        if (ri.unstructured)
+            for (let i = 0; i < ri.unstructured.length; i += 140)
+                x += tag('Ustrd', ri.unstructured.slice(i, i + 140));
+        const ref = ri.structured?.creditorRef;
+        if (ref)
+            x += '<Strd><CdtrRefInf><Tp><CdOrPrtry>' + tag('Cd', ri.structured?.type ?? 'SCOR') + '</CdOrPrtry>' + (ri.structured?.issuer ? tag('Issr', ri.structured.issuer) : isValidOgmVcs(ref) ? tag('Issr', 'BBA') : '') + '</Tp>' + tag('Ref', ref) + '</CdtrRefInf></Strd>';
+        x += '</RmtInf>';
+    }
+    if (reason)
+        x += '<RtrInf><Rsn>' + tag('Cd', reason) + '</Rsn></RtrInf>';
+    return x + '</TxDtls>';
 }
-
-function amountTag(amount: number, currency: string): string {
-  return `<Amt Ccy="${esc(currency)}">${amount.toFixed(2)}</Amt>`;
+function entry(e: CamtEntry, v: number): string {
+    let x = '<Ntry>' + (e.entryRef ? tag('NtryRef', e.entryRef) : '') + amt(e.amount, e.currency) + tag('CdtDbtInd', e.creditDebit);
+    if (e.returnInfo?.isReversal)
+        x += tag('RvslInd', 'true');
+    // CODA represents booked movements. Sts is mandatory in every supported XSD.
+    x += v >= 7 ? '<Sts><Cd>BOOK</Cd></Sts>' : tag('Sts', 'BOOK');
+    if (e.bookingDate)
+        x += dateChoice('BookgDt', e.bookingDate);
+    if (e.valueDate)
+        x += dateChoice('ValDt', e.valueDate);
+    if (e.accountServicerRef)
+        x += tag('AcctSvcrRef', e.accountServicerRef);
+    const c = e.transactionCode;
+    x += '<BkTxCd>';
+    if (c?.domain && c.family && c.subFamily)
+        x += '<Domn>' + tag('Cd', c.domain) + '<Fmly>' + tag('Cd', c.family) + tag('SubFmlyCd', c.subFamily) + '</Fmly></Domn>';
+    if (c?.proprietary)
+        x += '<Prtry>' + tag('Cd', c.proprietary) + (c.proprietaryIssuer ? tag('Issr', c.proprietaryIssuer) : '') + '</Prtry>';
+    x += '</BkTxCd>';
+    let ds: TransactionDetail[] = e.details.length ? e.details : e.returnInfo?.reasonCode ? [{}] : [];
+    // An aggregate reason must not be assigned to an independently valued
+    // transaction. Keep it in a separate amountless summary detail.
+    if (e.returnInfo?.reasonCode && ds[0]?.amount !== undefined) ds = [{}, ...ds];
+    if (ds.length)
+        x += '<NtryDtls>' + ds.map((d, i) => tx(d, e, v, i === 0 ? e.returnInfo?.reasonCode : undefined)).join('') + '</NtryDtls>';
+    return x + '</Ntry>';
 }
-
-function indent(xml: string, level: number): string {
-  const pad = "  ".repeat(level);
-  return xml
-    .split("\n")
-    .map((line) => (line.trim() ? pad + line : line))
-    .join("\n");
+function statement(s: CamtStatement, v: number): string {
+    const a = s.account;
+    if (!a.iban && !a.otherId)
+        throw new Error('No account identifier');
+    let x = '<Stmt>' + tag('Id', s.statementId) + (s.sequence !== undefined ? tag('ElctrncSeqNb', String(s.sequence)) : '') + tag('CreDtTm', timestamp(s.creationDate));
+    x += '<Acct><Id>' + (a.iban ? tag('IBAN', a.iban) : '<Othr>' + tag('Id', a.otherId!) + '</Othr>') + '</Id>' + tag('Ccy', a.currency);
+    if (a.ownerName)
+        x += '<Ownr>' + tag('Nm', a.ownerName) + '</Ownr>';
+    if (a.bic)
+        x += '<Svcr><FinInstnId>' + tag(v === 2 ? 'BIC' : 'BICFI', a.bic) + '</FinInstnId></Svcr>';
+    return x + '</Acct>' + balance(s.openingBalance, 'OPBD', a.currency) + balance(s.closingBalance, 'CLBD', a.currency) + s.entries.map(e => entry(e, v)).join('') + (s.freeCommunications?.length ? tag('AddtlStmtInf', s.freeCommunications.join('\n')) : '') + '</Stmt>';
 }
-
-function balanceXml(bal: Balance, type: "OPBD" | "CLBD"): string {
-  return [
-    "<Bal>",
-    "  <Tp>",
-    "    <CdOrPrtry>",
-    `      ${tag("Cd", type)}`,
-    "    </CdOrPrtry>",
-    "  </Tp>",
-    `  ${amountTag(bal.amount, "EUR")}`,
-    `  ${tag("CdtDbtInd", bal.creditDebit)}`,
-    "  <Dt>",
-    `    ${tag("Dt", bal.date)}`,
-    "  </Dt>",
-    "</Bal>",
-  ].join("\n");
+export function statementsToXml(statements: CamtStatement[], version = DEFAULT_VERSION): string {
+    if (!/^camt\.053\.001\.(0[2-9]|1[0-3])$/.test(version))
+        throw new Error(`Unsupported CAMT output version: ${version}`);
+    if (!statements.length)
+        throw new Error('No statements to serialize');
+    const v = Number(version.slice(-2)), s = statements[0];
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + `<Document xmlns="urn:iso:std:iso:20022:tech:xsd:${version}"><BkToCstmrStmt><GrpHdr>` + tag('MsgId', s.messageId) + tag('CreDtTm', timestamp(s.creationDate)) + '</GrpHdr>' + statements.map(s => statement(s, v)).join('') + '</BkToCstmrStmt></Document>';
 }
-
-function txDetailsXml(
-  detail: TransactionDetail,
-  creditDebit: "CRDT" | "DBIT",
-  returnReason?: string,
-): string {
-  const lines: string[] = ["<TxDtls>"];
-
-  // Refs
-  if (detail.refs) {
-    const refLines: string[] = ["<Refs>"];
-    if (detail.refs.endToEndId) {
-      refLines.push(`  ${tag("EndToEndId", detail.refs.endToEndId)}`);
-    }
-    if (detail.refs.txId) {
-      refLines.push(`  ${tag("TxId", detail.refs.txId)}`);
-    }
-    if (detail.refs.instrId) {
-      refLines.push(`  ${tag("InstrId", detail.refs.instrId)}`);
-    }
-    refLines.push("</Refs>");
-    lines.push(...refLines.map((l) => "  " + l));
-  }
-
-  // Counterparty: CRDT => Dbtr (payer), DBIT => Cdtr (payee)
-  if (detail.counterparty) {
-    const cp = detail.counterparty;
-    const elementName = creditDebit === "CRDT" ? "Dbtr" : "Cdtr";
-    const acctElementName = creditDebit === "CRDT" ? "DbtrAcct" : "CdtrAcct";
-    const agentElementName = creditDebit === "CRDT" ? "DbtrAgt" : "CdtrAgt";
-
-    if (cp.name) {
-      lines.push(`  <${elementName}>`);
-      lines.push(`    ${tag("Nm", cp.name)}`);
-      lines.push(`  </${elementName}>`);
-    }
-    if (cp.iban) {
-      lines.push(`  <${acctElementName}>`);
-      lines.push("    <Id>");
-      lines.push(`      ${tag("IBAN", cp.iban)}`);
-      lines.push("    </Id>");
-      lines.push(`  </${acctElementName}>`);
-    }
-    if (cp.bic) {
-      lines.push(`  <${agentElementName}>`);
-      lines.push("    <FinInstnId>");
-      lines.push(`      ${tag("BIC", cp.bic)}`);
-      lines.push("    </FinInstnId>");
-      lines.push(`  </${agentElementName}>`);
-    }
-  }
-
-  // Purpose (SEPA Purp). CategoryPurpose has no camt.053 slot, so it is not
-  // reconstructed here (see docs/conversion-limitations.md).
-  if (detail.purpose) {
-    lines.push("  <Purp>");
-    lines.push(`    ${tag("Cd", detail.purpose)}`);
-    lines.push("  </Purp>");
-  }
-
-  // Remittance info
-  if (detail.remittanceInfo) {
-    const ri = detail.remittanceInfo;
-    const riLines: string[] = ["<RmtInf>"];
-    if (ri.unstructured) {
-      riLines.push(`  ${tag("Ustrd", ri.unstructured)}`);
-    }
-    if (ri.structured?.creditorRef) {
-      // FEBELFIN AOS1: a creditor reference must carry Tp/CdOrPrtry/Cd=SCOR;
-      // the Belgian OGM-VCS (12-digit) additionally carries Issr=BBA.
-      const ref = ri.structured.creditorRef;
-      riLines.push("  <Strd>");
-      riLines.push("    <CdtrRefInf>");
-      riLines.push("      <Tp>");
-      riLines.push("        <CdOrPrtry>");
-      riLines.push(`          ${tag("Cd", "SCOR")}`);
-      riLines.push("        </CdOrPrtry>");
-      if (isOgmVcs(ref)) {
-        riLines.push(`        ${tag("Issr", "BBA")}`);
-      }
-      riLines.push("      </Tp>");
-      riLines.push(`      ${tag("Ref", ref)}`);
-      riLines.push("    </CdtrRefInf>");
-      riLines.push("  </Strd>");
-    }
-    riLines.push("</RmtInf>");
-    lines.push(...riLines.map((l) => "  " + l));
-  }
-
-  // SDD R-transaction reason (EPC173-14) — TxDtls/RtrInf per camt.053 schema.
-  if (returnReason) {
-    lines.push("  <RtrInf>");
-    lines.push("    <Rsn>");
-    lines.push(`      ${tag("Cd", returnReason)}`);
-    lines.push("    </Rsn>");
-    lines.push("  </RtrInf>");
-  }
-
-  lines.push("</TxDtls>");
-  return lines.join("\n");
-}
-
-function entryXml(entry: CamtEntry): string {
-  const lines: string[] = ["<Ntry>"];
-
-  lines.push(`  ${amountTag(entry.amount, entry.currency)}`);
-  lines.push(`  ${tag("CdtDbtInd", entry.creditDebit)}`);
-
-  // SDD R-transaction reversal flag (EPC173-14) — Ntry-level per camt.053 schema.
-  if (entry.returnInfo?.isReversal) {
-    lines.push(`  ${tag("RvslInd", "true")}`);
-  }
-
-  if (entry.bookingDate) {
-    lines.push(`  <BookgDt><Dt>${esc(entry.bookingDate)}</Dt></BookgDt>`);
-  }
-  if (entry.valueDate) {
-    lines.push(`  <ValDt><Dt>${esc(entry.valueDate)}</Dt></ValDt>`);
-  }
-  if (entry.entryRef) {
-    lines.push(`  ${tag("NtryRef", entry.entryRef)}`);
-  }
-  if (entry.accountServicerRef) {
-    lines.push(`  ${tag("AcctSvcrRef", entry.accountServicerRef)}`);
-  }
-
-  // Transaction code
-  if (entry.transactionCode) {
-    const tc = entry.transactionCode;
-    const tcLines: string[] = ["<BkTxCd>"];
-    if (tc.domain || tc.family || tc.subFamily) {
-      tcLines.push("  <Domn>");
-      if (tc.domain) tcLines.push(`    ${tag("Cd", tc.domain)}`);
-      if (tc.family || tc.subFamily) {
-        tcLines.push("    <Fmly>");
-        if (tc.family) tcLines.push(`      ${tag("Cd", tc.family)}`);
-        if (tc.subFamily) tcLines.push(`      ${tag("SubFmlyCd", tc.subFamily)}`);
-        tcLines.push("    </Fmly>");
-      }
-      tcLines.push("  </Domn>");
-    }
-    if (tc.proprietary) {
-      tcLines.push("  <Prtry>");
-      tcLines.push(`    ${tag("Cd", tc.proprietary)}`);
-      tcLines.push("  </Prtry>");
-    }
-    tcLines.push("</BkTxCd>");
-    lines.push(...tcLines.map((l) => "  " + l));
-  }
-
-  // Entry details
-  if (entry.details && entry.details.length > 0) {
-    const dtlsLines: string[] = ["<NtryDtls>"];
-    entry.details.forEach((detail, i) => {
-      // Carry the entry-level return reason on the first TxDtls only.
-      const txXml = txDetailsXml(detail, entry.creditDebit, i === 0 ? entry.returnInfo?.reasonCode : undefined);
-      dtlsLines.push(...txXml.split("\n").map((l) => "  " + l));
-    });
-    dtlsLines.push("</NtryDtls>");
-    lines.push(...dtlsLines.map((l) => "  " + l));
-  }
-
-  lines.push("</Ntry>");
-  return lines.join("\n");
-}
-
-export function statementToXml(stmt: CamtStatement, version?: string): string {
-  const ver = version ?? DEFAULT_VERSION;
-  const namespace = `urn:iso:std:iso:20022:tech:xsd:${ver}`;
-
-  const lines: string[] = [];
-
-  lines.push('<?xml version="1.0" encoding="UTF-8"?>');
-  lines.push(`<Document xmlns="${namespace}">`);
-  lines.push("  <BkToCstmrStmt>");
-
-  // Group header
-  lines.push("    <GrpHdr>");
-  lines.push(`      ${tag("MsgId", stmt.messageId)}`);
-  lines.push(`      ${tag("CreDtTm", stmt.creationDate)}`);
-  lines.push("    </GrpHdr>");
-
-  // Statement
-  lines.push("    <Stmt>");
-  lines.push(`      ${tag("Id", stmt.statementId)}`);
-
-  // Account
-  const acct = stmt.account;
-  lines.push("      <Acct>");
-  lines.push("        <Id>");
-  if (acct.iban) {
-    lines.push(`          ${tag("IBAN", acct.iban)}`);
-  } else if (acct.otherId) {
-    lines.push("          <Othr>");
-    lines.push(`            ${tag("Id", acct.otherId)}`);
-    lines.push("          </Othr>");
-  }
-  lines.push("        </Id>");
-  lines.push(`        ${tag("Ccy", acct.currency)}`);
-  if (acct.ownerName) {
-    lines.push("        <Ownr>");
-    lines.push(`          ${tag("Nm", acct.ownerName)}`);
-    lines.push("        </Ownr>");
-  }
-  if (acct.bic) {
-    lines.push("        <Svcr>");
-    lines.push("          <FinInstnId>");
-    lines.push(`            ${tag("BIC", acct.bic)}`);
-    lines.push("          </FinInstnId>");
-    lines.push("        </Svcr>");
-  }
-  lines.push("      </Acct>");
-
-  // Opening balance
-  const opbdLines = balanceXml(stmt.openingBalance, "OPBD")
-    .split("\n")
-    .map((l) => "      " + l);
-  lines.push(...opbdLines);
-
-  // Entries
-  for (const entry of stmt.entries) {
-    const ntryLines = entryXml(entry)
-      .split("\n")
-      .map((l) => "      " + l);
-    lines.push(...ntryLines);
-  }
-
-  // Closing balance
-  const clbdLines = balanceXml(stmt.closingBalance, "CLBD")
-    .split("\n")
-    .map((l) => "      " + l);
-  lines.push(...clbdLines);
-
-  lines.push("    </Stmt>");
-  lines.push("  </BkToCstmrStmt>");
-  lines.push("</Document>");
-
-  return lines.join("\n");
-}
+export function statementToXml(stmt: CamtStatement, version?: string): string { return statementsToXml([stmt], version); }

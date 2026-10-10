@@ -93,13 +93,13 @@ describe("record21", () => {
     expect(r[125]).toBe("0");
   });
 
-  it("sets globalisation code to 1 only for batch entries (details > 1)", () => {
+  it("keeps globalisation zero for information-only details", () => {
     const rSingle = record21({ ...baseParams, needRecord3: true }).raw;
     expect(rSingle[124]).toBe("0"); // single detail = info record, not globalisation
 
     const batchEntry = { ...baseEntry, details: [baseEntry.details[0], baseEntry.details[0]] };
     const rBatch = record21({ ...baseParams, entry: batchEntry, needRecord3: true }).raw;
-    expect(rBatch[124]).toBe("1"); // batch = globalisation
+    expect(rBatch[124]).toBe("0"); // §5.4 monetary grouping needs opening/closing type2 records
   });
 
   it("link code at position 127: 1 when Record 3 follows directly (no hasMore)", () => {

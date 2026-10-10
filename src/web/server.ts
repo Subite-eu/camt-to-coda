@@ -1,13 +1,17 @@
 import { createServer, IncomingMessage, ServerResponse } from "http";
 import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
-import { dirname, join, extname, normalize } from "path";
+import { dirname, join, extname, resolve, sep } from "path";
 import { parseCamt, detectVersion } from "../core/camt-parser.js";
 import { statementToCoda } from "../core/coda-writer.js";
 import { validateCoda } from "../validation/coda-validator.js";
 import { validateCamt } from "../validation/camt-validator.js";
 import { anonymizeCodaLines } from "../anonymize/anonymizer.js";
+import { safeFileName } from "../storage/storage.js";
+import { parseCoda } from "../core/coda-parser.js";
 import { codaToCamt } from "../core/reverse.js";
+import { anonymizeStatement } from "../anonymize/statement.js";
+import { statementsToXml } from "../core/camt-writer.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -127,113 +131,122 @@ async function handleHealth(res: ServerResponse): Promise<void> {
   res.end(JSON.stringify({ status: "ok" }));
 }
 
+function json(res: ServerResponse, status: number, data: unknown): void {
+  res.writeHead(status, { "Content-Type": "application/json" });
+  res.end(JSON.stringify(data));
+}
+
 async function handleConvert(req: IncomingMessage, res: ServerResponse, maxBodyBytes: number): Promise<void> {
   const contentType = req.headers["content-type"] ?? "";
-  const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
+  const mediaType = contentType.split(";")[0].trim().toLowerCase();
+  const url = new URL(req.url ?? "/", "http://localhost");
   const directionOverride = url.searchParams.get("direction");
-  const camtVersion = url.searchParams.get("camt-version") ?? undefined;
-
-  const body = await readBody(req, maxBodyBytes);
-
-  let direction: "camt-to-coda" | "coda-to-camt";
-
-  if (directionOverride === "camt-to-coda" || directionOverride === "coda-to-camt") {
-    direction = directionOverride;
-  } else if (contentType.includes("multipart/form-data")) {
-    direction = "camt-to-coda";
-  } else {
-    const text = body.toString("utf-8").trim();
-    if (text.startsWith("<?xml") || text.includes("xmlns")) {
-      direction = "camt-to-coda";
-    } else {
-      direction = "coda-to-camt";
-    }
+  if (directionOverride && directionOverride !== "camt-to-coda" && directionOverride !== "coda-to-camt") {
+    json(res, 400, { error: "Invalid conversion direction" });
+    return;
   }
-
+  if (!["", "multipart/form-data", "application/xml", "text/xml", "text/plain", "application/octet-stream"].includes(mediaType)) {
+    json(res, 415, { error: "Unsupported request content type" });
+    return;
+  }
+  const body = await readBody(req, maxBodyBytes);
+  let content = body.toString("utf-8");
+  let doAnonymize = url.searchParams.get("anonymize") === "true";
+  if (mediaType === "multipart/form-data") {
+    const boundary = contentType.match(/boundary=(?:"([^"\r\n]+)"|([^\s;]+))/i);
+    if (!boundary) { json(res, 400, { error: "Missing multipart boundary" }); return; }
+    const parts = parseMultipart(body, boundary[1] ?? boundary[2]);
+    const file = parts.find((part) => part.name === "file" || !!part.filename);
+    if (!file?.content) { json(res, 400, { error: "No file found in request" }); return; }
+    content = file.content;
+    const anonymize = parts.find((part) => part.name === "anonymize")?.content.trim();
+    doAnonymize ||= anonymize === "true" || anonymize === "1";
+  }
+  if (!content.trim()) { json(res, 400, { error: "Empty conversion input" }); return; }
+  const direction = directionOverride ?? (content.trimStart().startsWith("<") ? "camt-to-coda" : "coda-to-camt");
   if (direction === "camt-to-coda") {
-    await handleForwardConvert(req, res, body, contentType);
+    handleForwardConvert(res, content, doAnonymize);
   } else {
-    await handleReverseConvert(res, body, camtVersion);
+    handleReverseConvert(res, content, url.searchParams.get("camt-version") ?? undefined, doAnonymize);
   }
 }
 
-async function handleForwardConvert(
-  req: IncomingMessage, res: ServerResponse, body: Buffer, contentType: string
-): Promise<void> {
-  const boundaryMatch = contentType.match(/boundary=([^\s;]+)/);
-  if (!boundaryMatch) {
-    res.writeHead(400, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "Expected multipart/form-data" }));
-    return;
-  }
-
-  const boundary = boundaryMatch[1];
-  const parts = parseMultipart(body, boundary);
-
-  const xmlPart = parts.find(
-    (p) => p.name === "file" || p.filename?.endsWith(".xml")
-  );
-  const anonymizePart = parts.find((p) => p.name === "anonymize");
-  const doAnonymize = anonymizePart?.content?.trim() === "true" || anonymizePart?.content?.trim() === "1";
-
-  if (!xmlPart || !xmlPart.content) {
-    res.writeHead(400, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "No XML file found in request" }));
-    return;
-  }
-
+function handleForwardConvert(res: ServerResponse, xml: string, doAnonymize: boolean): void {
   try {
-    const xml = xmlPart.content;
     const version = detectVersion(xml);
     const statements = parseCamt(xml);
-
-    const files = statements.map((stmt) => {
-      const camtValidation = validateCamt(stmt);
+    if (statements.length === 0) throw new Error("No statements found");
+    const preflight = statements.map(validateCamt);
+    if (preflight.some((check) => !check.valid)) {
+      json(res, 422, { error: "CAMT validation failed", validation: {
+        valid: false, errors: preflight.flatMap((check) => check.errors), warnings: preflight.flatMap((check) => check.warnings),
+        checks: ["syntax", "structure", "business"], xsdValidated: false,
+      }});
+      return;
+    }
+    const files = statements.map((stmt, index) => {
       const result = statementToCoda(stmt);
       const codaValidation = validateCoda(result.lines);
-
-      const rawLines: string[] = doAnonymize
-        ? anonymizeCodaLines(result.lines)
-        : result.lines.map((l) => l.raw);
-
+      const camtValidation = preflight[index];
+      const rawLines = doAnonymize ? anonymizeCodaLines(result.lines) : result.lines.map((line) => line.raw);
       return {
-        fileName: result.fileName,
+        fileName: doAnonymize ? `statement-${index + 1}.cod` : safeFileName(result.fileName),
         lines: doAnonymize ? rawLines : result.lines,
         recordCount: result.recordCount,
         validation: {
           valid: camtValidation.valid && result.validation.valid && codaValidation.valid,
           errors: [...camtValidation.errors, ...result.validation.errors, ...codaValidation.errors],
-          warnings: camtValidation.warnings,
+          warnings: [...new Set([...camtValidation.warnings, ...result.validation.warnings, ...codaValidation.warnings])],
+          checks: ["syntax", "structure", "business", "reconciliation"], xsdValidated: false,
         },
       };
     });
-
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ direction: "camt-to-coda", files, version }));
+    const validation = {
+      valid: files.every((file) => file.validation.valid),
+      errors: files.flatMap((file) => file.validation.errors),
+      warnings: files.flatMap((file) => file.validation.warnings),
+      checks: ["syntax", "structure", "business", "reconciliation"], xsdValidated: false,
+    };
+    if (!validation.valid) {
+      json(res, 422, { error: "Conversion validation failed", validation });
+      return;
+    }
+    json(res, 200, { direction: "camt-to-coda", files, version, validation });
   } catch (err) {
-    res.writeHead(500, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: (err as Error).message }));
+    json(res, 400, { error: (err as Error).message });
   }
 }
 
-async function handleReverseConvert(
-  res: ServerResponse, body: Buffer, camtVersion?: string
-): Promise<void> {
+function handleReverseConvert(res: ServerResponse, content: string, camtVersion?: string, doAnonymize = false): void {
   try {
-    const content = body.toString("utf-8");
+    const lines = parseCoda(content);
+    const codaValidation = validateCoda(lines);
+    if (!codaValidation.valid) {
+      json(res, 422, { error: "CODA validation failed", validation: codaValidation });
+      return;
+    }
     const result = codaToCamt(content, camtVersion);
-
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({
-      direction: "coda-to-camt",
-      xml: result.xml,
-      lines: result.lines,
-      warnings: result.warnings,
-      validation: { valid: true, errors: [] },
-    }));
+    const checks = result.statements.map(validateCamt);
+    const validation = {
+      valid: codaValidation.valid && checks.every((check) => check.valid),
+      errors: [...codaValidation.errors, ...checks.flatMap((check) => check.errors)],
+      warnings: [...new Set([...result.warnings, ...codaValidation.warnings, ...checks.flatMap((check) => check.warnings)])],
+      checks: ["syntax", "structure", "business", "reconciliation"], xsdValidated: false,
+    };
+    if (!validation.valid) {
+      json(res, 422, { error: "CAMT validation failed", validation });
+      return;
+    }
+    const statements = doAnonymize ? result.statements.map(anonymizeStatement) : result.statements;
+    const xml = doAnonymize ? statementsToXml(statements, camtVersion) : result.xml;
+    if (doAnonymize) validation.warnings = ["Privacy export: original names, accounts and references removed. Amounts and dates remain identifiable; synthetic identifiers are not for bank import.", ...(validation.warnings.length ? ["The source has conversion notes; review the original privately before relying on this export."] : [])];
+    json(res, 200, {
+      direction: "coda-to-camt", xml, lines: doAnonymize ? [] : result.lines,
+      fileName: doAnonymize ? "anonymized-statements.xml" : "converted-statements.xml",
+      statement: statements[0], statements, warnings: validation.warnings, validation,
+    });
   } catch (err) {
-    res.writeHead(400, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: (err as Error).message }));
+    json(res, 400, { error: (err as Error).message });
   }
 }
 
@@ -254,21 +267,25 @@ const MIME: Record<string, string> = {
 };
 
 async function serveStatic(res: ServerResponse, urlPath: string): Promise<void> {
-  let rel = decodeURIComponent(urlPath.split("?")[0]);
+  let rel: string;
+  try { rel = decodeURIComponent(urlPath.split("?")[0]); }
+  catch { res.writeHead(400); res.end("Malformed URL"); return; }
   if (rel === "/" || rel === "") rel = "/index.html";
-  // Guard against path traversal.
-  const safe = normalize(rel).replace(/^(\.\.[/\\])+/, "");
-  const filePath = join(DIST_DIR, safe);
-  if (!filePath.startsWith(DIST_DIR)) {
-    res.writeHead(403, { "Content-Type": "text/plain" });
-    res.end("Forbidden");
-    return;
+  if (rel.split(/[/\\]/).includes("..") || rel.includes("\0")) {
+    res.writeHead(403, { "Content-Type": "text/plain" }); res.end("Forbidden"); return;
+  }
+  const filePath = resolve(DIST_DIR, "." + rel);
+  if (!filePath.startsWith(DIST_DIR + sep)) {
+    res.writeHead(403, { "Content-Type": "text/plain" }); res.end("Forbidden"); return;
   }
   try {
     const data = await readFile(filePath);
     res.writeHead(200, { "Content-Type": MIME[extname(filePath)] ?? "application/octet-stream" });
     res.end(data);
   } catch {
+    if (extname(rel)) {
+      res.writeHead(404, { "Content-Type": "text/plain" }); res.end("Not found"); return;
+    }
     // SPA fallback: serve index.html for unknown (non-asset) routes.
     try {
       const html = await readFile(join(DIST_DIR, "index.html"));
@@ -320,7 +337,7 @@ export function startServer(port = 3000, opts: ServerOptions = {}): ReturnType<t
     try {
       if (url === "/api/health" && method === "GET") {
         await handleHealth(res);
-      } else if (url.startsWith("/api/convert") && method === "POST") {
+      } else if (url.split("?")[0] === "/api/convert" && method === "POST") {
         await handleConvert(req, res, maxBodyBytes);
       } else if (method === "GET") {
         await serveStatic(res, url);

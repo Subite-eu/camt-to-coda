@@ -62,14 +62,14 @@ describe("record1", () => {
     expect(r.slice(125, 128)).toBe("007");
   });
 
-  it("handles non-IBAN account with structure 0", () => {
+  it("handles a foreign non-IBAN account with structure 1", () => {
     const stmt = {
       ...baseStmt,
       account: { ...baseStmt.account, iban: undefined, otherId: "1234567890" },
     };
     const r = record1(stmt, "001").raw;
     expect(r).toHaveLength(128);
-    expect(r[1]).toBe("0");
+    expect(r[1]).toBe("1");
   });
 
   it("returns CodaLine with fields array", () => {

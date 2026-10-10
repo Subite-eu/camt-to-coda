@@ -117,13 +117,13 @@ function buildRec8(opts: {
   );
 }
 
-function buildRec9(): string {
+function buildRec9(count = 3, credits = "000000000500000"): string {
   return (
     "9" +                         // [0]     recordType
     " ".repeat(15) +              // [1-15]  blanks
-    "000006" +                    // [16-21] recordCount
+    String(count).padStart(6,"0") +                    // [16-21] recordCount
     "000000000000000" +           // [22-36] sumDebits
-    "000000000500000" +           // [37-51] sumCredits
+    credits +                     // [37-51] sumCredits
     " ".repeat(75) +              // [52-126] blanks
     "2"                           // [127]   lastFile
   );
@@ -133,7 +133,7 @@ function buildRec9(): string {
 
 describe("codaToCamt", () => {
   it("produces valid XML from minimal CODA", () => {
-    const content = [buildRec0(), buildRec1(), buildRec8(), buildRec9()].join("\n");
+    const content = [buildRec0(), buildRec1(), buildRec8({balanceAmount:"000000001000000"}), buildRec9(2,"000000000000000")].join("\n");
     const result = codaToCamt(content);
 
     expect(result.xml).toContain('<?xml version="1.0" encoding="UTF-8"?>');
@@ -208,7 +208,7 @@ describe("codaToCamt", () => {
   });
 
   it("respects custom CAMT version", () => {
-    const content = [buildRec0(), buildRec1(), buildRec8(), buildRec9()].join("\n");
+    const content = [buildRec0(), buildRec1(), buildRec8({balanceAmount:"000000001000000"}), buildRec9(2,"000000000000000")].join("\n");
     const result = codaToCamt(content, "camt.053.001.02");
 
     expect(result.xml).toContain(
@@ -218,7 +218,7 @@ describe("codaToCamt", () => {
   });
 
   it("uses default CAMT version when not specified", () => {
-    const content = [buildRec0(), buildRec1(), buildRec8(), buildRec9()].join("\n");
+    const content = [buildRec0(), buildRec1(), buildRec8({balanceAmount:"000000001000000"}), buildRec9(2,"000000000000000")].join("\n");
     const result = codaToCamt(content);
 
     expect(result.xml).toContain(
@@ -230,8 +230,8 @@ describe("codaToCamt", () => {
     const content = [
       buildRec0(),
       buildRec1({ iban: "BE68539007547034" }),
-      buildRec8(),
-      buildRec9(),
+      buildRec8({balanceAmount:"000000001000000"}),
+      buildRec9(2,"000000000000000"),
     ].join("\n");
     const result = codaToCamt(content);
 
@@ -244,8 +244,8 @@ describe("codaToCamt", () => {
       buildRec1(),
       buildRec21({ transactionCode: "11111111" }),
       buildRec21({ transactionCode: "22222222" }),
-      buildRec8(),
-      buildRec9(),
+      buildRec8({balanceAmount:"000000002000000"}),
+      buildRec9(4,"000000001000000"),
     ].join("\n");
     const result = codaToCamt(content);
 

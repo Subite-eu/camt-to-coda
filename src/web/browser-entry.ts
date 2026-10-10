@@ -24,6 +24,7 @@ export interface ForwardResult {
 export interface ReverseResult {
   direction: "coda-to-camt";
   xml: string;
+  statements: CamtStatement[];
   lines: CodaLine[];
   warnings: string[];
   validation: { valid: boolean; errors: string[] };
@@ -46,7 +47,7 @@ export function convertForward(xml: string): ForwardResult {
       validation: {
         valid: camtValidation.valid && result.validation.valid && codaValidation.valid,
         errors: [...camtValidation.errors, ...result.validation.errors, ...codaValidation.errors],
-        warnings: camtValidation.warnings,
+        warnings: [...camtValidation.warnings, ...result.validation.warnings, ...codaValidation.warnings],
       },
     };
   });
@@ -56,12 +57,17 @@ export function convertForward(xml: string): ForwardResult {
 
 /** Convert CODA → CAMT XML (reverse direction) */
 export function convertReverse(content: string, camtVersion?: string): ReverseResult {
+  try {
   const result = codaToCamt(content, camtVersion);
   return {
     direction: "coda-to-camt",
     xml: result.xml,
+    statements: result.statements,
     lines: result.lines,
     warnings: result.warnings,
-    validation: { valid: true, errors: [] },
+    validation: result.validation,
   };
+  } catch (error) {
+    return { direction: "coda-to-camt", xml: "", lines: [], statements: [], warnings: [], validation: { valid: false, errors: [(error as Error).message] } };
+  }
 }

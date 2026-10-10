@@ -1,46 +1,32 @@
-import { Copy } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Copy, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import type { FieldEntry } from "@/lib/fields";
-
-/** Bottom slide-up strip showing the selected field's cross-format mapping. */
-export function Inspector({ field }: { field: FieldEntry | null }) {
+export function Inspector({ field, onClose }: { field: FieldEntry | null; onClose?: () => void }) {
+  const [fallback, setFallback] = useState(false);
+  useEffect(() => setFallback(false), [field?.id]);
   if (!field) return null;
   return (
-    <div className="border-t bg-muted/40 px-4 py-3">
-      <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Field mapping</div>
+    <section aria-label="Selected field" className="field-inspector border-t bg-card px-4 py-3 overflow-auto">
       <div className="flex items-center gap-2">
-        <span className="font-bold text-base">{field.name}</span>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-6"
-          aria-label="Copy value"
-          onClick={() => {
-            navigator.clipboard?.writeText(field.value);
-            toast.success("Copied value");
-          }}
-        >
-          <Copy className="size-3.5" />
-        </Button>
+        <h2 className="font-semibold">Field mapping · {field.name}</h2>
+        <Button variant="ghost" size="icon" aria-label="Copy value" onClick={async () => {
+          try { if (!navigator.clipboard) throw new Error("Clipboard unavailable"); await navigator.clipboard.writeText(field.value); toast.success("Copied value"); }
+          catch { setFallback(true); toast.error("Clipboard unavailable. Select and copy the value below."); }
+        }}><Copy className="size-4" /></Button>
+        {onClose && <Button variant="ghost" size="icon" className="ml-auto" aria-label="Close field inspector" onClick={onClose}><X className="size-4" /></Button>}
       </div>
-      <div className="flex flex-wrap gap-x-10 gap-y-2 mt-1 text-sm">
-        <Detail label="CAMT" mono value={field.sourceXPath ?? "—"} />
-        <Detail label="CODA" mono value={`Record ${field.recordType} · pos ${field.codaPos}`} />
-        <Detail label="Value" mono value={field.value} />
-        {field.description && (
-          <div className="md:ml-auto self-center text-xs text-muted-foreground max-w-xs">{field.description}</div>
-        )}
+      {field.monetaryDetailIndex!==undefined && <p className="text-sm mt-1">Breakdown {field.monetaryDetailIndex+1} of movement {(field.entryIndex??0)+1} · {field.currency} · {field.creditDebit}</p>}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm mt-2">
+        <Detail label="CAMT node" value={field.sourceXPath ?? "No source node"} />
+        <Detail label="CODA" value={`Record ${field.recordType} · pos ${field.codaPos}`} />
+        <Detail label="Decoded value" value={field.decodedValue ?? field.value} />
+        <Detail label="Raw bytes (spaces visible)" value={(field.rawValue ?? field.value).replace(/ /g,"·")} />
+        <div className="sm:col-span-2"><p className="font-medium">Provenance: {field.provenance ?? "unavailable"}</p><p className="text-muted-foreground">{field.rule ?? field.description}</p></div>
       </div>
-    </div>
+      {fallback && <label className="block text-sm mt-2">Select value to copy manually<textarea aria-label="Select value to copy manually" readOnly value={field.value} onFocus={e => e.currentTarget.select()} className="block w-full border p-2 rounded" /></label>}
+    </section>
   );
 }
-
-function Detail({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
-  return (
-    <div>
-      <div className="text-[10px] uppercase text-muted-foreground">{label}</div>
-      <div className={mono ? "font-mono" : ""}>{value}</div>
-    </div>
-  );
-}
+function Detail({label,value}: {label:string;value:string}) { return <div className="min-w-0"><p className="text-muted-foreground">{label}</p><p className="font-mono break-all">{value}</p></div>; }

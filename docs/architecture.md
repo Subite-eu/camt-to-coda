@@ -12,12 +12,12 @@ Reverse:  CODA text → coda-parser → CodaLine[] → coda-to-statement → Cam
 ```
 
 1. **Parse** — `fast-xml-parser` reads CAMT XML into a raw object; `camt-parser.ts` maps it to a `CamtStatement`.
-2. **Detect** — a namespace regex identifies the CAMT message type (e.g. `camt.053.001.08`).
+2. **Detect** — the parsed namespace identifies the supported CAMT message type (e.g. `camt.053.001.08`).
 3. **Convert** — `coda-writer.ts` orchestrates the per-record builders in sequence.
-4. **Validate** — every output line must be exactly 128 characters.
+4. **Validate** — modeled business rules, numeric domains, record order, continuations, totals and balance reconciliation are checked; every output line must be exactly 128 characters. Full XSD validation is an independent CI check.
 5. **Store** — the storage abstraction writes the `.cod` file (filesystem or S3).
 
-The reverse direction mirrors this: `coda-parser.ts` slices fixed-width fields, `coda-to-statement.ts` rebuilds the model, and `camt-writer.ts` serialises CAMT 053 XML.
+The reverse direction mirrors this: `coda-parser.ts` slices fixed-width fields, `coda-to-statement.ts` rebuilds the model, and `camt-writer.ts` serialises CAMT 053 XML using version-specific BIC, status, party and amount shapes. `codaToCamt` groups all logical files and exposes `statements[]`, retaining the first `statement` for compatibility. Monetary detail records become detail amounts, rather than additional account movements.
 
 ## Module Map (actual files)
 
@@ -66,7 +66,8 @@ src/
 
 src/web-app/                       React + Vite + Tailwind v4 + shadcn/ui field inspector
 ├── App.tsx  main.tsx  index.html
-├── lib/{convert,fields,samples,download,cn}.ts   conversion wrapper + field-link model
+├── lib/{convert,fields,samples,download,cn}.ts   artifact conversion + exact field provenance
+├── lib/{worker-client,conversion.worker,input}.ts cancellable conversion and input limits
 ├── components/{Header,FileBar,DropZone,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
 ├── components/ui/*                shadcn primitives
 └── styles/globals.css             Warm Ink theme tokens (light + dark)
@@ -100,9 +101,9 @@ The CLI selects an implementation by input/output scheme and uses the same `read
 ## Testing Strategy
 
 - **Unit tests** — each record builder, parser, formatter, and holiday calendar in isolation (`test/unit/`).
-- **Integration tests** — full forward pipeline against real anonymised CAMT files (`test/integration/convert.test.ts`); reverse + round-trip in `round-trip.test.ts`.
+- **Integration tests** — required independently authored original CAMT and CODA sources with literal expectations (`examples/manifest.json`, `test/integration/public-examples.test.ts`), all supported source/output XSDs, CLI and HTTP failure/privacy/multiple-statement behavior, and live MinIO in CI.
 - **Property-based tests** — `fast-check` invariants (output lines always 128 chars, field offsets sum to 128) in `test/unit/property.test.ts`.
-- **Golden tests** — *planned* (`test/golden/` currently holds only `DIFFERENCES.md`): byte-level cross-validation against a reference `.cod`. See `docs/superpowers/plans/2026-06-30-spec-conformance-and-cleanup.md`.
+- **Browser tests** — built worker bundle in Chromium, Firefox, WebKit and mobile Chromium; actual uploads/downloads, privacy, multi-statement ZIP, recovery, keyboard, responsive layout and light/dark axe checks (`test/e2e/`). Legacy private golden examples are supplemental; the public source library is required in clean checkouts.
 
 ## Specifications
 
