@@ -1,5 +1,35 @@
 # Changelog
 
+Current changes are listed under Unreleased. Older entries describe their historical release, including the retired Java implementation; see the [current documentation](docs/README.md) for available features and commands.
+
+## [Unreleased]
+
+### Added
+
+- Bidirectional browser review with statement summaries, reconciliation, pagination, multi-statement selection/ZIP, exact field provenance, keyboard navigation, responsive panels, cancellation and recovery.
+- Privacy exports in both browser/API directions, with consistent result preview/download, safe filenames and explicit retained-data boundaries.
+- 76 independently authored original CAMT and CODA fixtures with literal expectations, positive/negative cases and all supported input/output XSD checks.
+- Required CI on Node 22/24, four browser projects with accessibility and actual downloads, dependency audit, live MinIO and Docker CLI/web smoke checks before publication.
+- Remote browser testing through `PLAYWRIGHT_BASE_URL`, deployed asset byte verification, and dated audit/deployment evidence.
+- Current documentation index and HTTP API reference covering request/response shapes, limits, validation and privacy.
+
+### Changed
+
+- CAMT 052/053 input and CAMT 053 output support versions 02–13 with version-specific XML serialization; reverse output defaults to .08 and preserves all statements.
+- Transaction mapping and CODA reference descriptions, 30 EEA holiday calendars, standard AWS SDK credentials/region handling and paginated S3 listing.
+- Browser conversions run in a cancellable worker with a 5 MiB limit. Runtime errors block download; conversion notes require acknowledgment.
+- Installation, CLI, architecture, mappings, limitations, contributor and release documentation now describe the TypeScript implementation and actual publication outputs.
+- Dependency updates include PostCSS 8.5.29 and Vitest/coverage 4.1.11.
+
+### Fixed
+
+- Exact three-decimal money handling, lexical precision/overflow checks, mixed-currency rejection and balance/trailer reconciliation.
+- Record 3.1 positions, Belgian BBAN currency placement, movement/detail numbering and continuation links; monetary details no longer count as additional account movements.
+- Record 4 free communications, structured-reference checksum handling, long communications, detail references and local return reasons.
+- Reverse multi-file reconstruction, modern party wrappers and version-specific status/BIC/detail amount shapes; unsupported or unrepresentable outputs fail explicitly.
+- CLI output path/collision handling, archive/error validation and failure exit status; HTTP media types, body limits, CORS defaults and reverse privacy metadata.
+
+
 ## [2.0.0] - 2026-03-15
 
 ### Changed

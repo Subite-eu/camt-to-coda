@@ -1,90 +1,57 @@
-# Releasing a New Version
+# Releasing a new version
 
-## Prerequisites
+## Prepare and review
 
-- All changes committed and pushed to `main`
-- CI passing on `main` (green build badge)
-- `CHANGELOG.md` updated with the new version's changes
-
-## Step-by-Step
-
-### 1. Update version numbers
+Start from current `main`. Update the version without prematurely creating a release tag:
 
 ```bash
-# Update version in package.json
-npm version patch   # or minor / major
-
-# Update CHANGELOG.md — rename [Unreleased] to [X.Y.Z] - YYYY-MM-DD
+npm version patch --no-git-tag-version   # or minor / major
 ```
 
-`npm version` automatically:
-- Bumps the version in `package.json`
-- Creates a git commit (`"X.Y.Z"`)
-- Creates a git tag (`vX.Y.Z`)
+This updates `package.json` and `package-lock.json`. Also update the CLI's `.version(...)` in `src/cli.ts`, which currently declares its version separately. Move `[Unreleased]` changes into `[X.Y.Z] - YYYY-MM-DD` in [CHANGELOG.md](../CHANGELOG.md), leaving a new Unreleased section for future changes.
 
-### 2. Push the commit and tag
+Build and verify using the [contributor guide](../CONTRIBUTING.md). Submit the version, changelog and documentation changes through a reviewed PR. Wait for all required CI checks, merge, and verify the merged main commit's checks before tagging it.
+
+## Tag the reviewed main commit
+
+After fetching and fast-forwarding a clean local `main` to the intended release commit, replace `X.Y.Z` with its actual version:
 
 ```bash
-git push origin main
+git tag -a vX.Y.Z -m "Release X.Y.Z"
 git push origin vX.Y.Z
 ```
 
-### 3. Wait for CI to pass
+Pushing a `v*` tag starts [release.yml](../.github/workflows/release.yml). Its `validate` job calls the reusable [build workflow](../.github/workflows/build-push-action.yml): Node 22/24 builds/coverage, public examples and XSDs, four browser projects, dependency audit, live MinIO and Docker CLI/web smoke checks. The release job depends on that validation succeeding.
 
-Check: https://github.com/Subite-eu/camt-to-coda/actions
+## What automation publishes
 
-### 4. Verify the release
+The release job builds a Docker image for `linux/amd64` and `linux/arm64`, including both the compiled CLI/server and browser app. It publishes:
 
-Pushing the tag triggers the **release workflow** (`.github/workflows/build-push-action.yml`) which:
-- Runs all tests (`npx vitest run`)
-- Builds the TypeScript project (`npm run build`)
-- Packages a distribution archive
-- Creates a GitHub Release with auto-generated release notes
-- Attaches build artifacts to the release
-- Pushes the Docker image to `ghcr.io` tagged with both `main` and `vX.Y.Z`
+- `ghcr.io/subite-eu/camt-to-coda:vX.Y.Z`
+- `ghcr.io/subite-eu/camt-to-coda:latest`
+- A GitHub Release with generated notes and installation instructions.
 
-Go to https://github.com/Subite-eu/camt-to-coda/releases and confirm:
-- The release was created with the correct tag
-- Artifacts are attached
-- Release notes look correct (edit if needed)
+There is currently **no automated npm publication, distribution archive, or attached build artifact** on the GitHub Release. The build workflow separately publishes `:main` after passing checks on a main push; a release tag does not retag `:main`. Coverage and browser reports are workflow artifacts, rather than release downloads.
 
-### 5. Docker image
-
-The Docker image is automatically pushed to `ghcr.io` on every push to `main`:
-
-```bash
-docker pull ghcr.io/subite-eu/camt-to-coda:main
-```
-
-For tagged releases, the image is also tagged with the version:
+Inspect the [Actions run](https://github.com/Subite-eu/camt-to-coda/actions), [GitHub Release](https://github.com/Subite-eu/camt-to-coda/releases), image tags and both supported image platforms. Smoke-test the versioned image:
 
 ```bash
 docker pull ghcr.io/subite-eu/camt-to-coda:vX.Y.Z
+docker run --rm ghcr.io/subite-eu/camt-to-coda:vX.Y.Z --version
+docker run --rm -p 3000:3000 ghcr.io/subite-eu/camt-to-coda:vX.Y.Z serve --host 0.0.0.0
 ```
 
-### 6. npm package (optional)
+The hosted static web apps use the Cloudflare Pages Git integration described in the [README](../README.md). A green Docker release is not proof that a hosted domain serves the same assets. For hosted changes, run the remote browser suite and `scripts/verify-deployment.mjs` from the intended build as described in [Contributing](../CONTRIBUTING.md).
 
-If you want to publish to the npm registry:
+## Version policy and checklist
 
-```bash
-npm publish --access public
-```
+Use a major version for incompatible CLI or conversion behavior, a minor version for compatible features, and a patch version for compatible fixes. Assess changes to bank-format interpretation carefully even when the CLI interface is unchanged.
 
-Requires an npm account with publish rights to the `camt2coda` package.
+- [ ] Package, lockfile, CLI version and intended tag agree.
+- [ ] Changelog and current feature/limitation guides match the release.
+- [ ] Reviewed release preparation PR and merged main checks are green.
+- [ ] Tag points to that reviewed commit; tagged validation and publication succeed.
+- [ ] GitHub Release notes and versioned multi-platform image are verified.
+- [ ] Hosted deployment is separately verified if its app assets changed.
 
-## Version Numbering
-
-Follow [Semantic Versioning](https://semver.org/):
-
-- **MAJOR** (X): Breaking changes to CLI interface or CODA output format
-- **MINOR** (Y): New features (new CAMT version support, new CLI subcommands)
-- **PATCH** (Z): Bug fixes, documentation updates
-
-## Release Checklist
-
-- [ ] `CHANGELOG.md` has an entry for the new version
-- [ ] `package.json` version matches the intended tag
-- [ ] All tests pass locally: `npm test`
-- [ ] TypeScript compiles cleanly: `npm run typecheck`
-- [ ] Docker build passes locally: `docker build .`
-- [ ] README badges point to the correct repo URLs
+Publishing to npm would be a separate maintainer action requiring package rights and a package-content review. The current release workflow does not establish npm availability, so installation guides use Docker or a source checkout.

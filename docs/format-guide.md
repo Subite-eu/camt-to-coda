@@ -2,6 +2,8 @@
 
 ## CAMT Versions
 
+Input conversion supports CAMT 052 and 053 versions 02–13. Reverse output is CAMT 053 versions 02–13, default `camt.053.001.08`; CAMT 052 output is unsupported. See the [mapping matrix](mapping-matrix.md) for current field behavior and [limitations](conversion-limitations.md) for version-specific detail restrictions.
+
 | Version | Root Element | Description |
 |---|---|---|
 | camt.052 | `BkToCstmrAcctRpt` | Intraday bank account report |
@@ -13,7 +15,7 @@
 | Aspect | camt.052 | camt.053 |
 |---|---|---|
 | Granularity | Intraday | End-of-day |
-| Balance codes | OPAV/INFO | OPBD/CLBD |
+| Balance selection | Opening OPAV/OPBD/PRCD; closing CLAV/CLBD/ITAV/INFO | Opening OPBD/PRCD; closing CLBD |
 | BIC | Optional in ISO schema | Optional in ISO schema; bank profiles may require it |
 | Iteration | Over `Ntry` entries; balances remain balances | Over `Ntry` entries |
 
@@ -57,6 +59,8 @@ All records are exactly **128 characters** wide.
 | 91-125 | 35 | Account description |
 | 126-128 | 3 | Sequence number |
 
+For structure 0 (Belgian BBAN), positions 6–42 are a packed account zone: BBAN 6–17, blank 18, currency 19–21, qualification 22, country 23–24, blanks 25–27 and extension 28–42. The generic account/currency rows above apply to other structures.
+
 ### Record 2.1 — Movement
 
 | Position | Length | Description |
@@ -78,6 +82,18 @@ All records are exactly **128 characters** wide.
 | 126 | 1 | Next code (0=no 2.2/2.3, 1=continues) |
 | 127 | 1 | Blank |
 | 128 | 1 | Link code (0=no record 3, 1=record 3 follows) |
+
+### Records 2.2 and 2.3 — Movement continuations
+
+Both retain movement sequence 3–6 and detail number 7–10. Record 2.2 carries communication 11–63, customer reference 64–98, counterparty BIC 99–109, R-transaction type 113, ISO reason 114–117, category purpose 118–121 and purpose 122–125. Record 2.3 carries counterparty account/currency 11–47, name 48–82 and communication 83–125. Continuation and link codes occupy 126 and 128.
+
+### Records 3.1–3.3 — Information
+
+Record 3.1 carries bank reference 11–31, transaction code 32–39, communication type 40, communication 41–113 and blanks 114–125. Record 3.2 adds communication at 11–115; Record 3.3 at 11–100. Their next and link codes are at 126 and 128. Information records preserve amountless transaction details and extended communication; monetary details instead use nonzero detail numbers on movement records and do not increase aggregate debit/credit totals.
+
+### Record 4 — Free statement communication
+
+Layout: ID 1, blank 2, sequence 3–6, detail 7–10, blanks 11–32, communication 33–112, blanks 113–127, link 128. The writer splits statement free text into 80-character chunks after Record 8. Reverse XML carries the text in `Stmt/AddtlStmtInf`. Record 4 is not included in the trailer count.
 
 ### Record 8 — Closing Balance
 
@@ -114,9 +130,11 @@ Record 8 has its own positions: sequence 2–4, account 5–38, currency 39–41
 
 ## Structured Communication
 
-When `RmtInf/Strd/CdtrRefInf/Ref` is present in CAMT:
+When `RmtInf/Strd/CdtrRefInf/Ref` contains a compatible Belgian OGM/VCS reference (type absent or SCOR, issuer absent or BBA):
 - Communication type = `1` (structured)
 - Format: `101` + valid 12-digit reference, including mod-97 checksum; an invalid checksum is preserved as unstructured communication with a warning
+
+RF references and incompatible structured types/issuers are preserved as unstructured text.
 
 Belgian structured communication format: `+++NNN/NNNN/NNNNN+++`
 

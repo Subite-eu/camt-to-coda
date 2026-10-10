@@ -1,204 +1,126 @@
 # User Guide
 
-## Installation
+See the [documentation index](README.md) for mapping details, limitations and contributor instructions.
 
-### Docker (recommended)
+## Use the browser app
 
-```bash
-docker pull ghcr.io/subite-eu/camt-to-coda:main
-```
+Open [camt2coda.subite.io](https://camt2coda.subite.io) or [coda2camt.subite.io](https://coda2camt.subite.io). Both sites provide the same bidirectional app:
 
-### npm / npx
+1. Drop or select one CAMT XML or CODA file, paste its contents, or open a built-in sample. The app detects the conversion direction. The input limit is **5 MiB**.
+2. Review the statement summary, opening/closing balances, reconciliation and movements. A file can contain several statements; use the statement selector to review each one. Movement lists are paginated.
+3. Open the field inspector to compare source and result. Search or jump to a record; use arrow keys to navigate fields, Enter/Space to inspect and Escape to close. On small screens, switch between source and result tabs.
+4. Review conversion notes and acknowledge them before downloading. Validation errors block downloads even after notes are acknowledged. You can cancel an in-progress conversion and retry after an error.
+5. Download a CODA file for the selected statement or a ZIP containing all forward results. Reverse conversion produces one CAMT XML document containing all reconstructed statements.
 
-```bash
-# Run without installing
-npx camt2coda --help
+Conversion runs in a local browser worker. Bank statement contents are not uploaded by the UI. The hosted page still fetches site assets and may contact Cloudflare analytics; an offline reload is not guaranteed.
 
-# Install globally
-npm install -g camt2coda
-```
+**Anonymize** changes the result preview and downloaded artifact together; the source panel remains original. Names, account identifiers, references and free text are removed or replaced. Amounts, dates, currencies and transaction patterns remain, and deterministic pseudonyms are linkable. Synthetic identifiers are for review, **never bank import**. Use the independently authored [example library](../examples/README.md) for shareable test data.
 
-### From Source
+## Install the CLI and local server
 
-Requires **Node 22+** and npm.
+### From source
+
+Use Node **22.12 or newer in the 22 series, or Node 24**, npm, and Git. Run from the repository root:
 
 ```bash
 git clone https://github.com/Subite-eu/camt-to-coda.git
 cd camt-to-coda
-npm install
+npm ci
 npm run build
-# The compiled CLI is at dist/cli.js
+npm run build:web
 node dist/cli.js --help
+
+# Optional: expose this checkout as the camt2coda command.
+npm link
 ```
 
-## Usage
+The commands below use `node dist/cli.js`; after linking, `camt2coda` accepts the same arguments. Building the CLI alone does not build the web assets.
 
-### Basic Conversion
+### Docker
 
 ```bash
-# Convert all CAMT 053 files in a directory
-camt2coda convert -v 53 -i /path/to/camt/ -o /path/to/coda/
-
-# Convert a single file
-camt2coda convert -v 53 -i statement.xml -o output/
-
-# Convert CAMT 052 files
-camt2coda convert -v 52 -i /path/to/camt052/ -o /path/to/coda/
+docker pull ghcr.io/subite-eu/camt-to-coda:main
+docker run --rm ghcr.io/subite-eu/camt-to-coda:main --help
+docker run --rm -v /path/to/camt:/in -v /path/to/coda:/out ghcr.io/subite-eu/camt-to-coda:main convert -i /in -o /out
 ```
 
-### Dry-Run Mode
+Use a `vX.Y.Z` image tag for a specific published release; `main` follows passing main builds. See [releasing](releasing.md) for publication details.
 
-Preview what would happen without writing any files:
+## CLI commands
+
+### CAMT to CODA
 
 ```bash
-camt2coda convert -v 53 -i input/ -o output/ --dry-run
+node dist/cli.js convert -i examples/camt/camt.053.001.08.xml -o /tmp/coda-example
+node dist/cli.js convert -i /path/to/camt/ -o /path/to/coda/ --dry-run
+node dist/cli.js convert -i /path/to/camt/ -o /path/to/coda/ --anonymize
+node dist/cli.js convert -i /path/to/camt/ -o /path/to/coda/ --archive /path/to/archive/ --error /path/to/errors/
 ```
 
-Output shows:
-- Which CAMT version was detected
-- Whether pre-flight validation passes
-- How many output files would be created
-- Record counts per file
+CAMT **052 and 053, versions 02–13**, are detected from the namespace; there is no `-v` input-version option. Each statement produces a separate CODA file. Directory inputs include immediate regular files ending in `.xml`, case-insensitively; traversal is not recursive.
 
-### Anonymization
+`--archive` moves successfully processed inputs; `--error` moves failed inputs. Moves must use the same storage backend as the input. Each input's statements are validated before its outputs are written or it is archived. A batch is not a storage transaction: an I/O failure can leave already-written outputs. Generated filenames are normalized to portable names; excessive lengths and output collisions are rejected. `--dry-run` writes no outputs and moves no inputs.
 
-Replace sensitive data in-line during conversion (IBANs, BICs, names, references replaced with deterministic fakes):
+`--anonymize` applies to forward CODA output and uses generic filenames. There is no standalone `anonymize` CLI command, and `reverse` has no anonymization flag. The browser and HTTP API support privacy exports in both directions.
+
+### CODA to CAMT
 
 ```bash
-camt2coda convert -v 53 -i input/ -o output/ --anonymize
+node dist/cli.js reverse -i examples/coda/coda-basic-eur.cod -o /tmp/camt-example
+node dist/cli.js reverse -i /path/to/coda/ -o /path/to/camt/ --dry-run
+node dist/cli.js reverse -i statement.cod -o output/ --camt-version camt.053.001.02
 ```
 
-This is useful for generating test fixtures from real statements. The anonymization is deterministic: the same input always produces the same fake values, preserving referential integrity.
+Reverse output defaults to **camt.053.001.08**; `--camt-version` accepts camt.053.001.02 through .13. Each input becomes one XML file containing all its statements. Directory inputs accept `.cod` and `.coda`, case-insensitively and non-recursively. Duplicate output basenames are rejected. Reverse conversion reconstructs the information CODA can represent; consult [conversion limitations](conversion-limitations.md) before relying on a round trip.
 
-### Validation Only
-
-Check a CAMT file without converting:
+### Validate and inspect CAMT
 
 ```bash
-camt2coda validate statement.xml
+node dist/cli.js validate examples/camt/camt.053.001.08.xml
+node dist/cli.js info examples/camt/camt.053.001.08.xml
 ```
 
-Checks:
-- XML well-formedness
-- XSD schema compliance
-- Account identifier present
-- Currency present
-- Opening/closing balances present
-- Date fields present
+`validate` checks XML syntax, supported structure, modeled account/currency/amount/date requirements, generated CODA and balance reconciliation. It does **not** run full XSD validation. CI independently validates public CAMT sources and generated reverse XML against the bundled XSDs. A balance mismatch is an error, not an advisory warning.
 
-### File Information
+`info` displays detected version and statement metadata, including account, currency, owner, balances and entries. It is an inspection command, not a substitute for validation. CLI processing failures exit with status 1; successful commands exit with status 0.
 
-Display metadata about a CAMT file:
+### Serve the UI and HTTP API
 
 ```bash
-camt2coda info statement.xml
+# Requires both builds from the installation steps.
+node dist/cli.js serve
+node dist/cli.js serve --port 8080 --host 127.0.0.1
+
+# Container interfaces require an explicit non-loopback binding.
+docker run --rm -p 3000:3000 ghcr.io/subite-eu/camt-to-coda:main serve --host 0.0.0.0
 ```
 
-Shows: CAMT version, account IBANs, currency, entry count, statement count, dates.
+The default address is `http://127.0.0.1:3000`. The UI still converts locally. Explicit requests to the separate [HTTP API](http-api.md) upload data to the Node server for processing. API bodies default to **10 MiB**, configurable through `--max-body-mb`; CORS is opt-in through `--cors-origin <exact-origin>`.
 
-### Web UI
+For UI development use `npm run dev:app` (Vite, port 5173). `npm run build:web` creates the static `dist-web/` site, which can be hosted without the Node API.
 
-Start a local web server with a drag-and-drop interface:
+## Filesystem and S3 storage
+
+Both conversion commands accept filesystem paths and `s3://bucket/key-or-prefix` paths. S3 uses the optional `@aws-sdk/client-s3` dependency and the standard AWS SDK credential provider chain: environment credentials, temporary `AWS_SESSION_TOKEN`, shared profiles or runtime roles. Region uses `AWS_REGION`, then `AWS_DEFAULT_REGION`, then `us-east-1`. `--endpoint` selects an S3-compatible service such as MinIO.
 
 ```bash
-camt2coda serve
-# or with a custom port:
-camt2coda serve --port 8080
+# Supply credentials through your environment, profile or runtime role.
+node dist/cli.js convert -i s3://camt-bucket/incoming/ -o s3://coda-bucket/converted/ --endpoint http://localhost:9000
+
+docker run --rm -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e AWS_REGION ghcr.io/subite-eu/camt-to-coda:main convert -i s3://camt-bucket/incoming/ -o s3://coda-bucket/converted/ --endpoint http://host.docker.internal:9000
 ```
 
-Open `http://localhost:3000` in your browser. You can:
-- Drag and drop one or more CAMT files
-- Preview the converted CODA output inline
-- Download the result as a `.cod` file
-
-### S3 Mode
-
-Read from / write to S3-compatible storage:
-
-S3 credentials are read only from `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`
-(not CLI flags, which leak via `ps` and shell history):
-
-```bash
-export AWS_ACCESS_KEY_ID=mykey
-export AWS_SECRET_ACCESS_KEY=mysecret
-camt2coda convert \
-  -i s3://camt-bucket -o s3://coda-bucket \
-  --endpoint http://localhost:9000
-```
-
-Using environment variables (suitable for Docker):
-
-```bash
-docker run --rm \
-  -e MODE=S3 \
-  -e VERSION=53 \
-  -e IN=camt-bucket \
-  -e OUT=coda-bucket \
-  -e EP=http://minio:9000 \
-  -e AK=mykey \
-  -e SK=mysecret \
-  ghcr.io/subite-eu/camt-to-coda:main
-```
-
-### Docker Compose (local dev with MinIO)
-
-```bash
-docker compose up
-```
-
-This starts MinIO (S3-compatible) alongside the converter. See `docker-compose.yml` for the full configuration.
-
-## Environment Variables
-
-| Variable | Description | Default |
-|---|---|---|
-| `MODE` | `FS` (filesystem) or `S3` | `FS` |
-| `VERSION` | CAMT version (`52` or `53`) | Required |
-| `IN` | Input path or S3 bucket name | Required |
-| `OUT` | Output path or S3 bucket name | Required |
-| `ARCHIVE` | Archive path for processed files | `/tmp` |
-| `ERROR` | Error path for failed files | `/tmp` |
-| `EP` | S3 endpoint URL | AWS default |
-| `AK` | S3 access key | — |
-| `SK` | S3 secret key | — |
+The Docker endpoint above uses Docker Desktop's host address; choose an address reachable from your container. The retired `MODE`, `VERSION`, `IN`, `OUT`, `ARCHIVE`, `ERROR`, `EP`, `AK` and `SK` variables do not configure the CLI. Use explicit arguments and standard AWS variables. The [contributor guide](../CONTRIBUTING.md) provides the live MinIO test recipe used by CI.
 
 ## Troubleshooting
 
-### "CAMT namespace version not found"
-
-The input XML does not contain a recognized CAMT namespace. Check that:
-- The file is valid XML
-- The `xmlns` attribute matches `urn:iso:std:iso:20022:tech:xsd:camt.0XX...`
-- The `-v` flag matches the file type (52 or 53)
-
-### "Invalid line length: expected 128, got N"
-
-A record builder produced a line that is not 128 characters wide. This usually means:
-- A field value is longer than the CODA field allows (the value is truncated to fit)
-- A required field is missing in the source CAMT file, leaving a field empty
-
-Run `camt2coda validate statement.xml` first to check for missing required fields.
-
-### "BIC not found"
-
-For CAMT 053, a BIC is required. Check that the file contains `Acct/Svcr/FinInstnId/BIC` or `Acct/Ownr/Id/OrgId/AnyBIC`.
-
-### "Balances are inconsistent"
-
-The opening balance + sum of movements does not equal the closing balance. This is usually a data quality issue in the source CAMT file and is reported as a pre-flight warning, not a hard error.
-
-### S3 connection errors
-
-- Confirm `EP` (endpoint), `AK` (access key), and `SK` (secret key) are set correctly
-- For MinIO, make sure the MinIO service is running: `docker compose up minio`
-- Check that the input and output buckets exist in MinIO
-
-### Node version
-
-The converter requires **Node 22+**. Check your version:
-
-```bash
-node --version
-```
-
-If you are on an older version, use the Docker image which bundles the correct runtime.
+| Symptom | Action |
+|---|---|
+| Unsupported CAMT namespace | Check the actual XML namespace; only 052/053 v02–13 are supported inputs. CAMT 054 schemas are reference material only. |
+| Invalid CODA line width/order/links | Use original 128-character records without editor wrapping or trimming. Line endings may be LF or CRLF. Review the record named in the validation error. |
+| Balance mismatch, mixed currencies or excess amount precision | Correct the source data. The converter rejects inconsistent balances, mixed entry/account currencies and values not exactly representable in CODA thousandths. |
+| Missing BIC | ISO permits it; the converter does not require a BIC universally. A receiving bank's profile may impose additional rules. |
+| Reverse version cannot represent detail data | Select a newer output version. v02 cannot preserve opposite-sign monetary details; v03–06 require amounts for multiple details. |
+| Missing web app/assets | Run both `npm run build` and `npm run build:web` before starting the compiled server. |
+| S3 connection or move failure | Check endpoint reachability, bucket permissions, standard AWS credentials/region and same-backend archive/error paths. |
+| Input too large | Split browser inputs above 5 MiB; the API has a separate configurable body limit. CODA counters also limit each statement to 9,999 movements and each movement to 9,999 details. |

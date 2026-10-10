@@ -2,7 +2,7 @@
 
 ## Design Philosophy
 
-The converter is built around **pure functions** and **data transformation**. A version-independent `CamtStatement` model sits at the centre; both conversion directions pivot through it. Each CODA record type is produced by an isolated function that takes typed data and returns a fixed-width 128-character string. There is no global state, no class hierarchy, and no XSLT.
+The converter is built around **pure functions** and **data transformation**. A version-independent `CamtStatement` model sits at the centre; both conversion directions pivot through it. The core pipeline uses pure transformations and fixed-width 128-character CODA records. Dedicated builders handle movement, information, balance and trailer records; Record 4 is assembled in the writer. Storage and HTTP side effects live outside the core.
 
 ## Pipeline Overview
 
@@ -23,7 +23,7 @@ The reverse direction mirrors this: `coda-parser.ts` slices fixed-width fields, 
 
 ```
 src/
-├── cli.ts                         Commander CLI (convert, reverse, validate, info, serve, anonymize)
+├── cli.ts                         Commander CLI (convert, reverse, validate, info, serve)
 │
 ├── core/
 │   ├── model.ts                   Shared types (CamtStatement, CamtEntry, TransactionDetail, ...)
@@ -34,6 +34,10 @@ src/
 │   ├── camt-writer.ts             CamtStatement → CAMT 053 XML
 │   ├── reverse.ts                 CODA → CAMT pipeline wrapper (+ warnings)
 │   ├── transaction-codes.ts       ISO Domain/Family/SubFamily ↔ 8-char CODA code
+│   ├── money.ts                   Exact integer-thousandths amount operations
+│   ├── ogm-vcs.ts                 Belgian structured-reference checksum validation
+│   ├── sdd-reason-codes.ts        Return/reversal reason classification
+│   ├── coda-transaction-codes.ts  CODA Annexe II descriptions
 │   ├── formatting.ts              padLeft/padRight, date, balance, sign helpers
 │   ├── field-defs/               Fixed-width field tables per record (record{0,1,21,22,23,31,32,33,4,8,9}-fields.ts)
 │   │   ├── types.ts               FieldDef, CodaField, CodaLine, AnnotatedCodaOutput
@@ -57,7 +61,9 @@ src/
 │   └── s3-storage.ts              S3/MinIO implementation (@aws-sdk/client-s3, optional dep)
 │
 ├── anonymize/
-│   └── anonymizer.ts              Deterministic CAMT anonymisation (SHA-256 derived fake data)
+│   ├── anonymizer.ts              Deterministic CODA-line anonymization
+│   ├── statement.ts               Allowlisted statement privacy transform for reverse XML
+│   └── sha256.ts                  Browser-safe deterministic hashing
 │
 └── web/
     ├── server.ts                  Node HTTP server: serves the built dist-web/ (static + SPA) + /api
@@ -68,16 +74,16 @@ src/web-app/                       React + Vite + Tailwind v4 + shadcn/ui field 
 ├── App.tsx  main.tsx  index.html
 ├── lib/{convert,fields,samples,download,cn}.ts   artifact conversion + exact field provenance
 ├── lib/{worker-client,conversion.worker,input}.ts cancellable conversion and input limits
-├── components/{Header,FileBar,DropZone,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
+├── components/{Header,FileBar,DropZone,StatementSummary,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
 ├── components/ui/*                shadcn primitives
 └── styles/globals.css             Warm Ink theme tokens (light + dark)
 ```
 
-The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). See `docs/superpowers/specs/2026-07-01-web-ui-shadcn-redesign-design.md`.
+The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). The browser worker processes inputs locally (5 MiB cap); explicit uploads to the separate [HTTP API](http-api.md) are processed on the Node server (10 MiB default body cap). The source panel retains the original while the result preview and downloads share one converted/privacy artifact. See the [user guide](user-guide.md) for the workflow.
 
 ## Record Builders
 
-Each builder is a pure function returning exactly 128 characters, driven by a `field-defs` table so positions live in one place:
+The dedicated builders are pure functions returning exactly 128 characters, driven by a `field-defs` table so positions live in one place:
 
 ```typescript
 record0(stmt): CodaLine
@@ -93,17 +99,17 @@ This makes every record independently testable without mocking the pipeline (see
 ```
 Storage interface
 ├── FsStorage    (local filesystem)
-└── S3Storage    (S3-compatible bucket; MinIO locally via docker-compose)
+└── S3Storage    (S3-compatible bucket; live MinIO test recipe in CONTRIBUTING.md)
 ```
 
-The CLI selects an implementation by input/output scheme and uses the same `read()`/`write()`/`list()` methods regardless of backend.
+The CLI selects an implementation by input/output scheme and uses the same `read()`/`write()`/`list()` methods regardless of backend. S3 uses standard AWS SDK credentials and paginated listing. Archive/error moves must stay within the input backend. Output filenames are normalized, and collisions are rejected before writing a prepared input; the batch is not a transactional storage operation.
 
 ## Testing Strategy
 
 - **Unit tests** — each record builder, parser, formatter, and holiday calendar in isolation (`test/unit/`).
 - **Integration tests** — required independently authored original CAMT and CODA sources with literal expectations (`examples/manifest.json`, `test/integration/public-examples.test.ts`), all supported source/output XSDs, CLI and HTTP failure/privacy/multiple-statement behavior, and live MinIO in CI.
 - **Property-based tests** — `fast-check` invariants (output lines always 128 chars, field offsets sum to 128) in `test/unit/property.test.ts`.
-- **Browser tests** — built worker bundle in Chromium, Firefox, WebKit and mobile Chromium; actual uploads/downloads, privacy, multi-statement ZIP, recovery, keyboard, responsive layout and light/dark axe checks (`test/e2e/`). Legacy private golden examples are supplemental; the public source library is required in clean checkouts.
+- **Browser tests** — built worker bundle in Chromium, Firefox, WebKit and mobile Chromium; actual uploads/downloads, privacy, multi-statement ZIP, recovery, keyboard, responsive layout and light/dark axe checks (`test/e2e/`). All 76 original-source fixtures are also uploaded and their downloads or expected errors checked. Set `PLAYWRIGHT_BASE_URL` to run the suite against a deployment; `scripts/verify-deployment.mjs` compares deployed asset bytes with a local build. Legacy private golden examples are supplemental; the public source library is required in clean checkouts.
 
 ## Specifications
 
