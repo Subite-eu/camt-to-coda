@@ -88,3 +88,7 @@ CODA movement and detail counters are four digits. Conversion rejects statements
 CAMT v02 carries detail amounts through `AmtDtls/TxAmt/Amt` and inherits the aggregate direction. Opposite-sign monetary details cannot be emitted faithfully in v02 and are explicitly rejected; choose v03 or newer. v03–06 require an amount for every detail when more than one is present, and reject amountless multiple information details instead of inventing monetary values.
 
 The browser UI processes statement contents locally. The separate [HTTP API](http-api.md) receives original uploads on the server, with a default 10 MiB body cap, and supports privacy results in both directions. The CLI supports privacy output only for forward `convert --anonymize`; there is no standalone anonymization command.
+
+### Invalid BICs in source data
+
+Reverse output rejects supplied account or counterparty BIC values that violate the target CAMT schema; it does not silently discard or repair them. CAMT053 v02–07 use the older BIC pattern, while v08–13 use the December 2014 pattern permitting bank digits and additional location characters. A CODA fixture can have valid record structure and balances yet contain an invalid BIC placeholder that prevents XML output. See the [external CODA corpus](../examples/coda-published/README.md).

@@ -51,3 +51,4 @@ CHIPS migrated on 2024-04-08. Payment-rail migration alone does not establish co
 - [DNB](dnb/README.md) — camt.053; camt.054C; camt.052 (coming later in page)
 - [Goldman Sachs](goldman-sachs/README.md) — camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08
 - [HSBC United States](hsbc-united-states/README.md) — camt.052; camt.053
+- [BNY / The Bank of New York Mellon](bny/README.md) — camt.053.001.08

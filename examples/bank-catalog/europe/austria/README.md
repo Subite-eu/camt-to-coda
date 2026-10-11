@@ -25,3 +25,6 @@ Official BTF table last history4Jul2025 identifies Austrian .02 and .08 CAMT pro
 - [Raiffeisenlandesbank Niederösterreich-Wien](raiffeisenlandesbank-niederosterreich-wien/README.md) — camt.052 / .053 / .054 listed in EBICS BTF table; schema version unstated
 - [Raiffeisenlandesbank Oberösterreich](raiffeisenlandesbank-oberosterreich/README.md) — camt.052 replaces MT941/942; .053 MT940; .054 Cremul/Demul; exact version unstated
 - [UniCredit Bank Austria](unicredit-bank-austria/README.md) — camt.052 / .053 / .054 ISO versions 2009 and 2019; exact schema suffix not independently stated in cited migration PDF
+- [Raiffeisen Bank International](raiffeisen-bank-international/README.md) — camt.052; camt.053
+- [BAWAG](bawag/README.md) — camt.052; camt.053
+- [Erste Group Bank](erste-group-bank/README.md) — camt.052; camt.053

@@ -1,0 +1,4519 @@
+{
+  "version": 1,
+  "verifiedOn": "2026-10-11",
+  "scope": "Deduplicated external developer/vendor CODA examples, not bank-certified production exports. Complete means record-envelope completeness, not semantic validity.",
+  "retrievalPolicy": "external-only",
+  "bankPublishedCompleteOriginals": 0,
+  "factExtraction": {
+    "method": "Independent Python fixed-position slicing of decoded original text; no camt2coda parser/converter invoked. Signed decimal values computed using integer thousandths, raw numeric/sign fields retained.",
+    "authority": "Febelfin CODA v2.6 §§7.5, record1 pp15-16, record21 pp17-18, record8 p26, record9 p28",
+    "account_structures": "0 Belgian BBAN,1 foreign BBAN,2 Belgian IBAN,3 foreign IBAN. BBAN in CODA2 is not a legacy version.",
+    "record9_count_note": "Spec counts records1,2.1,2.2,2.3,3.1,3.2,3.3,8; excludes0,4,9. Globalisation totals include detail_sequence0000; detailed movements can be non-booked."
+  },
+  "summary": {
+    "downloaded_fixture_files": 65,
+    "newline_normalized_unique_fixtures": 29,
+    "bank_published_complete_originals": 0,
+    "unique_character128_complete_fixtures": 27,
+    "unique_classification_counts": {
+      "header-only": 1,
+      "complete-developer-fixture": 23,
+      "intentionally-invalid-globalisation-fixture": 2,
+      "generated-by-third-party-converter": 2,
+      "synthetic-empty-developer-fixture": 1
+    },
+    "unique_malformed_character_width_fixtures": 1,
+    "unique_legacy_header_versions": 1,
+    "model_valid_fixtures": 4,
+    "schema_valid_conversion_fixtures": 3
+  },
+  "cases": [
+    {
+      "id": "acsone-01",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_faulty_version.txt",
+      "sourcePath": "coda/tests/Coda_faulty_version.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_faulty_version.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_faulty_version.txt",
+      "downloadSha256": "97785cfc57b49c996b1cdb3816bd4d208ea769ccc5f53851ddeb62d8e9221483",
+      "downloadBytes": 130,
+      "sourceSha256": "97785cfc57b49c996b1cdb3816bd4d208ea769ccc5f53851ddeb62d8e9221483",
+      "sourceBytes": 130,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "header-only",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "af6186c95ea2be38fd360d212d48c0d5d4d6d01bb545004163afa3e5a8f276b7",
+      "lineCount": 1,
+      "characterWidths": {
+        "128": 1
+      },
+      "recordCounts": {
+        "0": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Must end with Record 9",
+        "statements": [],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-02",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_foreign_account.txt",
+      "sourcePath": "coda/tests/Coda_foreign_account.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_foreign_account.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_foreign_account.txt",
+      "downloadSha256": "cdba414ba927c1e82fc5935b4686bffbac7b950bbf597b39c5d61aa3aa44523d",
+      "downloadBytes": 1300,
+      "sourceSha256": "cdba414ba927c1e82fc5935b4686bffbac7b950bbf597b39c5d61aa3aa44523d",
+      "sourceBytes": 1300,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "699d1b4556848c86142883f880c759a088598802d10524b0a227c3ef29bb083f",
+      "lineCount": 10,
+      "characterWidths": {
+        "128": 10
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 2,
+        "22": 2,
+        "31": 1,
+        "8": 1,
+        "4": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": true,
+        "rejection": null,
+        "statements": [
+          {
+            "account": "FR1234567890240924002304825",
+            "currency": "EUR",
+            "account_structure": "3",
+            "opening_balance_signed": "443390.700",
+            "closing_balance_signed": "443346.300",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000443390700",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000443346300",
+            "record21_count": 2,
+            "record21_detail0000_count": 2,
+            "opening_line": 2,
+            "closing_line": 8,
+            "closing_account_zone_raw": "FR1234567890240924002304825       EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000037000",
+                "amount_signed": "-37.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000007400",
+                "amount_signed": "-7.400"
+              }
+            ]
+          }
+        ],
+        "modelValid": true,
+        "outputVersions": {
+          "schemaValid": [
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13"
+          ],
+          "rejections": []
+        }
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-03",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_faulty_globalisation.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_faulty_globalisation.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_faulty_globalisation.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_faulty_globalisation.txt",
+      "downloadSha256": "8d0bcaab5cf91582391f61659d3146260fb70c47a6a28c1d0eda37ff6e358362",
+      "downloadBytes": 5720,
+      "sourceSha256": "8d0bcaab5cf91582391f61659d3146260fb70c47a6a28c1d0eda37ff6e358362",
+      "sourceBytes": 5720,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "intentionally-invalid-globalisation-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "b4388e10d16f3d38b6b5299e4abb2f87e7f2319c0bf2bcc5518c4b50da33f108",
+      "lineCount": 44,
+      "characterWidths": {
+        "128": 44
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 11,
+        "22": 11,
+        "23": 8,
+        "31": 8,
+        "32": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE12341702625236",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "19338.090",
+            "closing_balance_signed": "10807.810",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000019338090",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000010807810",
+            "record21_count": 11,
+            "record21_detail0000_count": 11,
+            "opening_line": 2,
+            "closing_line": 43,
+            "closing_account_zone_raw": "BE12345602625236                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000177830",
+                "amount_signed": "177.830"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000061760",
+                "amount_signed": "61.760"
+              },
+              {
+                "line": 7,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000005568320",
+                "amount_signed": "-5568.320"
+              },
+              {
+                "line": 9,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000001012860",
+                "amount_signed": "-1012.860"
+              },
+              {
+                "line": 13,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000717530",
+                "amount_signed": "-717.530"
+              },
+              {
+                "line": 18,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000430520",
+                "amount_signed": "-430.520"
+              },
+              {
+                "line": 23,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000361240",
+                "amount_signed": "-361.240"
+              },
+              {
+                "line": 27,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000320320",
+                "amount_signed": "-320.320"
+              },
+              {
+                "line": 31,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000196920",
+                "amount_signed": "-196.920"
+              },
+              {
+                "line": 35,
+                "sequence": "0010",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000158290",
+                "amount_signed": "-158.290"
+              },
+              {
+                "line": 39,
+                "sequence": "0011",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000003870",
+                "amount_signed": "-3.870"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-04",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_faulty_globalisation_2.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_faulty_globalisation_2.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_faulty_globalisation_2.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_faulty_globalisation_2.txt",
+      "downloadSha256": "4d4bc95d58d71747f548a91007203076369a4e24e9c0b7570dbab76cea7f074c",
+      "downloadBytes": 969,
+      "sourceSha256": "4d4bc95d58d71747f548a91007203076369a4e24e9c0b7570dbab76cea7f074c",
+      "sourceBytes": 969,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "intentionally-invalid-globalisation-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "f0f9b6e735ff4cdaa70fac70c58138d714da3bec8c755bcf24bf86466b665e93",
+      "lineCount": 8,
+      "characterWidths": {
+        "128": 7,
+        "57": 1
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 2,
+        "22": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": false,
+        "conversionValid": false,
+        "rejection": "57 chars (expected 128)",
+        "statements": [
+          {
+            "account": "BE12341676096039",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "104014.760",
+            "closing_balance_signed": "90080.130",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000104014760",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000090080130",
+            "record21_count": 2,
+            "record21_detail0000_count": 2,
+            "opening_line": 2,
+            "closing_line": 7,
+            "closing_account_zone_raw": "BE12341676096039                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000011442410",
+                "amount_signed": "-11442.410"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000002492220",
+                "amount_signed": "-2492.220"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-05",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_globalisation.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_globalisation.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_globalisation.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_globalisation.txt",
+      "downloadSha256": "c8f50e511f4a445af98cf2ddef1396945271094c680f9d1573e51c82bf306479",
+      "downloadBytes": 3224,
+      "sourceSha256": "c8f50e511f4a445af98cf2ddef1396945271094c680f9d1573e51c82bf306479",
+      "sourceBytes": 3224,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "c8f50e511f4a445af98cf2ddef1396945271094c680f9d1573e51c82bf306479",
+      "lineCount": 25,
+      "characterWidths": {
+        "128": 25
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 5,
+        "22": 5,
+        "23": 4,
+        "31": 4,
+        "32": 3,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE12341676096039",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "-455.170",
+            "closing_balance_signed": "275270.530",
+            "opening_balance_sign_raw": "1",
+            "opening_balance_amount_raw": "000000000455170",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000275270530",
+            "record21_count": 5,
+            "record21_detail0000_count": 4,
+            "opening_line": 2,
+            "closing_line": 24,
+            "closing_account_zone_raw": "BE12301676096039                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000113135000",
+                "amount_signed": "113135.000"
+              },
+              {
+                "line": 8,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000113135000",
+                "amount_signed": "113135.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000050000000",
+                "amount_signed": "50000.000"
+              },
+              {
+                "line": 18,
+                "sequence": "0003",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000050000000",
+                "amount_signed": "50000.000"
+              },
+              {
+                "line": 22,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000544300",
+                "amount_signed": "-544.300"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-06",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_globalisation_2.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_globalisation_2.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_globalisation_2.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_globalisation_2.txt",
+      "downloadSha256": "2b724d492fe1e5d91c4b406e768a950ad8a70897eae9dfeee0d57951b0465515",
+      "downloadBytes": 2708,
+      "sourceSha256": "2b724d492fe1e5d91c4b406e768a950ad8a70897eae9dfeee0d57951b0465515",
+      "sourceBytes": 2708,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "2b724d492fe1e5d91c4b406e768a950ad8a70897eae9dfeee0d57951b0465515",
+      "lineCount": 21,
+      "characterWidths": {
+        "128": 21
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 4,
+        "22": 4,
+        "23": 3,
+        "31": 3,
+        "32": 3,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE12341676096039",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "-455.170",
+            "closing_balance_signed": "275270.530",
+            "opening_balance_sign_raw": "1",
+            "opening_balance_amount_raw": "000000000455170",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000275270530",
+            "record21_count": 4,
+            "record21_detail0000_count": 4,
+            "opening_line": 2,
+            "closing_line": 20,
+            "closing_account_zone_raw": "BE12301676096039                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000113135000",
+                "amount_signed": "113135.000"
+              },
+              {
+                "line": 8,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000113135000",
+                "amount_signed": "113135.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000050000000",
+                "amount_signed": "50000.000"
+              },
+              {
+                "line": 18,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000544300",
+                "amount_signed": "-544.300"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-07",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_multi_statements.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_multi_statements.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_multi_statements.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_multi_statements.txt",
+      "downloadSha256": "32fdda0dc677291cf60a23893aba2aa76d8c43a8944c846d967100a80edc4596",
+      "downloadBytes": 17808,
+      "sourceSha256": "32fdda0dc677291cf60a23893aba2aa76d8c43a8944c846d967100a80edc4596",
+      "sourceBytes": 17808,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "4cdcaf4ec97fb45b7c05d6695f2ba524f0da2cd134ee3e6f8665774dc39af62b",
+      "lineCount": 137,
+      "characterWidths": {
+        "128": 137
+      },
+      "recordCounts": {
+        "0": 2,
+        "1": 2,
+        "21": 43,
+        "22": 43,
+        "23": 28,
+        "31": 11,
+        "32": 4,
+        "8": 2,
+        "9": 2
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE86407051416150",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "0.000",
+            "closing_balance_signed": "0.000",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000000000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000000000000",
+            "record21_count": 32,
+            "record21_detail0000_count": 17,
+            "opening_line": 2,
+            "closing_line": 92,
+            "closing_account_zone_raw": "BE86407051416150                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 7,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 9,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 11,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 15,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 17,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 19,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 21,
+                "sequence": "0010",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000062095010",
+                "amount_signed": "-62095.010"
+              },
+              {
+                "line": 25,
+                "sequence": "0011",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000148300",
+                "amount_signed": "148.300"
+              },
+              {
+                "line": 30,
+                "sequence": "0012",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002249700",
+                "amount_signed": "2249.700"
+              },
+              {
+                "line": 35,
+                "sequence": "0013",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 37,
+                "sequence": "0014",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 39,
+                "sequence": "0015",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 41,
+                "sequence": "0016",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000062095010",
+                "amount_signed": "62095.010"
+              },
+              {
+                "line": 44,
+                "sequence": "0016",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000062095010",
+                "amount_signed": "62095.010"
+              },
+              {
+                "line": 47,
+                "sequence": "0017",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000002608000",
+                "amount_signed": "-2608.000"
+              },
+              {
+                "line": 50,
+                "sequence": "0017",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 53,
+                "sequence": "0017",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 56,
+                "sequence": "0017",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 59,
+                "sequence": "0017",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 62,
+                "sequence": "0017",
+                "detail_sequence": "0005",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 65,
+                "sequence": "0017",
+                "detail_sequence": "0006",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 68,
+                "sequence": "0017",
+                "detail_sequence": "0007",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 71,
+                "sequence": "0017",
+                "detail_sequence": "0008",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 74,
+                "sequence": "0017",
+                "detail_sequence": "0009",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 77,
+                "sequence": "0017",
+                "detail_sequence": "0010",
+                "sign_raw": "1",
+                "amount_raw": "000000000148300",
+                "amount_signed": "-148.300"
+              },
+              {
+                "line": 80,
+                "sequence": "0017",
+                "detail_sequence": "0011",
+                "sign_raw": "1",
+                "amount_raw": "000000002249700",
+                "amount_signed": "-2249.700"
+              },
+              {
+                "line": 83,
+                "sequence": "0017",
+                "detail_sequence": "0012",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 86,
+                "sequence": "0017",
+                "detail_sequence": "0013",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 89,
+                "sequence": "0017",
+                "detail_sequence": "0014",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              }
+            ]
+          },
+          {
+            "account": "BE12341702625236",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "19338.090",
+            "closing_balance_signed": "10807.810",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000019338090",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000010807810",
+            "record21_count": 11,
+            "record21_detail0000_count": 11,
+            "opening_line": 95,
+            "closing_line": 136,
+            "closing_account_zone_raw": "BE12345602625236                  EUR",
+            "movements": [
+              {
+                "line": 96,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000177830",
+                "amount_signed": "177.830"
+              },
+              {
+                "line": 98,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000061760",
+                "amount_signed": "61.760"
+              },
+              {
+                "line": 100,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000005568320",
+                "amount_signed": "-5568.320"
+              },
+              {
+                "line": 102,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000001012860",
+                "amount_signed": "-1012.860"
+              },
+              {
+                "line": 106,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000717530",
+                "amount_signed": "-717.530"
+              },
+              {
+                "line": 111,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000430520",
+                "amount_signed": "-430.520"
+              },
+              {
+                "line": 116,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000361240",
+                "amount_signed": "-361.240"
+              },
+              {
+                "line": 120,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000320320",
+                "amount_signed": "-320.320"
+              },
+              {
+                "line": 124,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000196920",
+                "amount_signed": "-196.920"
+              },
+              {
+                "line": 128,
+                "sequence": "0010",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000158290",
+                "amount_signed": "-158.290"
+              },
+              {
+                "line": 132,
+                "sequence": "0011",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000003870",
+                "amount_signed": "-3.870"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "acsone-08",
+      "format": "CODA",
+      "publisher": "acsone/pycoda",
+      "filename": "Coda_v2_3_single_statement.txt",
+      "sourcePath": "coda/tests/Coda_v2_3_single_statement.txt",
+      "revision": "81bb8c5bda7efe6bf28c03ccca8377ed7ea90481",
+      "url": "https://raw.githubusercontent.com/acsone/pycoda/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_single_statement.txt",
+      "landingPage": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/coda/tests/Coda_v2_3_single_statement.txt",
+      "downloadSha256": "772a8fbfd6ccbe1fb0df48a8cdc8717ffbf18aa5ed5f15a1af8cb08a5c316bb9",
+      "downloadBytes": 12090,
+      "sourceSha256": "772a8fbfd6ccbe1fb0df48a8cdc8717ffbf18aa5ed5f15a1af8cb08a5c316bb9",
+      "sourceBytes": 12090,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "GPL-3.0 repository LICENSE; parser source separately says GPL-2.0-or-later",
+      "licenseUrl": "https://github.com/acsone/pycoda/blob/81bb8c5bda7efe6bf28c03ccca8377ed7ea90481/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "CRLF",
+      "normalizedSha256": "c8e618d3e5e6293dcc571d21e06143d019ad65bfc034f38d529dee7ea6fd4343",
+      "lineCount": 93,
+      "characterWidths": {
+        "128": 93
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 32,
+        "22": 32,
+        "23": 20,
+        "31": 3,
+        "32": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Multiple-file flag contradicts following file",
+        "statements": [
+          {
+            "account": "BE86407051416150",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "0.000",
+            "closing_balance_signed": "0.000",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000000000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000000000000",
+            "record21_count": 32,
+            "record21_detail0000_count": 17,
+            "opening_line": 2,
+            "closing_line": 92,
+            "closing_account_zone_raw": "BE86407051416150                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 7,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 9,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 11,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 15,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 17,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 19,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 21,
+                "sequence": "0010",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000062095010",
+                "amount_signed": "-62095.010"
+              },
+              {
+                "line": 25,
+                "sequence": "0011",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000148300",
+                "amount_signed": "148.300"
+              },
+              {
+                "line": 30,
+                "sequence": "0012",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002249700",
+                "amount_signed": "2249.700"
+              },
+              {
+                "line": 35,
+                "sequence": "0013",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 37,
+                "sequence": "0014",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 39,
+                "sequence": "0015",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000015000",
+                "amount_signed": "15.000"
+              },
+              {
+                "line": 41,
+                "sequence": "0016",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000062095010",
+                "amount_signed": "62095.010"
+              },
+              {
+                "line": 44,
+                "sequence": "0016",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000062095010",
+                "amount_signed": "62095.010"
+              },
+              {
+                "line": 47,
+                "sequence": "0017",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000002608000",
+                "amount_signed": "-2608.000"
+              },
+              {
+                "line": 50,
+                "sequence": "0017",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 53,
+                "sequence": "0017",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 56,
+                "sequence": "0017",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 59,
+                "sequence": "0017",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 62,
+                "sequence": "0017",
+                "detail_sequence": "0005",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 65,
+                "sequence": "0017",
+                "detail_sequence": "0006",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 68,
+                "sequence": "0017",
+                "detail_sequence": "0007",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 71,
+                "sequence": "0017",
+                "detail_sequence": "0008",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 74,
+                "sequence": "0017",
+                "detail_sequence": "0009",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 77,
+                "sequence": "0017",
+                "detail_sequence": "0010",
+                "sign_raw": "1",
+                "amount_raw": "000000000148300",
+                "amount_signed": "-148.300"
+              },
+              {
+                "line": 80,
+                "sequence": "0017",
+                "detail_sequence": "0011",
+                "sign_raw": "1",
+                "amount_raw": "000000002249700",
+                "amount_signed": "-2249.700"
+              },
+              {
+                "line": 83,
+                "sequence": "0017",
+                "detail_sequence": "0012",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 86,
+                "sequence": "0017",
+                "detail_sequence": "0013",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              },
+              {
+                "line": 89,
+                "sequence": "0017",
+                "detail_sequence": "0014",
+                "sign_raw": "1",
+                "amount_raw": "000000000015000",
+                "amount_signed": "-15.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "oca-01",
+      "format": "CODA",
+      "publisher": "OCA/l10n-belgium",
+      "filename": "Ontvangen_CODA.2012-01-11-18.59.15.txt",
+      "sourcePath": "account_bank_statement_import_coda/test_coda_file/Ontvangen_CODA.2012-01-11-18.59.15.txt",
+      "revision": "8c42896d1d1a18fc37b850b6b7d2e7985349041f",
+      "url": "https://raw.githubusercontent.com/OCA/l10n-belgium/8c42896d1d1a18fc37b850b6b7d2e7985349041f/account_bank_statement_import_coda/test_coda_file/Ontvangen_CODA.2012-01-11-18.59.15.txt",
+      "landingPage": "https://github.com/OCA/l10n-belgium/blob/8c42896d1d1a18fc37b850b6b7d2e7985349041f/account_bank_statement_import_coda/test_coda_file/Ontvangen_CODA.2012-01-11-18.59.15.txt",
+      "downloadSha256": "bc0263ccf6c83e1916ba31edd8099a45969b59c97a723a5c8bdc95e89c6dc9cf",
+      "downloadBytes": 3096,
+      "sourceSha256": "bc0263ccf6c83e1916ba31edd8099a45969b59c97a723a5c8bdc95e89c6dc9cf",
+      "sourceBytes": 3096,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "AGPL-3.0-or-later",
+      "licenseUrl": "https://github.com/OCA/l10n-belgium/blob/8c42896d1d1a18fc37b850b6b7d2e7985349041f/account_bank_statement_import_coda/__manifest__.py",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "95ebd072373ea21ddb0a0c588ca6d43206913791064add5b7f4634ac8206110b",
+      "lineCount": 24,
+      "characterWidths": {
+        "128": 24
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 9,
+        "22": 3,
+        "23": 3,
+        "31": 3,
+        "32": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE46737018594236",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "11812.700",
+            "closing_balance_signed": "13646.050",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000011812700",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000013646050",
+            "record21_count": 9,
+            "record21_detail0000_count": 5,
+            "opening_line": 2,
+            "closing_line": 23,
+            "closing_account_zone_raw": "BE44734024486445                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000435000",
+                "amount_signed": "-435.000"
+              },
+              {
+                "line": 7,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000003044450",
+                "amount_signed": "3044.450"
+              },
+              {
+                "line": 12,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000479040",
+                "amount_signed": "-479.040"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000419920",
+                "amount_signed": "-419.920"
+              },
+              {
+                "line": 14,
+                "sequence": "0003",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000059120",
+                "amount_signed": "-59.120"
+              },
+              {
+                "line": 15,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000479040",
+                "amount_signed": "-479.040"
+              },
+              {
+                "line": 16,
+                "sequence": "0004",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000419920",
+                "amount_signed": "-419.920"
+              },
+              {
+                "line": 17,
+                "sequence": "0004",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000059120",
+                "amount_signed": "-59.120"
+              },
+              {
+                "line": 18,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000063740",
+                "amount_signed": "63.740"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "phmatray-01",
+      "format": "CODA",
+      "publisher": "phmatray/coda-parser",
+      "filename": "sample1.cod",
+      "sourcePath": "src/tests/CodaParserTests/Samples/sample1.cod",
+      "revision": "0b8558488113cd45324feee630c6efeeb9f06039",
+      "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample1.cod",
+      "landingPage": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample1.cod",
+      "downloadSha256": "68bcc359e8580dd1a8fb7539e8458496ef196dcecfc7a5ed334a5c1cefcdd9f4",
+      "downloadBytes": 3095,
+      "sourceSha256": "68bcc359e8580dd1a8fb7539e8458496ef196dcecfc7a5ed334a5c1cefcdd9f4",
+      "sourceBytes": 3095,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "GPL-2.0",
+      "licenseUrl": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "windows-1252",
+      "lineEnding": "LF",
+      "normalizedSha256": "4c2e8178137e825bf5c8b5320103cae412e6b73a145b2195118166e50fb5c05b",
+      "lineCount": 24,
+      "characterWidths": {
+        "128": 24
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 4,
+        "22": 4,
+        "23": 4,
+        "31": 4,
+        "32": 4,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid OGM type101 reference/checksum",
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "17752.120",
+            "closing_balance_signed": "17832.120",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000017752120",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000017832120",
+            "record21_count": 4,
+            "record21_detail0000_count": 4,
+            "opening_line": 2,
+            "closing_line": 23,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000005000",
+                "amount_signed": "5.000"
+              },
+              {
+                "line": 8,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000025000",
+                "amount_signed": "25.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 18,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000030000",
+                "amount_signed": "30.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample1.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample1.cod",
+          "source_hash": "68bcc359e8580dd1a8fb7539e8458496ef196dcecfc7a5ed334a5c1cefcdd9f4"
+        }
+      ]
+    },
+    {
+      "id": "phmatray-02",
+      "format": "CODA",
+      "publisher": "phmatray/coda-parser",
+      "filename": "sample2.cod",
+      "sourcePath": "src/tests/CodaParserTests/Samples/sample2.cod",
+      "revision": "0b8558488113cd45324feee630c6efeeb9f06039",
+      "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample2.cod",
+      "landingPage": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample2.cod",
+      "downloadSha256": "85d131b3cf6b893ba594b5c65e409938064992c2e8d41aa2c53106d2e197d553",
+      "downloadBytes": 2321,
+      "sourceSha256": "85d131b3cf6b893ba594b5c65e409938064992c2e8d41aa2c53106d2e197d553",
+      "sourceBytes": 2321,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-2.0",
+      "licenseUrl": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "windows-1252",
+      "lineEnding": "LF",
+      "normalizedSha256": "10cae8f54fdcc58d94f5bb6d36c42b92a45e43ea64534045fd17be68cf2d1ce0",
+      "lineCount": 18,
+      "characterWidths": {
+        "128": 18
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 2,
+        "31": 9,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE62354872126588",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "25846.000",
+            "closing_balance_signed": "23154.685",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000025846000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000023154685",
+            "record21_count": 3,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 17,
+            "closing_account_zone_raw": "BE82363072326068                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000009680",
+                "amount_signed": "-9.680"
+              },
+              {
+                "line": 5,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000008000",
+                "amount_signed": "-8.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0001",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000001680",
+                "amount_signed": "-1.680"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample2.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample2.cod",
+          "source_hash": "85d131b3cf6b893ba594b5c65e409938064992c2e8d41aa2c53106d2e197d553"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-01",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample3.cod",
+      "sourcePath": "tests/Samples/sample3.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample3.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample3.cod",
+      "downloadSha256": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e",
+      "downloadBytes": 1031,
+      "sourceSha256": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e",
+      "sourceBytes": 1031,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e",
+      "lineCount": 8,
+      "characterWidths": {
+        "128": 8
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "23": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "732XXXXXXXXX",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "99999.990",
+            "closing_balance_signed": "99999.990",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000099999990",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000099999990",
+            "record21_count": 3,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 7,
+            "closing_account_zone_raw": "732038134791 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000812690",
+                "amount_signed": "-812.690"
+              },
+              {
+                "line": 5,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000805730",
+                "amount_signed": "-805.730"
+              },
+              {
+                "line": 6,
+                "sequence": "0001",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000006960",
+                "amount_signed": "-6.960"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "phmatray/coda-parser",
+          "commit": "0b8558488113cd45324feee630c6efeeb9f06039",
+          "path": "src/tests/CodaParserTests/Samples/sample3.cod",
+          "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample3.cod",
+          "source_hash": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e"
+        },
+        {
+          "repo": "TRIPTYK/typescript-coda-parser",
+          "commit": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+          "path": "tests/samples/sample3.cod",
+          "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample3.cod",
+          "source_hash": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e"
+        },
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample3.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample3.cod",
+          "source_hash": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e"
+        },
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample3.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample3.cod",
+          "source_hash": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample3.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample3.cod",
+          "source_hash": "5a7556356d7d053d2104fa5fa1c0effdfba15c52a441d7b362a6a184744b5d8e"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-02",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample4.cod",
+      "sourcePath": "tests/Samples/sample4.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample4.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample4.cod",
+      "downloadSha256": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3",
+      "downloadBytes": 1418,
+      "sourceSha256": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3",
+      "sourceBytes": 1418,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3",
+      "lineCount": 11,
+      "characterWidths": {
+        "128": 11
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 1,
+        "22": 1,
+        "23": 1,
+        "31": 3,
+        "32": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid communicationType",
+        "statements": [
+          {
+            "account": "732XXXXXXXXX",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "99999.990",
+            "closing_balance_signed": "99999.990",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000099999990",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000099999990",
+            "record21_count": 1,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 10,
+            "closing_account_zone_raw": "732038134791 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000017233540",
+                "amount_signed": "17233.540"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "phmatray/coda-parser",
+          "commit": "0b8558488113cd45324feee630c6efeeb9f06039",
+          "path": "src/tests/CodaParserTests/Samples/sample4.cod",
+          "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample4.cod",
+          "source_hash": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3"
+        },
+        {
+          "repo": "TRIPTYK/typescript-coda-parser",
+          "commit": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+          "path": "tests/samples/sample4.cod",
+          "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample4.cod",
+          "source_hash": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3"
+        },
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample4.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample4.cod",
+          "source_hash": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3"
+        },
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample4.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample4.cod",
+          "source_hash": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample4.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample4.cod",
+          "source_hash": "0bc21e88ca571e394c7b789ed8f07868a5c81413ad92b16b395bad38c0aa02a3"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-03",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample5.cod",
+      "sourcePath": "tests/Samples/sample5.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample5.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample5.cod",
+      "downloadSha256": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d",
+      "downloadBytes": 2063,
+      "sourceSha256": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d",
+      "sourceBytes": 2063,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d",
+      "lineCount": 16,
+      "characterWidths": {
+        "128": 16
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 3,
+        "23": 2,
+        "31": 2,
+        "32": 1,
+        "33": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Next code contradicts following record",
+        "statements": [
+          {
+            "account": "001548226815",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "4004.100",
+            "closing_balance_signed": "-500012.100",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000004004100",
+            "closing_balance_sign_raw": "1",
+            "closing_balance_amount_raw": "000000500012100",
+            "record21_count": 3,
+            "record21_detail0000_count": 3,
+            "opening_line": 2,
+            "closing_line": 15,
+            "closing_account_zone_raw": "001548226815 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001767820",
+                "amount_signed": "1767.820"
+              },
+              {
+                "line": 9,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002767820",
+                "amount_signed": "2767.820"
+              },
+              {
+                "line": 13,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001767820",
+                "amount_signed": "1767.820"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "phmatray/coda-parser",
+          "commit": "0b8558488113cd45324feee630c6efeeb9f06039",
+          "path": "src/tests/CodaParserTests/Samples/sample5.cod",
+          "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample5.cod",
+          "source_hash": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d"
+        },
+        {
+          "repo": "TRIPTYK/typescript-coda-parser",
+          "commit": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+          "path": "tests/samples/sample5.cod",
+          "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample5.cod",
+          "source_hash": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d"
+        },
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample5.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample5.cod",
+          "source_hash": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d"
+        },
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample5.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample5.cod",
+          "source_hash": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample5.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample5.cod",
+          "source_hash": "de38ff6bbced7c555e8273a0f5f3e4096c717e318fade5cf68e9c07ed801770d"
+        }
+      ]
+    },
+    {
+      "id": "phmatray-03",
+      "format": "CODA",
+      "publisher": "phmatray/coda-parser",
+      "filename": "sample6.cod",
+      "sourcePath": "src/tests/CodaParserTests/Samples/sample6.cod",
+      "revision": "0b8558488113cd45324feee630c6efeeb9f06039",
+      "url": "https://raw.githubusercontent.com/phmatray/coda-parser/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample6.cod",
+      "landingPage": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/src/tests/CodaParserTests/Samples/sample6.cod",
+      "downloadSha256": "a4234aa481adb3a8141bb4164eb672f34a70d5a62c8cf182bac4712293b22b39",
+      "downloadBytes": 2192,
+      "sourceSha256": "a4234aa481adb3a8141bb4164eb672f34a70d5a62c8cf182bac4712293b22b39",
+      "sourceBytes": 2192,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "GPL-2.0",
+      "licenseUrl": "https://github.com/phmatray/coda-parser/blob/0b8558488113cd45324feee630c6efeeb9f06039/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "a4234aa481adb3a8141bb4164eb672f34a70d5a62c8cf182bac4712293b22b39",
+      "lineCount": 17,
+      "characterWidths": {
+        "128": 17
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 3,
+        "23": 2,
+        "31": 2,
+        "32": 1,
+        "33": 1,
+        "8": 1,
+        "4": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Next code contradicts following record",
+        "statements": [
+          {
+            "account": "001548226815",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "4004.100",
+            "closing_balance_signed": "-500012.100",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000004004100",
+            "closing_balance_sign_raw": "1",
+            "closing_balance_amount_raw": "000000500012100",
+            "record21_count": 3,
+            "record21_detail0000_count": 3,
+            "opening_line": 2,
+            "closing_line": 15,
+            "closing_account_zone_raw": "001548226815 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000767823",
+                "amount_signed": "-767.823"
+              },
+              {
+                "line": 9,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002767820",
+                "amount_signed": "2767.820"
+              },
+              {
+                "line": 13,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001767820",
+                "amount_signed": "1767.820"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "TRIPTYK/typescript-coda-parser",
+          "commit": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+          "path": "tests/samples/sample6.cod",
+          "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample6.cod",
+          "source_hash": "a4234aa481adb3a8141bb4164eb672f34a70d5a62c8cf182bac4712293b22b39"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-04",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample1.cod",
+      "sourcePath": "tests/Samples/sample1.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample1.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample1.cod",
+      "downloadSha256": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91",
+      "downloadBytes": 3095,
+      "sourceSha256": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91",
+      "sourceBytes": 3095,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91",
+      "lineCount": 24,
+      "characterWidths": {
+        "128": 24
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 4,
+        "22": 4,
+        "23": 4,
+        "31": 4,
+        "32": 4,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid OGM type101 reference/checksum",
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "17752.120",
+            "closing_balance_signed": "17832.120",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000017752120",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000017832120",
+            "record21_count": 4,
+            "record21_detail0000_count": 4,
+            "opening_line": 2,
+            "closing_line": 23,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000005000",
+                "amount_signed": "5.000"
+              },
+              {
+                "line": 8,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000025000",
+                "amount_signed": "25.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000020000",
+                "amount_signed": "20.000"
+              },
+              {
+                "line": 18,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000030000",
+                "amount_signed": "30.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "TRIPTYK/typescript-coda-parser",
+          "commit": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+          "path": "tests/samples/sample1.cod",
+          "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample1.cod",
+          "source_hash": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91"
+        },
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample1.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample1.cod",
+          "source_hash": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample1.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample1.cod",
+          "source_hash": "30d48b073213d22781e8885b20d8c85883491cc9561ce7ac05a1d7395f982f91"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-05",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample10.cod",
+      "sourcePath": "tests/Samples/sample10.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample10.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample10.cod",
+      "downloadSha256": "2223d01ee7d7beb8e34fed63b7d2205089f3bfff08646392eeea1d2b4fafc99f",
+      "downloadBytes": 2064,
+      "sourceSha256": "2223d01ee7d7beb8e34fed63b7d2205089f3bfff08646392eeea1d2b4fafc99f",
+      "sourceBytes": 2064,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "f4923a39b30d6a0a5f2a11fed2b08992093aea504dff06abe6ff650972fe27d3",
+      "lineCount": 16,
+      "characterWidths": {
+        "128": 16
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 3,
+        "23": 2,
+        "31": 2,
+        "32": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": true,
+        "rejection": null,
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "100.000",
+            "closing_balance_signed": "1100.000",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000100000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000001100000",
+            "record21_count": 3,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 15,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001000000",
+                "amount_signed": "1000.000"
+              },
+              {
+                "line": 5,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000250000",
+                "amount_signed": "250.000"
+              },
+              {
+                "line": 10,
+                "sequence": "0001",
+                "detail_sequence": "0003",
+                "sign_raw": "0",
+                "amount_raw": "000000000750000",
+                "amount_signed": "750.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": true,
+        "outputVersions": {
+          "schemaValid": [
+            "02",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13"
+          ],
+          "rejections": [
+            {
+              "versions": [
+                "03",
+                "04",
+                "05",
+                "06"
+              ],
+              "reason": "CAMT v03–06 requires an amount for each transaction detail"
+            }
+          ]
+        }
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample10.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample10.cod",
+          "source_hash": "2223d01ee7d7beb8e34fed63b7d2205089f3bfff08646392eeea1d2b4fafc99f"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample10.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample10.cod",
+          "source_hash": "2223d01ee7d7beb8e34fed63b7d2205089f3bfff08646392eeea1d2b4fafc99f"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-06",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample11.cod",
+      "sourcePath": "tests/Samples/sample11.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample11.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample11.cod",
+      "downloadSha256": "73e8b5c85c91d67b535d198f51b63790aea72f0b729a30c2b019f3c4407ccac9",
+      "downloadBytes": 774,
+      "sourceSha256": "73e8b5c85c91d67b535d198f51b63790aea72f0b729a30c2b019f3c4407ccac9",
+      "sourceBytes": 774,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "c55e0cbf2d25bf4d892fe8c2f0bbd7830dfefe400197e5a9b81970046909df46",
+      "lineCount": 6,
+      "characterWidths": {
+        "128": 6
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 1,
+        "22": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": true,
+        "rejection": null,
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "100.000",
+            "closing_balance_signed": "1100.000",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000100000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000001100000",
+            "record21_count": 1,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 5,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001000000",
+                "amount_signed": "1000.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": true,
+        "outputVersions": {
+          "schemaValid": [
+            "02",
+            "03",
+            "04",
+            "05",
+            "06",
+            "07",
+            "08",
+            "09",
+            "10",
+            "11",
+            "12",
+            "13"
+          ],
+          "rejections": []
+        }
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample11.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample11.cod",
+          "source_hash": "73e8b5c85c91d67b535d198f51b63790aea72f0b729a30c2b019f3c4407ccac9"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample11.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample11.cod",
+          "source_hash": "73e8b5c85c91d67b535d198f51b63790aea72f0b729a30c2b019f3c4407ccac9"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-07",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample2.cod",
+      "sourcePath": "tests/Samples/sample2.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample2.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample2.cod",
+      "downloadSha256": "d17bfe48ab3b532233ca53ef6f94cb636765ba7fbf72742d0ed11d786b9c84be",
+      "downloadBytes": 2321,
+      "sourceSha256": "d17bfe48ab3b532233ca53ef6f94cb636765ba7fbf72742d0ed11d786b9c84be",
+      "sourceBytes": 2321,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "d17bfe48ab3b532233ca53ef6f94cb636765ba7fbf72742d0ed11d786b9c84be",
+      "lineCount": 18,
+      "characterWidths": {
+        "128": 18
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 2,
+        "31": 9,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE62354872126588",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "25846.000",
+            "closing_balance_signed": "23154.685",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000025846000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000023154685",
+            "record21_count": 3,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 17,
+            "closing_account_zone_raw": "BE82363072326068                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000009680",
+                "amount_signed": "-9.680"
+              },
+              {
+                "line": 5,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000008000",
+                "amount_signed": "-8.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0001",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000001680",
+                "amount_signed": "-1.680"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample2.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample2.cod",
+          "source_hash": "d17bfe48ab3b532233ca53ef6f94cb636765ba7fbf72742d0ed11d786b9c84be"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample2.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample2.cod",
+          "source_hash": "d17bfe48ab3b532233ca53ef6f94cb636765ba7fbf72742d0ed11d786b9c84be"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-08",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample6.cod",
+      "sourcePath": "tests/Samples/sample6.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample6.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample6.cod",
+      "downloadSha256": "50be6d78cf8ec593d374231e24d49328923938bf1721b0fd1e56a9d496b52502",
+      "downloadBytes": 2193,
+      "sourceSha256": "50be6d78cf8ec593d374231e24d49328923938bf1721b0fd1e56a9d496b52502",
+      "sourceBytes": 2193,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "16407d27f5f9dd9ef32c53d2bf40e36da93476b8f76782cdb181fd166a0e9bd6",
+      "lineCount": 17,
+      "characterWidths": {
+        "128": 17
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 3,
+        "23": 2,
+        "31": 2,
+        "32": 1,
+        "33": 1,
+        "8": 1,
+        "4": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Next code contradicts following record",
+        "statements": [
+          {
+            "account": "001548226815",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "4004.100",
+            "closing_balance_signed": "-500012.100",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000004004100",
+            "closing_balance_sign_raw": "1",
+            "closing_balance_amount_raw": "000000500012100",
+            "record21_count": 3,
+            "record21_detail0000_count": 3,
+            "opening_line": 2,
+            "closing_line": 15,
+            "closing_account_zone_raw": "001548226815 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000767823",
+                "amount_signed": "-767.823"
+              },
+              {
+                "line": 9,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002767820",
+                "amount_signed": "2767.820"
+              },
+              {
+                "line": 13,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001767820",
+                "amount_signed": "1767.820"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "supervos/coda-parser",
+          "commit": "4f15135017beabf61fcfcc4ccec55f4c2c87622c",
+          "path": "CodaParserTests/Samples/sample6.cod",
+          "url": "https://raw.githubusercontent.com/supervos/coda-parser/4f15135017beabf61fcfcc4ccec55f4c2c87622c/CodaParserTests/Samples/sample6.cod",
+          "source_hash": "16407d27f5f9dd9ef32c53d2bf40e36da93476b8f76782cdb181fd166a0e9bd6"
+        },
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample6.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample6.cod",
+          "source_hash": "50be6d78cf8ec593d374231e24d49328923938bf1721b0fd1e56a9d496b52502"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample6.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample6.cod",
+          "source_hash": "50be6d78cf8ec593d374231e24d49328923938bf1721b0fd1e56a9d496b52502"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-09",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample7.cod",
+      "sourcePath": "tests/Samples/sample7.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample7.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample7.cod",
+      "downloadSha256": "26746b15f77b888afd22e5dfd6b3f8954d8389b1d311d01257f844adc28bbc29",
+      "downloadBytes": 2837,
+      "sourceSha256": "26746b15f77b888afd22e5dfd6b3f8954d8389b1d311d01257f844adc28bbc29",
+      "sourceBytes": 2837,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "26746b15f77b888afd22e5dfd6b3f8954d8389b1d311d01257f844adc28bbc29",
+      "lineCount": 22,
+      "characterWidths": {
+        "128": 22
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 4,
+        "22": 4,
+        "31": 4,
+        "23": 3,
+        "32": 3,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid OGM type101 reference/checksum",
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "17752.120",
+            "closing_balance_signed": "17832.120",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000017752120",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000017832120",
+            "record21_count": 4,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 21,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000075000",
+                "amount_signed": "-75.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0001",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000025000",
+                "amount_signed": "-25.000"
+              },
+              {
+                "line": 11,
+                "sequence": "0001",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 16,
+                "sequence": "0001",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000030000",
+                "amount_signed": "-30.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample7.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample7.cod",
+          "source_hash": "26746b15f77b888afd22e5dfd6b3f8954d8389b1d311d01257f844adc28bbc29"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample7.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample7.cod",
+          "source_hash": "26746b15f77b888afd22e5dfd6b3f8954d8389b1d311d01257f844adc28bbc29"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-10",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample8.cod",
+      "sourcePath": "tests/Samples/sample8.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample8.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample8.cod",
+      "downloadSha256": "b54ddf9383426f8145c747656ce14f0f3adf1f305367529489bf35a77723a9cc",
+      "downloadBytes": 1031,
+      "sourceSha256": "b54ddf9383426f8145c747656ce14f0f3adf1f305367529489bf35a77723a9cc",
+      "sourceBytes": 1031,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "b54ddf9383426f8145c747656ce14f0f3adf1f305367529489bf35a77723a9cc",
+      "lineCount": 8,
+      "characterWidths": {
+        "128": 8
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 2,
+        "22": 2,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Multiple-file flag contradicts following file",
+        "statements": [
+          {
+            "account": "BE11111111111111",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "1293.450",
+            "closing_balance_signed": "648.560",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000001293450",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000000648560",
+            "record21_count": 2,
+            "record21_detail0000_count": 2,
+            "opening_line": 2,
+            "closing_line": 7,
+            "closing_account_zone_raw": "BE11111111111111                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000395550",
+                "amount_signed": "-395.550"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000249340",
+                "amount_signed": "-249.340"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample8.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample8.cod",
+          "source_hash": "b54ddf9383426f8145c747656ce14f0f3adf1f305367529489bf35a77723a9cc"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample8.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample8.cod",
+          "source_hash": "b54ddf9383426f8145c747656ce14f0f3adf1f305367529489bf35a77723a9cc"
+        }
+      ]
+    },
+    {
+      "id": "wimverstuyf-11",
+      "format": "CODA",
+      "publisher": "wimverstuyf/php-coda-parser",
+      "filename": "sample9.cod",
+      "sourcePath": "tests/Samples/sample9.cod",
+      "revision": "4fd25ec36207af61ee5085c95dd26e5d0eaa1f56",
+      "url": "https://raw.githubusercontent.com/wimverstuyf/php-coda-parser/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample9.cod",
+      "landingPage": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/tests/Samples/sample9.cod",
+      "downloadSha256": "62218954e04a6169d91bcddbabdd947702aa43e4ffa584f7b1496fbad722da24",
+      "downloadBytes": 1161,
+      "sourceSha256": "62218954e04a6169d91bcddbabdd947702aa43e4ffa584f7b1496fbad722da24",
+      "sourceBytes": 1161,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; developer-published original fixture, bank authorship not established",
+      "license": "LGPL-3.0",
+      "licenseUrl": "https://github.com/wimverstuyf/php-coda-parser/blob/4fd25ec36207af61ee5085c95dd26e5d0eaa1f56/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "c4ceec8621d64ad1b56ad3fdccf7bd3035f58f2ba1fc0e5261ed0d2413ec3216",
+      "lineCount": 9,
+      "characterWidths": {
+        "128": 9
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 1,
+        "22": 1,
+        "23": 1,
+        "31": 1,
+        "32": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid OGM type101 reference/checksum",
+        "statements": [
+          {
+            "account": "138536152215",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "17752.120",
+            "closing_balance_signed": "17832.120",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000017752120",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000017832120",
+            "record21_count": 1,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 8,
+            "closing_account_zone_raw": "138536152215 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000005000",
+                "amount_signed": "5.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": [
+        {
+          "repo": "JeffreyDevloo/coda-parser",
+          "commit": "aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9",
+          "path": "src/test/resources/Samples/sample9.cod",
+          "url": "https://raw.githubusercontent.com/JeffreyDevloo/coda-parser/aaa25b69d40c1bb7d6f1ef1cdfbe5541208814a9/src/test/resources/Samples/sample9.cod",
+          "source_hash": "62218954e04a6169d91bcddbabdd947702aa43e4ffa584f7b1496fbad722da24"
+        },
+        {
+          "repo": "xuannghia/coda-parser-js",
+          "commit": "6b96c5138304860a62c4678fd3c5573632435389",
+          "path": "tests/samples/sample9.cod",
+          "url": "https://raw.githubusercontent.com/xuannghia/coda-parser-js/6b96c5138304860a62c4678fd3c5573632435389/tests/samples/sample9.cod",
+          "source_hash": "62218954e04a6169d91bcddbabdd947702aa43e4ffa584f7b1496fbad722da24"
+        }
+      ]
+    },
+    {
+      "id": "triptyk-01",
+      "format": "CODA",
+      "publisher": "TRIPTYK/typescript-coda-parser",
+      "filename": "sample2.cod",
+      "sourcePath": "tests/samples/sample2.cod",
+      "revision": "2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed",
+      "url": "https://raw.githubusercontent.com/TRIPTYK/typescript-coda-parser/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample2.cod",
+      "landingPage": "https://github.com/TRIPTYK/typescript-coda-parser/blob/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/tests/samples/sample2.cod",
+      "downloadSha256": "35208885e3acc02abdc32d63e5220e3b399bc96ba316bb2159ef930506b8fa3b",
+      "downloadBytes": 2329,
+      "sourceSha256": "35208885e3acc02abdc32d63e5220e3b399bc96ba316bb2159ef930506b8fa3b",
+      "sourceBytes": 2329,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "MIT declared in package.json; inherited fixtures match LGPL/GPL upstream; fixture-specific rights not independently established",
+      "licenseUrl": "https://github.com/TRIPTYK/typescript-coda-parser/blob/2cb2e3d22d43dc32bb87c439828fdffbd9ab59ed/package.json",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "35208885e3acc02abdc32d63e5220e3b399bc96ba316bb2159ef930506b8fa3b",
+      "lineCount": 18,
+      "characterWidths": {
+        "128": 18
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 3,
+        "22": 2,
+        "31": 9,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Closing accountNumber differs from opening",
+        "statements": [
+          {
+            "account": "BE62354872126588",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "25846.000",
+            "closing_balance_signed": "23154.685",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000025846000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000023154685",
+            "record21_count": 3,
+            "record21_detail0000_count": 1,
+            "opening_line": 2,
+            "closing_line": 17,
+            "closing_account_zone_raw": "BE82363072326068                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000009680",
+                "amount_signed": "-9.680"
+              },
+              {
+                "line": 5,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000008000",
+                "amount_signed": "-8.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0001",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000001680",
+                "amount_signed": "-1.680"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "neuroglia-io-01",
+      "format": "CODA",
+      "publisher": "neuroglia-io/Data.Coda",
+      "filename": "test.coda",
+      "sourcePath": "tests/Neuroglia.Data.Coda.UnitTests/test.coda",
+      "revision": "92e5b777e0d947df8d8cc3263d911e91e0460281",
+      "url": "https://raw.githubusercontent.com/neuroglia-io/Data.Coda/92e5b777e0d947df8d8cc3263d911e91e0460281/tests/Neuroglia.Data.Coda.UnitTests/test.coda",
+      "landingPage": "https://github.com/neuroglia-io/Data.Coda/blob/92e5b777e0d947df8d8cc3263d911e91e0460281/tests/Neuroglia.Data.Coda.UnitTests/test.coda",
+      "downloadSha256": "c5929136d57b95e654b2d14dfd085a1e91eb879da663638d65d872f64b438a2e",
+      "downloadBytes": 1289,
+      "sourceSha256": "c5929136d57b95e654b2d14dfd085a1e91eb879da663638d65d872f64b438a2e",
+      "sourceBytes": 1289,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "GPL-3.0",
+      "licenseUrl": "https://github.com/neuroglia-io/Data.Coda/blob/92e5b777e0d947df8d8cc3263d911e91e0460281/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "c5929136d57b95e654b2d14dfd085a1e91eb879da663638d65d872f64b438a2e",
+      "lineCount": 10,
+      "characterWidths": {
+        "128": 10
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 1,
+        "22": 1,
+        "23": 1,
+        "31": 1,
+        "32": 1,
+        "33": 1,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Orphan or nonascending monetary detail",
+        "statements": [
+          {
+            "account": "BE34914785203490",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "2369.640",
+            "closing_balance_signed": "23321.000",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000002369640",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000023321000",
+            "record21_count": 1,
+            "record21_detail0000_count": 0,
+            "opening_line": 2,
+            "closing_line": 9,
+            "closing_account_zone_raw": "BE34914785203490                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000100000",
+                "amount_signed": "100.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "enobase-01",
+      "format": "CODA",
+      "publisher": "enobase/demo-coda-export",
+      "filename": "qonto.coda",
+      "sourcePath": "src/__tests__/fixtures/qonto.coda",
+      "revision": "df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d",
+      "url": "https://raw.githubusercontent.com/enobase/demo-coda-export/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/src/__tests__/fixtures/qonto.coda",
+      "landingPage": "https://github.com/enobase/demo-coda-export/blob/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/src/__tests__/fixtures/qonto.coda",
+      "downloadSha256": "8eeb1312ea566b8638ec6ec776c6a0ebd5ea68498cc82e1e4b25b4cc6b5fc661",
+      "downloadBytes": 2451,
+      "sourceSha256": "8eeb1312ea566b8638ec6ec776c6a0ebd5ea68498cc82e1e4b25b4cc6b5fc661",
+      "sourceBytes": 2451,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "generated-by-third-party-converter",
+      "bankPublished": false,
+      "authenticity": "explicitly generated by repository CODA writer from CSV inputs",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/enobase/demo-coda-export/blob/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "940fc108b822266add8a98080dd17b859a877867f4ae91c7f9282fa0263e5311",
+      "lineCount": 19,
+      "characterWidths": {
+        "128": 19
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 5,
+        "22": 5,
+        "23": 5,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid nextCode",
+        "statements": [
+          {
+            "account": "BE71096123456769",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "10000.000",
+            "closing_balance_signed": "13594.010",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000010000000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000013594010",
+            "record21_count": 5,
+            "record21_detail0000_count": 5,
+            "opening_line": 2,
+            "closing_line": 18,
+            "closing_account_zone_raw": "BE71096123456769                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000150000",
+                "amount_signed": "-150.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000005000000",
+                "amount_signed": "5000.000"
+              },
+              {
+                "line": 9,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000320000",
+                "amount_signed": "-320.000"
+              },
+              {
+                "line": 12,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000045990",
+                "amount_signed": "-45.990"
+              },
+              {
+                "line": 15,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000890000",
+                "amount_signed": "-890.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "enobase-02",
+      "format": "CODA",
+      "publisher": "enobase/demo-coda-export",
+      "filename": "revolut-personal.coda",
+      "sourcePath": "src/__tests__/fixtures/revolut-personal.coda",
+      "revision": "df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d",
+      "url": "https://raw.githubusercontent.com/enobase/demo-coda-export/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/src/__tests__/fixtures/revolut-personal.coda",
+      "landingPage": "https://github.com/enobase/demo-coda-export/blob/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/src/__tests__/fixtures/revolut-personal.coda",
+      "downloadSha256": "e0e5db6e70d9d4a6c5904ac6f24f2f3f403c92b51214b1bdb3e799341c1c9358",
+      "downloadBytes": 1677,
+      "sourceSha256": "e0e5db6e70d9d4a6c5904ac6f24f2f3f403c92b51214b1bdb3e799341c1c9358",
+      "sourceBytes": 1677,
+      "tarMember": null,
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "generated-by-third-party-converter",
+      "bankPublished": false,
+      "authenticity": "explicitly generated by repository CODA writer from CSV inputs",
+      "license": "MIT",
+      "licenseUrl": "https://github.com/enobase/demo-coda-export/blob/df2f5ff5559a47e0bcc4b2a6d7e027d33dbfe12d/LICENSE",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "5a88933624c3893196ee9a677491173f38362aaf9856fb91ed7eb377816ea605",
+      "lineCount": 13,
+      "characterWidths": {
+        "128": 13
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 9,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid nextCode",
+        "statements": [
+          {
+            "account": "BE68539007547034",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "2000.000",
+            "closing_balance_signed": "3750.710",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000002000000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000000003750710",
+            "record21_count": 9,
+            "record21_detail0000_count": 9,
+            "opening_line": 2,
+            "closing_line": 12,
+            "closing_account_zone_raw": "BE68539007547034                  EUR",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000042500",
+                "amount_signed": "-42.500"
+              },
+              {
+                "line": 4,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000500000",
+                "amount_signed": "-500.000"
+              },
+              {
+                "line": 5,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002000000",
+                "amount_signed": "2000.000"
+              },
+              {
+                "line": 6,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000065300",
+                "amount_signed": "-65.300"
+              },
+              {
+                "line": 7,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001500000",
+                "amount_signed": "1500.000"
+              },
+              {
+                "line": 8,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000200000",
+                "amount_signed": "-200.000"
+              },
+              {
+                "line": 9,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000001500",
+                "amount_signed": "-1.500"
+              },
+              {
+                "line": 10,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000089990",
+                "amount_signed": "-89.990"
+              },
+              {
+                "line": 11,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000850000",
+                "amount_signed": "-850.000"
+              }
+            ]
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    },
+    {
+      "id": "tryton-01",
+      "format": "CODA",
+      "publisher": "tryton/coda",
+      "filename": "CODA.txt",
+      "sourcePath": "coda/CODA.txt",
+      "revision": "PyPI febelfin-coda 0.5.0",
+      "url": "https://files.pythonhosted.org/packages/6e/88/6f6d08a2f8d512376ac23ee8922ce8afe90d0e4dfc67b86df3f6cb807b58/febelfin_coda-0.5.0.tar.gz",
+      "landingPage": "https://pypi.org/project/febelfin-coda/0.5.0/",
+      "downloadSha256": "8802812773cee817b401b899214be374b7710311d954c5052b86adee3944f19b",
+      "downloadBytes": 14185,
+      "sourceSha256": "7afbf42ef61352d4d219a3f0b89435ff5ee4e0e5a343a554a94f01c5da4e8a96",
+      "sourceBytes": 33798,
+      "tarMember": "febelfin_coda-0.5.0/coda/CODA.txt",
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "complete-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "unknown; visible placeholder or anonymization markers (inference)",
+      "license": "BSD-3-Clause",
+      "licenseUrl": "https://files.pythonhosted.org/packages/6e/88/6f6d08a2f8d512376ac23ee8922ce8afe90d0e4dfc67b86df3f6cb807b58/febelfin_coda-0.5.0.tar.gz#febelfin_coda-0.5.0/COPYRIGHT",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "e25d8595a3c1a6a004030fd225c8476f89beef41b15c77455435bb0a4fe28bbe",
+      "lineCount": 262,
+      "characterWidths": {
+        "128": 262
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "21": 111,
+        "22": 64,
+        "23": 28,
+        "31": 29,
+        "32": 22,
+        "33": 4,
+        "8": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Invalid CAMT counterparty BIC \"000000000\"",
+        "statements": [
+          {
+            "account": "435000000080",
+            "currency": "EUR",
+            "account_structure": "0",
+            "opening_balance_signed": "0.000",
+            "closing_balance_signed": "9405296.990",
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000000000",
+            "closing_balance_sign_raw": "0",
+            "closing_balance_amount_raw": "000009405296990",
+            "record21_count": 111,
+            "record21_detail0000_count": 59,
+            "opening_line": 2,
+            "closing_line": 261,
+            "closing_account_zone_raw": "435000000080 EUR0BE                  ",
+            "movements": [
+              {
+                "line": 3,
+                "sequence": "0001",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000002578250",
+                "amount_signed": "-2578.250"
+              },
+              {
+                "line": 5,
+                "sequence": "0002",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000011210",
+                "amount_signed": "11.210"
+              },
+              {
+                "line": 7,
+                "sequence": "0002",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000011210",
+                "amount_signed": "11.210"
+              },
+              {
+                "line": 8,
+                "sequence": "0003",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001075000",
+                "amount_signed": "1075.000"
+              },
+              {
+                "line": 13,
+                "sequence": "0003",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000001075000",
+                "amount_signed": "1075.000"
+              },
+              {
+                "line": 15,
+                "sequence": "0004",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000030860",
+                "amount_signed": "30.860"
+              },
+              {
+                "line": 17,
+                "sequence": "0004",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000023000",
+                "amount_signed": "23.000"
+              },
+              {
+                "line": 18,
+                "sequence": "0004",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000000002500",
+                "amount_signed": "2.500"
+              },
+              {
+                "line": 19,
+                "sequence": "0004",
+                "detail_sequence": "0003",
+                "sign_raw": "0",
+                "amount_raw": "000000000005360",
+                "amount_signed": "5.360"
+              },
+              {
+                "line": 21,
+                "sequence": "0005",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000010610",
+                "amount_signed": "-10.610"
+              },
+              {
+                "line": 23,
+                "sequence": "0005",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000008770",
+                "amount_signed": "-8.770"
+              },
+              {
+                "line": 24,
+                "sequence": "0005",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000001840",
+                "amount_signed": "-1.840"
+              },
+              {
+                "line": 26,
+                "sequence": "0006",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002500000",
+                "amount_signed": "2500.000"
+              },
+              {
+                "line": 30,
+                "sequence": "0007",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000128000000",
+                "amount_signed": "-128000.000"
+              },
+              {
+                "line": 32,
+                "sequence": "0007",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000004000000",
+                "amount_signed": "-4000.000"
+              },
+              {
+                "line": 37,
+                "sequence": "0007",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000027000000",
+                "amount_signed": "-27000.000"
+              },
+              {
+                "line": 42,
+                "sequence": "0007",
+                "detail_sequence": "0005",
+                "sign_raw": "1",
+                "amount_raw": "000000097000000",
+                "amount_signed": "-97000.000"
+              },
+              {
+                "line": 47,
+                "sequence": "0008",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000002782570",
+                "amount_signed": "-2782.570"
+              },
+              {
+                "line": 48,
+                "sequence": "0008",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000747690",
+                "amount_signed": "-747.690"
+              },
+              {
+                "line": 53,
+                "sequence": "0008",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000565640",
+                "amount_signed": "-565.640"
+              },
+              {
+                "line": 58,
+                "sequence": "0008",
+                "detail_sequence": "0005",
+                "sign_raw": "1",
+                "amount_raw": "000000000588630",
+                "amount_signed": "-588.630"
+              },
+              {
+                "line": 63,
+                "sequence": "0008",
+                "detail_sequence": "0007",
+                "sign_raw": "1",
+                "amount_raw": "000000000880610",
+                "amount_signed": "-880.610"
+              },
+              {
+                "line": 68,
+                "sequence": "0009",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000095000",
+                "amount_signed": "95.000"
+              },
+              {
+                "line": 70,
+                "sequence": "0010",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000163170",
+                "amount_signed": "163.170"
+              },
+              {
+                "line": 72,
+                "sequence": "0011",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000065610",
+                "amount_signed": "65.610"
+              },
+              {
+                "line": 74,
+                "sequence": "0012",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000180000",
+                "amount_signed": "180.000"
+              },
+              {
+                "line": 77,
+                "sequence": "0013",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000104230",
+                "amount_signed": "-104.230"
+              },
+              {
+                "line": 80,
+                "sequence": "0014",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000002270",
+                "amount_signed": "-2.270"
+              },
+              {
+                "line": 81,
+                "sequence": "0014",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000001880",
+                "amount_signed": "-1.880"
+              },
+              {
+                "line": 82,
+                "sequence": "0014",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000000390",
+                "amount_signed": "-0.390"
+              },
+              {
+                "line": 84,
+                "sequence": "0015",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000021700",
+                "amount_signed": "-21.700"
+              },
+              {
+                "line": 86,
+                "sequence": "0016",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000100000",
+                "amount_signed": "-100.000"
+              },
+              {
+                "line": 88,
+                "sequence": "0017",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000008500",
+                "amount_signed": "8.500"
+              },
+              {
+                "line": 89,
+                "sequence": "0018",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000300000",
+                "amount_signed": "-300.000"
+              },
+              {
+                "line": 92,
+                "sequence": "0019",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000004410",
+                "amount_signed": "-4.410"
+              },
+              {
+                "line": 94,
+                "sequence": "0019",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000004410",
+                "amount_signed": "-4.410"
+              },
+              {
+                "line": 95,
+                "sequence": "0020",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000001260",
+                "amount_signed": "1.260"
+              },
+              {
+                "line": 97,
+                "sequence": "0020",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000001260",
+                "amount_signed": "1.260"
+              },
+              {
+                "line": 98,
+                "sequence": "0021",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000160500",
+                "amount_signed": "160.500"
+              },
+              {
+                "line": 101,
+                "sequence": "0022",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000049000000",
+                "amount_signed": "-49000.000"
+              },
+              {
+                "line": 102,
+                "sequence": "0023",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000000980",
+                "amount_signed": "-0.980"
+              },
+              {
+                "line": 104,
+                "sequence": "0024",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000006050",
+                "amount_signed": "6.050"
+              },
+              {
+                "line": 105,
+                "sequence": "0025",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000091000",
+                "amount_signed": "91.000"
+              },
+              {
+                "line": 107,
+                "sequence": "0026",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000495790",
+                "amount_signed": "-495.790"
+              },
+              {
+                "line": 109,
+                "sequence": "0027",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000012064698670",
+                "amount_signed": "12064698.670"
+              },
+              {
+                "line": 110,
+                "sequence": "0027",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000012004200000",
+                "amount_signed": "12004200.000"
+              },
+              {
+                "line": 111,
+                "sequence": "0027",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000060498670",
+                "amount_signed": "60498.670"
+              },
+              {
+                "line": 112,
+                "sequence": "0028",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000002501250000",
+                "amount_signed": "-2501250.000"
+              },
+              {
+                "line": 116,
+                "sequence": "0028",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000002501250000",
+                "amount_signed": "-2501250.000"
+              },
+              {
+                "line": 117,
+                "sequence": "0029",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000010678030",
+                "amount_signed": "-10678.030"
+              },
+              {
+                "line": 121,
+                "sequence": "0029",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000010290000",
+                "amount_signed": "-10290.000"
+              },
+              {
+                "line": 122,
+                "sequence": "0029",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000007470",
+                "amount_signed": "-7.470"
+              },
+              {
+                "line": 123,
+                "sequence": "0029",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000380560",
+                "amount_signed": "-380.560"
+              },
+              {
+                "line": 124,
+                "sequence": "0030",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000302710750",
+                "amount_signed": "-302710.750"
+              },
+              {
+                "line": 125,
+                "sequence": "0030",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000300000000",
+                "amount_signed": "-300000.000"
+              },
+              {
+                "line": 126,
+                "sequence": "0030",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000002710750",
+                "amount_signed": "-2710.750"
+              },
+              {
+                "line": 127,
+                "sequence": "0031",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001475940",
+                "amount_signed": "1475.940"
+              },
+              {
+                "line": 128,
+                "sequence": "0032",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000120850",
+                "amount_signed": "-120.850"
+              },
+              {
+                "line": 130,
+                "sequence": "0033",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000009344500",
+                "amount_signed": "9344.500"
+              },
+              {
+                "line": 132,
+                "sequence": "0034",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000000030",
+                "amount_signed": "0.030"
+              },
+              {
+                "line": 133,
+                "sequence": "0034",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000000030",
+                "amount_signed": "0.030"
+              },
+              {
+                "line": 134,
+                "sequence": "0035",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000024200",
+                "amount_signed": "-24.200"
+              },
+              {
+                "line": 136,
+                "sequence": "0035",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000020000",
+                "amount_signed": "-20.000"
+              },
+              {
+                "line": 137,
+                "sequence": "0035",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000004200",
+                "amount_signed": "-4.200"
+              },
+              {
+                "line": 139,
+                "sequence": "0036",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000279500",
+                "amount_signed": "-279.500"
+              },
+              {
+                "line": 141,
+                "sequence": "0037",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000056003590",
+                "amount_signed": "-56003.590"
+              },
+              {
+                "line": 145,
+                "sequence": "0038",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000321040",
+                "amount_signed": "-321.040"
+              },
+              {
+                "line": 150,
+                "sequence": "0038",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000321040",
+                "amount_signed": "-321.040"
+              },
+              {
+                "line": 152,
+                "sequence": "0039",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000130500",
+                "amount_signed": "130.500"
+              },
+              {
+                "line": 154,
+                "sequence": "0040",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000002448000",
+                "amount_signed": "2448.000"
+              },
+              {
+                "line": 159,
+                "sequence": "0040",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000002448000",
+                "amount_signed": "2448.000"
+              },
+              {
+                "line": 161,
+                "sequence": "0041",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000010890",
+                "amount_signed": "-10.890"
+              },
+              {
+                "line": 163,
+                "sequence": "0041",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000009000",
+                "amount_signed": "-9.000"
+              },
+              {
+                "line": 164,
+                "sequence": "0041",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000001890",
+                "amount_signed": "-1.890"
+              },
+              {
+                "line": 166,
+                "sequence": "0042",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000006730240",
+                "amount_signed": "6730.240"
+              },
+              {
+                "line": 171,
+                "sequence": "0042",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000006730240",
+                "amount_signed": "6730.240"
+              },
+              {
+                "line": 173,
+                "sequence": "0043",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000001705250",
+                "amount_signed": "1705.250"
+              },
+              {
+                "line": 174,
+                "sequence": "0043",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000600000",
+                "amount_signed": "600.000"
+              },
+              {
+                "line": 176,
+                "sequence": "0043",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000001080000",
+                "amount_signed": "1080.000"
+              },
+              {
+                "line": 178,
+                "sequence": "0043",
+                "detail_sequence": "0003",
+                "sign_raw": "0",
+                "amount_raw": "000000000025250",
+                "amount_signed": "25.250"
+              },
+              {
+                "line": 180,
+                "sequence": "0044",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000180000",
+                "amount_signed": "180.000"
+              },
+              {
+                "line": 181,
+                "sequence": "0044",
+                "detail_sequence": "0001",
+                "sign_raw": "0",
+                "amount_raw": "000000000173000",
+                "amount_signed": "173.000"
+              },
+              {
+                "line": 183,
+                "sequence": "0044",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000000007000",
+                "amount_signed": "7.000"
+              },
+              {
+                "line": 185,
+                "sequence": "0045",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000642200",
+                "amount_signed": "642.200"
+              },
+              {
+                "line": 187,
+                "sequence": "0046",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000036720",
+                "amount_signed": "-36.720"
+              },
+              {
+                "line": 190,
+                "sequence": "0047",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000006509350",
+                "amount_signed": "-6509.350"
+              },
+              {
+                "line": 194,
+                "sequence": "0047",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000006450000",
+                "amount_signed": "-6450.000"
+              },
+              {
+                "line": 195,
+                "sequence": "0047",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000010970",
+                "amount_signed": "-10.970"
+              },
+              {
+                "line": 196,
+                "sequence": "0047",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000048380",
+                "amount_signed": "-48.380"
+              },
+              {
+                "line": 197,
+                "sequence": "0048",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000021940",
+                "amount_signed": "-21.940"
+              },
+              {
+                "line": 199,
+                "sequence": "0049",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000810000",
+                "amount_signed": "810.000"
+              },
+              {
+                "line": 206,
+                "sequence": "0050",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000120850",
+                "amount_signed": "-120.850"
+              },
+              {
+                "line": 208,
+                "sequence": "0051",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000139200",
+                "amount_signed": "139.200"
+              },
+              {
+                "line": 212,
+                "sequence": "0051",
+                "detail_sequence": "0002",
+                "sign_raw": "0",
+                "amount_raw": "000000000269500",
+                "amount_signed": "269.500"
+              },
+              {
+                "line": 213,
+                "sequence": "0051",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000080850",
+                "amount_signed": "-80.850"
+              },
+              {
+                "line": 214,
+                "sequence": "0051",
+                "detail_sequence": "0004",
+                "sign_raw": "1",
+                "amount_raw": "000000000047160",
+                "amount_signed": "-47.160"
+              },
+              {
+                "line": 216,
+                "sequence": "0051",
+                "detail_sequence": "0005",
+                "sign_raw": "1",
+                "amount_raw": "000000000001890",
+                "amount_signed": "-1.890"
+              },
+              {
+                "line": 217,
+                "sequence": "0051",
+                "detail_sequence": "0006",
+                "sign_raw": "1",
+                "amount_raw": "000000000000400",
+                "amount_signed": "-0.400"
+              },
+              {
+                "line": 219,
+                "sequence": "0052",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000010239930",
+                "amount_signed": "10239.930"
+              },
+              {
+                "line": 224,
+                "sequence": "0053",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000817560",
+                "amount_signed": "817.560"
+              },
+              {
+                "line": 228,
+                "sequence": "0054",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000387258820",
+                "amount_signed": "387258.820"
+              },
+              {
+                "line": 233,
+                "sequence": "0055",
+                "detail_sequence": "0000",
+                "sign_raw": "0",
+                "amount_raw": "000000000159590",
+                "amount_signed": "159.590"
+              },
+              {
+                "line": 237,
+                "sequence": "0056",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000500000",
+                "amount_signed": "-500.000"
+              },
+              {
+                "line": 239,
+                "sequence": "0057",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000023846320",
+                "amount_signed": "-23846.320"
+              },
+              {
+                "line": 245,
+                "sequence": "0057",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000023846320",
+                "amount_signed": "-23846.320"
+              },
+              {
+                "line": 247,
+                "sequence": "0058",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000001960",
+                "amount_signed": "-1.960"
+              },
+              {
+                "line": 253,
+                "sequence": "0058",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000001960",
+                "amount_signed": "-1.960"
+              },
+              {
+                "line": 255,
+                "sequence": "0059",
+                "detail_sequence": "0000",
+                "sign_raw": "1",
+                "amount_raw": "000000000034800",
+                "amount_signed": "-34.800"
+              },
+              {
+                "line": 257,
+                "sequence": "0059",
+                "detail_sequence": "0001",
+                "sign_raw": "1",
+                "amount_raw": "000000000022310",
+                "amount_signed": "-22.310"
+              },
+              {
+                "line": 258,
+                "sequence": "0059",
+                "detail_sequence": "0002",
+                "sign_raw": "1",
+                "amount_raw": "000000000006450",
+                "amount_signed": "-6.450"
+              },
+              {
+                "line": 259,
+                "sequence": "0059",
+                "detail_sequence": "0003",
+                "sign_raw": "1",
+                "amount_raw": "000000000006040",
+                "amount_signed": "-6.040"
+              }
+            ]
+          }
+        ],
+        "modelValid": true,
+        "outputVersions": {
+          "schemaValid": [],
+          "rejections": [
+            {
+              "versions": [
+                "03",
+                "04",
+                "05",
+                "06"
+              ],
+              "reason": "CAMT v03–06 requires an amount for each transaction detail"
+            },
+            {
+              "versions": [
+                "02",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13"
+              ],
+              "reason": "Invalid CAMT counterparty BIC \"000000000\""
+            }
+          ]
+        }
+      },
+      "mirrors": []
+    },
+    {
+      "id": "tryton-02",
+      "format": "CODA",
+      "publisher": "tryton/coda",
+      "filename": "CODA-empty.txt",
+      "sourcePath": "coda/CODA-empty.txt",
+      "revision": "PyPI febelfin-coda 0.5.0",
+      "url": "https://files.pythonhosted.org/packages/6e/88/6f6d08a2f8d512376ac23ee8922ce8afe90d0e4dfc67b86df3f6cb807b58/febelfin_coda-0.5.0.tar.gz",
+      "landingPage": "https://pypi.org/project/febelfin-coda/0.5.0/",
+      "downloadSha256": "8802812773cee817b401b899214be374b7710311d954c5052b86adee3944f19b",
+      "downloadBytes": 14185,
+      "sourceSha256": "668bebc0d9938fbef7a4eee82fa159b2d2eacd5906b280143f272c7e19388c9c",
+      "sourceBytes": 386,
+      "tarMember": "febelfin_coda-0.5.0/coda/CODA-empty.txt",
+      "storage": "external-only",
+      "retrievedOn": "2026-10-11",
+      "classification": "synthetic-empty-developer-fixture",
+      "bankPublished": false,
+      "authenticity": "synthetic placeholders",
+      "license": "BSD-3-Clause",
+      "licenseUrl": "https://files.pythonhosted.org/packages/6e/88/6f6d08a2f8d512376ac23ee8922ce8afe90d0e4dfc67b86df3f6cb807b58/febelfin_coda-0.5.0.tar.gz#febelfin_coda-0.5.0/COPYRIGHT",
+      "rightsNote": "Repository/package license evidence only; no bank-specific authorship or export provenance granted by bank identifiers.",
+      "encoding": "utf-8",
+      "lineEnding": "LF",
+      "normalizedSha256": "668bebc0d9938fbef7a4eee82fa159b2d2eacd5906b280143f272c7e19388c9c",
+      "lineCount": 3,
+      "characterWidths": {
+        "128": 3
+      },
+      "recordCounts": {
+        "0": 1,
+        "1": 1,
+        "9": 1
+      },
+      "expected": {
+        "parserValid": true,
+        "conversionValid": false,
+        "rejection": "Record 9 requires Record 8",
+        "statements": [
+          {
+            "account": "BE00000000000000",
+            "currency": "EUR",
+            "account_structure": "2",
+            "opening_balance_signed": "0.000",
+            "closing_balance_signed": null,
+            "opening_balance_sign_raw": "0",
+            "opening_balance_amount_raw": "000000000000000",
+            "record21_count": 0,
+            "record21_detail0000_count": 0,
+            "opening_line": 2,
+            "closing_line": null,
+            "closing_account_zone_raw": "",
+            "movements": []
+          }
+        ],
+        "modelValid": false
+      },
+      "mirrors": []
+    }
+  ]
+}

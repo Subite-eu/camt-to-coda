@@ -6,16 +6,17 @@ Verified 2026-10-11. Publisher: commercial-bank.
 
 **Documented market:** Belgium and KBC Reach international branches
 
-**Formats / versions:** CAMT05x version2; CAMT05x version3
+**Formats / versions:** CAMT05x version2; CAMT05x version3; CODA
 
 ## Official resources
 
 - [Official reporting documentation](https://www.kbc.be/commercial-banking/nl/product/betalingsverkeer/tools/kbc-reach-faq.html?zone=topnav) — availability; public-page
 - [Additional official reporting information](https://www.kbc.be/commercial-banking/nl/artikel/betalingsverkeer/iso-20022.html) — availability; public-page
+- [Official CODA service and customer delivery channels](https://www.kbc.be/entreprendre/fr/produits/payer-et-etre-paye/infocomptes/coda.html) — availability; public-page
 
 ## Scope and source notes
 
-Official indexed Reach FAQ lists downloadable CAMT05x v2/v3 and CODA. This is availability evidence; no bank-specific public schema/example verified. ISO migration page explicitly maps MT940/942 to053/052. Exact053/052 schema versions not inferred from broad05x wording. Site terms prohibit reproduction/distribution without prior written rightsholder permission; not an open licence.
+Official indexed Reach FAQ lists downloadable CAMT05x v2/v3 and CODA. This is availability evidence; no bank-specific public schema/example verified. ISO migration page explicitly maps MT940/942 to053/052. Exact053/052 schema versions not inferred from broad05x wording. Site terms prohibit reproduction/distribution without prior written rightsholder permission; not an open licence. Official Belgian CODA page confirms delivery through secured banking channels, globalisation options and accounting-partner connections. No complete public bank-published CODA original was verified.
 
 [Publisher usage terms](https://www.kbc.be/particulieren/nl/juridische-info/juridische-informatie.html).
 

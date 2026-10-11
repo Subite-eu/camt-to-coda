@@ -2394,6 +2394,410 @@
       "repositoryPath": "examples/bank-catalog/europe/germany/deutsche-bundesbank/ebics/11_EBICS_camt.053_Kontoauszug_mit_allen_Umsätzen.xml",
       "retrievedOn": "2026-10-11",
       "landingPage": "https://www.bundesbank.de/de/startseite/beispieldateien-zur-bereitstellung-der-elektronischen-kontoinformationen-zu-dotationskonten-von-banken-im-format-camt-052-und-camt-053-bei-kommunikation-via-ebics-example-files-for-the-provision-of-electronic-account-information-for-cash-handling-accounts-of-banks-in-camt-052-and-camt-053-format-when-communicating-via-ebics-943090"
+    },
+    {
+      "id": "postfinance-01",
+      "bankId": "postfinance",
+      "filename": "camt053_P_CH2909000000250094239_1110092698_0_2020062503071366_v2009.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2020062503071366_v2009.xml",
+      "downloadSha256": "2c3a9d5367328856e52543438c12640c9eb8f100bbf951a135125166c50569c7",
+      "downloadBytes": 5839,
+      "sourceSha256": "2c3a9d5367328856e52543438c12640c9eb8f100bbf951a135125166c50569c7",
+      "sourceBytes": 5839,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.04}Document",
+      "intendedSchema": "camt.053.001.04",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 5,
+        "transactionDetails": 5
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "postfinance-02",
+      "bankId": "postfinance",
+      "filename": "camt053_P_CH2909000000250094239_1110092698_0_2020112503071366_v2019.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2020112503071366_v2019.xml",
+      "downloadSha256": "decbbb493dc105922ed82c99b76dd1278b801bd703456428ba988289bcb50afd",
+      "downloadBytes": 5972,
+      "sourceSha256": "decbbb493dc105922ed82c99b76dd1278b801bd703456428ba988289bcb50afd",
+      "sourceBytes": 5972,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.08}Document",
+      "intendedSchema": "camt.053.001.08",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 5,
+        "transactionDetails": 5
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "postfinance-03",
+      "bankId": "postfinance",
+      "filename": "camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2013.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2013.xml",
+      "downloadSha256": "a9d5c5cf43f9673f6ca1a828c53d0bf22a547fbe9f38bb2af2157908a65ea77c",
+      "downloadBytes": 3287,
+      "sourceSha256": "a9d5c5cf43f9673f6ca1a828c53d0bf22a547fbe9f38bb2af2157908a65ea77c",
+      "sourceBytes": 3287,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.04}Document",
+      "intendedSchema": "camt.053.001.04",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "postfinance-04",
+      "bankId": "postfinance",
+      "filename": "camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml",
+      "downloadSha256": "887fed297753bcd2e793c16c92ebdf8febbf9044de420e0b12dd41f67e8a727d",
+      "downloadBytes": 3366,
+      "sourceSha256": "887fed297753bcd2e793c16c92ebdf8febbf9044de420e0b12dd41f67e8a727d",
+      "sourceBytes": 3366,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.08}Document",
+      "intendedSchema": "camt.053.001.08",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "postfinance-05",
+      "bankId": "postfinance",
+      "filename": "200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml",
+      "downloadSha256": "b535aaf950d5c3bf93ff3666d2a1c8097f5a655ff8bd90d52a096bc1b26afddc",
+      "downloadBytes": 3433,
+      "sourceSha256": "b535aaf950d5c3bf93ff3666d2a1c8097f5a655ff8bd90d52a096bc1b26afddc",
+      "sourceBytes": 3433,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.04}Document",
+      "intendedSchema": "camt.052.001.04",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "postfinance-06",
+      "bankId": "postfinance",
+      "filename": "200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml",
+      "url": "https://www.postfinance.ch/content/dam/pfch/doc/musterfile/200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml",
+      "downloadSha256": "64bc4e36c2c1f9c81f53b03019dcf208016d1cdd347110275759fccd04e043be",
+      "downloadBytes": 3629,
+      "sourceSha256": "64bc4e36c2c1f9c81f53b03019dcf208016d1cdd347110275759fccd04e043be",
+      "sourceBytes": 3629,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.08}Document",
+      "intendedSchema": "camt.052.001.08",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html"
+    },
+    {
+      "id": "lhv-01",
+      "bankId": "lhv",
+      "filename": "lhv-camt053.xml",
+      "url": "https://partners.lhv.ee/assets/files/samples/PAYMENT_VIBAN_SEPA/ACCOUNT_STATEMENT_CAMT.053A.xml",
+      "downloadSha256": "2e67da75efc385f9825ceb87b812b1da0797dbd063d005bae414e9ce49473fd7",
+      "downloadBytes": 4358,
+      "sourceSha256": "2e67da75efc385f9825ceb87b812b1da0797dbd063d005bae414e9ce49473fd7",
+      "sourceBytes": 4358,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.02}Document",
+      "intendedSchema": "camt.053.001.02",
+      "xsdStatus": "invalid-as-published",
+      "counts": {
+        "reports": 1,
+        "entries": 1,
+        "transactionDetails": 1
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://partners.lhv.ee/connect/",
+      "schemaNotes": "xmllint against ISO camt053 v02 reports placeholder BICXXX violates BIC pattern; source unchanged."
+    },
+    {
+      "id": "slovenska-sporitelna-01",
+      "bankId": "slovenska-sporitelna",
+      "filename": "Camt05302-eur.xml",
+      "url": "https://cdn.erstegroup.com/content/dam/sk/slsp/www_slsp_sk/documents/Camt05302-eur.xml",
+      "downloadSha256": "2a891c31aaf367f0277a3f66c57a4adea0f54b293abd9be4c1812d0c0df739c4",
+      "downloadBytes": 15935,
+      "sourceSha256": "2a891c31aaf367f0277a3f66c57a4adea0f54b293abd9be4c1812d0c0df739c4",
+      "sourceBytes": 15935,
+      "zipMember": null,
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.02}Document",
+      "intendedSchema": "camt.053.001.02",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 12,
+        "transactionDetails": 12
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://www.slsp.sk/sk/biznis/elektronicke-bankovnictvo/elektronicke-vypisy"
+    },
+    {
+      "bankId": "bmo",
+      "filename": "ReconciliationReport_053.xml",
+      "url": "https://www21.bmo.com/olbbwem/olbb-static-file/non-secure/Documents/Help%20Centre%20uploads/ISO%2020022%20-%20Specifications%20(Camt)_KB.xlsx",
+      "downloadBytes": 913332,
+      "downloadSha256": "768b7d3d3801f7f490c8d0fa4d49f09ac9d9f0d7ca3c9d2f984daec7866c21f7",
+      "zipMember": "xl/embeddings/oleObject1.bin",
+      "sourceBytes": 37040,
+      "sourceSha256": "011af95381de0437618fc6e6e3151179169fc24f64249d9b6ab71ed9ab5053de",
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.02}Document",
+      "intendedSchema": "camt.053.001.02",
+      "counts": {
+        "reports": 3,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "invalid-as-published",
+      "landingPage": "https://bmocm.intelliresponse.com/olbb/en/?id=6904&question=What+is+the+ISO+CAMT+report+format%3F&requestType=NormalRequest&source=1",
+      "id": "bmo-01",
+      "zipMemberSha256": "821cc3238792679a30bdc3e8594a13558987574d83f61052b4891cdd4cfae64a",
+      "zipMemberBytes": 40448,
+      "payloadRange": {
+        "offset": 2806,
+        "length": 37040
+      },
+      "schemaNotes": "Original XML recovered byte-for-byte from the pinned XLSX OLE attachment. Future-effective workbook (after 21 February 2027) has ISO v02 schema defects, including overlong Rsn values; preserved unchanged."
+    },
+    {
+      "bankId": "bmo",
+      "filename": "ReconciliationReport_052.xml",
+      "url": "https://www21.bmo.com/olbbwem/olbb-static-file/non-secure/Documents/Help%20Centre%20uploads/ISO%2020022%20-%20Specifications%20(Camt)_KB.xlsx",
+      "downloadBytes": 913332,
+      "downloadSha256": "768b7d3d3801f7f490c8d0fa4d49f09ac9d9f0d7ca3c9d2f984daec7866c21f7",
+      "zipMember": "xl/embeddings/oleObject2.bin",
+      "sourceBytes": 37041,
+      "sourceSha256": "b5922dd3324fb51a77c78e8de759cd474b999fe729c9b7ea505c4a266b23722f",
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.02}Document",
+      "intendedSchema": "camt.052.001.02",
+      "counts": {
+        "reports": 3,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "invalid-as-published",
+      "landingPage": "https://bmocm.intelliresponse.com/olbb/en/?id=6904&question=What+is+the+ISO+CAMT+report+format%3F&requestType=NormalRequest&source=1",
+      "id": "bmo-02",
+      "zipMemberSha256": "7e8db3f1cd993f4dbed31c984a4172b9016f3ab286e51aad6ec3f0078b80fcae",
+      "zipMemberBytes": 40448,
+      "payloadRange": {
+        "offset": 2806,
+        "length": 37041
+      },
+      "schemaNotes": "Original XML recovered byte-for-byte from the pinned XLSX OLE attachment. Future-effective workbook (after 21 February 2027) has ISO v02 schema defects, including overlong Rsn values; preserved unchanged."
+    },
+    {
+      "bankId": "bmo",
+      "filename": "Previous day Sample File.xml",
+      "url": "https://www21.bmo.com/olbbwem/olbb-static-file/non-secure/Documents/ISO%2020022%20-%20Specifications%20(Camt)%20(1)%20with%20Future%20Change.XLSX",
+      "downloadBytes": 889253,
+      "downloadSha256": "faf395863bdd83cd311f928ebfba35c3e59f952d420c51abc0306de7a68b6f0a",
+      "zipMember": "xl/embeddings/oleObject1.bin",
+      "sourceBytes": 17059,
+      "sourceSha256": "f98ac383255177634734f8e0eeb9f6960db056275a712a6cbdf9958f1c6d2a5e",
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.02}Document",
+      "intendedSchema": "camt.053.001.02",
+      "counts": {
+        "reports": 1,
+        "entries": 11,
+        "transactionDetails": 11
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "valid",
+      "landingPage": "https://bmocm.intelliresponse.com/olbb/en/?id=6904&question=What+is+the+ISO+CAMT+report+format%3F&requestType=NormalRequest&source=1",
+      "id": "bmo-03",
+      "zipMemberSha256": "1658d48c99296cd08032b1b6e2c9d31eb54889838c671fe1e7f057be305824ee",
+      "zipMemberBytes": 20992,
+      "payloadRange": {
+        "offset": 2923,
+        "length": 17059
+      },
+      "schemaNotes": "Original embedded XML from the before-21-February-2027 bank workbook; exact contiguous payload range verified independently against OLE FAT-chain extraction."
+    },
+    {
+      "bankId": "bmo",
+      "filename": "Current day Sample File.xml",
+      "url": "https://www21.bmo.com/olbbwem/olbb-static-file/non-secure/Documents/ISO%2020022%20-%20Specifications%20(Camt)%20(1)%20with%20Future%20Change.XLSX",
+      "downloadBytes": 889253,
+      "downloadSha256": "faf395863bdd83cd311f928ebfba35c3e59f952d420c51abc0306de7a68b6f0a",
+      "zipMember": "xl/embeddings/oleObject2.bin",
+      "sourceBytes": 10228,
+      "sourceSha256": "ca0ce2b96ab959efa8a97590d66cb90721659c8fe3a1a90ee1b349f813c6ef6c",
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.02}Document",
+      "intendedSchema": "camt.052.001.02",
+      "counts": {
+        "reports": 1,
+        "entries": 6,
+        "transactionDetails": 6
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "valid",
+      "landingPage": "https://bmocm.intelliresponse.com/olbb/en/?id=6904&question=What+is+the+ISO+CAMT+report+format%3F&requestType=NormalRequest&source=1",
+      "id": "bmo-04",
+      "zipMemberSha256": "1a944a5825aec4de4bfabe00f0bf9630c083516eec44edd51b462cdc858ccf40",
+      "zipMemberBytes": 14336,
+      "payloadRange": {
+        "offset": 2920,
+        "length": 10228
+      },
+      "schemaNotes": "Original embedded XML from the before-21-February-2027 bank workbook; exact contiguous payload range verified independently against OLE FAT-chain extraction."
+    },
+    {
+      "bankId": "bank-of-korea",
+      "filename": "C.5_1_step2_camt.052_BOK to Participant.xml",
+      "url": "https://www.bok.or.kr/fileSrc/portal/0f3735386351414cb8be52938fca2439/3/eae48ca55c83411f9f195b5d6d04d837.zip",
+      "landingPage": "https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873",
+      "downloadBytes": 104182,
+      "downloadSha256": "af8e90ecc5118a3912390bbeb38ceae8eb8904e32858e673869db3d04ddf56f4",
+      "zipMember": "C.5_1_step2_camt.052_BOK to Participant.xml",
+      "intendedSchema": "camt.052.001.08",
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "valid",
+      "id": "bank-of-korea-01",
+      "zipMemberSha256": "bf8fc12f9518a23afd3b6c9bba48e13b186c657cef1f375910accdf4c155d8ee",
+      "zipMemberBytes": 6846,
+      "sourceSha256": "f7a97fce0132d06bb123d68795c9abc5e67860ec1ff23a844d807cfd26fdec5c",
+      "sourceBytes": 6101,
+      "payloadRange": {
+        "offset": 745,
+        "length": 6101
+      },
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.08}Document",
+      "counts": {
+        "reports": 6,
+        "entries": 0,
+        "transactionDetails": 0
+      },
+      "allowedRedirectOrigins": [
+        "https://file-cdn.bok.or.kr"
+      ],
+      "schemaNotes": "Official BOK-Wire+ interbank scenario. Original ZIP member contains two XML roots, AppHdr and Document, and is not a standalone well-formed XML document. The standalone Document is an unchanged contiguous byte range of that separately hash-pinned source member; ISO XSD validation applies to this payload. Reports contain balance/limit information and no transaction entries."
+    },
+    {
+      "bankId": "bank-of-korea",
+      "filename": "C.5_2_step1_camt.052_BOK to Participant_updated.xml",
+      "url": "https://www.bok.or.kr/fileSrc/portal/0f3735386351414cb8be52938fca2439/3/eae48ca55c83411f9f195b5d6d04d837.zip",
+      "landingPage": "https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873",
+      "downloadBytes": 104182,
+      "downloadSha256": "af8e90ecc5118a3912390bbeb38ceae8eb8904e32858e673869db3d04ddf56f4",
+      "zipMember": "C.5_2_step1_camt.052_BOK to Participant_updated.xml",
+      "intendedSchema": "camt.052.001.08",
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "valid",
+      "id": "bank-of-korea-02",
+      "zipMemberSha256": "f29ec1a77add88d60088de11098ffd93b2488c796a45a736ec6e85c75251c294",
+      "zipMemberBytes": 6868,
+      "sourceSha256": "d6a4b731425808b34db828de9c37087af92d3c91654f11f339ee01f1540afed3",
+      "sourceBytes": 6123,
+      "payloadRange": {
+        "offset": 745,
+        "length": 6123
+      },
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.08}Document",
+      "counts": {
+        "reports": 6,
+        "entries": 0,
+        "transactionDetails": 0
+      },
+      "allowedRedirectOrigins": [
+        "https://file-cdn.bok.or.kr"
+      ],
+      "schemaNotes": "Official BOK-Wire+ interbank scenario. Original ZIP member contains two XML roots, AppHdr and Document, and is not a standalone well-formed XML document. The standalone Document is an unchanged contiguous byte range of that separately hash-pinned source member; ISO XSD validation applies to this payload. Reports contain balance/limit information and no transaction entries."
+    },
+    {
+      "bankId": "bank-of-korea",
+      "filename": "C.5_3_step1_camt.053_BOK to Participant_updated.xml",
+      "url": "https://www.bok.or.kr/fileSrc/portal/0f3735386351414cb8be52938fca2439/3/eae48ca55c83411f9f195b5d6d04d837.zip",
+      "landingPage": "https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873",
+      "downloadBytes": 104182,
+      "downloadSha256": "af8e90ecc5118a3912390bbeb38ceae8eb8904e32858e673869db3d04ddf56f4",
+      "zipMember": "C.5_3_step1_camt.053_BOK to Participant_updated.xml",
+      "intendedSchema": "camt.053.001.08",
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "xsdStatus": "valid",
+      "id": "bank-of-korea-03",
+      "zipMemberSha256": "974951ab4ef9b99065aba6940ebb1ea0bd2558aefc6a3a21f51349dae12fcb99",
+      "zipMemberBytes": 4271,
+      "sourceSha256": "778ac85b9cf62ab1cee3765e3c182df0ae2520131b52fa36bbe7993c0ab99a2e",
+      "sourceBytes": 3526,
+      "payloadRange": {
+        "offset": 745,
+        "length": 3526
+      },
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.08}Document",
+      "counts": {
+        "reports": 1,
+        "entries": 0,
+        "transactionDetails": 0
+      },
+      "allowedRedirectOrigins": [
+        "https://file-cdn.bok.or.kr"
+      ],
+      "schemaNotes": "Official BOK-Wire+ interbank scenario. Original ZIP member contains two XML roots, AppHdr and Document, and is not a standalone well-formed XML document. The standalone Document is an unchanged contiguous byte range of that separately hash-pinned source member; ISO XSD validation applies to this payload. Reports contain balance/limit information and no transaction entries."
     }
   ]
 }

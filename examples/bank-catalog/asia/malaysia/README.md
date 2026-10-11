@@ -20,4 +20,4 @@ The official table maps a decoupled Request to Pay rejection to a CAMT007 reques
 
 ## Banks and published resources
 
-No bank-specific sources verified for this jurisdiction yet.
+- [United Overseas Bank (UOB)](uob/README.md) — camt.052; camt.053

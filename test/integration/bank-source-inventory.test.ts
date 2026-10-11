@@ -44,14 +44,15 @@ for (const source of inventory.cases) {
   });
 }
 it("has provenance for every catalog original and keeps redistribution boundaries explicit", () => {
-  expect(inventory.cases).toHaveLength(104);
-  expect(new Set(inventory.cases.map(s => s.id)).size).toBe(104);
+  expect(inventory.cases).toHaveLength(119);
+  expect(new Set(inventory.cases.map(s => s.id)).size).toBe(119);
+  expect(new Set(inventory.cases.map(s => s.sourceSha256)).size).toBe(inventory.cases.length);
   expect(inventory.cases.filter(s => s.repositoryPath)).toHaveLength(22);
   // Reviewed publisher counts prevent archive-name spelling/case from assigning
   // a different bank's examples to an otherwise valid catalog identifier.
   const counts: Record<string, number> = {};
   for (const s of inventory.cases) counts[s.bankId] = (counts[s.bankId] ?? 0) + 1;
-  expect(counts).toEqual({ ing: 2, abn: 2, nordea: 8, seb: 34, handelsbanken: 6, "danske-bank": 27, westpac: 1, ubs: 2, "deutsche-bundesbank": 22 });
+  expect(counts).toEqual({ ing: 2, abn: 2, nordea: 8, seb: 34, handelsbanken: 6, "danske-bank": 27, westpac: 1, ubs: 2, "deutsche-bundesbank": 22, postfinance: 6, lhv: 1, "slovenska-sporitelna": 1, bmo: 4, "bank-of-korea": 3 });
   for (const s of inventory.cases) {
     expect(banks.banks.some(b => b.id === s.bankId)).toBe(true);
     expect(s.sourceSha256).toMatch(/^[a-f0-9]{64}$/);

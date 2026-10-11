@@ -21,4 +21,4 @@ HKEX cites the HKICL RTGS migration date of 22 April 2024 and tells settlement a
 
 ## Banks and published resources
 
-No bank-specific sources verified for this jurisdiction yet.
+- [United Overseas Bank (UOB)](uob/README.md) — camt.052; camt.053

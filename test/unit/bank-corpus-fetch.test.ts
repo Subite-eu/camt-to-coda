@@ -54,6 +54,75 @@ describe("bank original acquisition fails closed", () => {
       expect(new Uint8Array(await readFile(join(dir, fixture.id + ".xml")))).toEqual(bytes);
     } finally { await rm(dir, { recursive: true, force: true }); }
   });
+  it("extracts an unchanged embedded payload only from a verified member and bounded range", async () => {
+    const zipMember = "xl/embeddings/oleObject1.bin";
+    const prefix = strToU8("OLE package header");
+    const member = new Uint8Array([...prefix, ...bytes, ...strToU8("trailer")]);
+    const archive = zipSync({ [zipMember]: member });
+    const source = { ...fixture, zipMember, downloadSha256: hash(archive), downloadBytes: archive.length,
+      zipMemberSha256: hash(member), zipMemberBytes: member.length, payloadRange: { offset: prefix.length, length: bytes.length } };
+    const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
+    try {
+      await fetchSource(source, dir, async () => new Response(archive));
+      expect(new Uint8Array(await readFile(join(dir, fixture.id + ".xml")))).toEqual(bytes);
+      await rm(join(dir, fixture.id + ".xml"));
+      await expect(fetchSource({ ...source, zipMemberSha256: "0".repeat(64) }, dir, async () => new Response(archive))).rejects.toThrow(/integrity/);
+      for (const offset of [-1, 0.5, member.length]) {
+        await expect(fetchSource({ ...source, payloadRange: { offset, length: bytes.length } }, dir, async () => new Response(archive))).rejects.toThrow(/range/);
+      }
+      await expect(fetchSource({ ...source, zipMember: undefined }, dir, async () => new Response(archive))).rejects.toThrow(/member/);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
+  it("stores pinned CODA originals under a fixed CODA extension without rewriting bytes", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
+    const source = { ...fixture, format: "CODA" };
+    try {
+      await fetchSource(source, dir, async () => new Response(bytes));
+      expect(new Uint8Array(await readFile(join(dir, fixture.id + ".cod")))).toEqual(bytes);
+      expect(await fetchSource(source, dir, async () => { throw new Error("Unexpected network"); })).toBe("cached");
+      await expect(fetchSource({ ...source, format: "../escape" }, dir)).rejects.toThrow(/format/);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
+  it("extracts only the pinned regular TAR member from a verified gzip archive", async () => {
+    // Independently authored with Python's USTAR writer, not the extractor.
+    const archive = await readFile("test/fixtures/publisher-archive.tar.gz");
+    const source = { ...fixture, tarMember: "package/original.txt", downloadSha256: hash(archive), downloadBytes: archive.length };
+    const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
+    try {
+      await fetchSource(source, dir, async () => new Response(archive));
+      expect(new Uint8Array(await readFile(join(dir, fixture.id + ".xml")))).toEqual(bytes);
+      await rm(join(dir, fixture.id + ".xml"));
+      await expect(fetchSource({ ...source, tarMember: "missing" }, dir, async () => new Response(archive))).rejects.toThrow(/TAR member/);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
+  it("follows only explicitly reviewed HTTPS redirect origins with a bounded chain", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
+    const source = { ...fixture, allowedRedirectOrigins: ["https://cdn.bank.example"] };
+    const redirect = (url: string) => new Response(null, { status: 302, headers: { Location: url } });
+    try {
+      const seen: string[] = [];
+      await fetchSource(source, dir, async (url: string, options: RequestInit) => {
+        seen.push(url);
+        expect(options.redirect).toBe("manual");
+        return seen.length === 1 ? redirect("https://cdn.bank.example/file?token=temporary") : new Response(bytes);
+      });
+      expect(seen).toHaveLength(2);
+      await rm(join(dir, source.id + ".xml"));
+      for (const target of ["http://cdn.bank.example/file", "https://unreviewed.example/file", "https://user:secret@cdn.bank.example/file"]) {
+        await expect(fetchSource(source, dir, async () => redirect(target))).rejects.toThrow(/redirect/i);
+      }
+      await expect(fetchSource(fixture, dir, async () => redirect("https://cdn.bank.example/file"))).rejects.toThrow(/redirect/i);
+      await expect(fetchSource(source, dir, async () => redirect("https://cdn.bank.example/loop"))).rejects.toThrow(/redirect/i);
+      await expect(fetchSource(source, dir, async (url: string) => url === source.url ? redirect("https://cdn.bank.example/file") : new Response(strToU8("altered")))).rejects.toThrow(/integrity/);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
+  it.each(["camt", "CAMT", "CAMT052", "CAMT053"])("retains existing %s manifest format compatibility", async format => {
+    const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
+    try {
+      await expect(fetchSource({ ...fixture, format }, dir, async () => new Response(bytes))).resolves.toBe("downloaded");
+      expect(new Uint8Array(await readFile(join(dir, fixture.id + ".xml")))).toEqual(bytes);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
   it("rejects server errors, HTTP URLs, oversized responses and unsafe cache identifiers", async () => {
     const dir = await mkdtemp(join(tmpdir(), "bank-corpus-test-"));
     try {

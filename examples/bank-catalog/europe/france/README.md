@@ -24,3 +24,4 @@ Public 134-page 053 guide and 86-page 054 guide verified. They use ISO 2009 vers
 
 - [BNP Paribas](bnp-paribas/README.md) — camt.052; camt.053; camt.054
 - [Caisse d'Epargne](caisse-d-epargne/README.md) — camt.052.001.02; camt.053.001.02
+- [Banque Populaire](banque-populaire/README.md) — camt.052; camt.053

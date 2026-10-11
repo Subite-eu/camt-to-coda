@@ -900,9 +900,23 @@
           "kind": "availability",
           "access": "public-page",
           "accessNote": "public"
+        },
+        {
+          "url": "https://www.finanssiala.fi/en/topics/payment-services-in-finland/payment-technical-documents/",
+          "label": "Technical documentation with current sample-file links",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://file.finanssiala.fi/maksujenvalitys/FI_camt_053_sample.xml",
+          "label": "Authority-published original CAMT053 XML example",
+          "kind": "sample-file",
+          "access": "public-file",
+          "sourceBytes": 27472,
+          "sourceSha256": "6e0c56e25d3fe0ab25c976e3ec2f376b7854329675b24bfa5cd8dbd637c15fb4"
         }
       ],
-      "notes": "Account guide dated 15 January 2020 has 46 pages. Section 4.3 names FI_camt.052_sample.xml, FI_camt.053_sample.xml and FI_camt.054_sample.xml and explains their contents; standalone raw sample download URLs were not confirmed. Banks need not offer every reporting choice. CAMT054 is reference-only.",
+      "notes": "Account guide dated 15 January 2020 has 46 pages. Section 4.3 names FI_camt.052_sample.xml, FI_camt.053_sample.xml and FI_camt.054_sample.xml and explains their contents; the standalone 053 raw sample download was verified during the second sweep. Banks need not offer every reporting choice. CAMT054 is reference-only. Second sweep confirmed the current technical-documents page links FI_camt_053_sample.xml and FI_camt_054_sample.xml. The 053 original was retrieved unchanged: 27,472 bytes, SHA-256 6e0c56e25d3fe0ab25c976e3ec2f376b7854329675b24bfa5cd8dbd637c15fb4, valid against ISO camt.053.001.02 XSD. It is an industry-body example, excluded from the bank-published original count.",
       "verifiedOn": "2026-10-11"
     },
     {
@@ -2066,6 +2080,62 @@
         }
       ],
       "notes": "The 2018 study mapped 256 SPB messages to 13 ISO messages and concluded that the standard was suitable with changes. The Pix message group defines ISO 20022 messages for SPI. The historical study does not establish that all current SPB payments or corporate statements use CAMT.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bank-of-korea-bok-wire",
+      "authority": "Bank of Korea",
+      "role": "BOK-Wire+ RTGS operator / central bank",
+      "markets": [
+        {
+          "country": "South Korea",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "BOK-Wire+ interbank participant account balance/limit reports and aggregate account reconciliation; not a national corporate CAMT profile.",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054 (reference only)"
+      ],
+      "resources": [
+        {
+          "label": "Official BOK-Wire+ ISO20022 introduction and May2026 launch",
+          "url": "https://www.bok.or.kr/portal/main/contents.do?menuNo=201665",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "User guide v2.4, message definitions and scenario examples",
+          "url": "https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Message scenario original XML ZIP",
+          "url": "https://www.bok.or.kr/fileSrc/portal/0f3735386351414cb8be52938fca2439/3/eae48ca55c83411f9f195b5d6d04d837.zip",
+          "kind": "sample-file",
+          "access": "public-file",
+          "accessNote": "public download redirects to signed bank CDN URL; stable bank URL retained"
+        },
+        {
+          "label": "Message definition workbooks ZIP",
+          "url": "https://www.bok.or.kr/fileSrc/portal/0f3735386351414cb8be52938fca2439/2/285e3fc3850542ef906d200a1290f359.zip",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "Copyright protection policy",
+          "url": "https://www.bok.or.kr/portal/main/contents.do?menuNo=200228",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Official scenario ZIP contains three original v8 052/053 members, each AppHdr plus Document with two roots. Preserve full source; exact contiguous Document byte ranges are recorded separately and all validate against ISO XSDs. Samples contain balances/limits and no Ntry/TxDtls. Copyright policy permits linking; use beyond designated public datasets requires prior consultation/approval; samples were not verified as designated public datasets, so retained external-only.",
       "verifiedOn": "2026-10-11"
     }
   ]
