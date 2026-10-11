@@ -1,0 +1,1524 @@
+{
+  "version": 1,
+  "retrievalPolicy": "external-only",
+  "publishers": {
+    "ing": {
+      "name": "ING",
+      "landingPage": "https://www.ingwb.com/en/payments-and-collections/account-reporting-format-specifications",
+      "termsUrl": "https://www.ingwb.com/en/service/compliance/privacy-and-legal-statements/legal",
+      "reuse": "No general redistribution licence; site terms restrict copying and distribution. Original downloads remain outside version control and published artifacts."
+    },
+    "abn": {
+      "name": "ABN AMRO",
+      "landingPage": "https://www.abnamro.nl/nl/zakelijk/producten/betalen/sepa/rapportages/comprimeerinstellingen.html",
+      "termsUrl": "https://www.abnamro.nl/nl/zakelijk/over-abnamro/disclaimer.html",
+      "reuse": "Private use with attribution is permitted; commercial use requires permission. No general redistribution licence established."
+    },
+    "nordea": {
+      "name": "Nordea",
+      "landingPage": "https://www.nordea.com/en/en/our-services/cash-management/corporate-access-documents",
+      "termsUrl": "https://www.nordea.com/en/general-terms",
+      "reuse": "All rights reserved; personal storage/printing exception. No general redistribution licence established."
+    }
+  },
+  "cases": [
+    {
+      "id": "ing-camt052-v2",
+      "publisher": "ing",
+      "format": "camt",
+      "schema": "camt.052.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://assets.ing.com/asset/bcca3912-1648-4f52-aab8-0a6d4c43f700/CAMT-052-v2-CGI-Example.xml",
+      "downloadSha256": "cc56e766da4f8d17134d43af2f40e2a139f9f0d4d227deef64c3aff7aa6a8bf7",
+      "downloadBytes": 3769,
+      "sourceSha256": "cc56e766da4f8d17134d43af2f40e2a139f9f0d4d227deef64c3aff7aa6a8bf7",
+      "sourceBytes": 3769,
+      "sourceFilename": "CAMT-052-v2-CGI-Example.xml",
+      "xsdValid": true,
+      "notes": [],
+      "expected": [
+        {
+          "account": "NL00INGB0000000000",
+          "currency": "EUR",
+          "opening": {
+            "amount": 24735025.38,
+            "creditDebit": "DBIT",
+            "date": "2026-04-20"
+          },
+          "closing": {
+            "amount": 24428554.41,
+            "creditDebit": "DBIT",
+            "date": "2026-04-20T02:50:00"
+          },
+          "entries": [
+            {
+              "amount": 56461.75,
+              "creditDebit": "CRDT",
+              "bookingDate": "2026-04-20",
+              "valueDate": "2026-04-20",
+              "details": [
+                {
+                  "amount": 56461.75,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Name.2",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 250009.22,
+              "creditDebit": "CRDT",
+              "bookingDate": "2026-04-20",
+              "valueDate": "2026-04-20",
+              "details": [
+                {
+                  "amount": 250009.22,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Name.2",
+                  "endToEndId": "1700005335"
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ]
+    },
+    {
+      "id": "ing-camt053-v8",
+      "publisher": "ing",
+      "format": "camt",
+      "schema": "camt.053.001.08",
+      "retrievedOn": "2026-10-11",
+      "url": "https://assets.ing.com/m/7250f7bbf11854a4/original/CAMT-053-v8-Sample.xml",
+      "downloadSha256": "8da7a944c027e395b738e93036a037789c77ccc5deb2d70e4ecaedd175de9fe3",
+      "downloadBytes": 7438,
+      "sourceSha256": "8da7a944c027e395b738e93036a037789c77ccc5deb2d70e4ecaedd175de9fe3",
+      "sourceBytes": 7438,
+      "sourceFilename": "CAMT-053-v8-Sample.xml",
+      "xsdValid": true,
+      "notes": [],
+      "expected": [
+        {
+          "account": "NL96INGB0000000000",
+          "currency": "EUR",
+          "opening": {
+            "amount": 72806.6,
+            "creditDebit": "CRDT",
+            "date": "2026-02-20"
+          },
+          "closing": {
+            "amount": 102282.56,
+            "creditDebit": "CRDT",
+            "date": "2026-02-20"
+          },
+          "entries": [
+            {
+              "amount": 71806.6,
+              "creditDebit": "DBIT",
+              "bookingDate": "2026-02-20",
+              "valueDate": "2026-02-20",
+              "details": [
+                {
+                  "amount": 71806.6,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Company ABCD",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 74572.42,
+              "creditDebit": "CRDT",
+              "bookingDate": "2026-02-20",
+              "valueDate": "2026-02-20",
+              "details": [
+                {
+                  "amount": 74572.42,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Company ABCDE",
+                  "endToEndId": "200140P26600000.0000.0380000"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 24710.14,
+              "creditDebit": "CRDT",
+              "bookingDate": "2026-02-20",
+              "valueDate": "2026-02-20",
+              "details": [
+                {
+                  "amount": 24710.14,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Company ABCDEF",
+                  "endToEndId": "CB00289040-5639236082"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 2000.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2026-02-20",
+              "valueDate": "2026-02-20",
+              "details": [
+                {
+                  "amount": 2000.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Company ABDEC",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ]
+    },
+    {
+      "id": "abn-credit-transfer",
+      "publisher": "abn",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://assets.abnamro.com/api/public/content/sepa-rapportage-voorbeeld-camt053-gecomprimeerd-overboeking-original.zip",
+      "downloadSha256": "83ee69052fdd6cb1e94b199e32bb3635580a529eab877e70ccabf6e6c7216003",
+      "downloadBytes": 1292,
+      "sourceSha256": "24ab2862cc654bf6e592c2b9a0d3605ff2caec1eac3fac0c2ef997a2595ff03c",
+      "sourceBytes": 5564,
+      "sourceFilename": "Voorbeeld CAMT.053-bericht met gecomprimeerde batchboeking.txt",
+      "xsdValid": true,
+      "notes": [
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "Voorbeeld CAMT.053-bericht met gecomprimeerde batchboeking.txt",
+      "expected": [
+        {
+          "account": "NL77ABNA0574908765",
+          "currency": "EUR",
+          "opening": {
+            "amount": 1000.01,
+            "creditDebit": "CRDT",
+            "date": "2013-03-28"
+          },
+          "closing": {
+            "amount": 998.01,
+            "creditDebit": "CRDT",
+            "date": "2013-03-29"
+          },
+          "entries": [
+            {
+              "amount": 2.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2013-03-29",
+              "valueDate": "2013-03-29",
+              "details": [
+                {
+                  "amount": 1.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": "L. A. Jansen",
+                  "endToEndId": "NOTPROVIDED"
+                },
+                {
+                  "amount": 1.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": "L. A. Jansen",
+                  "endToEndId": "NOTPROVIDED"
+                }
+              ],
+              "batchCount": 2
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ]
+    },
+    {
+      "id": "abn-direct-debit",
+      "publisher": "abn",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://assets.abnamro.com/api/public/content/sepa-rapportage-voorbeeld-camt053-gecomprimeerd-incasso-original.zip",
+      "downloadSha256": "7c6fff51bb92b82bf2312a08ec615f55cafb471fff09b84b30d98eb5bad7a8b0",
+      "downloadBytes": 1354,
+      "sourceSha256": "cafa2bccce4370541aba0df24de08d25562ce4afe962e8315b4d5192a032dda4",
+      "sourceBytes": 5875,
+      "sourceFilename": "Voorbeeld CAMT.053-bericht met een gecomprimeerde batchincasso.txt",
+      "xsdValid": true,
+      "notes": [
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "Voorbeeld CAMT.053-bericht met een gecomprimeerde batchincasso.txt",
+      "expected": [
+        {
+          "account": "NL77ABNA0574908765",
+          "currency": "EUR",
+          "opening": {
+            "amount": 1000.01,
+            "creditDebit": "CRDT",
+            "date": "2013-03-28"
+          },
+          "closing": {
+            "amount": 1002.01,
+            "creditDebit": "CRDT",
+            "date": "2013-03-29"
+          },
+          "entries": [
+            {
+              "amount": 2.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2012-03-29",
+              "valueDate": "2012-03-29",
+              "details": [
+                {
+                  "amount": 1.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "R12 SDD SIT2",
+                  "endToEndId": "SDD SIT 024-1"
+                },
+                {
+                  "amount": 1.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "R12 SDD SIT2",
+                  "endToEndId": "SDD SIT 024-2"
+                }
+              ],
+              "batchCount": 2
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ]
+    },
+    {
+      "id": "nordea-standard-dk",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt053-standard-dk-cpe.zip",
+      "downloadSha256": "3d1870d21329ca166b3c9b216bb408f0783de34c9f85fc51d685b6abecca3a43",
+      "downloadBytes": 1496,
+      "sourceSha256": "3f7e3ccdf3c1fd424deae7c8bbe23a6b31fc0794228cc508b0df080271d4eabe",
+      "sourceBytes": 6588,
+      "sourceFilename": "Camt053_standard_DK-CPE.xml",
+      "xsdValid": true,
+      "notes": [],
+      "zipMember": "Camt053_standard_DK-CPE.xml",
+      "expected": [
+        {
+          "account": "DK8620009876543210",
+          "currency": "DKK",
+          "opening": {
+            "amount": 352027.67,
+            "creditDebit": "CRDT",
+            "date": "2019-04-29"
+          },
+          "closing": {
+            "amount": 460597.26,
+            "creditDebit": "CRDT",
+            "date": "2019-04-29"
+          },
+          "entries": [
+            {
+              "amount": 5151.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 5151.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 35047.66,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 35047.66,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 2000.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 2000.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 91799.06,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 91799.06,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 276.56,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 276.56,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 48943.75,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-04-29",
+              "valueDate": "2019-04-29",
+              "details": [
+                {
+                  "amount": 48943.75,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8311"
+    },
+    {
+      "id": "nordea-standard-fi",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053-example-file-fi-cpe.zip",
+      "downloadSha256": "758ae083b75b67cb39092ae06a632f24f792dc1d2d86a735ff4cd89f205bd6b0",
+      "downloadBytes": 1483,
+      "sourceSha256": "a991c3a03e7f14fbdefa9eed4cfb920b6ee37ca26a1d7917389ae0bea728aa67",
+      "sourceBytes": 7237,
+      "sourceFilename": "Camt.053 example file FI-CPE.xml",
+      "xsdValid": true,
+      "notes": [],
+      "zipMember": "Camt.053 example file FI-CPE.xml",
+      "expected": [
+        {
+          "account": "FI8529501800030574",
+          "currency": "EUR",
+          "opening": {
+            "amount": 200.5,
+            "creditDebit": "CRDT",
+            "date": "2019-05-08"
+          },
+          "closing": {
+            "amount": 8800.5,
+            "creditDebit": "CRDT",
+            "date": "2019-05-08"
+          },
+          "entries": [
+            {
+              "amount": 10000.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 10000.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": "20190501-E00005"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 100.5,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 100.5,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": "NOTPROVIDED"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 700.5,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 700.5,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "20190508-E123456"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 300.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 300.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "NOTPROVIDED"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 400.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 400.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "NOTPROVIDED"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 100.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-05-08",
+              "valueDate": "2019-05-08",
+              "details": [
+                {
+                  "amount": 100.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8307"
+    },
+    {
+      "id": "nordea-extended-dk",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt-053-ext-dk.zip",
+      "downloadSha256": "925ea801ba3a93678341e14ad458a958bbc5cebfbf0d9b0089f8c7f018bde44a",
+      "downloadBytes": 2458,
+      "sourceSha256": "b7ff2e4eaab32008fb97b443dcb03b399fea31f57a568b12baec822320f021b2",
+      "sourceBytes": 15130,
+      "sourceFilename": "CAMT_053_Ext_DK.xml",
+      "xsdValid": false,
+      "notes": [
+        "Publisher XML contains stray hyphens as element text; well-formed but XSD-invalid. Preserved unchanged; parsing is not XSD certification.",
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "CAMT_053_Ext_DK.xml",
+      "expected": [
+        {
+          "account": "DK0320009876543210",
+          "currency": "DKK",
+          "opening": {
+            "amount": 80259.13,
+            "creditDebit": "CRDT",
+            "date": "2020-09-24"
+          },
+          "closing": {
+            "amount": 42583.21,
+            "creditDebit": "CRDT",
+            "date": "2020-09-24"
+          },
+          "entries": [
+            {
+              "amount": 100.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 100.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 200.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 200.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 300.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 300.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": "DK_DOM_DK_to_DK-12_3"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 400.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 150.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                },
+                {
+                  "amount": 250.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 66962.5,
+              "creditDebit": "DBIT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 40177.5,
+                  "creditDebit": "DBIT",
+                  "counterparty": "CREDITOR NAME",
+                  "endToEndId": "1004916-5637222635-00"
+                },
+                {
+                  "amount": 26785.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": "CREDITOR NAME",
+                  "endToEndId": "1004915-5637222634-00"
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 28286.58,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-24",
+              "valueDate": "2020-09-24",
+              "details": [
+                {
+                  "amount": 28286.58,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8240"
+    },
+    {
+      "id": "nordea-extended-fi",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053-extended-finland.zip",
+      "downloadSha256": "ae3a898a9fef663e6b47992ff72aff33ba42c9bc8e066c95be834a68c560f7e6",
+      "downloadBytes": 2061,
+      "sourceSha256": "9a31ea12cd4c2cd3809ed3ac4aae077d1e29fe766d2f87fb7136eb12d92bd0be",
+      "sourceBytes": 15202,
+      "sourceFilename": "Camt.053 Extended Finland.xml",
+      "xsdValid": true,
+      "notes": [
+        "Publisher balances do not reconcile with listed movements; conversion must retain the original values and warn.",
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "Camt.053 Extended Finland.xml",
+      "expected": [
+        {
+          "account": "FI8529501800030574",
+          "currency": "EUR",
+          "opening": {
+            "amount": 500.5,
+            "creditDebit": "CRDT",
+            "date": "2020-09-22"
+          },
+          "closing": {
+            "amount": 491.49,
+            "creditDebit": "CRDT",
+            "date": "2020-09-22"
+          },
+          "entries": [
+            {
+              "amount": 8.8,
+              "creditDebit": "DBIT",
+              "bookingDate": "2020-09-22",
+              "valueDate": "2020-09-22",
+              "details": [
+                {
+                  "amount": 4.4,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Creditor",
+                  "endToEndId": "EID000001"
+                },
+                {
+                  "amount": 4.4,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Creditor ",
+                  "endToEndId": "EID000002"
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 0.13,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-22",
+              "valueDate": "2020-09-22",
+              "details": [
+                {
+                  "amount": 0.13,
+                  "creditDebit": "CRDT",
+                  "counterparty": "DEBTOR NAME",
+                  "endToEndId": "EID000003"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.12,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-22",
+              "valueDate": "2020-09-22",
+              "details": [
+                {
+                  "amount": 0.12,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Debtor company",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.25,
+              "creditDebit": "CRDT",
+              "bookingDate": "2020-09-22",
+              "valueDate": "2020-09-22",
+              "details": [
+                {
+                  "amount": 0.25,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Debtor company",
+                  "endToEndId": "EID000004"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.21,
+              "creditDebit": "DBIT",
+              "bookingDate": "2020-09-22",
+              "valueDate": "2020-09-22",
+              "details": [
+                {
+                  "amount": 0.1,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Creditor",
+                  "endToEndId": "EID00005"
+                },
+                {
+                  "amount": 0.11,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Creditor",
+                  "endToEndId": "EID000006"
+                }
+              ],
+              "batchCount": 2
+            }
+          ],
+          "balanceMismatch": true
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8306"
+    },
+    {
+      "id": "nordea-standard-no",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053std-example-file-no-cpe.zip",
+      "downloadSha256": "d43131c9a16023828c58223a8182092ac0c3212a2e5edc3896e4f075a5f68b1e",
+      "downloadBytes": 1839,
+      "sourceSha256": "5caa0877a8fd5a693871770e85ae0c78b8120df2fd3d1a0235136a4565dd66bd",
+      "sourceBytes": 13106,
+      "sourceFilename": "Camt.053Std example file NO-CPE.xml",
+      "xsdValid": true,
+      "notes": [],
+      "zipMember": "Camt.053Std example file NO-CPE.xml",
+      "expected": [
+        {
+          "account": "NO1860010511111",
+          "currency": "NOK",
+          "opening": {
+            "amount": 80.7,
+            "creditDebit": "CRDT",
+            "date": "2019-03-25"
+          },
+          "closing": {
+            "amount": 74.57,
+            "creditDebit": "CRDT",
+            "date": "2019-03-25"
+          },
+          "entries": [
+            {
+              "amount": 1.01,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.01,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "E2EIDCAAR0120190325020108"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 9.3,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 9.3,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "E2EIDCAAR0120190325020109"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.1,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.1,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 9.47,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 9.47,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": "E2EIDCAAR0120190325020211"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.12,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.12,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.01,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.01,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.02,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.02,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.03,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.03,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "TPzrxBe7U2q2Z9VSjzSlQ"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.04,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.04,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.05,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.05,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.06,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.06,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.07,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.07,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "E2EIDCAAR0120190325020107"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.14,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.14,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.15,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-03-25",
+              "valueDate": "2019-03-25",
+              "details": [
+                {
+                  "amount": 1.15,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8309"
+    },
+    {
+      "id": "nordea-standard-se",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053std-example-file-se-cpe.zip",
+      "downloadSha256": "eb4418c3a31f1a6e0e0d3b8301d9f30b5a7874daff6526a9de536ddfb42b14d4",
+      "downloadBytes": 1269,
+      "sourceSha256": "f8e2563518e6d4066e8e2b22933c627ba934130035dc5acaa706c75eee5f64ff",
+      "sourceBytes": 5825,
+      "sourceFilename": "CAMT.053Std example file SE-CPE.xml",
+      "xsdValid": true,
+      "notes": [],
+      "zipMember": "CAMT.053Std example file SE-CPE.xml",
+      "expected": [
+        {
+          "account": "123456",
+          "currency": "SEK",
+          "opening": {
+            "amount": 1027.95,
+            "creditDebit": "CRDT",
+            "date": "2019-07-18"
+          },
+          "closing": {
+            "amount": 1024.63,
+            "creditDebit": "CRDT",
+            "date": "2019-07-18"
+          },
+          "entries": [
+            {
+              "amount": 2.21,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-07-18",
+              "valueDate": "2019-07-18",
+              "details": [
+                {
+                  "amount": 2.21,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "20190717133520endtoend32"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1.11,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-07-18",
+              "valueDate": "2019-07-18",
+              "details": [
+                {
+                  "amount": 1.11,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": "20190717133520endtoend31"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.1,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-07-18",
+              "valueDate": "2019-07-18",
+              "details": [
+                {
+                  "amount": 0.1,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.05,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-07-18",
+              "valueDate": "2019-07-18",
+              "details": [
+                {
+                  "amount": 0.05,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 0.15,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-07-18",
+              "valueDate": "2019-07-19",
+              "details": [
+                {
+                  "amount": 0.15,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8238"
+    },
+    {
+      "id": "nordea-extended-no",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053-ext-example-file-norway.zip",
+      "downloadSha256": "177fb9120b09afed460d232540b1ba5634c7aaa46a40cac5b97a64404388dc58",
+      "downloadBytes": 2245,
+      "sourceSha256": "8d973bd3161c74626eabaddc9d3742d6b3035dc4e736fefeaaa166765c468611",
+      "sourceBytes": 21635,
+      "sourceFilename": "Camt.053 ext example file Norway.sendfile",
+      "xsdValid": true,
+      "notes": [
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "Camt.053 ext example file Norway.sendfile",
+      "expected": [
+        {
+          "account": "NO5460010511111",
+          "currency": "NOK",
+          "opening": {
+            "amount": 3562478.51,
+            "creditDebit": "CRDT",
+            "date": "2019-12-02"
+          },
+          "closing": {
+            "amount": 3979724.15,
+            "creditDebit": "CRDT",
+            "date": "2019-12-02"
+          },
+          "entries": [
+            {
+              "amount": 1007.06,
+              "creditDebit": "DBIT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 1007.06,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 57011.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 57011.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Customer AS",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 28350.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 2131.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Kunde AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 8000.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Kunde AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 487.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Kunde AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 15332.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 2400.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": 5
+            },
+            {
+              "amount": 76967.0,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 48125.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 28842.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 70431.55,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 70431.55,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 185493.15,
+              "creditDebit": "CRDT",
+              "bookingDate": "2019-12-02",
+              "valueDate": "2019-12-02",
+              "details": [
+                {
+                  "amount": 88415.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 27359.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 18996.65,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 41895.0,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 8827.5,
+                  "creditDebit": "CRDT",
+                  "counterparty": "KUNDE AS",
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": 5
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8308"
+    },
+    {
+      "id": "nordea-extended-se",
+      "publisher": "nordea",
+      "format": "camt",
+      "schema": "camt.053.001.02",
+      "retrievedOn": "2026-10-11",
+      "url": "https://www.nordea.com/en/doc/camt.053-extended-sweden.zip",
+      "downloadSha256": "3268f8ff8eae7d03572ac3c074834651a2bf6f3c0858f704c819f986ff16682b",
+      "downloadBytes": 3331,
+      "sourceSha256": "1949086597cb6f0ab26286e0601a9f54f1f9af4b64940f10e7f4ad41af45ccc0",
+      "sourceBytes": 24890,
+      "sourceFilename": "Camt.053ext_with_Bankgiro_and_crossborder.xml",
+      "xsdValid": true,
+      "notes": [
+        "Batch counts are retained as amountless summary communications in CODA; CAMT053 v03\u201306 cannot encode these alongside monetary details, so those reverse targets must reject explicitly."
+      ],
+      "zipMember": "Camt.053ext_with_Bankgiro_and_crossborder.xml",
+      "expected": [
+        {
+          "account": "SE2595000099602609871234",
+          "currency": "SEK",
+          "opening": {
+            "amount": 5000000.0,
+            "creditDebit": "CRDT",
+            "date": "2022-08-25"
+          },
+          "closing": {
+            "amount": 5998174.51,
+            "creditDebit": "CRDT",
+            "date": "2022-08-25"
+          },
+          "entries": [
+            {
+              "amount": 283907.53,
+              "creditDebit": "DBIT",
+              "bookingDate": "2022-08-25",
+              "valueDate": "2022-08-25",
+              "details": [
+                {
+                  "amount": 283907.53,
+                  "creditDebit": "DBIT",
+                  "counterparty": "CREDITOR CO., LTD",
+                  "endToEndId": "074715000999892022"
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 236700.0,
+              "creditDebit": "DBIT",
+              "bookingDate": "2022-08-25",
+              "valueDate": "2022-08-25",
+              "details": [
+                {
+                  "amount": 28000.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": "BERT CREDITOR AB",
+                  "endToEndId": "074715000999882022"
+                },
+                {
+                  "amount": 208700.0,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Sverige AB",
+                  "endToEndId": "074715000999872022"
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 47026.81,
+              "creditDebit": "DBIT",
+              "bookingDate": "2022-08-25",
+              "valueDate": "2022-08-25",
+              "details": [
+                {
+                  "amount": 26551.51,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Rod",
+                  "endToEndId": "GCM-SE06-000047408"
+                },
+                {
+                  "amount": 20475.3,
+                  "creditDebit": "DBIT",
+                  "counterparty": "Creditor name",
+                  "endToEndId": "GCM-SE06-000047409"
+                }
+              ],
+              "batchCount": 2
+            },
+            {
+              "amount": 62653.82,
+              "creditDebit": "DBIT",
+              "bookingDate": "2022-08-25",
+              "valueDate": "2022-08-25",
+              "details": [
+                {
+                  "amount": 62653.82,
+                  "creditDebit": "DBIT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": null
+            },
+            {
+              "amount": 1628462.67,
+              "creditDebit": "CRDT",
+              "bookingDate": "2022-08-25",
+              "valueDate": "2022-08-26",
+              "details": [
+                {
+                  "amount": 2808.69,
+                  "creditDebit": "CRDT",
+                  "counterparty": "SK\u00d6VDE AB BOX 1234",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 6429.38,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Services AB M\u00f6lsv\u00e4gen 42",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 250051.25,
+                  "creditDebit": "CRDT",
+                  "counterparty": "Debtor BOX 1234",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 63646.25,
+                  "creditDebit": "CRDT",
+                  "counterparty": "RAIN AB",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 333664.05,
+                  "creditDebit": "CRDT",
+                  "counterparty": "DEBTOR NAME",
+                  "endToEndId": null
+                },
+                {
+                  "amount": 951848.8,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                },
+                {
+                  "amount": 20014.25,
+                  "creditDebit": "CRDT",
+                  "counterparty": null,
+                  "endToEndId": null
+                }
+              ],
+              "batchCount": 7
+            }
+          ],
+          "balanceMismatch": false
+        }
+      ],
+      "linkedUrl": "https://www.nordea.com/media/8237"
+    }
+  ],
+  "codaStatus": {
+    "completeBankPublishedOriginals": 0,
+    "status": "acquisition-gap",
+    "reason": "No complete public bank-published CODA original with established usage rights was verified; official manuals and record excerpts are not statement fixtures."
+  }
+}

@@ -25,6 +25,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y libxml2-utils
       - run: npm ci
       - run: npm run examples:check
+      - run: npm run catalog:check
       - run: npm run typecheck
       - run: npm run build
       - run: npm run build:web
@@ -58,6 +59,29 @@ jobs:
           path: |
             playwright-report/
             test-results/
+
+  bank-corpus:
+    name: Bank originals / integrity, conversion and browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Configure ephemeral original-source directories
+        run: |
+          printf 'BANK_CORPUS_DIR=%s/bank-published\nBANK_CATALOG_DIR=%s/bank-catalog\n' "$RUNNER_TEMP" "$RUNNER_TEMP" >> "$GITHUB_ENV"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm }
+      - run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+      - run: npm ci
+      - run: npm run test:bank
+      - run: npm run test:bank:catalog
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build:web
+      - run: npm run test:bank:e2e -- --project=chromium --workers=2
+      # Publisher originals and derived downloads must never be uploaded or
+      # stored in shared caches; a failed fetch/hash check fails this job.
+      - if: always()
+        run: rm -rf "$BANK_CORPUS_DIR" "$BANK_CATALOG_DIR" test-results playwright-report
 
   security:
     name: Dependency audit
@@ -126,7 +150,7 @@ jobs:
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
-    needs: [test, browser, security, storage, docker]
+    needs: [test, browser, bank-corpus, security, storage, docker]
     permissions:
       contents: read
       packages: write

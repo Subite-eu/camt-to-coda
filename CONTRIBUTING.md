@@ -25,18 +25,24 @@ Input CAMT versions are detected automatically; `--camt-version` is a reverse ou
 ## Verification
 
 ```bash
-npm run examples:check     # Check committed originals against independent author.py
+npm run examples:check     # Check synthetic originals against independent author.py
+npm run catalog:check      # Check evidence metadata and generated geography indexes
 npm run typecheck          # Node and React TypeScript
 npm test                  # Node and UI unit/integration tests
 npm run test:watch
 npm run test:coverage
 npm run test:examples      # Public sources, literal expectations, XSDs and round trips
+npm run test:bank          # Twelve bank originals: semantic conversion and XSD checks
+npm run test:bank:catalog  # All 104 inventoried originals: integrity, content and XSD checks
 npm run build
 npm run build:web
 npm run test:e2e           # Built app: Chromium, Firefox, WebKit and mobile Chromium
+npm run test:bank:e2e -- --project=chromium
 # Combined local checks, after installing prerequisites:
 npm run test:ci
 ```
+
+`npm test` skips acquisition-dependent bank checks unless `BANK_CORPUS_REQUIRED=1`; `npm run test:bank` fetches verified originals and requires those checks. Restricted publisher originals must remain outside commits, published bundles, shared caches and CI artifacts. The 22 unchanged attributed Bundesbank fixtures are the documented exception: do not edit/normalize/relicense them. `npm run test:bank:catalog` fetches all 82 external inventoried XML files and validates all 104 source fixtures; `BANK_CATALOG_REQUIRED=1` makes missing originals fail. Read the [bank corpus provenance/terms](examples/bank-published/README.md) before adding sources; literal expectations must come from the original, not converter output. Complete bank-issued CODA sourcing remains unresolved.
 
 `npm test` skips the optional live MinIO cases when `MINIO_ENDPOINT` is unset. CI runs those cases in a dedicated required job. To reproduce it locally:
 
@@ -86,4 +92,11 @@ Use ESM imports with `.js` extensions from TypeScript, 2-space indentation and e
 
 Create a branch from `main`, implement the change and its regression coverage, update affected current guides and `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md), and open a PR against `main`.
 
-GitHub Actions requires Node 22/24 conversion, typecheck, build and coverage checks; independent public-source/XSD checks; four browser projects with accessibility and actual download assertions; a dependency audit; live MinIO; and Docker CLI/web smoke checks. At this revision the browser suite has 122 tests per project (488 total), including all 104 original sources and the searchable sample/download workflow. Main Docker publication and tagged releases depend on these gates. All relevant checks and independent review must pass before merging. See [releasing](docs/releasing.md) for the separate release process.
+GitHub Actions requires Node 22/24 conversion, typecheck, build and coverage checks; independent public-source/XSD checks; four browser projects with accessibility and actual download assertions; a separate bank-original integrity/conversion/Chromium job; a dependency audit; live MinIO; and Docker CLI/web smoke checks. The standard browser suite includes all 104 synthetic originals; the required bank job separately checks all 104 inventoried source files and runs twelve compatibility-original uploads/downloads and one library check without uploading original-file artifacts. Main Docker publication and tagged releases depend on these gates. All relevant checks and independent review must pass before merging. See [releasing](docs/releasing.md) for the separate release process.
+
+
+## Maintaining bank and country references
+
+Edit `examples/bank-catalog/catalog.json` for banks and `country-references.json` for authorities. Use primary publisher URLs, a verification date, documented markets, exact evidenced versions (or explicit uncertainty), resource/access labels and reporting scope. Distinguish CAMT customer reporting, settlement-account reporting, payment-only profiles, drafts and future-effective guides. A bank's headquarters or ISO payment migration is not evidence of worldwide CAMT availability. Do not infer absence from a failed search.
+
+Run `npm run catalog:build` after metadata changes and commit the generated geography/bank indexes. `npm run catalog:check` is required CI. Update source pins only after reviewing original publisher bytes; record archive/member hashes separately and preserve source defects. New converter compatibility expectations must be independently read from the original. External originals remain in ignored/ephemeral storage and must not enter browser bundles, Docker inputs or uploaded artifacts.

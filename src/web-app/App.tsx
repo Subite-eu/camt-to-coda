@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Toaster } from "sonner";
 import { Header } from "./components/Header";
 import { DownloadPanel } from "./components/DownloadPanel";
@@ -14,7 +14,16 @@ import { startConversion } from "./lib/worker-client";
 import { downloadAll, downloadText } from "./lib/download";
 import { detectDirection, inputError } from "./lib/input";
 
+const BankCatalog = lazy(() => import("./components/BankCatalog").then(m => ({ default: m.BankCatalog })));
+
 export default function App() {
+  const [catalogOpen, setCatalogOpen] = useState(() => window.location.hash === "#bank-catalog");
+  useEffect(() => {
+    const update = () => setCatalogOpen(window.location.hash === "#bank-catalog");
+    window.addEventListener("hashchange", update);
+    return () => window.removeEventListener("hashchange", update);
+  }, []);
+  useEffect(() => { if (catalogOpen) document.getElementById("catalog-title")?.focus(); }, [catalogOpen]);
   const [input,setInput]=useState("");
   const [originalName,setOriginalName]=useState("");
   const [direction,setDirection]=useState<Direction>("camt-to-coda");
@@ -51,10 +60,10 @@ export default function App() {
     return()=> {generation.current++;stop();};
   },[input,direction,anonymize,retry]);
   useEffect(()=> {
-    if(input)return;
+    if(input || catalogOpen)return;
     const onPaste=(e:ClipboardEvent)=>{const text=e.clipboardData?.getData("text")??"";if(text.trim())load(text);};
     document.addEventListener("paste",onPaste);return()=>document.removeEventListener("paste",onPaste);
-  },[input,direction]);
+  },[input,direction,catalogOpen]);
   useEffect(()=> {
     const esc=(e:KeyboardEvent)=>{if(e.key==="Escape")setSelectedId(null);};
     document.addEventListener("keydown",esc);return()=>document.removeEventListener("keydown",esc);
@@ -93,9 +102,9 @@ export default function App() {
   const failure=result?.error||workerError;
   return <div className={`app-shell ${selected?"has-selection":""}`}>
     <a href="#workspace" className="skip-link">Skip to workspace</a>
-    <Header direction={direction} locked={!!input} onDirectionChange={setDirection} anonymize={anonymize} onAnonymizeChange={v=>{setResult(null);setSelectedId(null);setAnonymize(v);}} />
+    <Header catalogOpen={catalogOpen} direction={direction} locked={!!input} onDirectionChange={setDirection} anonymize={anonymize} onAnonymizeChange={v=>{setResult(null);setSelectedId(null);setAnonymize(v);}} />
     <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
-    {!input?<main id="workspace" className="flex-1"><DropZone onLoad={load} /></main>:<>
+    {catalogOpen ? <main id="workspace" className="flex-1 min-h-0 overflow-y-auto"><Suspense fallback={<p className="p-4" role="status">Loading reporting catalog…</p>}><BankCatalog /></Suspense></main> : !input?<main id="workspace" className="flex-1"><DropZone onLoad={load} /></main>:<>
       <FileBar fileName={originalName} version={isForward?(result?.version??"Detected CAMT XML"):"Detected CODA 2.6"} recordCount={lines.length} validation={validation} onClear={clear} onIssue={navigateIssue} />
       <DownloadPanel direction={direction} fileName={artifact?.fileName} busy={busy} cancelled={cancelled}
         valid={!!artifact&&validation.valid&&!result?.error&&!workerError} warnings={warnings} acknowledged={acknowledged} onAcknowledge={setAcknowledged}

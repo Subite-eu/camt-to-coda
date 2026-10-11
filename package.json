@@ -20,9 +20,16 @@
     "typecheck": "tsc --noEmit && tsc -p tsconfig.app.json",
     "examples:check": "python3 examples/author.py --check",
     "test:examples": "vitest run --project node test/integration/public-examples.test.ts",
+    "bank:fetch": "node scripts/fetch-bank-corpus.mjs",
+    "test:bank": "npm run bank:fetch && BANK_CORPUS_REQUIRED=1 vitest run --project node test/integration/bank-published.test.ts",
+    "test:bank:e2e": "npm run bank:fetch && BANK_CORPUS_REQUIRED=1 playwright test test/e2e/bank-published.spec.ts",
     "test:e2e": "playwright test",
     "preview:web": "vite preview --host 127.0.0.1 --port 4173",
-    "test:ci": "npm run examples:check && npm run typecheck && npm run build && npm run build:web && npm run test:coverage && npm run test:e2e"
+    "test:ci": "npm run examples:check && npm run catalog:check && npm run typecheck && npm run build && npm run build:web && npm run test:coverage && npm run test:bank && npm run test:bank:catalog && npm run test:e2e && npm run test:bank:e2e -- --project=chromium",
+    "bank:fetch:catalog": "node scripts/fetch-bank-catalog.mjs",
+    "test:bank:catalog": "npm run bank:fetch:catalog && BANK_CATALOG_REQUIRED=1 vitest run --project node test/integration/bank-source-inventory.test.ts",
+    "catalog:build": "node scripts/build-bank-catalog.mjs",
+    "catalog:check": "node scripts/build-bank-catalog.mjs --check"
   },
   "keywords": [
     "camt",

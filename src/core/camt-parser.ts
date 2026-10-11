@@ -138,12 +138,13 @@ function parseReport(rpt: any, grpHdr: any): CamtStatement {
   const acct = rpt.Acct || {};
   const bals = rpt.Bal || [];
 
-  const openBal = bals.find(
-    (b: any) => ["OPAV", "OPBD", "PRCD"].includes(get(b, "Tp.CdOrPrtry.Cd"))
-  );
-  const closeBal = bals.find(
-    (b: any) => ["CLAV", "CLBD", "ITAV", "INFO"].includes(get(b, "Tp.CdOrPrtry.Cd"))
-  );
+  // ISO 20022 BalanceType: ITBD is interim booked; ITAV is interim
+  // available. Prefer booked money irrespective of publisher XML order.
+  const findBalance = (codes: string[]) => codes.map(code => bals.find(
+    (b: any) => get(b, "Tp.CdOrPrtry.Cd") === code
+  )).find(Boolean);
+  const openBal = findBalance(["OPBD", "PRCD", "OPAV"]);
+  const closeBal = findBalance(["CLBD", "ITBD", "CLAV", "ITAV", "INFO"]);
 
   const reportDate = str(grpHdr.CreDtTm);
 
