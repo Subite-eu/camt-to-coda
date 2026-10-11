@@ -8,6 +8,8 @@ This curated catalog records primary-source evidence, not universal availability
 
 Use the browser’s **Bank catalog** to search by bank/authority, region, country and resource type. [Bank evidence](catalog.json), [country/reference evidence](country-references.json) and [original-source inventory](source-inventory.json) are the canonical machine-readable records. Each geography folder below groups banks and national/regional references together.
 
+Open **Example files** (`/#examples`) to find and download all inventoried CAMT originals alongside third-party CODA and synthetic files. Country/scope, bank/publisher and provenance filters distinguish verified publication from uncertain sample geography. Bank entries with verified originals link to their filtered example lists. See the [download guide](../../docs/user-guide.md#find-and-download-example-files) for extraction, integrity checks and publisher-link fallback.
+
 ## Original samples and validation
 
 **104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **119 different bank-published XML originals/payloads**: 107 validate against the bundled ISO XSD, 5 have missing element namespaces, 5 are invalid as published, and 2 are wrapped SWIFT references without a bundled envelope schema.

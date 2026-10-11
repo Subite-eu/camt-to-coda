@@ -6,6 +6,7 @@ Current changes are listed under Unreleased. Older entries describe their histor
 
 ### Added
 
+- Dedicated **Example files** browser view with 252 entries (119 bank-published CAMT originals/payloads, 29 third-party CODA fixtures and 104 synthetic files), filename search, format/provenance/country/publisher filters, 20-file pagination and explicit source-status/country-basis labels. Publisher originals are fetched only on request, checked against size/SHA-256 pins, and extracted without rewriting bytes; browser retrieval failures offer a direct publisher link. Synthetic files support original downloads and conversion, while navigation preserves the current conversion. No complete bank-authored CODA original is claimed.
 - Additional worldwide source sweep: PostFinance, BMO workbook attachments, LHV, Slovenská sporiteľňa and Bank of Korea interbank payloads, with original container/member/payload pins and explicit schema defects.
 - Separate 29-file third-party CODA research corpus, deduplicated from 65 downloads, with immutable URLs, encoding/license evidence, independently extracted field facts, positive/negative tests and required ephemeral CI acquisition. Belgian bank CODA service/specification evidence remains distinct from complete bank-issued originals.
 

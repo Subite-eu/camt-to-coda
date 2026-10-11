@@ -8,6 +8,7 @@
 !src/
 !src/**
 !examples/catalog.json
+!examples/download-catalog.json
 !examples/bank-published/catalog.json
 !examples/bank-catalog/catalog.json
 !examples/bank-catalog/country-references.json

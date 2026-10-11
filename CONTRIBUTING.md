@@ -39,6 +39,7 @@ npm run build
 npm run build:web
 npm run test:e2e           # Built app: Chromium, Firefox, WebKit and mobile Chromium
 npm run test:bank:e2e -- --project=chromium
+npm run test:examples:downloads -- --project=chromium # Fresh publisher containers → exact browser downloads
 # Combined local checks, after installing prerequisites:
 npm run test:ci
 ```

@@ -257,6 +257,8 @@ Configure paths and format options with the CLI arguments shown above; the retir
 
 ## Testing and public examples
 
+Open **Example files** (`/#examples`) for all **252 examples**, searchable by filename and filterable by format, provenance, country/scope and bank/publisher. Each entry distinguishes bank originals, third-party CODA fixtures and synthetic test data, states its country basis, validation status and usage terms, and offers a clear download action. Publisher downloads verify pinned bytes and extract individual files or embedded XML without rewriting them. Direct publisher links remain available when browser access is blocked. Synthetic examples also offer **Try in converter**. See the [download guide](docs/user-guide.md#find-and-download-example-files).
+
 The [public source library](examples/README.md) contains 104 independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes salaries, card purchases, direct debits, instant and international payments, refunds, fees, interest, busy months, multi-currency accounts, CAMT 052/053 v02–13, multi-statement and empty statements, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources. The browser sample picker searches this same library.
 
 The separate [bank-published corpus](examples/bank-published/README.md) adds 12 official CAMT originals from ING, ABN AMRO and Nordea, covering 61 movements and 84 monetary details. Originals are downloaded directly into an ignored/ephemeral test folder with pinned hashes; publisher terms prevent treating them as MIT-licensed bundled fixtures. The browser links to the official downloads. A complete bank-published CODA original remains an explicit acquisition gap; the bundled CODA examples are synthetic. The separate [Belgian CODA publisher corpus](examples/coda-published/README.md) inventories 29 deduplicated developer/vendor fixtures from 65 downloads, with immutable source pins, license evidence and expected acceptance/rejection checks. These are third-party test fixtures, not verified bank-issued statements.
@@ -278,7 +280,10 @@ npm run test:bank          # Fetch pinned bank originals; source/XSD/round-trip 
 npx playwright install --with-deps chromium firefox webkit
 npm run test:e2e
 npm run test:bank:e2e -- --project=chromium
+npm run test:examples:downloads -- --project=chromium
 ```
+
+The example-library suite covers all 252 entries, filters, provenance, pagination, accessibility and synthetic downloads in four browsers. Required publisher-download tests acquire fresh direct XML/CODA, ZIP, XLSX and TAR containers and compare actual browser downloads against independent source hashes. Browser-blocked downloads have separate fallback tests. Originals stay ephemeral and are excluded from browser artifacts.
 
 The browser suite also uploads all 104 original fixtures, checks invalid-input blocking and compares actual downloads with the verified converter. To exercise a deployed app instead of starting a local preview:
 
