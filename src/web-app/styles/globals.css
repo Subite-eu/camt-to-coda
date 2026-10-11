@@ -107,3 +107,15 @@ pre button { text-align: inherit; white-space: inherit; overflow-wrap: inherit; 
   .has-selection .document-side .panel-scroll { padding-bottom: calc(35dvh + 1rem); }
 }
 .app-shell [data-slot="badge"] { transition-property: box-shadow; }
+
+/* The converted artifact is the primary action; inspection stays secondary. */
+.download-panel { max-height: 36dvh; overflow-y: auto; }
+.sample-list { overscroll-behavior: contain; }
+@media (max-width: 767px) {
+  .download-panel { max-height: none; }
+  .download-layout { align-items: stretch; }
+  .download-layout > div:first-child { flex-basis: 100%; }
+  .download-actions { width: 100%; }
+  .download-actions button { width: 100%; }
+  .start-workspace { padding: 1rem; gap: 1.5rem; }
+}

@@ -6,11 +6,11 @@ See the [documentation index](README.md) for mapping details, limitations and co
 
 Open [camt2coda.subite.io](https://camt2coda.subite.io) or [coda2camt.subite.io](https://coda2camt.subite.io). Both sites provide the same bidirectional app:
 
-1. Drop or select one CAMT XML or CODA file, paste its contents, or open a built-in sample. The app detects the conversion direction. The input limit is **5 MiB**.
+1. Drop or select one CAMT XML or CODA file, paste its contents, or open a built-in sample. Search the **104 original samples** by scenario or version, filter by CAMT/CODA, and opt into invalid examples to test error handling. The app detects the conversion direction. The input limit is **5 MiB**.
 2. Review the statement summary, opening/closing balances, reconciliation and movements. A file can contain several statements; use the statement selector to review each one. Movement lists are paginated.
 3. Open the field inspector to compare source and result. Search or jump to a record; use arrow keys to navigate fields, Enter/Space to inspect and Escape to close. On small screens, switch between source and result tabs.
 4. Review conversion notes and acknowledge them before downloading. Validation errors block downloads even after notes are acknowledged. You can cancel an in-progress conversion and retry after an error.
-5. Download a CODA file for the selected statement or a ZIP containing all forward results. Reverse conversion produces one CAMT XML document containing all reconstructed statements.
+5. The **Ready to download** panel beneath the file status shows the actual output filename and **Download CODA (.cod)** or **Download CAMT (.xml)** button. For forward conversion, download the selected statement or use **Download all (N) · ZIP** for multiple results. Reverse conversion produces one CAMT XML document containing all reconstructed statements. If notes need review, the acknowledgment checkbox appears beside the disabled download.
 
 Conversion runs in a local browser worker. Bank statement contents are not uploaded by the UI. The hosted page still fetches site assets and may contact Cloudflare analytics; an offline reload is not guaranteed.
 
@@ -80,7 +80,7 @@ node dist/cli.js validate examples/camt/camt.053.001.08.xml
 node dist/cli.js info examples/camt/camt.053.001.08.xml
 ```
 
-`validate` checks XML syntax, supported structure, modeled account/currency/amount/date requirements, generated CODA and balance reconciliation. It does **not** run full XSD validation. CI independently validates public CAMT sources and generated reverse XML against the bundled XSDs. A balance mismatch is an error, not an advisory warning.
+`validate` checks XML syntax, supported structure, modeled account/currency/amount/date requirements, generated CODA and balance reconciliation. It does **not** run full XSD validation. CI independently validates public CAMT sources and generated reverse XML against the bundled XSDs. Balance mismatches are reported as conversion notes; the browser requires acknowledgment before download. Modeled validation errors remain blocking.
 
 `info` displays detected version and statement metadata, including account, currency, owner, balances and entries. It is an inspection command, not a substitute for validation. CLI processing failures exit with status 1; successful commands exit with status 0.
 
@@ -118,7 +118,7 @@ The Docker endpoint above uses Docker Desktop's host address; choose an address 
 |---|---|
 | Unsupported CAMT namespace | Check the actual XML namespace; only 052/053 v02–13 are supported inputs. CAMT 054 schemas are reference material only. |
 | Invalid CODA line width/order/links | Use original 128-character records without editor wrapping or trimming. Line endings may be LF or CRLF. Review the record named in the validation error. |
-| Balance mismatch, mixed currencies or excess amount precision | Correct the source data. The converter rejects inconsistent balances, mixed entry/account currencies and values not exactly representable in CODA thousandths. |
+| Balance mismatch, mixed currencies or excess amount precision | Correct the source data. Review balance mismatch notes and correct the source as needed. Mixed entry/account currencies and values not exactly representable in CODA thousandths are rejected. |
 | Missing BIC | ISO permits it; the converter does not require a BIC universally. A receiving bank's profile may impose additional rules. |
 | Reverse version cannot represent detail data | Select a newer output version. v02 cannot preserve opposite-sign monetary details; v03–06 require amounts for multiple details. |
 | Missing web app/assets | Run both `npm run build` and `npm run build:web` before starting the compiled server. |

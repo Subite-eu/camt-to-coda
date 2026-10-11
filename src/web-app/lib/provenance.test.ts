@@ -1,9 +1,9 @@
 import { it, expect } from "vitest";
 import { buildFieldIndex } from "./fields";
 import { convert } from "./convert";
-import { SAMPLES } from "./samples";
+import basic from "../../../examples/camt/camt.053.001.08.xml?raw";
 it("selects the exact amount node rather than repeated raw text", () => {
-  const sample = SAMPLES.find(s => s.direction === "camt-to-coda")!.content;
+  const sample = basic;
   const r = convert(sample,"camt-to-coda",false);
   const fields = buildFieldIndex(r.codaLines,sample);
   const amount = fields.find(f => f.name === "amount")!;
@@ -13,7 +13,7 @@ it("selects the exact amount node rather than repeated raw text", () => {
   expect(amount.provenance).toBe("derived");
 });
 it("maps repeated statement amounts to separate exact nodes and closing versus opening balances",()=> {
-  const sample=SAMPLES[0].content;
+  const sample=basic;
   const multi=sample.replace("</Stmt>","</Stmt>"+sample.match(/<Stmt>[\s\S]*?<\/Stmt>/)![0]);
   const r=convert(multi,"camt-to-coda",false);
   const a=r.fieldIndexes[0].find(f=>f.name==="amount")!;
@@ -21,15 +21,15 @@ it("maps repeated statement amounts to separate exact nodes and closing versus o
   expect(a.sourceRange!.start).not.toBe(b.sourceRange!.start);
   expect(a.sourceXPath).toContain("Stmt[1]");expect(b.sourceXPath).toContain("Stmt[2]");
   const balances=r.fieldIndexes[0].filter(f=>f.name==="balanceAmount");
-  expect(multi.slice(balances[0].sourceRange!.start,balances[0].sourceRange!.end)).toBe("23005.04");
-  expect(multi.slice(balances[1].sourceRange!.start,balances[1].sourceRange!.end)).toBe("39679.56");
+  expect(multi.slice(balances[0].sourceRange!.start,balances[0].sourceRange!.end)).toBe("100.000");
+  expect(multi.slice(balances[1].sourceRange!.start,balances[1].sourceRange!.end)).toBe("112.345");
 });
 it("reverse mappings locate specific output nodes and mark CODA constants honestly",()=> {
-  const plain=convert(SAMPLES[0].content,"camt-to-coda",false);
+  const plain=convert(basic,"camt-to-coda",false);
   const r=convert(plain.outputText,"coda-to-camt",false);
   expect(r.error).toBeUndefined();
   const amount=r.fieldIndexes[0].find(f=>f.name==="amount")!;
-  expect(r.outputText.slice(amount.sourceRange!.start,amount.sourceRange!.end)).toBe("19000.000");
+  expect(r.outputText.slice(amount.sourceRange!.start,amount.sourceRange!.end)).toBe("12.345");
   expect(r.fieldIndexes[0].find(f=>f.name==="recordType")?.provenance).toBe("defaulted");
 });
 it("maps continuation communication to the contributing second Ustrd in the public long-remittance source",async()=> {

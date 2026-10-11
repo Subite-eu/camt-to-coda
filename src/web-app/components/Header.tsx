@@ -1,7 +1,5 @@
-import { Download } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import type { Direction } from "@/lib/convert";
 
@@ -10,14 +8,12 @@ export function Header(props: {
   onDirectionChange: (d: Direction) => void;
   anonymize: boolean;
   onAnonymizeChange: (v: boolean) => void;
-  onDownload: () => void;
-  canDownload: boolean;
   locked?: boolean;
 }) {
   return (
     <header className="flex flex-wrap items-center gap-3 px-4 py-3 border-b">
       <p className="font-bold tracking-tight">
-        camt2coda <span className="text-muted-foreground text-xs font-medium">field inspector</span>
+        camt2coda <span className="text-muted-foreground text-xs font-medium">bank statement converter</span>
       </p>
       <ToggleGroup
         aria-label="Conversion direction"
@@ -37,9 +33,6 @@ export function Header(props: {
           Anonymize
         </label>
         <ThemeToggle />
-        <Button onClick={props.onDownload} disabled={!props.canDownload}>
-          <Download className="size-4" /> Download
-        </Button>
       </div>
     </header>
   );

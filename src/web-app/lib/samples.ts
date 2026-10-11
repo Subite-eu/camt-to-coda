@@ -1,37 +1,61 @@
+import originals from "../../../examples/catalog.json";
 import type { Direction } from "./convert";
 
 export interface Sample {
+  id: string;
   label: string;
+  description: string;
+  format: "camt" | "coda";
   direction: Direction;
-  content: string;
+  valid: boolean;
+  path: string;
+  keywords: string;
+  load: () => Promise<string>;
 }
-
-const CAMT_053 = `<?xml version="1.0" encoding="UTF-8"?>
-<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
-<GrpHdr><MsgId>SAMPLE-001</MsgId><CreDtTm>2024-03-15T08:00:00</CreDtTm></GrpHdr>
-<Stmt><Id>STMT-1</Id>
-<Acct><Id><IBAN>BE68539007547034</IBAN></Id><Ccy>EUR</Ccy>
-<Ownr><Nm>ACME BVBA</Nm></Ownr>
-<Svcr><FinInstnId><BIC>GEBABEBB</BIC></FinInstnId></Svcr></Acct>
-<Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">23005.04</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-03-15</Dt></Dt></Bal>
-<Ntry><Amt Ccy="EUR">19000.00</Amt><CdtDbtInd>CRDT</CdtDbtInd><BookgDt><Dt>2024-03-15</Dt></BookgDt><ValDt><Dt>2024-03-15</Dt></ValDt>
-<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
-<NtryDtls><TxDtls><RltdPties><Dbtr><Nm>CLIENT NV</Nm></Dbtr></RltdPties><RmtInf><Ustrd>Invoice 2024/0042</Ustrd></RmtInf></TxDtls></NtryDtls></Ntry>
-<Ntry><Amt Ccy="EUR">2325.48</Amt><CdtDbtInd>DBIT</CdtDbtInd><BookgDt><Dt>2024-03-15</Dt></BookgDt><ValDt><Dt>2024-03-15</Dt></ValDt>
-<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
-<NtryDtls><TxDtls><RltdPties><Cdtr><Nm>SUPPLIER SA</Nm></Cdtr></RltdPties><RmtInf><Ustrd>Payment supplier</Ustrd></RmtInf></TxDtls></NtryDtls></Ntry>
-<Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">39679.56</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2024-03-15</Dt></Dt></Bal>
-</Stmt></BkToCstmrStmt></Document>`;
-
-// A minimal, valid CODA file (records 0,1,8,9 — empty movement) for the reverse demo.
-const CODA = [
-  "0" + "0000" + "150324" + "000" + "05" + " " + " ".repeat(7) + " ".repeat(10) + " ".repeat(26) + "GEBABEBB   " + " ".repeat(11) + " " + "00000" + " ".repeat(16) + " ".repeat(16) + " ".repeat(7) + "2",
-  "1" + "2" + "001" + "BE68539007547034".padEnd(34) + "EUR" + "0" + "000000023005040" + "150324" + "ACME BVBA".padEnd(26) + " ".repeat(35) + "001",
-  "8" + "001" + "BE68539007547034".padEnd(34) + "EUR" + "0" + "000000023005040" + "150324" + " ".repeat(64) + "0",
-  "9" + " ".repeat(15) + "000002" + "000000000000000" + "000000000000000" + " ".repeat(75) + "2",
-].join("\n");
-
-export const SAMPLES: Sample[] = [
-  { label: "CAMT 053 statement", direction: "camt-to-coda", content: CAMT_053 },
-  { label: "CODA file", direction: "coda-to-camt", content: CODA },
-];
+interface Original {
+  id: string; format: "camt" | "coda"; path: string; valid: boolean;
+  schema?: string | null; features: string[]; title?: string; description?: string;
+}
+// Each original is a separate lazy chunk: browsing metadata doesn't fetch bank
+// documents, and the initial application bundle stays small as the library grows.
+const sources = import.meta.glob<string>("../../../examples/{camt,coda,invalid}/*.{xml,cod}", { query: "?raw", import: "default" });
+const titles: Record<string, string> = {
+  "empty-statement": "Empty statement", "three-decimal-kwd": "Three-decimal currency · KWD",
+  "debit-and-zero": "Overdraft and zero movements", "multiple-statements": "Multiple statements",
+  "other-account": "Local account identifier", "structured-ogm": "Structured Belgian reference",
+  "long-remittance": "Long payment communication", "repeated-entry-details": "Multiple information details",
+  "return-purpose": "Return, reversal and purpose", "counterparty": "Counterparty account and name",
+  "free-communication": "Free statement communication", "crlf": "Windows line endings",
+  "monetary-details": "Monetary batch breakdown", "belgian-bban": "Belgian BBAN account",
+  "mixed-sign-details": "Mixed credit/debit batch details", "local-detail-return-reason": "Return reason on one detail",
+  "maximum-coda-amount": "Maximum CODA amount", "maximum-amount": "Maximum CODA amount",
+  "negative-opening": "Negative opening and closing balances", "foreign-iban": "Dutch IBAN account",
+  "prefixed-namespace": "Prefixed XML namespace", "single-quoted-namespace": "Single-quoted XML namespace",
+  "datetime-choices": "Dates with time and timezone", "missing-trailer": "Missing trailer",
+  "unclosed": "Unclosed XML", "mixed-currency": "Mismatched movement currency",
+  "subprecision": "More than three amount decimals", "tiny-subprecision": "Tiny excess precision",
+  "large-subprecision": "Large amount with excess precision", "detail-subprecision": "Excess detail precision",
+  "overflow": "Amount exceeds CODA capacity", "unsupported-version": "Unsupported XML version",
+  "broken-continuation": "Broken continuation link", "mismatched-closing-account": "Closing account mismatch",
+  "nonnumeric-amount": "Nonnumeric amount", "missing-account": "Missing account",
+  "invalid-ogm-checksum": "Invalid Belgian reference checksum", "empty": "Empty file",
+  "short-record": "Short fixed-width record", "wrong-trailer-total": "Incorrect trailer total",
+};
+function sample(original: Original): Sample {
+  const version = original.id.match(/^camt\.(052|053)\.001\.(\d+)$/);
+  const slug = original.id.replace(/^(camt|coda)-/, "");
+  const label = original.id === "camt.053.001.08" ? "CAMT 053 statement"
+    : original.id === "coda-basic-eur" ? "CODA file"
+    : version ? `CAMT ${version[1]} · version ${version[2]}`
+    : `${original.format.toUpperCase()} · ${original.title ?? titles[slug] ?? slug.replaceAll("-", " ")}`;
+  const description = original.description ?? (version ? `ISO 20022 ${original.schema}. Booked entry, counterparty and payment reference.`
+    : `${original.valid ? "Explore" : "Expected rejection:"} ${original.features.map(f => f.replaceAll("-", " ")).join(", ")}.`);
+  return { ...original, label, description, direction: original.format === "camt" ? "camt-to-coda" : "coda-to-camt",
+    keywords: `${label} ${description} ${original.path} ${original.features.join(" ")}`.toLowerCase(),
+    load: sources[`../../../examples/${original.path}`],
+  };
+}
+const priority = (s: Sample) => s.id === "camt.053.001.08" ? 0 : s.id === "coda-basic-eur" ? 1
+  : s.id.includes(".001.") ? 4 : s.valid ? 2 : 3;
+export const SAMPLES: Sample[] = (originals.cases as Original[]).map(sample)
+  .sort((a, b) => priority(a) - priority(b) || a.label.localeCompare(b.label));

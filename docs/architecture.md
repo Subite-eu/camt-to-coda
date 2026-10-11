@@ -75,11 +75,12 @@ src/web-app/                       React + Vite + Tailwind v4 + shadcn/ui field 
 ├── lib/{convert,fields,samples,download,cn}.ts   artifact conversion + exact field provenance
 ├── lib/{worker-client,conversion.worker,input}.ts cancellable conversion and input limits
 ├── components/{Header,FileBar,DropZone,StatementSummary,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
+├── components/{DownloadPanel,SampleLibrary}.tsx explicit downloads + searchable original sources
 ├── components/ui/*                shadcn primitives
 └── styles/globals.css             Warm Ink theme tokens (light + dark)
 ```
 
-The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). The browser worker processes inputs locally (5 MiB cap); explicit uploads to the separate [HTTP API](http-api.md) are processed on the Node server (10 MiB default body cap). The source panel retains the original while the result preview and downloads share one converted/privacy artifact. See the [user guide](user-guide.md) for the workflow.
+The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). The browser worker processes inputs locally (5 MiB cap); explicit uploads to the separate [HTTP API](http-api.md) are processed on the Node server (10 MiB default body cap). The source panel retains the original while the result preview and downloads share one converted/privacy artifact. The download panel displays the artifact filename and format, keeping notes and acknowledgment beside the action. The sample picker reads independently authored `examples/catalog.json` metadata; `import.meta.glob` loads each original as a separate lazy chunk. See the [user guide](user-guide.md) for the workflow.
 
 ## Record Builders
 
@@ -109,7 +110,7 @@ The CLI selects an implementation by input/output scheme and uses the same `read
 - **Unit tests** — each record builder, parser, formatter, and holiday calendar in isolation (`test/unit/`).
 - **Integration tests** — required independently authored original CAMT and CODA sources with literal expectations (`examples/manifest.json`, `test/integration/public-examples.test.ts`), all supported source/output XSDs, CLI and HTTP failure/privacy/multiple-statement behavior, and live MinIO in CI.
 - **Property-based tests** — `fast-check` invariants (output lines always 128 chars, field offsets sum to 128) in `test/unit/property.test.ts`.
-- **Browser tests** — built worker bundle in Chromium, Firefox, WebKit and mobile Chromium; actual uploads/downloads, privacy, multi-statement ZIP, recovery, keyboard, responsive layout and light/dark axe checks (`test/e2e/`). All 76 original-source fixtures are also uploaded and their downloads or expected errors checked. Set `PLAYWRIGHT_BASE_URL` to run the suite against a deployment; `scripts/verify-deployment.mjs` compares deployed asset bytes with a local build. Legacy private golden examples are supplemental; the public source library is required in clean checkouts.
+- **Browser tests** — built worker bundle in Chromium, Firefox, WebKit and mobile Chromium; actual uploads/downloads, sample search/filter/loading, clear download actions, privacy, multi-statement ZIP, recovery, keyboard, responsive layout and light/dark axe checks (`test/e2e/`). All 104 original-source fixtures are also uploaded and their downloads or expected errors checked. Set `PLAYWRIGHT_BASE_URL` to run the suite against a deployment; `scripts/verify-deployment.mjs` compares deployed asset bytes with a local build. Legacy private golden examples are supplemental; the public source library is required in clean checkouts.
 
 ## Specifications
 

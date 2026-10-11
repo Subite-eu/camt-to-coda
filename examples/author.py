@@ -72,12 +72,13 @@ def camt_statement(version, kind="053", account=ACCOUNT, currency="EUR", opening
         day = f"<DtTm>{DATE}T12:00:00Z</DtTm>" if datetime else f"<Dt>{DATE}</Dt>"
         body.append(f"<BookgDt>{day}</BookgDt><ValDt>{day}</ValDt><AcctSvcrRef>BANK-EXAMPLE-{index}</AcctSvcrRef>")
         family = "RCDT" if sign == "CRDT" else "ICDT"
-        body.append(f"<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>{family}</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>")
+        domain, family, subfamily = item.get("tx", ("PMNT", family, "ESCT"))
+        body.append(f"<BkTxCd><Domn><Cd>{domain}</Cd><Fmly><Cd>{family}</Cd><SubFmlyCd>{subfamily}</SubFmlyCd></Fmly></Domn></BkTxCd>")
         details = item.get("details", [item])
         detail_xml = []
         for detail in details:
             party = "Dbtr" if detail["sign"] == "CRDT" else "Cdtr"
-            party_text = f"<Nm>{esc(detail.get("name", "Example Counterparty"))}</Nm>"
+            party_text = f"<Nm>{esc(detail.get('name', detail.get('counterparty', 'Example Counterparty')))}</Nm>"
             if party_wrapper:
                 party_text = f"<Pty>{party_text}</Pty>"
             refs = f"<Refs><EndToEndId>{esc(detail['ref'])}</EndToEndId></Refs>" if detail.get("ref") else ""
@@ -142,7 +143,7 @@ def coda(account=ACCOUNT, currency="EUR", opening=100, closing=112.345,
     for index, item in enumerate(entries, 1):
         seq = f"{index:04}"
         comm = "101" + item["structured"] if item.get("structured") else item.get("comm", "")
-        code = "00150000" if item["sign"] == "CRDT" else "00101000"
+        code = item.get("code", "00150000" if item["sign"] == "CRDT" else "00101000")
         cont = bool(item.get("ref") or len(comm) > 53 or item.get("reason") or item.get("purpose"))
         cp = bool(item.get("counterparty"))
         more23 = cp or len(comm) > 106
@@ -167,11 +168,13 @@ def coda(account=ACCOUNT, currency="EUR", opening=100, closing=112.345,
     return "\n".join(lines) + "\n"
 
 
-def add(identifier, format, content, want, features, schema=None, valid=True):
+def add(identifier, format, content, want, features, schema=None, valid=True, title=None, description=None):
     path = f"{'invalid' if not valid else format}/{identifier}.{'xml' if format == 'camt' else 'cod'}"
     FILES[path] = content
     CASES.append(dict(id=identifier, format=format, path=path, valid=valid,
                       schema=schema, features=features, expected=want))
+    if title:
+        CASES[-1].update(title=title, description=description)
 
 
 def main():
@@ -264,7 +267,53 @@ def main():
     trailer = coda().splitlines()
     trailer[-1] = trailer[-1][:37] + "000000000000000" + trailer[-1][52:]
     add("coda-wrong-trailer-total", "coda", "\n".join(trailer) + "\n", [], ["trailer-total"], valid=False)
+    # Business scenarios: original XML and fixed-width inputs are authored
+    # separately. Codes follow CODA 2.6 Annexe II; literal balances below are
+    # hand-calculated expectations, never obtained from the converter.
+    scenarios = [
+        ("salary-payments", "Salary payments", "Three employees, salary purpose codes and outgoing transfers.", "EUR", 7500, 1050,
+         [entry(2500, "DBIT", comm="October salary Alex", ref="PAYROLL-ALEX", counterparty="Alex Example", purpose="SALA"), entry(2150, "DBIT", comm="October salary Sam", ref="PAYROLL-SAM", counterparty="Sam Example", purpose="SALA"), entry(1800, "DBIT", comm="October salary Robin", ref="PAYROLL-ROBIN", counterparty="Robin Example", purpose="SALA")], [2500, 2150, 1800], ["DBIT"] * 3, ["payroll", "salary", "purpose"]),
+        ("card-purchases", "Card purchases", "Three card payments for travel, supplies and meals.", "EUR", 1000, 816.35,
+         [entry(v, "DBIT", comm=c, ref=f"CARD-{i}", tx=("PMNT", "CCRD", "OTHR"), code="00402000") for i, (v, c) in enumerate([(75.5, "Train tickets"), (89.95, "Office supplies"), (18.2, "Team lunch")], 1)], [75.5, 89.95, 18.2], ["DBIT"] * 3, ["card", "payments"]),
+        ("direct-debit-bills", "Direct debit bills", "Utility, software and telephone collections from the account.", "EUR", 500, 300,
+         [entry(v, "DBIT", comm=c, ref=f"BILL-{i}", tx=("PMNT", "IDDT", "ESDD"), code="00501000") for i, (v, c) in enumerate([(49.99, "Software subscription"), (120, "Electricity bill"), (30.01, "Telephone bill")], 1)], [49.99, 120, 30.01], ["DBIT"] * 3, ["direct-debit", "subscriptions"]),
+        ("direct-debit-collections", "Direct debit collections", "Two incoming customer collections with separate references.", "EUR", 200, 600,
+         [entry(v, comm=f"Customer collection {i}", ref=f"COLLECT-{i}", tx=("PMNT", "RDDT", "ESDD"), code="00550000") for i, v in enumerate([180, 220], 1)], [180, 220], ["CRDT"] * 2, ["direct-debit", "collections"]),
+        ("instant-payments", "Instant payments", "An outgoing instant transfer and an incoming instant receipt.", "EUR", 500, 585,
+         [entry(40, "DBIT", comm="Instant supplier payment", tx=("PMNT", "ICDT", "INST"), code="00201000"), entry(125, comm="Instant customer receipt", tx=("PMNT", "RCDT", "INST"), code="00250000")], [40, 125], ["DBIT", "CRDT"], ["instant", "mixed-directions"]),
+        ("usd-international", "USD international transfer", "A US-dollar account paying an international supplier.", "USD", 10000, 8750,
+         [entry(1250, "DBIT", comm="International supplier invoice", tx=("PMNT", "ICDT", "ISCT"), code="04101000")], [1250], ["DBIT"], ["USD", "international", "currency"]),
+        ("gbp-international", "GBP international receipt", "A sterling account receiving an international payment.", "GBP", 2000, 2735.25,
+         [entry(735.25, comm="International customer receipt", tx=("PMNT", "RCDT", "ISCT"), code="04150000")], [735.25], ["CRDT"], ["GBP", "international", "currency"]),
+        ("interest-and-fees", "Interest and bank fees", "Three-decimal interest followed by account charges.", "EUR", 1000, 995.375,
+         [entry(2.875, comm="Quarterly credit interest", tx=("CAMT", "ACCB", "INTR"), code="03550000"), entry(7.5, "DBIT", comm="Account service fee", tx=("CAMT", "ACCB", "CHRG"), code="03537000")], [2.875, 7.5], ["CRDT", "DBIT"], ["interest", "fees", "three-decimals"]),
+        ("supplier-invoices", "Supplier invoice payments", "Three invoices paid to distinct suppliers and references.", "EUR", 1000, 500,
+         [entry(v, "DBIT", comm=f"Supplier invoice {i}", ref=f"INVOICE-{i}", counterparty=f"Example Supplier {i}") for i, v in enumerate([100, 150.25, 249.75], 1)], [100, 150.25, 249.75], ["DBIT"] * 3, ["invoices", "counterparties"]),
+        ("customer-refunds", "Customer refund receipts", "Two refund receipts with explicit refund purpose codes.", "EUR", 100, 200,
+         [entry(v, comm=f"Refund receipt {i}", ref=f"REFUND-{i}", purpose="REFU") for i, v in enumerate([35, 65], 1)], [35, 65], ["CRDT"] * 2, ["refund", "purpose"]),
+        ("unicode-counterparty", "Accents and special characters", "Accented party names, ampersands and quoted remittance text.", "EUR", 100, 112.345,
+         [entry(comm='Facture café & fournitures "octobre"', counterparty="Élodie & Fils")], [12.345], ["CRDT"], ["unicode", "escaping", "counterparty-name"]),
+        ("busy-month", "Busy month · 45 movements", "Mixed incoming/outgoing payments across two movement pages.", "EUR", 1000, 850,
+         [entry(10, "CRDT" if i % 3 == 0 else "DBIT", comm=f"October movement {i + 1}", ref=f"MONTH-{i + 1:03}") for i in range(45)], [10] * 45, ["CRDT" if i % 3 == 0 else "DBIT" for i in range(45)], ["pagination", "many-movements", "mixed-directions"]),
+        ("returned-payment", "Returned payment", "A booked payment return with an AC01 account reason.", "EUR", 100, 125,
+         [entry(25, comm="Returned supplier payment", reason="AC01", ref="RETURN-SUPPLIER")], [25], ["CRDT"], ["return-reason", "returned-payment"]),
+    ]
+    for name, title, description, currency, opening, closing, items, amounts, signs, features in scenarios:
+        want = [expected(currency=currency, opening=opening, closing=closing, amounts=amounts, signs=signs,
+                         transactionCodes=[item.get("code", "00150000" if item["sign"] == "CRDT" else "00101000") for item in items])]
+        if name == "unicode-counterparty":
+            want[0].update(counterparty="Élodie & Fils", remittance='Facture café & fournitures "octobre"')
+        for format in ["camt", "coda"]:
+            content = camt(currency=currency, opening=opening, closing=closing, entries=items) if format == "camt" else coda(currency=currency, opening=opening, closing=closing, entries=items)
+            add(f"{format}-{name}", format, content, want, features, schema if format == "camt" else None, title=title, description=description)
+    multi_want = [expected(), expected(account=OTHER_ACCOUNT, currency="USD", opening=5000, closing=3750, amounts=[1250], signs=["DBIT"])]
+    usd_items = [entry(1250, "DBIT", comm="USD supplier invoice")]
+    add("camt-multi-currency-accounts", "camt", camt(statements=[camt_statement(8), camt_statement(8, account=OTHER_ACCOUNT, currency="USD", opening=5000, closing=3750, entries=usd_items, sid="USD-ACCOUNT")]), multi_want, ["multiple-statements", "currency", "USD"], schema, title="Two accounts · EUR and USD", description="Separate accounts and currencies in one source document.")
+    add("coda-multi-currency-accounts", "coda", coda(last="1") + coda(account=OTHER_ACCOUNT, currency="USD", opening=5000, closing=3750, entries=usd_items, sid="USDACCOUNT"), multi_want, ["multiple-statements", "currency", "USD"], title="Two accounts · EUR and USD", description="Separate accounts and currencies in one source document.")
     FILES["manifest.json"] = json.dumps(dict(provenance="Synthetic original source fixtures authored independently from ISO 20022 XSDs and CODA 2.6 Annexe I; no converter imports or private bank data.", cases=CASES), indent=2) + "\n"
+    # Public UI metadata excludes literal test expectations and loads source
+    # bytes separately. --check covers both representations.
+    FILES["catalog.json"] = json.dumps(dict(cases=[{k: v for k, v in case.items() if k != "expected"} for case in CASES]), indent=2) + "\n"
     args = argparse.ArgumentParser()
     args.add_argument("--check", action="store_true")
     check = args.parse_args().check

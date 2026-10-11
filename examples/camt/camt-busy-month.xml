@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.08"><BkToCstmrStmt>
+<GrpHdr><MsgId>PUBLIC-EXAMPLE</MsgId><CreDtTm>2026-10-09T12:00:00Z</CreDtTm></GrpHdr>
+<Stmt><Id>EXAMPLE-001</Id><ElctrncSeqNb>1</ElctrncSeqNb><CreDtTm>2026-10-09T12:00:00Z</CreDtTm>
+<Acct><Id><IBAN>BE68539007547034</IBAN></Id><Ccy>EUR</Ccy><Ownr><Nm>Example Company</Nm></Ownr><Svcr><FinInstnId><BICFI>EXAMBEBB</BICFI></FinInstnId></Svcr></Acct>
+<Bal><Tp><CdOrPrtry><Cd>OPBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">1000.000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-09</Dt></Dt></Bal>
+<Bal><Tp><CdOrPrtry><Cd>CLBD</Cd></CdOrPrtry></Tp><Amt Ccy="EUR">850.000</Amt><CdtDbtInd>CRDT</CdtDbtInd><Dt><Dt>2026-10-09</Dt></Dt></Bal>
+<Ntry><NtryRef>ENTRY-1</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-1</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-001</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 1</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-2</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-2</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-002</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 2</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-3</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-3</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-003</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 3</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-4</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-4</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-004</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 4</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-5</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-5</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-005</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 5</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-6</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-6</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-006</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 6</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-7</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-7</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-007</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 7</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-8</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-8</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-008</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 8</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-9</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-9</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-009</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 9</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-10</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-10</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-010</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 10</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-11</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-11</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-011</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 11</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-12</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-12</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-012</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 12</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-13</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-13</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-013</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 13</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-14</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-14</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-014</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 14</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-15</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-15</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-015</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 15</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-16</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-16</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-016</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 16</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-17</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-17</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-017</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 17</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-18</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-18</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-018</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 18</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-19</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-19</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-019</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 19</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-20</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-20</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-020</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 20</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-21</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-21</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-021</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 21</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-22</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-22</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-022</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 22</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-23</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-23</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-023</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 23</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-24</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-24</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-024</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 24</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-25</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-25</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-025</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 25</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-26</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-26</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-026</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 26</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-27</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-27</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-027</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 27</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-28</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-28</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-028</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 28</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-29</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-29</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-029</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 29</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-30</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-30</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-030</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 30</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-31</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-31</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-031</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 31</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-32</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-32</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-032</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 32</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-33</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-33</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-033</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 33</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-34</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-34</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-034</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 34</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-35</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-35</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-035</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 35</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-36</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-36</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-036</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 36</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-37</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-37</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-037</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 37</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-38</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-38</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-038</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 38</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-39</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-39</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-039</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 39</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-40</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-40</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-040</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 40</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-41</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-41</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-041</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 41</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-42</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-42</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-042</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 42</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-43</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>CRDT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-43</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>RCDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-043</EndToEndId></Refs><RltdPties><Dbtr><Pty><Nm>Example Counterparty</Nm></Pty></Dbtr></RltdPties><RmtInf><Ustrd>October movement 43</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-44</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-44</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-044</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 44</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+<Ntry><NtryRef>ENTRY-45</NtryRef><Amt Ccy="EUR">10.000</Amt><CdtDbtInd>DBIT</CdtDbtInd>
+<Sts><Cd>BOOK</Cd></Sts>
+<BookgDt><Dt>2026-10-09</Dt></BookgDt><ValDt><Dt>2026-10-09</Dt></ValDt><AcctSvcrRef>BANK-EXAMPLE-45</AcctSvcrRef>
+<BkTxCd><Domn><Cd>PMNT</Cd><Fmly><Cd>ICDT</Cd><SubFmlyCd>ESCT</SubFmlyCd></Fmly></Domn></BkTxCd>
+<NtryDtls><TxDtls><Refs><EndToEndId>MONTH-045</EndToEndId></Refs><RltdPties><Cdtr><Pty><Nm>Example Counterparty</Nm></Pty></Cdtr></RltdPties><RmtInf><Ustrd>October movement 45</Ustrd></RmtInf></TxDtls></NtryDtls>
+</Ntry>
+</Stmt>
+</BkToCstmrStmt></Document>

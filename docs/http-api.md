@@ -68,7 +68,7 @@ The server necessarily receives the original request. Anonymization describes th
 | `400` | Empty/malformed input, invalid direction, missing multipart file/boundary, unsupported namespace/output version, or a conversion exception |
 | `413` | Declared or streamed body exceeds the configured cap |
 | `415` | Unsupported Content-Type, including `application/json` |
-| `422` | Modeled CAMT/CODA validation or reconciliation failed |
+| `422` | Modeled CAMT/CODA validation failed; balance reconciliation differences are advisory warnings |
 | `500` | Unexpected server error |
 
 Errors have an `error` string and may include `validation`. Error validation shapes vary by failure stage; clients must not assume every error includes `checks` or `xsdValidated`. Treat all non-2xx responses as failed conversions.

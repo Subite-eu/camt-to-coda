@@ -211,6 +211,8 @@ A conversion review workflow with an expert field inspector:
 - **Responsive** — source/result tabs on mobile, bounded panels on desktop
 - **Local conversion** — conversion runs in a cancellable browser worker; maximum 5 MiB input; offline reload is not guaranteed
 - **Explicit download review** — runtime errors block download and conversion notes require acknowledgment
+- **Clear download action** — a dedicated panel shows the output filename and Download CODA/CAMT button, plus ZIP for multiple forward results
+- **Searchable sample library** — 104 independently authored original files, format filters, scenario descriptions and opt-in invalid examples
 - **Privacy exports** — source stays original; result preview and download share the same anonymized artifact. Amounts/dates remain identifiable and deterministic pseudonyms are linkable. Synthetic account identifiers are for review, never bank import.
 
 ## Features
@@ -254,7 +256,7 @@ Configure paths and format options with the CLI arguments shown above; the retir
 
 ## Testing and public examples
 
-The [public source library](examples/README.md) contains independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes CAMT 052/053 v02–13, multi-statement and empty statements, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources.
+The [public source library](examples/README.md) contains 104 independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes salaries, card purchases, direct debits, instant and international payments, refunds, fees, interest, busy months, multi-currency accounts, CAMT 052/053 v02–13, multi-statement and empty statements, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources. The browser sample picker searches this same library.
 
 ```sh
 npm ci
@@ -268,7 +270,7 @@ npx playwright install --with-deps chromium firefox webkit
 npm run test:e2e
 ```
 
-The browser suite also uploads all 76 original fixtures, checks invalid-input blocking and compares actual downloads with the verified converter. To exercise a deployed app instead of starting a local preview:
+The browser suite also uploads all 104 original fixtures, checks invalid-input blocking and compares actual downloads with the verified converter. To exercise a deployed app instead of starting a local preview:
 
 ```sh
 PLAYWRIGHT_BASE_URL=https://camt2coda.subite.io npm run test:e2e -- --workers=2

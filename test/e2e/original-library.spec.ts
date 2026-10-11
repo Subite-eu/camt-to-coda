@@ -43,7 +43,7 @@ for (const example of cases) {
         .or(page.getByRole('alert')).first()).toBeVisible();
       const notes = page.getByRole('checkbox', { name: /I reviewed the conversion notes/ });
       if (await notes.count()) await notes.check();
-      await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeDisabled();
+      await expect(page.getByRole('button', { name: /^Download/ }).and(page.locator(':enabled'))).toHaveCount(0);
     } else {
       await expect(page.getByRole('heading', { name: 'Review conversion', exact: true })).toBeVisible();
       const expected = example.format === 'camt'
@@ -54,7 +54,7 @@ for (const example of cases) {
         const notes = page.getByRole('checkbox', { name: /I reviewed the conversion notes/ });
         if (await notes.count()) await notes.check();
         const received = page.waitForEvent('download');
-        await page.getByRole('button', { name: 'Download', exact: true }).click();
+        await page.getByRole('button', { name: /^Download (CODA|CAMT)/ }).click();
         const artifact = await received;
         expect(readFileSync((await artifact.path())!, 'utf8')).toBe(text);
       }

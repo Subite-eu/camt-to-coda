@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Toaster } from "sonner";
 import { Header } from "./components/Header";
+import { DownloadPanel } from "./components/DownloadPanel";
 import { FileBar } from "./components/FileBar";
 import { DropZone } from "./components/DropZone";
 import { SourcePanel } from "./components/SourcePanel";
@@ -92,15 +93,19 @@ export default function App() {
   const failure=result?.error||workerError;
   return <div className={`app-shell ${selected?"has-selection":""}`}>
     <a href="#workspace" className="skip-link">Skip to workspace</a>
-    <Header direction={direction} locked={!!input} onDirectionChange={setDirection} anonymize={anonymize} onAnonymizeChange={v=>{setResult(null);setSelectedId(null);setAnonymize(v);}} canDownload={canDownload} onDownload={()=>artifact&&downloadText(artifact.fileName,artifact.outputText,isForward?"text/plain":"application/xml")} />
+    <Header direction={direction} locked={!!input} onDirectionChange={setDirection} anonymize={anonymize} onAnonymizeChange={v=>{setResult(null);setSelectedId(null);setAnonymize(v);}} />
     <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
     {!input?<main id="workspace" className="flex-1"><DropZone onLoad={load} /></main>:<>
       <FileBar fileName={originalName} version={isForward?(result?.version??"Detected CAMT XML"):"Detected CODA 2.6"} recordCount={lines.length} validation={validation} onClear={clear} onIssue={navigateIssue} />
+      <DownloadPanel direction={direction} fileName={artifact?.fileName} busy={busy} cancelled={cancelled}
+        valid={!!artifact&&validation.valid&&!result?.error&&!workerError} warnings={warnings} acknowledged={acknowledged} onAcknowledge={setAcknowledged}
+        canDownload={canDownload} onDownload={()=>artifact&&downloadText(artifact.fileName,artifact.outputText,isForward?"text/plain":"application/xml")}
+        fileCount={result?.files.length??0} canDownloadAll={canDownload&&!!result?.files.every(f=>f.validation.valid)}
+        onDownloadAll={()=>result&&downloadAll(result.files,anonymize)} />
       <section aria-label="Processing and privacy scope" className="px-4 py-2 border-b text-sm space-y-2">
         <p className="text-muted-foreground">Local processing. Runtime syntax, structure, business and reconciliation checks are separate from full XSD validation. Review conversion warnings and format limits before bank import.</p>
         <details><summary className="cursor-pointer">Privacy and conversion scope</summary><p className="mt-1 max-w-prose">Anonymize protects the exported artifact and its result preview. The source pane retains your original bank data. Names, accounts, bank identifiers, references and free text are replaced or removed; amounts, dates, currency and transaction patterns remain identifiable. Pseudonyms are deterministic and linkable. CODA replacement account identifiers are demonstration data and are not valid IBANs for bank import. CAMT privacy exports use synthetic Other account identifiers. Reloading this page requires the app to be available.</p></details>
         {anonymize&&<p className="text-[color:var(--warning)]">Privacy export · Source remains original. Amounts and dates are retained. Use exported samples for review, not bank import.</p>}
-        {!!warnings.length&&<label className="flex gap-2 items-center"><input type="checkbox" checked={acknowledged} onChange={e=>setAcknowledged(e.target.checked)} />I reviewed the conversion notes and accept the documented losses for this download.</label>}
       </section>
       <main id="workspace" className="workspace" tabIndex={-1} aria-busy={busy}>
         {busy||cancelled||failure?<div className="flex flex-col min-h-0 flex-1 p-3 gap-3">
@@ -116,9 +121,8 @@ export default function App() {
           <section className="workspace-toolbar p-3 border-b flex flex-wrap gap-3 items-center text-sm" aria-label="Review controls">
             <h1 className="font-semibold">Review conversion</h1>
             <label>Statement <select aria-label="Statement" value={statement} onChange={e=>{setStatement(Number(e.target.value));setSelectedId(null);setAcknowledged(false);}} className="border rounded p-2 bg-background">{result.statements.map((_,i)=><option key={i} value={i}>Statement {i+1} of {result.statements.length}</option>)}</select></label>
-            <Button variant={view==="summary"?"default":"outline"} aria-pressed={view==="summary"} onClick={()=>setView("summary")}>Summary</Button>
-            <Button variant={view==="expert"?"default":"outline"} aria-pressed={view==="expert"} onClick={()=>setView("expert")}>Inspect fields</Button>
-            {result.files.length>1&&<Button variant="outline" disabled={!result.files.every(f=>f.validation.valid)||!!result.files.flatMap(f=>f.validation.warnings).length&&!acknowledged} onClick={()=>downloadAll(result.files,anonymize)}>Download all ({result.files.length})</Button>}
+            <Button variant={view==="summary"?"secondary":"outline"} aria-pressed={view==="summary"} onClick={()=>setView("summary")}>Summary</Button>
+            <Button variant={view==="expert"?"secondary":"outline"} aria-pressed={view==="expert"} onClick={()=>setView("expert")}>Inspect fields</Button>
           </section>
           {view==="summary"?<div className="panel-scroll p-4"><StatementSummary key={statement} statement={result.statements[statement]} index={index} onSelect={id=>{select(id);setView("expert");}} /><p className="text-sm mt-4 text-muted-foreground">Select Inspect fields to compare the original source and converted result. The XML and CODA views share exact node mappings where available.</p></div>:<>
             <div role="tablist" aria-label="Document view" className="mobile-tabs px-3 pt-2" onKeyDown={e=>{if(e.key==="ArrowLeft"||e.key==="ArrowRight"){e.preventDefault();const next=mobileTab==="source"?"result":"source";setMobileTab(next);document.getElementById(`${next}-tab`)?.focus();}}}><button role="tab" tabIndex={mobileTab==="source"?0:-1} id="source-tab" aria-controls="source-document" aria-selected={mobileTab==="source"} onClick={()=>setMobileTab("source")}>Source</button><button role="tab" tabIndex={mobileTab==="result"?0:-1} id="result-tab" aria-controls="result-document" aria-selected={mobileTab==="result"} onClick={()=>setMobileTab("result")}>Result</button></div>

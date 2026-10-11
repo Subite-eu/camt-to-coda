@@ -18,7 +18,7 @@ describe("App (integration)", () => {
     // empty state
     expect(screen.getByText(/drop a camt xml or coda file/i)).toBeInTheDocument();
     // load the CAMT sample
-    await userEvent.click(screen.getByRole("button", { name: /sample: camt 053/i }));
+    await userEvent.click(screen.getByRole("button", { name: "Sample: CAMT 053 statement" }));
     await screen.findByRole("heading", { name: "Statement summary" });
     await userEvent.click(screen.getByRole("button", { name: "Inspect fields" }));
     // panels render
@@ -35,7 +35,7 @@ describe("App (integration)", () => {
 
   it("shows the valid badge in the file bar after loading", async () => {
     renderApp();
-    await userEvent.click(screen.getByRole("button", { name: /sample: camt 053/i }));
+    await userEvent.click(screen.getByRole("button", { name: "Sample: CAMT 053 statement" }));
     expect(await screen.findByText(/✓ Valid/i)).toBeInTheDocument();
   });
 });

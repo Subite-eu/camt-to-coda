@@ -1,0 +1,13 @@
+0000009102600005        PUBLIC0001                          EXAMBEBB               00000                                       2
+12001BE68539007547034                  EUR0000000007500000091026Example Company                                              001
+2100010000BANK-EXAMPLE-1       1000000002500000091026001010000October salary Alex                                  09102600101 0
+2200010000                                                     PAYROLL-ALEX                                              SALA1 0
+2300010000BE71096123456769                  EURAlex Example                                                                  0 0
+2100020000BANK-EXAMPLE-2       1000000002150000091026001010000October salary Sam                                   09102600101 0
+2200020000                                                     PAYROLL-SAM                                               SALA1 0
+2300020000BE71096123456769                  EURSam Example                                                                   0 0
+2100030000BANK-EXAMPLE-3       1000000001800000091026001010000October salary Robin                                 09102600101 0
+2200030000                                                     PAYROLL-ROBIN                                             SALA1 0
+2300030000BE71096123456769                  EURRobin Example                                                                 0 0
+8001BE68539007547034                  EUR0000000001050000091026                                                                0
+9               000011000000006450000000000000000000                                                                           2
