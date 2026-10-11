@@ -1865,6 +1865,1218 @@
         "trailer-total"
       ],
       "expected": []
+    },
+    {
+      "id": "camt-salary-payments",
+      "format": "camt",
+      "path": "camt/camt-salary-payments.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "payroll",
+        "salary",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 7500,
+          "closing": 1050,
+          "amounts": [
+            2500,
+            2150,
+            1800
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00101000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Salary payments",
+      "description": "Three employees, salary purpose codes and outgoing transfers."
+    },
+    {
+      "id": "coda-salary-payments",
+      "format": "coda",
+      "path": "coda/coda-salary-payments.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "payroll",
+        "salary",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 7500,
+          "closing": 1050,
+          "amounts": [
+            2500,
+            2150,
+            1800
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00101000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Salary payments",
+      "description": "Three employees, salary purpose codes and outgoing transfers."
+    },
+    {
+      "id": "camt-card-purchases",
+      "format": "camt",
+      "path": "camt/camt-card-purchases.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "card",
+        "payments"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 816.35,
+          "amounts": [
+            75.5,
+            89.95,
+            18.2
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00402000",
+            "00402000",
+            "00402000"
+          ]
+        }
+      ],
+      "title": "Card purchases",
+      "description": "Three card payments for travel, supplies and meals."
+    },
+    {
+      "id": "coda-card-purchases",
+      "format": "coda",
+      "path": "coda/coda-card-purchases.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "card",
+        "payments"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 816.35,
+          "amounts": [
+            75.5,
+            89.95,
+            18.2
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00402000",
+            "00402000",
+            "00402000"
+          ]
+        }
+      ],
+      "title": "Card purchases",
+      "description": "Three card payments for travel, supplies and meals."
+    },
+    {
+      "id": "camt-direct-debit-bills",
+      "format": "camt",
+      "path": "camt/camt-direct-debit-bills.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "direct-debit",
+        "subscriptions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 500,
+          "closing": 300,
+          "amounts": [
+            49.99,
+            120,
+            30.01
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00501000",
+            "00501000",
+            "00501000"
+          ]
+        }
+      ],
+      "title": "Direct debit bills",
+      "description": "Utility, software and telephone collections from the account."
+    },
+    {
+      "id": "coda-direct-debit-bills",
+      "format": "coda",
+      "path": "coda/coda-direct-debit-bills.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "direct-debit",
+        "subscriptions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 500,
+          "closing": 300,
+          "amounts": [
+            49.99,
+            120,
+            30.01
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00501000",
+            "00501000",
+            "00501000"
+          ]
+        }
+      ],
+      "title": "Direct debit bills",
+      "description": "Utility, software and telephone collections from the account."
+    },
+    {
+      "id": "camt-direct-debit-collections",
+      "format": "camt",
+      "path": "camt/camt-direct-debit-collections.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "direct-debit",
+        "collections"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 200,
+          "closing": 600,
+          "amounts": [
+            180,
+            220
+          ],
+          "signs": [
+            "CRDT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00550000",
+            "00550000"
+          ]
+        }
+      ],
+      "title": "Direct debit collections",
+      "description": "Two incoming customer collections with separate references."
+    },
+    {
+      "id": "coda-direct-debit-collections",
+      "format": "coda",
+      "path": "coda/coda-direct-debit-collections.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "direct-debit",
+        "collections"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 200,
+          "closing": 600,
+          "amounts": [
+            180,
+            220
+          ],
+          "signs": [
+            "CRDT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00550000",
+            "00550000"
+          ]
+        }
+      ],
+      "title": "Direct debit collections",
+      "description": "Two incoming customer collections with separate references."
+    },
+    {
+      "id": "camt-instant-payments",
+      "format": "camt",
+      "path": "camt/camt-instant-payments.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "instant",
+        "mixed-directions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 500,
+          "closing": 585,
+          "amounts": [
+            40,
+            125
+          ],
+          "signs": [
+            "DBIT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00201000",
+            "00250000"
+          ]
+        }
+      ],
+      "title": "Instant payments",
+      "description": "An outgoing instant transfer and an incoming instant receipt."
+    },
+    {
+      "id": "coda-instant-payments",
+      "format": "coda",
+      "path": "coda/coda-instant-payments.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "instant",
+        "mixed-directions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 500,
+          "closing": 585,
+          "amounts": [
+            40,
+            125
+          ],
+          "signs": [
+            "DBIT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00201000",
+            "00250000"
+          ]
+        }
+      ],
+      "title": "Instant payments",
+      "description": "An outgoing instant transfer and an incoming instant receipt."
+    },
+    {
+      "id": "camt-usd-international",
+      "format": "camt",
+      "path": "camt/camt-usd-international.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "USD",
+        "international",
+        "currency"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "USD",
+          "opening": 10000,
+          "closing": 8750,
+          "amounts": [
+            1250
+          ],
+          "signs": [
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "04101000"
+          ]
+        }
+      ],
+      "title": "USD international transfer",
+      "description": "A US-dollar account paying an international supplier."
+    },
+    {
+      "id": "coda-usd-international",
+      "format": "coda",
+      "path": "coda/coda-usd-international.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "USD",
+        "international",
+        "currency"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "USD",
+          "opening": 10000,
+          "closing": 8750,
+          "amounts": [
+            1250
+          ],
+          "signs": [
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "04101000"
+          ]
+        }
+      ],
+      "title": "USD international transfer",
+      "description": "A US-dollar account paying an international supplier."
+    },
+    {
+      "id": "camt-gbp-international",
+      "format": "camt",
+      "path": "camt/camt-gbp-international.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "GBP",
+        "international",
+        "currency"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "GBP",
+          "opening": 2000,
+          "closing": 2735.25,
+          "amounts": [
+            735.25
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "04150000"
+          ]
+        }
+      ],
+      "title": "GBP international receipt",
+      "description": "A sterling account receiving an international payment."
+    },
+    {
+      "id": "coda-gbp-international",
+      "format": "coda",
+      "path": "coda/coda-gbp-international.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "GBP",
+        "international",
+        "currency"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "GBP",
+          "opening": 2000,
+          "closing": 2735.25,
+          "amounts": [
+            735.25
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "04150000"
+          ]
+        }
+      ],
+      "title": "GBP international receipt",
+      "description": "A sterling account receiving an international payment."
+    },
+    {
+      "id": "camt-interest-and-fees",
+      "format": "camt",
+      "path": "camt/camt-interest-and-fees.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "interest",
+        "fees",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 995.375,
+          "amounts": [
+            2.875,
+            7.5
+          ],
+          "signs": [
+            "CRDT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "03550000",
+            "03537000"
+          ]
+        }
+      ],
+      "title": "Interest and bank fees",
+      "description": "Three-decimal interest followed by account charges."
+    },
+    {
+      "id": "coda-interest-and-fees",
+      "format": "coda",
+      "path": "coda/coda-interest-and-fees.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "interest",
+        "fees",
+        "three-decimals"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 995.375,
+          "amounts": [
+            2.875,
+            7.5
+          ],
+          "signs": [
+            "CRDT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "03550000",
+            "03537000"
+          ]
+        }
+      ],
+      "title": "Interest and bank fees",
+      "description": "Three-decimal interest followed by account charges."
+    },
+    {
+      "id": "camt-supplier-invoices",
+      "format": "camt",
+      "path": "camt/camt-supplier-invoices.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "invoices",
+        "counterparties"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 500,
+          "amounts": [
+            100,
+            150.25,
+            249.75
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00101000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Supplier invoice payments",
+      "description": "Three invoices paid to distinct suppliers and references."
+    },
+    {
+      "id": "coda-supplier-invoices",
+      "format": "coda",
+      "path": "coda/coda-supplier-invoices.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "invoices",
+        "counterparties"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 500,
+          "amounts": [
+            100,
+            150.25,
+            249.75
+          ],
+          "signs": [
+            "DBIT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00101000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Supplier invoice payments",
+      "description": "Three invoices paid to distinct suppliers and references."
+    },
+    {
+      "id": "camt-customer-refunds",
+      "format": "camt",
+      "path": "camt/camt-customer-refunds.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "refund",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 200,
+          "amounts": [
+            35,
+            65
+          ],
+          "signs": [
+            "CRDT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000",
+            "00150000"
+          ]
+        }
+      ],
+      "title": "Customer refund receipts",
+      "description": "Two refund receipts with explicit refund purpose codes."
+    },
+    {
+      "id": "coda-customer-refunds",
+      "format": "coda",
+      "path": "coda/coda-customer-refunds.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "refund",
+        "purpose"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 200,
+          "amounts": [
+            35,
+            65
+          ],
+          "signs": [
+            "CRDT",
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000",
+            "00150000"
+          ]
+        }
+      ],
+      "title": "Customer refund receipts",
+      "description": "Two refund receipts with explicit refund purpose codes."
+    },
+    {
+      "id": "camt-unicode-counterparty",
+      "format": "camt",
+      "path": "camt/camt-unicode-counterparty.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "unicode",
+        "escaping",
+        "counterparty-name"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000"
+          ],
+          "counterparty": "\u00c9lodie & Fils",
+          "remittance": "Facture caf\u00e9 & fournitures \"octobre\""
+        }
+      ],
+      "title": "Accents and special characters",
+      "description": "Accented party names, ampersands and quoted remittance text."
+    },
+    {
+      "id": "coda-unicode-counterparty",
+      "format": "coda",
+      "path": "coda/coda-unicode-counterparty.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "unicode",
+        "escaping",
+        "counterparty-name"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000"
+          ],
+          "counterparty": "\u00c9lodie & Fils",
+          "remittance": "Facture caf\u00e9 & fournitures \"octobre\""
+        }
+      ],
+      "title": "Accents and special characters",
+      "description": "Accented party names, ampersands and quoted remittance text."
+    },
+    {
+      "id": "camt-busy-month",
+      "format": "camt",
+      "path": "camt/camt-busy-month.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "pagination",
+        "many-movements",
+        "mixed-directions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 850,
+          "amounts": [
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10
+          ],
+          "signs": [
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Busy month \u00b7 45 movements",
+      "description": "Mixed incoming/outgoing payments across two movement pages."
+    },
+    {
+      "id": "coda-busy-month",
+      "format": "coda",
+      "path": "coda/coda-busy-month.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "pagination",
+        "many-movements",
+        "mixed-directions"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 1000,
+          "closing": 850,
+          "amounts": [
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10,
+            10
+          ],
+          "signs": [
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT",
+            "CRDT",
+            "DBIT",
+            "DBIT"
+          ],
+          "transactionCodes": [
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000",
+            "00150000",
+            "00101000",
+            "00101000"
+          ]
+        }
+      ],
+      "title": "Busy month \u00b7 45 movements",
+      "description": "Mixed incoming/outgoing payments across two movement pages."
+    },
+    {
+      "id": "camt-returned-payment",
+      "format": "camt",
+      "path": "camt/camt-returned-payment.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "return-reason",
+        "returned-payment"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 125,
+          "amounts": [
+            25
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000"
+          ]
+        }
+      ],
+      "title": "Returned payment",
+      "description": "A booked payment return with an AC01 account reason."
+    },
+    {
+      "id": "coda-returned-payment",
+      "format": "coda",
+      "path": "coda/coda-returned-payment.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "return-reason",
+        "returned-payment"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 125,
+          "amounts": [
+            25
+          ],
+          "signs": [
+            "CRDT"
+          ],
+          "transactionCodes": [
+            "00150000"
+          ]
+        }
+      ],
+      "title": "Returned payment",
+      "description": "A booked payment return with an AC01 account reason."
+    },
+    {
+      "id": "camt-multi-currency-accounts",
+      "format": "camt",
+      "path": "camt/camt-multi-currency-accounts.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "multiple-statements",
+        "currency",
+        "USD"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        },
+        {
+          "account": "BE71096123456769",
+          "currency": "USD",
+          "opening": 5000,
+          "closing": 3750,
+          "amounts": [
+            1250
+          ],
+          "signs": [
+            "DBIT"
+          ]
+        }
+      ],
+      "title": "Two accounts \u00b7 EUR and USD",
+      "description": "Separate accounts and currencies in one source document."
+    },
+    {
+      "id": "coda-multi-currency-accounts",
+      "format": "coda",
+      "path": "coda/coda-multi-currency-accounts.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "multiple-statements",
+        "currency",
+        "USD"
+      ],
+      "expected": [
+        {
+          "account": "BE68539007547034",
+          "currency": "EUR",
+          "opening": 100,
+          "closing": 112.345,
+          "amounts": [
+            12.345
+          ],
+          "signs": [
+            "CRDT"
+          ]
+        },
+        {
+          "account": "BE71096123456769",
+          "currency": "USD",
+          "opening": 5000,
+          "closing": 3750,
+          "amounts": [
+            1250
+          ],
+          "signs": [
+            "DBIT"
+          ]
+        }
+      ],
+      "title": "Two accounts \u00b7 EUR and USD",
+      "description": "Separate accounts and currencies in one source document."
     }
   ]
 }

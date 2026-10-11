@@ -8,7 +8,9 @@ Current changes are listed under Unreleased. Older entries describe their histor
 
 - Bidirectional browser review with statement summaries, reconciliation, pagination, multi-statement selection/ZIP, exact field provenance, keyboard navigation, responsive panels, cancellation and recovery.
 - Privacy exports in both browser/API directions, with consistent result preview/download, safe filenames and explicit retained-data boundaries.
-- 76 independently authored original CAMT and CODA fixtures with literal expectations, positive/negative cases and all supported input/output XSD checks.
+- 104 independently authored original CAMT and CODA fixtures with literal expectations, positive/negative cases and all supported input/output XSD checks; business scenarios include salaries, cards, direct debits, international transfers, interest, refunds and busy statements.
+- Searchable browser sample library with format filters, descriptions, opt-in invalid examples and original files loaded on demand.
+- Prominent download panel with the converted filename, explicit CODA/CAMT action, adjacent note acknowledgment and multi-file ZIP option.
 - Required CI on Node 22/24, four browser projects with accessibility and actual downloads, dependency audit, live MinIO and Docker CLI/web smoke checks before publication.
 - Remote browser testing through `PLAYWRIGHT_BASE_URL`, deployed asset byte verification, and dated audit/deployment evidence.
 - Current documentation index and HTTP API reference covering request/response shapes, limits, validation and privacy.

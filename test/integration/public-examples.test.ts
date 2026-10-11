@@ -13,7 +13,7 @@ import type { CamtStatement } from "../../src/core/model.js";
 
 interface ExpectedStatement {
   account: string; currency: string; opening: number; closing: number;
-  amounts: number[]; signs: string[];
+  amounts: number[]; signs: string[]; transactionCodes?: string[];
   openingSign?: string; closingSign?: string; detailCount?: number;
   reason?: string; reversal?: boolean; purpose?: string;
   detailAmounts?: number[]; detailBankReferences?: string[];
@@ -45,6 +45,10 @@ function checkStatement(actual: CamtStatement, expected: ExpectedStatement) {
   expect(actual.closingBalance.creditDebit).toBe(expected.closingSign ?? "CRDT");
   expect(actual.entries.map((e) => e.amount)).toEqual(expected.amounts);
   expect(actual.entries.map((e) => e.creditDebit)).toEqual(expected.signs);
+  if (expected.transactionCodes) {
+    const movements = statementToCoda(actual).lines.filter(l => l.recordType === "2.1" && l.fields.find(f => f.name === "detailNumber")?.value === "0000");
+    expect(movements.map(l => l.fields.find(f => f.name === "transactionCode")?.value)).toEqual(expected.transactionCodes);
+  }
   const details = actual.entries.flatMap((e) => e.details);
   const monetary = details.filter(d => d.amount !== undefined);
   if (expected.detailSigns) expect(monetary.map(d => d.creditDebit)).toEqual(expected.detailSigns);

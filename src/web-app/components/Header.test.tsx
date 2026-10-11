@@ -12,8 +12,6 @@ function renderHeader(props: Partial<Parameters<typeof Header>[0]> = {}) {
         onDirectionChange={() => {}}
         anonymize={false}
         onAnonymizeChange={() => {}}
-        onDownload={() => {}}
-        canDownload
         {...props}
       />
     </ThemeProvider>,
@@ -26,11 +24,6 @@ describe("Header", () => {
     renderHeader({ onDirectionChange: onDir });
     await userEvent.click(screen.getByRole("radio", { name: /CODA → CAMT/i }));
     expect(onDir).toHaveBeenCalledWith("coda-to-camt");
-  });
-
-  it("disables download when canDownload is false", () => {
-    renderHeader({ canDownload: false });
-    expect(screen.getByRole("button", { name: /download/i })).toBeDisabled();
   });
 
   it("toggles anonymize", async () => {

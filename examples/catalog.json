@@ -1,0 +1,1271 @@
+{
+  "cases": [
+    {
+      "id": "camt.052.001.02",
+      "format": "camt",
+      "path": "camt/camt.052.001.02.xml",
+      "valid": true,
+      "schema": "camt.052.001.02",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.03",
+      "format": "camt",
+      "path": "camt/camt.052.001.03.xml",
+      "valid": true,
+      "schema": "camt.052.001.03",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.04",
+      "format": "camt",
+      "path": "camt/camt.052.001.04.xml",
+      "valid": true,
+      "schema": "camt.052.001.04",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.05",
+      "format": "camt",
+      "path": "camt/camt.052.001.05.xml",
+      "valid": true,
+      "schema": "camt.052.001.05",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.06",
+      "format": "camt",
+      "path": "camt/camt.052.001.06.xml",
+      "valid": true,
+      "schema": "camt.052.001.06",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.07",
+      "format": "camt",
+      "path": "camt/camt.052.001.07.xml",
+      "valid": true,
+      "schema": "camt.052.001.07",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.08",
+      "format": "camt",
+      "path": "camt/camt.052.001.08.xml",
+      "valid": true,
+      "schema": "camt.052.001.08",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.09",
+      "format": "camt",
+      "path": "camt/camt.052.001.09.xml",
+      "valid": true,
+      "schema": "camt.052.001.09",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.10",
+      "format": "camt",
+      "path": "camt/camt.052.001.10.xml",
+      "valid": true,
+      "schema": "camt.052.001.10",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.11",
+      "format": "camt",
+      "path": "camt/camt.052.001.11.xml",
+      "valid": true,
+      "schema": "camt.052.001.11",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.12",
+      "format": "camt",
+      "path": "camt/camt.052.001.12.xml",
+      "valid": true,
+      "schema": "camt.052.001.12",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.052.001.13",
+      "format": "camt",
+      "path": "camt/camt.052.001.13.xml",
+      "valid": true,
+      "schema": "camt.052.001.13",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.02",
+      "format": "camt",
+      "path": "camt/camt.053.001.02.xml",
+      "valid": true,
+      "schema": "camt.053.001.02",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.03",
+      "format": "camt",
+      "path": "camt/camt.053.001.03.xml",
+      "valid": true,
+      "schema": "camt.053.001.03",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.04",
+      "format": "camt",
+      "path": "camt/camt.053.001.04.xml",
+      "valid": true,
+      "schema": "camt.053.001.04",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.05",
+      "format": "camt",
+      "path": "camt/camt.053.001.05.xml",
+      "valid": true,
+      "schema": "camt.053.001.05",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.06",
+      "format": "camt",
+      "path": "camt/camt.053.001.06.xml",
+      "valid": true,
+      "schema": "camt.053.001.06",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.07",
+      "format": "camt",
+      "path": "camt/camt.053.001.07.xml",
+      "valid": true,
+      "schema": "camt.053.001.07",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.08",
+      "format": "camt",
+      "path": "camt/camt.053.001.08.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.09",
+      "format": "camt",
+      "path": "camt/camt.053.001.09.xml",
+      "valid": true,
+      "schema": "camt.053.001.09",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.10",
+      "format": "camt",
+      "path": "camt/camt.053.001.10.xml",
+      "valid": true,
+      "schema": "camt.053.001.10",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.11",
+      "format": "camt",
+      "path": "camt/camt.053.001.11.xml",
+      "valid": true,
+      "schema": "camt.053.001.11",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.12",
+      "format": "camt",
+      "path": "camt/camt.053.001.12.xml",
+      "valid": true,
+      "schema": "camt.053.001.12",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt.053.001.13",
+      "format": "camt",
+      "path": "camt/camt.053.001.13.xml",
+      "valid": true,
+      "schema": "camt.053.001.13",
+      "features": [
+        "version",
+        "booked-entry",
+        "party",
+        "end-to-end-reference",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt-prefixed-namespace",
+      "format": "camt",
+      "path": "camt/camt-prefixed-namespace.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "prefixed-namespace"
+      ]
+    },
+    {
+      "id": "camt-single-quoted-namespace",
+      "format": "camt",
+      "path": "camt/camt-single-quoted-namespace.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "single-quoted-namespace"
+      ]
+    },
+    {
+      "id": "camt-datetime-choices",
+      "format": "camt",
+      "path": "camt/camt-datetime-choices.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "datetime-choices"
+      ]
+    },
+    {
+      "id": "camt-empty-statement",
+      "format": "camt",
+      "path": "camt/camt-empty-statement.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "empty-statement"
+      ]
+    },
+    {
+      "id": "camt-three-decimal-kwd",
+      "format": "camt",
+      "path": "camt/camt-three-decimal-kwd.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "currency",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "camt-debit-and-zero",
+      "format": "camt",
+      "path": "camt/camt-debit-and-zero.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "debit-balance",
+        "zero-movement"
+      ]
+    },
+    {
+      "id": "camt-multiple-statements",
+      "format": "camt",
+      "path": "camt/camt-multiple-statements.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "multiple-statements"
+      ]
+    },
+    {
+      "id": "camt-other-account",
+      "format": "camt",
+      "path": "camt/camt-other-account.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "other-account"
+      ]
+    },
+    {
+      "id": "camt-structured-ogm",
+      "format": "camt",
+      "path": "camt/camt-structured-ogm.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "structured-ogm",
+        "checksum"
+      ]
+    },
+    {
+      "id": "camt-long-remittance",
+      "format": "camt",
+      "path": "camt/camt-long-remittance.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "long-remittance",
+        "multiple-unstructured",
+        "continuation-boundary-space"
+      ]
+    },
+    {
+      "id": "camt-repeated-entry-details",
+      "format": "camt",
+      "path": "camt/camt-repeated-entry-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "repeated-entry-details",
+        "multiple-details"
+      ]
+    },
+    {
+      "id": "camt-return-purpose",
+      "format": "camt",
+      "path": "camt/camt-return-purpose.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "return-reason",
+        "reversal",
+        "purpose"
+      ]
+    },
+    {
+      "id": "coda-basic-eur",
+      "format": "coda",
+      "path": "coda/coda-basic-eur.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "original-coda",
+        "three-decimals",
+        "customer-reference"
+      ]
+    },
+    {
+      "id": "coda-empty-statement",
+      "format": "coda",
+      "path": "coda/coda-empty-statement.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "empty-statement"
+      ]
+    },
+    {
+      "id": "coda-three-decimal-kwd",
+      "format": "coda",
+      "path": "coda/coda-three-decimal-kwd.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "currency",
+        "three-decimals"
+      ]
+    },
+    {
+      "id": "coda-debit-and-zero",
+      "format": "coda",
+      "path": "coda/coda-debit-and-zero.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "debit-balance",
+        "zero-movement"
+      ]
+    },
+    {
+      "id": "coda-multiple-statements",
+      "format": "coda",
+      "path": "coda/coda-multiple-statements.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "multiple-statements",
+        "multiple-file-indicator"
+      ]
+    },
+    {
+      "id": "coda-counterparty",
+      "format": "coda",
+      "path": "coda/coda-counterparty.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "counterparty-account",
+        "counterparty-name"
+      ]
+    },
+    {
+      "id": "coda-structured-ogm",
+      "format": "coda",
+      "path": "coda/coda-structured-ogm.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "structured-ogm",
+        "information-record"
+      ]
+    },
+    {
+      "id": "coda-long-remittance",
+      "format": "coda",
+      "path": "coda/coda-long-remittance.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "record-3.3",
+        "long-remittance",
+        "continuation-boundary-space"
+      ]
+    },
+    {
+      "id": "coda-return-purpose",
+      "format": "coda",
+      "path": "coda/coda-return-purpose.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "return-reason",
+        "reversal",
+        "purpose"
+      ]
+    },
+    {
+      "id": "coda-free-communication",
+      "format": "coda",
+      "path": "coda/coda-free-communication.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "record-4",
+        "documented-loss"
+      ]
+    },
+    {
+      "id": "coda-crlf",
+      "format": "coda",
+      "path": "coda/coda-crlf.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "crlf"
+      ]
+    },
+    {
+      "id": "camt-monetary-details",
+      "format": "camt",
+      "path": "camt/camt-monetary-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "monetary-details",
+        "no-double-counting"
+      ]
+    },
+    {
+      "id": "camt-detail-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-detail-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "detail-subprecision"
+      ]
+    },
+    {
+      "id": "camt-mixed-sign-details",
+      "format": "camt",
+      "path": "camt/camt-mixed-sign-details.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "mixed-sign-details",
+        "own-and-counterparty",
+        "creditor-role"
+      ]
+    },
+    {
+      "id": "camt-local-detail-return-reason",
+      "format": "camt",
+      "path": "camt/camt-local-detail-return-reason.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "detail-return-reason",
+        "no-sibling-contamination"
+      ]
+    },
+    {
+      "id": "coda-monetary-details",
+      "format": "coda",
+      "path": "coda/coda-monetary-details.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "monetary-details",
+        "no-double-counting",
+        "detail-bank-reference"
+      ]
+    },
+    {
+      "id": "coda-belgian-bban",
+      "format": "coda",
+      "path": "coda/coda-belgian-bban.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "belgian-bban",
+        "packed-currency"
+      ]
+    },
+    {
+      "id": "camt-maximum-coda-amount",
+      "format": "camt",
+      "path": "camt/camt-maximum-coda-amount.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "maximum-amount",
+        "fixed-point"
+      ]
+    },
+    {
+      "id": "coda-maximum-amount",
+      "format": "coda",
+      "path": "coda/coda-maximum-amount.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "maximum-amount",
+        "fixed-point"
+      ]
+    },
+    {
+      "id": "camt-negative-opening",
+      "format": "camt",
+      "path": "camt/camt-negative-opening.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "negative-opening",
+        "negative-closing"
+      ]
+    },
+    {
+      "id": "coda-negative-opening",
+      "format": "coda",
+      "path": "coda/coda-negative-opening.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "negative-opening",
+        "negative-closing"
+      ]
+    },
+    {
+      "id": "camt-foreign-iban",
+      "format": "camt",
+      "path": "camt/camt-foreign-iban.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "foreign-iban"
+      ]
+    },
+    {
+      "id": "coda-foreign-iban",
+      "format": "coda",
+      "path": "coda/coda-foreign-iban.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "foreign-iban"
+      ]
+    },
+    {
+      "id": "camt-mixed-currency",
+      "format": "camt",
+      "path": "invalid/camt-mixed-currency.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "mixed-currency"
+      ]
+    },
+    {
+      "id": "camt-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "subprecision"
+      ]
+    },
+    {
+      "id": "camt-tiny-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-tiny-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "tiny-subprecision",
+        "no-tolerance-rounding"
+      ]
+    },
+    {
+      "id": "camt-large-subprecision",
+      "format": "camt",
+      "path": "invalid/camt-large-subprecision.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "large-subprecision",
+        "validate-before-float"
+      ]
+    },
+    {
+      "id": "camt-overflow",
+      "format": "camt",
+      "path": "invalid/camt-overflow.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "overflow"
+      ]
+    },
+    {
+      "id": "camt-unsupported-version",
+      "format": "camt",
+      "path": "invalid/camt-unsupported-version.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "unsupported-version"
+      ]
+    },
+    {
+      "id": "coda-broken-continuation",
+      "format": "coda",
+      "path": "invalid/coda-broken-continuation.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "continuation-link"
+      ]
+    },
+    {
+      "id": "coda-mismatched-closing-account",
+      "format": "coda",
+      "path": "invalid/coda-mismatched-closing-account.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "account-consistency"
+      ]
+    },
+    {
+      "id": "camt-unclosed",
+      "format": "camt",
+      "path": "invalid/camt-unclosed.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "syntax"
+      ]
+    },
+    {
+      "id": "camt-nonnumeric-amount",
+      "format": "camt",
+      "path": "invalid/camt-nonnumeric-amount.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "numeric-domain"
+      ]
+    },
+    {
+      "id": "camt-missing-account",
+      "format": "camt",
+      "path": "invalid/camt-missing-account.xml",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "required-account"
+      ]
+    },
+    {
+      "id": "coda-invalid-ogm-checksum",
+      "format": "coda",
+      "path": "invalid/coda-invalid-ogm-checksum.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "invalid-ogm-checksum"
+      ]
+    },
+    {
+      "id": "coda-empty",
+      "format": "coda",
+      "path": "invalid/coda-empty.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "empty-input"
+      ]
+    },
+    {
+      "id": "coda-short-record",
+      "format": "coda",
+      "path": "invalid/coda-short-record.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "line-width"
+      ]
+    },
+    {
+      "id": "coda-missing-trailer",
+      "format": "coda",
+      "path": "invalid/coda-missing-trailer.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "required-trailer"
+      ]
+    },
+    {
+      "id": "coda-nonnumeric-amount",
+      "format": "coda",
+      "path": "invalid/coda-nonnumeric-amount.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "numeric-domain"
+      ]
+    },
+    {
+      "id": "coda-wrong-trailer-total",
+      "format": "coda",
+      "path": "invalid/coda-wrong-trailer-total.cod",
+      "valid": false,
+      "schema": null,
+      "features": [
+        "trailer-total"
+      ]
+    },
+    {
+      "id": "camt-salary-payments",
+      "format": "camt",
+      "path": "camt/camt-salary-payments.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "payroll",
+        "salary",
+        "purpose"
+      ],
+      "title": "Salary payments",
+      "description": "Three employees, salary purpose codes and outgoing transfers."
+    },
+    {
+      "id": "coda-salary-payments",
+      "format": "coda",
+      "path": "coda/coda-salary-payments.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "payroll",
+        "salary",
+        "purpose"
+      ],
+      "title": "Salary payments",
+      "description": "Three employees, salary purpose codes and outgoing transfers."
+    },
+    {
+      "id": "camt-card-purchases",
+      "format": "camt",
+      "path": "camt/camt-card-purchases.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "card",
+        "payments"
+      ],
+      "title": "Card purchases",
+      "description": "Three card payments for travel, supplies and meals."
+    },
+    {
+      "id": "coda-card-purchases",
+      "format": "coda",
+      "path": "coda/coda-card-purchases.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "card",
+        "payments"
+      ],
+      "title": "Card purchases",
+      "description": "Three card payments for travel, supplies and meals."
+    },
+    {
+      "id": "camt-direct-debit-bills",
+      "format": "camt",
+      "path": "camt/camt-direct-debit-bills.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "direct-debit",
+        "subscriptions"
+      ],
+      "title": "Direct debit bills",
+      "description": "Utility, software and telephone collections from the account."
+    },
+    {
+      "id": "coda-direct-debit-bills",
+      "format": "coda",
+      "path": "coda/coda-direct-debit-bills.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "direct-debit",
+        "subscriptions"
+      ],
+      "title": "Direct debit bills",
+      "description": "Utility, software and telephone collections from the account."
+    },
+    {
+      "id": "camt-direct-debit-collections",
+      "format": "camt",
+      "path": "camt/camt-direct-debit-collections.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "direct-debit",
+        "collections"
+      ],
+      "title": "Direct debit collections",
+      "description": "Two incoming customer collections with separate references."
+    },
+    {
+      "id": "coda-direct-debit-collections",
+      "format": "coda",
+      "path": "coda/coda-direct-debit-collections.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "direct-debit",
+        "collections"
+      ],
+      "title": "Direct debit collections",
+      "description": "Two incoming customer collections with separate references."
+    },
+    {
+      "id": "camt-instant-payments",
+      "format": "camt",
+      "path": "camt/camt-instant-payments.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "instant",
+        "mixed-directions"
+      ],
+      "title": "Instant payments",
+      "description": "An outgoing instant transfer and an incoming instant receipt."
+    },
+    {
+      "id": "coda-instant-payments",
+      "format": "coda",
+      "path": "coda/coda-instant-payments.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "instant",
+        "mixed-directions"
+      ],
+      "title": "Instant payments",
+      "description": "An outgoing instant transfer and an incoming instant receipt."
+    },
+    {
+      "id": "camt-usd-international",
+      "format": "camt",
+      "path": "camt/camt-usd-international.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "USD",
+        "international",
+        "currency"
+      ],
+      "title": "USD international transfer",
+      "description": "A US-dollar account paying an international supplier."
+    },
+    {
+      "id": "coda-usd-international",
+      "format": "coda",
+      "path": "coda/coda-usd-international.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "USD",
+        "international",
+        "currency"
+      ],
+      "title": "USD international transfer",
+      "description": "A US-dollar account paying an international supplier."
+    },
+    {
+      "id": "camt-gbp-international",
+      "format": "camt",
+      "path": "camt/camt-gbp-international.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "GBP",
+        "international",
+        "currency"
+      ],
+      "title": "GBP international receipt",
+      "description": "A sterling account receiving an international payment."
+    },
+    {
+      "id": "coda-gbp-international",
+      "format": "coda",
+      "path": "coda/coda-gbp-international.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "GBP",
+        "international",
+        "currency"
+      ],
+      "title": "GBP international receipt",
+      "description": "A sterling account receiving an international payment."
+    },
+    {
+      "id": "camt-interest-and-fees",
+      "format": "camt",
+      "path": "camt/camt-interest-and-fees.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "interest",
+        "fees",
+        "three-decimals"
+      ],
+      "title": "Interest and bank fees",
+      "description": "Three-decimal interest followed by account charges."
+    },
+    {
+      "id": "coda-interest-and-fees",
+      "format": "coda",
+      "path": "coda/coda-interest-and-fees.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "interest",
+        "fees",
+        "three-decimals"
+      ],
+      "title": "Interest and bank fees",
+      "description": "Three-decimal interest followed by account charges."
+    },
+    {
+      "id": "camt-supplier-invoices",
+      "format": "camt",
+      "path": "camt/camt-supplier-invoices.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "invoices",
+        "counterparties"
+      ],
+      "title": "Supplier invoice payments",
+      "description": "Three invoices paid to distinct suppliers and references."
+    },
+    {
+      "id": "coda-supplier-invoices",
+      "format": "coda",
+      "path": "coda/coda-supplier-invoices.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "invoices",
+        "counterparties"
+      ],
+      "title": "Supplier invoice payments",
+      "description": "Three invoices paid to distinct suppliers and references."
+    },
+    {
+      "id": "camt-customer-refunds",
+      "format": "camt",
+      "path": "camt/camt-customer-refunds.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "refund",
+        "purpose"
+      ],
+      "title": "Customer refund receipts",
+      "description": "Two refund receipts with explicit refund purpose codes."
+    },
+    {
+      "id": "coda-customer-refunds",
+      "format": "coda",
+      "path": "coda/coda-customer-refunds.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "refund",
+        "purpose"
+      ],
+      "title": "Customer refund receipts",
+      "description": "Two refund receipts with explicit refund purpose codes."
+    },
+    {
+      "id": "camt-unicode-counterparty",
+      "format": "camt",
+      "path": "camt/camt-unicode-counterparty.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "unicode",
+        "escaping",
+        "counterparty-name"
+      ],
+      "title": "Accents and special characters",
+      "description": "Accented party names, ampersands and quoted remittance text."
+    },
+    {
+      "id": "coda-unicode-counterparty",
+      "format": "coda",
+      "path": "coda/coda-unicode-counterparty.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "unicode",
+        "escaping",
+        "counterparty-name"
+      ],
+      "title": "Accents and special characters",
+      "description": "Accented party names, ampersands and quoted remittance text."
+    },
+    {
+      "id": "camt-busy-month",
+      "format": "camt",
+      "path": "camt/camt-busy-month.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "pagination",
+        "many-movements",
+        "mixed-directions"
+      ],
+      "title": "Busy month \u00b7 45 movements",
+      "description": "Mixed incoming/outgoing payments across two movement pages."
+    },
+    {
+      "id": "coda-busy-month",
+      "format": "coda",
+      "path": "coda/coda-busy-month.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "pagination",
+        "many-movements",
+        "mixed-directions"
+      ],
+      "title": "Busy month \u00b7 45 movements",
+      "description": "Mixed incoming/outgoing payments across two movement pages."
+    },
+    {
+      "id": "camt-returned-payment",
+      "format": "camt",
+      "path": "camt/camt-returned-payment.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "return-reason",
+        "returned-payment"
+      ],
+      "title": "Returned payment",
+      "description": "A booked payment return with an AC01 account reason."
+    },
+    {
+      "id": "coda-returned-payment",
+      "format": "coda",
+      "path": "coda/coda-returned-payment.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "return-reason",
+        "returned-payment"
+      ],
+      "title": "Returned payment",
+      "description": "A booked payment return with an AC01 account reason."
+    },
+    {
+      "id": "camt-multi-currency-accounts",
+      "format": "camt",
+      "path": "camt/camt-multi-currency-accounts.xml",
+      "valid": true,
+      "schema": "camt.053.001.08",
+      "features": [
+        "multiple-statements",
+        "currency",
+        "USD"
+      ],
+      "title": "Two accounts \u00b7 EUR and USD",
+      "description": "Separate accounts and currencies in one source document."
+    },
+    {
+      "id": "coda-multi-currency-accounts",
+      "format": "coda",
+      "path": "coda/coda-multi-currency-accounts.cod",
+      "valid": true,
+      "schema": null,
+      "features": [
+        "multiple-statements",
+        "currency",
+        "USD"
+      ],
+      "title": "Two accounts \u00b7 EUR and USD",
+      "description": "Separate accounts and currencies in one source document."
+    }
+  ]
+}

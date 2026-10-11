@@ -1,7 +1,7 @@
 import { afterEach, it, expect, vi } from "vitest";
 import { startConversion } from "./worker-client";
 import { convert } from "./convert";
-import { SAMPLES } from "./samples";
+import basic from "../../../examples/camt/camt.053.001.08.xml?raw";
 class FakeWorker {
   static instances:FakeWorker[]=[];
   onmessage:((event:{data:unknown})=>void)|null=null;
@@ -21,7 +21,7 @@ it("terminates a cancelled job and ignores late worker completion",()=> {
 it("returns completed artifacts and terminates its worker",()=> {
   vi.stubGlobal("Worker",FakeWorker);const done=vi.fn();
   startConversion("source","camt-to-coda",false,done,vi.fn());
-  const result=convert(SAMPLES[0].content,"camt-to-coda",false);
+  const result=convert(basic,"camt-to-coda",false);
   const worker=FakeWorker.instances[0];worker.onmessage?.({data:result});
   expect(done).toHaveBeenCalledWith(result);expect(worker.terminate).toHaveBeenCalled();
 });
@@ -33,5 +33,5 @@ it("surfaces startup and worker failures as recoverable messages",()=> {
 });
 it("cancels a deferred fallback before any conversion",()=> {
   vi.stubGlobal("Worker",undefined);vi.useFakeTimers();const done=vi.fn();
-  startConversion(SAMPLES[0].content,"camt-to-coda",false,done,vi.fn())();vi.runAllTimers();expect(done).not.toHaveBeenCalled();
+  startConversion(basic,"camt-to-coda",false,done,vi.fn())();vi.runAllTimers();expect(done).not.toHaveBeenCalled();
 });

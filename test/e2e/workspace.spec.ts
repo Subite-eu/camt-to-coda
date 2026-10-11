@@ -17,7 +17,7 @@ async function acceptNotes(page: Page) {
 async function download(page: Page) {
   await acceptNotes(page);
   const received = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download', exact: true }).click();
+  await page.getByRole('button', { name: /^Download (CODA|CAMT)/ }).click();
   const artifact = await received;
   return { name: artifact.suggestedFilename(), text: readFileSync((await artifact.path())!, 'utf8') };
 }
@@ -43,7 +43,7 @@ test('forward conversion preserves every statement and downloads a ZIP', async (
   await expect(page.getByRole('region', { name: 'Statement summary' })).toContainText('21.000 EUR');
   await acceptNotes(page);
   const received = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download all (2)' }).click();
+  await page.getByRole('button', { name: 'Download all (2) · ZIP' }).click();
   const artifact = await received;
   const files = Object.values(unzipSync(readFileSync((await artifact.path())!))).map(strFromU8);
   expect(files).toHaveLength(2);
@@ -93,7 +93,7 @@ test('invalid input keeps the original source and offers recovery', async ({ pag
   await page.goto('/');
   await page.getByLabel('Choose CAMT or CODA file').setInputFiles(resolve('examples/invalid/camt-unclosed.xml'));
   await expect(page.getByRole('heading', { name: 'Conversion needs attention' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Download', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /^Download (CODA|CAMT)/ })).toBeDisabled();
   await expect(page.getByText('Original source', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Load another file', exact: true }).last().click();
   await expect(page.getByRole('heading', { name: 'Drop a CAMT XML or CODA file' })).toBeVisible();
