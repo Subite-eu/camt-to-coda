@@ -22,3 +22,4 @@ The overview states that BAHTNET adopted ISO 20022 in 2022. The member corner li
 ## Banks and published resources
 
 - [HSBC Thailand](hsbc-thailand/README.md) — camt.052 v2; camt.053 v2; camt.052 v8 (announced, date TBD in this document); camt.053 v8 (announced, date TBD in this document); camt.054 (announced, date TBD)
+- [United Overseas Bank (UOB)](uob/README.md) — camt.052; camt.053

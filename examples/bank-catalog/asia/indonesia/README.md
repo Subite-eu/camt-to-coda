@@ -22,3 +22,4 @@ The BI-FAST FAQ requires ISO 20022 message-format readiness. The 2024 economic r
 ## Banks and published resources
 
 - [DBS Indonesia](dbs-indonesia/README.md) — camt.052; camt.053
+- [United Overseas Bank (UOB)](uob/README.md) — camt.052; camt.053

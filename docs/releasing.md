@@ -21,7 +21,7 @@ git tag -a vX.Y.Z -m "Release X.Y.Z"
 git push origin vX.Y.Z
 ```
 
-Pushing a `v*` tag starts [release.yml](../.github/workflows/release.yml). Its `validate` job calls the reusable [build workflow](../.github/workflows/build-push-action.yml): Node 22/24 builds/coverage, public examples and XSDs, catalog/index consistency, all 104 inventoried bank originals with pinned acquisition and source/XSD checks, twelve bank compatibility originals and their browser downloads, four standard browser projects, dependency audit, live MinIO and Docker CLI/web smoke checks. The release job depends on that validation succeeding.
+Pushing a `v*` tag starts [release.yml](../.github/workflows/release.yml). Its `validate` job calls the reusable [build workflow](../.github/workflows/build-push-action.yml): Node 22/24 builds/coverage, public examples and XSDs, catalog/index consistency, all 119 inventoried bank originals/payloads with pinned acquisition and source/XSD checks, twelve bank compatibility originals and their browser downloads, 29 separately classified third-party CODA fixtures with required pinned acquisition and acceptance/rejection checks, four standard browser projects, dependency audit, live MinIO and Docker CLI/web smoke checks. The release job depends on that validation succeeding.
 
 ## What automation publishes
 

@@ -5,6 +5,14 @@ import { toMillis } from './money.js';
 const DEFAULT_VERSION = 'camt.053.001.08';
 function esc(s: string): string { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function tag(n: string, v: string): string { return `<${n}>${esc(v)}</${n}>`; }
+function bicTag(bic: string, v: number, location: 'account' | 'counterparty'): string {
+    // specifications/CAMT/camt.053.001.02–07.xsd: BICIdentifier/BICFIIdentifier;
+    // .08–13.xsd: BICFIDec2014Identifier permits bank digits and 0/1/O locations.
+    const pattern = v < 8 ? /^[A-Z]{6}[A-Z2-9][A-NP-Z0-9](?:[A-Z0-9]{3})?$/ : /^[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2}(?:[A-Z0-9]{3})?$/;
+    if ((bic.length !== 8 && bic.length !== 11) || !pattern.test(bic))
+        throw new Error(`Invalid CAMT ${location} BIC ${JSON.stringify(bic)} for camt.053.001.${String(v).padStart(2, '0')}`);
+    return tag(v === 2 ? 'BIC' : 'BICFI', bic);
+}
 function amt(a: number, c: string): string {
     if (!Number.isFinite(a) || a < 0)
         throw new Error('Invalid CAMT amount');
@@ -50,8 +58,8 @@ function tx(d: TransactionDetail, e: CamtEntry, v: number, reason?: string): str
             x += `<${party}Acct><Id>` + (cp.iban ? tag('IBAN', cp.iban) : '<Othr>' + tag('Id', cp.otherId!) + '</Othr>') + `</Id></${party}Acct>`;
         x += '</RltdPties>';
     }
-    if (cp?.bic)
-        x += `<RltdAgts><${party}Agt><FinInstnId>${tag(v === 2 ? 'BIC' : 'BICFI', cp.bic)}</FinInstnId></${party}Agt></RltdAgts>`;
+    if (cp?.bic !== undefined)
+        x += `<RltdAgts><${party}Agt><FinInstnId>${bicTag(cp.bic, v, 'counterparty')}</FinInstnId></${party}Agt></RltdAgts>`;
     if (d.categoryPurpose && v >= 10)
         x += '<PmtTpInf><CtgyPurp>' + tag('Cd', d.categoryPurpose) + '</CtgyPurp></PmtTpInf>';
     if (d.purpose)
@@ -106,8 +114,8 @@ function statement(s: CamtStatement, v: number): string {
     x += '<Acct><Id>' + (a.iban ? tag('IBAN', a.iban) : '<Othr>' + tag('Id', a.otherId!) + '</Othr>') + '</Id>' + tag('Ccy', a.currency);
     if (a.ownerName)
         x += '<Ownr>' + tag('Nm', a.ownerName) + '</Ownr>';
-    if (a.bic)
-        x += '<Svcr><FinInstnId>' + tag(v === 2 ? 'BIC' : 'BICFI', a.bic) + '</FinInstnId></Svcr>';
+    if (a.bic !== undefined)
+        x += '<Svcr><FinInstnId>' + bicTag(a.bic, v, 'account') + '</FinInstnId></Svcr>';
     return x + '</Acct>' + balance(s.openingBalance, 'OPBD', a.currency) + balance(s.closingBalance, 'CLBD', a.currency) + s.entries.map(e => entry(e, v)).join('') + (s.freeCommunications?.length ? tag('AddtlStmtInf', s.freeCommunications.join('\n')) : '') + '</Stmt>';
 }
 export function statementsToXml(statements: CamtStatement[], version = DEFAULT_VERSION): string {

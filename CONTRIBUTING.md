@@ -33,7 +33,8 @@ npm run test:watch
 npm run test:coverage
 npm run test:examples      # Public sources, literal expectations, XSDs and round trips
 npm run test:bank          # Twelve bank originals: semantic conversion and XSD checks
-npm run test:bank:catalog  # All 104 inventoried originals: integrity, content and XSD checks
+npm run test:bank:catalog  # All 119 inventoried originals/payloads: integrity, content and XSD checks
+npm run test:coda:published # 29 third-party CODA sources with explicit provenance
 npm run build
 npm run build:web
 npm run test:e2e           # Built app: Chromium, Firefox, WebKit and mobile Chromium
@@ -42,7 +43,7 @@ npm run test:bank:e2e -- --project=chromium
 npm run test:ci
 ```
 
-`npm test` skips acquisition-dependent bank checks unless `BANK_CORPUS_REQUIRED=1`; `npm run test:bank` fetches verified originals and requires those checks. Restricted publisher originals must remain outside commits, published bundles, shared caches and CI artifacts. The 22 unchanged attributed Bundesbank fixtures are the documented exception: do not edit/normalize/relicense them. `npm run test:bank:catalog` fetches all 82 external inventoried XML files and validates all 104 source fixtures; `BANK_CATALOG_REQUIRED=1` makes missing originals fail. Read the [bank corpus provenance/terms](examples/bank-published/README.md) before adding sources; literal expectations must come from the original, not converter output. Complete bank-issued CODA sourcing remains unresolved.
+`npm test` skips acquisition-dependent bank checks unless `BANK_CORPUS_REQUIRED=1`; `npm run test:bank` fetches verified originals and requires those checks. Restricted publisher originals must remain outside commits, published bundles, shared caches and CI artifacts. The 22 unchanged attributed Bundesbank fixtures are the documented exception: do not edit/normalize/relicense them. `npm run test:bank:catalog` fetches all 97 external inventoried XML originals/payloads and validates all 119 source fixtures; `BANK_CATALOG_REQUIRED=1` makes missing originals fail. Read the [bank corpus provenance/terms](examples/bank-published/README.md) before adding sources; literal expectations must come from the original, not converter output. `npm run test:coda:published` retrieves 29 distinct third-party CODA fixtures; `CODA_CORPUS_REQUIRED=1` makes missing files fail, and `CODA_CORPUS_DIR` selects the ephemeral cache. Metadata preserves each original encoding, license and fixture classification. Complete bank-issued CODA sourcing remains unresolved.
 
 `npm test` skips the optional live MinIO cases when `MINIO_ENDPOINT` is unset. CI runs those cases in a dedicated required job. To reproduce it locally:
 
@@ -92,7 +93,7 @@ Use ESM imports with `.js` extensions from TypeScript, 2-space indentation and e
 
 Create a branch from `main`, implement the change and its regression coverage, update affected current guides and `[Unreleased]` in [CHANGELOG.md](CHANGELOG.md), and open a PR against `main`.
 
-GitHub Actions requires Node 22/24 conversion, typecheck, build and coverage checks; independent public-source/XSD checks; four browser projects with accessibility and actual download assertions; a separate bank-original integrity/conversion/Chromium job; a dependency audit; live MinIO; and Docker CLI/web smoke checks. The standard browser suite includes all 104 synthetic originals; the required bank job separately checks all 104 inventoried source files and runs twelve compatibility-original uploads/downloads and one library check without uploading original-file artifacts. Main Docker publication and tagged releases depend on these gates. All relevant checks and independent review must pass before merging. See [releasing](docs/releasing.md) for the separate release process.
+GitHub Actions requires Node 22/24 conversion, typecheck, build and coverage checks; independent public-source/XSD checks; four browser projects with accessibility and actual download assertions; a separate bank-original integrity/conversion/Chromium job; a dependency audit; live MinIO; and Docker CLI/web smoke checks. The standard browser suite includes all 104 synthetic originals; the required bank job separately checks all 119 inventoried source files and runs twelve compatibility-original uploads/downloads and one library check without uploading original-file artifacts. The same required source job acquires and validates all 29 third-party CODA fixtures, including source defects and strict conversion rejections. Main Docker publication and tagged releases depend on these gates. All relevant checks and independent review must pass before merging. See [releasing](docs/releasing.md) for the separate release process.
 
 
 ## Maintaining bank and country references

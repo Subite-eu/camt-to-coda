@@ -13,13 +13,29 @@ Verified 2026-10-11. Publisher: commercial-bank.
 - [Official reporting guide](https://www.postfinance.ch/content/dam/pfch/doc/0_399/01765_de.pdf) — specification; public-file
 - [Official reporting information](https://www.postfinance.ch/de/support/partner/partnerinformationen-zahlungsverkehr-und-billing-solutions.html) — availability; public-page
 - [Testing portal (registration required)](https://testplattform.postfinance.ch) — portal; registration
+- [Public original sample-file collection](https://www.postfinance.ch/en/support/documents/sample-files-for-business-customers.html) — availability; public-page
+- [camt053_P_CH2909000000250094239_1110092698_0_2020062503071366_v2009.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2020062503071366_v2009.xml) — sample-file; public-file
+- [camt053_P_CH2909000000250094239_1110092698_0_2020112503071366_v2019.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2020112503071366_v2019.xml) — sample-file; public-file
+- [camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2013.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2013.xml) — sample-file; public-file
+- [camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml) — sample-file; public-file
+- [200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml) — sample-file; public-file
+- [200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml](https://www.postfinance.ch/content/dam/pfch/doc/musterfile/200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml) — sample-file; public-file
 
 ## Scope and source notes
 
-Public PDF parameter/specification; test platform login; no public static sample found.
+Public anonymous sample page verified on the second sweep, including unchanged CAMT052/053 v04/v08 XML and separate CAMT054 examples. Sample filenames labelled v2009 do not necessarily mean an ISO v02 namespace: actual CAMT052/053 files use v04. Six 052/053 originals are pinned and schema-validated. Test-platform registration is separate; source examples are illustrative, not customer production exports.
 
-No open redistribution licence established. Consult the publisher before republishing originals.
+[Publisher usage terms](https://www.postfinance.ch/en/detail/legal-information-and-accessibility.html).
 
 ## Original-source inventory
 
-No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+Exact byte lengths, archive/member hashes and source structure facts are in [the canonical source inventory](../../../source-inventory.json). Market-specific sample names do not establish service entitlement for every account.
+
+| Inventory ID | Original filename / ZIP member | Source XSD status |
+| --- | --- | --- |
+| postfinance-01 | camt053_P_CH2909000000250094239_1110092698_0_2020062503071366_v2009.xml | valid |
+| postfinance-02 | camt053_P_CH2909000000250094239_1110092698_0_2020112503071366_v2019.xml | valid |
+| postfinance-03 | camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2013.xml | valid |
+| postfinance-04 | camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml | valid |
+| postfinance-05 | 200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml | valid |
+| postfinance-06 | 200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml | valid |

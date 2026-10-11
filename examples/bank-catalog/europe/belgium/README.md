@@ -21,7 +21,15 @@ Region: Europe. Sources verified 2026-10-11. Scope follows source documentation,
 
 Current landing links 242-page 053 and 223-page 054 guides. Guideline 2.1 uses namespace 001.02. No independent national 052 guide verified. 2025 payment-initiation publications do not establish CAMT v08 support. Febelfin disclaimer does not grant open redistribution.
 
+See also the [Belgian CODA source investigation](../../../coda-published/README.md): original third-party fixtures and bank availability evidence, kept separate from bank-published XML.
+
 ## Banks and published resources
 
-- [Belfius Bank](belfius-bank/README.md) — camt.052; camt.053; camt.054
-- [KBC Bank](kbc-bank/README.md) — CAMT05x version2; CAMT05x version3
+- [Belfius Bank](belfius-bank/README.md) — camt.052; camt.053; camt.054; CODA version 2
+- [KBC Bank](kbc-bank/README.md) — CAMT05x version2; CAMT05x version3; CODA
+- [ING](ing/README.md) — camt.052.001.02; camt.053.001.08; CODA
+- [Crelan](crelan/README.md) — CODA
+- [Argenta](argenta/README.md) — CODA
+- [Beobank](beobank/README.md) — CODA
+- [Bank Van Breda / Banque Van Breda](bank-van-breda/README.md) — CODA
+- [BNP Paribas Fortis](bnp-paribas-fortis/README.md) — CODA; camt.053; camt.054

@@ -67,7 +67,7 @@ jobs:
     steps:
       - name: Configure ephemeral original-source directories
         run: |
-          printf 'BANK_CORPUS_DIR=%s/bank-published\nBANK_CATALOG_DIR=%s/bank-catalog\n' "$RUNNER_TEMP" "$RUNNER_TEMP" >> "$GITHUB_ENV"
+          printf 'BANK_CORPUS_DIR=%s/bank-published\nBANK_CATALOG_DIR=%s/bank-catalog\nCODA_CORPUS_DIR=%s/coda-published\n' "$RUNNER_TEMP" "$RUNNER_TEMP" "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: npm }
@@ -75,13 +75,14 @@ jobs:
       - run: npm ci
       - run: npm run test:bank
       - run: npm run test:bank:catalog
+      - run: npm run test:coda:published
       - run: npx playwright install --with-deps chromium
       - run: npm run build:web
       - run: npm run test:bank:e2e -- --project=chromium --workers=2
       # Publisher originals and derived downloads must never be uploaded or
       # stored in shared caches; a failed fetch/hash check fails this job.
       - if: always()
-        run: rm -rf "$BANK_CORPUS_DIR" "$BANK_CATALOG_DIR" test-results playwright-report
+        run: rm -rf "$BANK_CORPUS_DIR" "$BANK_CATALOG_DIR" "$CODA_CORPUS_DIR" test-results playwright-report
 
   security:
     name: Dependency audit

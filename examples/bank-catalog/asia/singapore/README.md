@@ -21,3 +21,4 @@ The official indexed page lists an ISO 20022 adoption study and a non-participan
 ## Banks and published resources
 
 - [SEB](seb/README.md) — camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08; camt.054.001.02 (reference); camt.054.001.08 (reference)
+- [United Overseas Bank (UOB)](uob/README.md) — camt.052; camt.053

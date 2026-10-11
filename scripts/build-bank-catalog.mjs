@@ -28,11 +28,22 @@ export function validateCatalog(banks, references, inventory) {
     if (!bankIds.has(s.bankId) || sourceIds.has(s.id)) throw new Error(`Unlinked or duplicate original: ${s.id}`);
     sourceIds.add(s.id);
     if (![s.sourceSha256, s.downloadSha256].every(h => /^[a-f0-9]{64}$/.test(h)) || s.sourceBytes <= 0 || s.downloadBytes <= 0) throw new Error(`Unpinned source: ${s.id}`);
+    if (s.payloadRange) {
+      const { offset, length } = s.payloadRange;
+      if (!s.zipMember || !/^[a-f0-9]{64}$/.test(s.zipMemberSha256 ?? '') || !Number.isSafeInteger(s.zipMemberBytes) || !Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length <= 0 || offset + length > s.zipMemberBytes || length !== s.sourceBytes) throw new Error(`Unpinned or invalid payload: ${s.id}`);
+    }
+    for (const origin of s.allowedRedirectOrigins ?? []) {
+      const url = new URL(origin);
+      if (url.protocol !== 'https:' || url.origin !== origin) throw new Error(`Invalid redirect origin: ${s.id}`);
+    }
   }
 }
 function resources(e) { return e.resources.map(r => `- [${r.label}](${r.url}) — ${r.kind}; ${r.access}`).join('\n'); }
 export function renderCatalog(banks, references, inventory, verifiedOn) {
   validateCatalog(banks, references, inventory);
+  const statusCount = status => inventory.filter(s => s.xsdStatus === status).length;
+  const committedCount = inventory.filter(s => s.repositoryPath).length;
+  const externalCount = inventory.length - committedCount;
   const files = new Map();
   const groups = new Map();
   for (const e of [...banks, ...references]) for (const m of e.markets) {
@@ -45,10 +56,11 @@ export function renderCatalog(banks, references, inventory, verifiedOn) {
     'This curated catalog records primary-source evidence, not universal availability or bank certification. A country may share regional guidance, publish only payment/clearing rules, or leave CAMT reporting to individual banks. An absent country is **not yet inventoried**, not evidence that ISO 20022 or CAMT is unavailable.', '',
     'Use the browser’s **Bank catalog** to search by bank/authority, region, country and resource type. [Bank evidence](catalog.json), [country/reference evidence](country-references.json) and [original-source inventory](source-inventory.json) are the canonical machine-readable records. Each geography folder below groups banks and national/regional references together.', '',
     '## Original samples and validation', '',
-    '**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **104 different bank-published XML originals**: 95 validate against the bundled ISO XSD, five have missing element namespaces, two are invalid as published, and two are wrapped SWIFT references without a bundled envelope schema.', '',
-    '**22 Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. The other 82 original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from the 104 count.', '',
+    `**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **${inventory.length} different bank-published XML originals/payloads**: ${statusCount('valid')} validate against the bundled ISO XSD, ${statusCount('missing-element-namespace')} have missing element namespaces, ${statusCount('invalid-as-published')} are invalid as published, and ${statusCount('wrapped-reference')} are wrapped SWIFT references without a bundled envelope schema.`, '',
+    `**${committedCount} Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. ${externalCount} original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from this count.`, '',
     'Run `npm run catalog:check` for metadata/index consistency. `npm run test:bank:catalog` retrieves all external originals and checks unchanged bytes, independently counted reports/entries/details and documented XSD outcomes. The separate [12-file ING/ABN/Nordea compatibility corpus](../bank-published/README.md) additionally checks literal monetary/account/detail facts, CODA output, twelve reverse versions and real browser downloads. Inventory membership alone does not certify converter compatibility.', '',
     'The converter supports standalone CAMT052/053 and CODA 2.6. CAMT054, SWIFT wrappers, payment-clearing messages and namespace-less originals are reference material. No complete bank-published CODA original with established reuse rights has yet been acquired; that gap remains explicit.', '',
+    'See the separate [Belgian CODA publisher research and fixture corpus](../coda-published/README.md) for developer examples, source limitations and documented bank availability. These are not bank-issued originals.', '',
     '## Geography index', '', '| Region | Country / scope | Banks / brands | Authority references |', '| --- | --- | ---: | ---: |'];
   for (const [key, group] of [...groups].sort(([a], [b]) => a.localeCompare(b))) {
     const dir = `${slug(group.region)}/${slug(group.country)}`;
@@ -56,6 +68,7 @@ export function renderCatalog(banks, references, inventory, verifiedOn) {
     const body = [header, `# ${group.country}`, '', `Region: ${group.region}. Sources verified ${verifiedOn}. Scope follows source documentation, not assumed nationwide CAMT availability.`, '', '## Country / regional references', ''];
     for (const e of group.references) body.push(`### ${e.authority}`, '', `**Role:** ${e.role}`, '', `**Reporting coverage:** ${e.reportingCoverage}`, '', `**Messages / versions:** ${e.formats.join('; ')}`, '', resources(e), '', e.notes, '');
     if (!group.references.length) body.push('No country-level reference verified in this catalog yet. Consult bank-specific documentation below; do not infer a missing national standard.', '');
+    if (group.country === 'Belgium') body.push('See also the [Belgian CODA source investigation](../../../coda-published/README.md): original third-party fixtures and bank availability evidence, kept separate from bank-published XML.', '');
     body.push('## Banks and published resources', '');
     for (const b of group.banks) {
       body.push(`- [${b.bank}](${b.id}/README.md) — ${b.formats.join('; ')}`);

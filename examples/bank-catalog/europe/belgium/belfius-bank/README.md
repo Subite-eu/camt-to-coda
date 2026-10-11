@@ -6,16 +6,16 @@ Verified 2026-10-11. Publisher: commercial-bank.
 
 **Documented market:** Belgium
 
-**Formats / versions:** camt.052; camt.053; camt.054
+**Formats / versions:** camt.052; camt.053; camt.054; CODA version 2
 
 ## Official resources
 
-- [Official reporting documentation](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx) — availability; public-page
+- [CODA version 2 and XML reporting service, including globalisation options](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx) — availability; public-page
 - [Additional official reporting information](https://www.belfius.be/redirect?key=EEPFORMSWIFT_EN) — availability; public-page
 
 ## Scope and source notes
 
-Public official page describes EOD053/intraday052 and links Febelfin statement specification1.0; exact namespace version unspecified. XML migration on customer request. Swift configuration form lists052/053/054. No public bank original XML found; linked Febelfin guideline is standards-body material. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.
+Public official page describes EOD053/intraday052 and links Febelfin statement specification1.0; exact namespace version unspecified. XML migration on customer request. Swift configuration form lists052/053/054. No public bank original XML found; linked Febelfin guideline is standards-body material. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish. The service page explicitly confirms CODA version 2 and daily per-account reporting, with globalisation and separate-detail options. No complete public bank-published CODA original was verified.
 
 No open redistribution licence established. Consult the publisher before republishing originals.
 

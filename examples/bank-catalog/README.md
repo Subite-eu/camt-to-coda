@@ -2,7 +2,7 @@
 
 # Worldwide bank and country reference catalog
 
-Verified 2026-10-11: **57 bank/brand entries**, **57 authority references**, **54 country, regional or global groupings**, and **104 byte-verified CAMT052/053 originals**.
+Verified 2026-10-11: **97 bank/brand entries**, **58 authority references**, **61 country, regional or global groupings**, and **119 byte-verified CAMT052/053 originals**.
 
 This curated catalog records primary-source evidence, not universal availability or bank certification. A country may share regional guidance, publish only payment/clearing rules, or leave CAMT reporting to individual banks. An absent country is **not yet inventoried**, not evidence that ISO 20022 or CAMT is unavailable.
 
@@ -10,69 +10,78 @@ Use the browser’s **Bank catalog** to search by bank/authority, region, countr
 
 ## Original samples and validation
 
-**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **104 different bank-published XML originals**: 95 validate against the bundled ISO XSD, five have missing element namespaces, two are invalid as published, and two are wrapped SWIFT references without a bundled envelope schema.
+**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **119 different bank-published XML originals/payloads**: 107 validate against the bundled ISO XSD, 5 have missing element namespaces, 5 are invalid as published, and 2 are wrapped SWIFT references without a bundled envelope schema.
 
-**22 Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. The other 82 original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from the 104 count.
+**22 Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. 97 original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from this count.
 
 Run `npm run catalog:check` for metadata/index consistency. `npm run test:bank:catalog` retrieves all external originals and checks unchanged bytes, independently counted reports/entries/details and documented XSD outcomes. The separate [12-file ING/ABN/Nordea compatibility corpus](../bank-published/README.md) additionally checks literal monetary/account/detail facts, CODA output, twelve reverse versions and real browser downloads. Inventory membership alone does not certify converter compatibility.
 
 The converter supports standalone CAMT052/053 and CODA 2.6. CAMT054, SWIFT wrappers, payment-clearing messages and namespace-less originals are reference material. No complete bank-published CODA original with established reuse rights has yet been acquired; that gap remains explicit.
+
+See the separate [Belgian CODA publisher research and fixture corpus](../coda-published/README.md) for developer examples, source limitations and documented bank availability. These are not bank-issued originals.
 
 ## Geography index
 
 | Region | Country / scope | Banks / brands | Authority references |
 | --- | --- | ---: | ---: |
 | Africa | [Kenya](africa/kenya/README.md) | 0 | 1 |
+| Africa | [Malawi](africa/malawi/README.md) | 1 | 0 |
 | Africa | [Nigeria](africa/nigeria/README.md) | 0 | 1 |
 | Africa | [South Africa](africa/south-africa/README.md) | 1 | 1 |
 | Africa | [Southern African regional references](africa/southern-african-regional-references/README.md) | 0 | 1 |
+| Asia | [China](asia/china/README.md) | 3 | 0 |
 | Asia | [China / cross-border RMB](asia/china-cross-border-rmb/README.md) | 0 | 1 |
-| Asia | [Hong Kong](asia/hong-kong/README.md) | 0 | 1 |
+| Asia | [Hong Kong](asia/hong-kong/README.md) | 1 | 1 |
 | Asia | [India](asia/india/README.md) | 0 | 1 |
-| Asia | [Indonesia](asia/indonesia/README.md) | 1 | 1 |
-| Asia | [Japan](asia/japan/README.md) | 1 | 1 |
-| Asia | [Malaysia](asia/malaysia/README.md) | 0 | 1 |
+| Asia | [Indonesia](asia/indonesia/README.md) | 2 | 1 |
+| Asia | [Japan](asia/japan/README.md) | 2 | 1 |
+| Asia | [Malaysia](asia/malaysia/README.md) | 1 | 1 |
 | Asia | [Philippines](asia/philippines/README.md) | 0 | 1 |
 | Asia | [Saudi Arabia](asia/saudi-arabia/README.md) | 0 | 1 |
-| Asia | [Singapore](asia/singapore/README.md) | 1 | 1 |
-| Asia | [Thailand](asia/thailand/README.md) | 1 | 1 |
+| Asia | [Singapore](asia/singapore/README.md) | 2 | 1 |
+| Asia | [South Korea](asia/south-korea/README.md) | 1 | 1 |
+| Asia | [Taiwan](asia/taiwan/README.md) | 2 | 0 |
+| Asia | [Thailand](asia/thailand/README.md) | 2 | 1 |
 | Asia | [United Arab Emirates](asia/united-arab-emirates/README.md) | 0 | 1 |
-| Europe | [Austria](europe/austria/README.md) | 3 | 1 |
+| Asia | [Vietnam](asia/vietnam/README.md) | 1 | 0 |
+| Europe | [Austria](europe/austria/README.md) | 6 | 1 |
 | Europe | [Baltic states](europe/baltic-states/README.md) | 1 | 0 |
-| Europe | [Belgium](europe/belgium/README.md) | 2 | 1 |
+| Europe | [Belgium](europe/belgium/README.md) | 8 | 1 |
 | Europe | [Bulgaria](europe/bulgaria/README.md) | 0 | 1 |
-| Europe | [Croatia](europe/croatia/README.md) | 0 | 1 |
-| Europe | [Czech Republic](europe/czech-republic/README.md) | 4 | 1 |
+| Europe | [Croatia](europe/croatia/README.md) | 1 | 1 |
+| Europe | [Czech Republic](europe/czech-republic/README.md) | 5 | 1 |
 | Europe | [Denmark](europe/denmark/README.md) | 4 | 1 |
-| Europe | [Estonia](europe/estonia/README.md) | 0 | 1 |
+| Europe | [Estonia](europe/estonia/README.md) | 2 | 1 |
 | Europe | [European regional references](europe/european-regional-references/README.md) | 0 | 3 |
 | Europe | [European Union](europe/european-union/README.md) | 1 | 0 |
 | Europe | [Finland](europe/finland/README.md) | 5 | 1 |
-| Europe | [France](europe/france/README.md) | 2 | 1 |
-| Europe | [Germany](europe/germany/README.md) | 5 | 2 |
+| Europe | [France](europe/france/README.md) | 3 | 1 |
+| Europe | [Germany](europe/germany/README.md) | 8 | 2 |
 | Europe | [Hungary](europe/hungary/README.md) | 1 | 2 |
 | Europe | [Ireland](europe/ireland/README.md) | 1 | 0 |
 | Europe | [Italy](europe/italy/README.md) | 1 | 1 |
 | Europe | [Latvia](europe/latvia/README.md) | 0 | 1 |
+| Europe | [Liechtenstein](europe/liechtenstein/README.md) | 1 | 0 |
 | Europe | [Lithuania](europe/lithuania/README.md) | 0 | 1 |
 | Europe | [Luxembourg](europe/luxembourg/README.md) | 1 | 1 |
 | Europe | [Netherlands](europe/netherlands/README.md) | 7 | 1 |
 | Europe | [Nordic region](europe/nordic-region/README.md) | 0 | 1 |
 | Europe | [Norway](europe/norway/README.md) | 4 | 1 |
-| Europe | [Poland](europe/poland/README.md) | 4 | 1 |
+| Europe | [Poland](europe/poland/README.md) | 5 | 1 |
 | Europe | [Portugal](europe/portugal/README.md) | 1 | 1 |
 | Europe | [Romania](europe/romania/README.md) | 0 | 1 |
-| Europe | [Slovakia](europe/slovakia/README.md) | 3 | 1 |
+| Europe | [Slovakia](europe/slovakia/README.md) | 6 | 1 |
 | Europe | [Slovenia](europe/slovenia/README.md) | 0 | 1 |
 | Europe | [Spain](europe/spain/README.md) | 1 | 1 |
 | Europe | [Sweden](europe/sweden/README.md) | 6 | 1 |
-| Europe | [Switzerland](europe/switzerland/README.md) | 4 | 1 |
-| Europe | [United Kingdom](europe/united-kingdom/README.md) | 6 | 2 |
+| Europe | [Switzerland](europe/switzerland/README.md) | 9 | 1 |
+| Europe | [United Kingdom](europe/united-kingdom/README.md) | 7 | 2 |
 | Global | [Global standards](global/global-standards/README.md) | 0 | 1 |
 | Global | [International market practice](global/international-market-practice/README.md) | 0 | 1 |
 | Multiple regions | [Unspecified global markets](multiple-regions/unspecified-global-markets/README.md) | 5 | 0 |
-| North America | [Canada](north-america/canada/README.md) | 1 | 1 |
-| North America | [United States](north-america/united-states/README.md) | 4 | 3 |
+| North America | [Canada](north-america/canada/README.md) | 2 | 1 |
+| North America | [Mexico](north-america/mexico/README.md) | 2 | 0 |
+| North America | [United States](north-america/united-states/README.md) | 5 | 3 |
 | Oceania | [Australia](oceania/australia/README.md) | 2 | 1 |
 | Oceania | [New Zealand](oceania/new-zealand/README.md) | 1 | 1 |
-| South America | [Brazil](south-america/brazil/README.md) | 0 | 1 |
+| South America | [Brazil](south-america/brazil/README.md) | 1 | 1 |

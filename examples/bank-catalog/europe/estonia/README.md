@@ -21,4 +21,5 @@ The official association page links its Voog-hosted PDF. Archived common reporti
 
 ## Banks and published resources
 
-No bank-specific sources verified for this jurisdiction yet.
+- [LHV Pank](lhv/README.md) — camt.052.001.06; camt.053.001.02
+- [Luminor Bank AS (Estonia)](luminor-estonia/README.md) — camt.052; camt.053

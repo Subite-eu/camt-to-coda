@@ -26,3 +26,8 @@ Region: Europe. Sources verified 2026-10-11. Scope follows source documentation,
 - [Raiffeisen Schweiz](raiffeisen-schweiz/README.md) — camt.052.001.08 / .053.001.08 / .054.001.08
 - [UBS](ubs/README.md) — camt.052 / .053 / .054; downloaded correspondent samples .052.001.08 and .053.001.08
 - [Zürcher Kantonalbank](zurcher-kantonalbank/README.md) — camt.052 / .053 / .054 versions 04 and 08 per EBICS parameter PDF; old version 04 scheduled until 13 Nov 2026
+- [Aargauische Kantonalbank](aargauische-kantonalbank/README.md) — camt.052.001.04; camt.053.001.04; camt.054.001.04; camt.052.001.08; camt.053.001.08; camt.054.001.08
+- [Berner Kantonalbank (BEKB)](berner-kantonalbank/README.md) — camt.052.001.04; camt.053.001.04; camt.054.001.04
+- [St.Galler Kantonalbank](st-galler-kantonalbank/README.md) — camt.052; camt.053; camt.054
+- [Bank CIC (Switzerland)](bank-cic-switzerland/README.md) — camt.052.001.04; camt.052.001.08; camt.053.001.04; camt.053.001.08; camt.054.001.04; camt.054.001.08
+- [Banque Cantonale Vaudoise (BCV)](bcv/README.md) — camt.052.001.04; camt.052.001.08; camt.053.001.04; camt.053.001.08; camt.054.001.04; camt.054.001.08

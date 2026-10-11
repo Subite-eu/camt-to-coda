@@ -44,3 +44,21 @@ test('catalog is accessible and fits narrow and wide screens', async ({ page }) 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
+
+test('expanded sources distinguish embedded bank samples, interbank reporting and Belgian CODA services', async ({ page }) => {
+  await page.goto('/#bank-catalog');
+  await page.getByLabel('Country / market').selectOption('Canada');
+  await page.getByLabel('Resource type').selectOption('sample-file');
+  const bmo = page.getByRole('article', { name: 'BMO / Bank of Montreal' });
+  await expect(bmo.getByRole('link', { name: /before 21 February 2027/ })).toHaveAttribute('href', /\.XLSX$/);
+  await expect(bmo.getByText('Downloadable sample · Public file').first()).toBeVisible();
+  await page.getByRole('button', { name: 'Reset filters' }).click();
+  await page.getByLabel('Country / market').selectOption('Belgium');
+  await page.getByLabel('Search banks and reporting formats').fill('CODA');
+  await expect(page.getByRole('heading', { name: 'Crelan', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Argenta', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: /Country & regional references/ }).click();
+  await page.getByLabel('Country / market').selectOption('South Korea');
+  await expect(page.getByRole('heading', { name: /Bank of Korea/ })).toBeVisible();
+  await expect(page.getByText(/interbank.*reporting|reporting.*interbank/i).first()).toBeVisible();
+});

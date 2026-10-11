@@ -12,6 +12,7 @@ These guides describe the current TypeScript implementation. Start with the [pro
 | [Architecture](architecture.md) | Modules, conversion pipeline and test strategy |
 | [Original-source examples](../examples/README.md) | Independent CAMT and CODA fixtures and literal expectations |
 | [Worldwide bank and country catalog](../examples/bank-catalog/README.md) | Official bank examples/specs and national/regional authorities, grouped by geography, with access and reporting coverage |
+| [Belgian CODA publisher research](../examples/coda-published/README.md) | Third-party originals, bank availability evidence, encodings and known source defects |
 | [Bank-published corpus](../examples/bank-published/README.md) | Official CAMT downloads, provenance, usage terms, compatibility tests and remaining CODA acquisition gap |
 | [Contributing](../CONTRIBUTING.md) | Development, regression data, local checks and GitHub Actions |
 | [Releasing](releasing.md) | Versioning, publication gates and actual release outputs |

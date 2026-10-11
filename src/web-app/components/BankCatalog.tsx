@@ -8,7 +8,7 @@ type Entry = {
   formats: string[]; resources: Resource[]; notes: string; context: string;
 };
 const resourceLabels: Record<string, string> = {
-  "sample-file": "XML / ZIP sample", "inline-example": "Inline XML example", "pdf-example": "PDF example",
+  "sample-file": "Downloadable sample", "inline-example": "Inline XML example", "pdf-example": "PDF example",
   specification: "Technical specification", portal: "Sample / testing portal", availability: "Service information",
   standard: "Global standard", "payment-guideline": "Payment guideline",
 };
@@ -46,7 +46,7 @@ export function BankCatalog() {
     <div className="space-y-3 max-w-3xl">
       <h1 id="catalog-title" tabIndex={-1} className="text-2xl font-bold tracking-tight focus:outline-none">Bank reporting catalog</h1>
       <p>Official bank examples and specifications, with national and regional ISO 20022 references.</p>
-      <details className="text-sm"><summary className="cursor-pointer min-h-11 py-3">Scope, access and converter support</summary><p className="text-sm text-muted-foreground">Geography follows the documented market, rather than a bank’s headquarters. Account and channel eligibility must be confirmed with the bank. A public specification does not establish availability for every customer. CAMT054 and wrapped XML are reference material; this converter supports standalone CAMT052/053. Download rights do not automatically permit redistribution.</p>
+      <details className="text-sm"><summary className="cursor-pointer min-h-11 py-3">Scope, access and converter support</summary><p className="text-sm text-muted-foreground">Geography follows the documented market, rather than a bank’s headquarters. Account and channel eligibility must be confirmed with the bank. A public specification does not establish availability for every customer. CAMT054 and wrapped XML are reference material; this converter supports standalone CAMT052/053 and CODA 2.6. Download rights do not automatically permit redistribution.</p>
       <p className="text-sm text-muted-foreground">Sources checked {bankData.verifiedOn}. This is a curated inventory; an absent country or bank means coverage has not yet been verified.</p></details>
     </div>
     <nav aria-label="Catalog sections" className="flex flex-wrap gap-2">

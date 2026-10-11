@@ -25,3 +25,4 @@ Region: Europe. Sources verified 2026-10-11. Scope follows source documentation,
 - [SEB](seb/README.md) — camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08; camt.054.001.02 (reference); camt.054.001.08 (reference)
 - [PKO Bank Polski](pko-bank-polski/README.md) — existing camt.053; new optional camt.053.001.08 daily / .052.001.08 intraday explicitly available at customer request; legacy PDF .053.001.02
 - [mBank](mbank/README.md) — camt.052.001.08 / .053.001.08
+- [BNP Paribas Bank Polska](bnp-paribas-polska/README.md) — camt.052.001.08; camt.053.001.08

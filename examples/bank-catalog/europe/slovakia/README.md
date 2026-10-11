@@ -25,3 +25,6 @@ Landing explicitly calls standards nonbinding. DOCX downloaded and text verified
 - [Fio banka](fio-banka/README.md) — camt.053.001.02 CBA and SBA variants
 - [Citi Slovakia](citi-slovakia/README.md) — camt.053 (version unspecified)
 - [Tatra banka](tatra-banka/README.md) — camt.053; raw example namespace unverified due HTTP403
+- [Slovenská sporiteľňa](slovenska-sporitelna/README.md) — camt.053.001.02; camt.053.001.08
+- [UniCredit Bank Czech Republic and Slovakia (Slovakia)](unicredit-slovakia/README.md) — camt.052.001.02; camt.052.001.08; camt.053.001.02; camt.053.001.08
+- [VÚB banka](vub/README.md) — camt.053

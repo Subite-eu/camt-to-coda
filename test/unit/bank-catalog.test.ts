@@ -27,3 +27,22 @@ it("rejects duplicate identifiers, unlinked originals and unsafe or unlabeled re
   expect(() => validateCatalog(b, refs.references, inventory.cases)).toThrow(/Invalid resource/);
   expect(() => validateCatalog(banks.banks, refs.references, [{ ...inventory.cases[0], bankId: "unverified" }])).toThrow(/Unlinked/);
 });
+
+it("derives original and validation totals from the supplied inventory", () => {
+  const sources = inventory.cases.filter(s => s.bankId === "ing");
+  const files: Map<string, string> = renderCatalog(banks.banks, refs.references, sources, banks.verifiedOn);
+  const index = files.get("examples/bank-catalog/README.md")!;
+  expect(index).toContain("**2 different bank-published XML originals/payloads**");
+  expect(index).toContain("2 validate against the bundled ISO XSD");
+  expect(index).toContain("2 original XML files remain in an ignored/ephemeral cache");
+  expect(index).not.toContain("95 validate");
+  expect(index).not.toContain("other 82");
+});
+
+it("requires separate pins for an unchanged embedded XML payload", () => {
+  const source = { ...inventory.cases[0], zipMember: "attachment.bin", zipMemberSha256: "a".repeat(64), zipMemberBytes: 100, sourceBytes: 20, payloadRange: { offset: 10, length: 20 } };
+  expect(() => validateCatalog(banks.banks, refs.references, [source])).not.toThrow();
+  for (const invalid of [{ ...source, zipMemberSha256: undefined }, { ...source, payloadRange: { offset: 90, length: 20 } }, { ...source, allowedRedirectOrigins: ["http://untrusted.example"] }]) {
+    expect(() => validateCatalog(banks.banks, refs.references, [invalid])).toThrow(/payload|redirect/i);
+  }
+});

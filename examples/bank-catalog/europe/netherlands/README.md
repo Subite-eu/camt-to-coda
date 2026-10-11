@@ -27,7 +27,7 @@ Public catalog offers 053 guidelines 1.1 and 2.0. Catalog lists the same 2013 da
 - [ABN AMRO](abn/README.md) — camt.053.001.02
 - [ASN Bank](asn-bank/README.md) — camt.053.001.02
 - [BNG Bank](bng-bank/README.md) — camt.053.001.02
-- [ING](ing/README.md) — camt.052.001.02; camt.053.001.08
+- [ING](ing/README.md) — camt.052.001.02; camt.053.001.08; CODA
 - [Rabobank](rabobank/README.md) — camt.052.001.02; camt.052.001.08; camt.053.001.02; camt.053.001.08
 - [RegioBank](regiobank/README.md) — camt.053.001.02
 - [SNS Bank](sns-bank/README.md) — camt.053.001.02

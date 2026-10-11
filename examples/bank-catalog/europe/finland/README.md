@@ -16,8 +16,10 @@ Region: Europe. Sources verified 2026-10-11. Scope follows source documentation,
 
 - [ISO 20022 account statement guide2020](https://www.finanssiala.fi/wp-content/uploads/2021/03/ISO-20022-Account-Statement-Guide-2020.pdf) — specification; public-file
 - [Transaction reporting guide landing](https://www.finanssiala.fi/julkaisut/iso20022-tapahtumaraportti-opas/) — availability; public-page
+- [Technical documentation with current sample-file links](https://www.finanssiala.fi/en/topics/payment-services-in-finland/payment-technical-documents/) — availability; public-page
+- [Authority-published original CAMT053 XML example](https://file.finanssiala.fi/maksujenvalitys/FI_camt_053_sample.xml) — sample-file; public-file
 
-Account guide dated 15 January 2020 has 46 pages. Section 4.3 names FI_camt.052_sample.xml, FI_camt.053_sample.xml and FI_camt.054_sample.xml and explains their contents; standalone raw sample download URLs were not confirmed. Banks need not offer every reporting choice. CAMT054 is reference-only.
+Account guide dated 15 January 2020 has 46 pages. Section 4.3 names FI_camt.052_sample.xml, FI_camt.053_sample.xml and FI_camt.054_sample.xml and explains their contents; the standalone 053 raw sample download was verified during the second sweep. Banks need not offer every reporting choice. CAMT054 is reference-only. Second sweep confirmed the current technical-documents page links FI_camt_053_sample.xml and FI_camt_054_sample.xml. The 053 original was retrieved unchanged: 27,472 bytes, SHA-256 6e0c56e25d3fe0ab25c976e3ec2f376b7854329675b24bfa5cd8dbd637c15fb4, valid against ISO camt.053.001.02 XSD. It is an industry-body example, excluded from the bank-published original count.
 
 ## Banks and published resources
 

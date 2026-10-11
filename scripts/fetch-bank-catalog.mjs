@@ -8,11 +8,17 @@ const directory = resolve(process.env.BANK_CATALOG_DIR ?? 'private-examples/bank
 // fetchSource still verifies its hash and each original member independently.
 const responses = new Map();
 async function request(url, options) {
-  if (!responses.has(url)) responses.set(url, await fetch(url, options));
+  if (!responses.has(url)) {
+    const response = await fetch(url, options);
+    // A cloned redirect body's cancellation waits for both tee branches.
+    // Return redirects directly and request fresh signed CDN URLs per source.
+    if ([301, 302, 303, 307, 308].includes(response.status)) return response;
+    responses.set(url, response);
+  }
   return responses.get(url).clone();
 }
 for (const source of inventory.cases.filter(s => s.storage === 'external-only')) {
   try { console.log(`${source.id}: ${await fetchSource(source, directory, request)}`); }
   catch (error) { throw new Error(`${source.id}: ${error.message}`, { cause: error }); }
 }
-console.log(`${inventory.cases.length} original XML sources inventoried; 22 unchanged originals are committed with Bundesbank attribution.`);
+console.log(`${inventory.cases.length} original XML sources inventoried; ${inventory.cases.filter(s => s.repositoryPath).length} unchanged originals are committed with Bundesbank attribution.`);

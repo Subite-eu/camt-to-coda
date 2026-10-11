@@ -25,3 +25,7 @@ node dist/cli.js reverse -i examples/coda/coda-basic-eur.cod -o /tmp/camt-exampl
 ```
 
 Do not use these synthetic documents or anonymized exports for bank import. Add an independently authored original and literal expectations when adding a new mapping or regression, and validate its source schema before using it as a positive example.
+
+## Additional publisher research
+
+The [worldwide catalog](bank-catalog/README.md) inventories bank/authority availability and 119 byte-pinned CAMT052/053 originals or unchanged payloads. The separate [Belgian CODA publisher corpus](coda-published/README.md) inventories 29 distinct third-party fixtures, with original bytes, encodings, license evidence and source defects recorded. They supplement this synthetic library; no complete bank-issued CODA original has been verified.

@@ -21,4 +21,4 @@ Guide v1.4 September2023 migrates2009 .02 to ISO2019 .08; includes statement, ac
 
 ## Banks and published resources
 
-No bank-specific sources verified for this jurisdiction yet.
+- [Raiffeisenbank Austria d.d. (Croatia)](raiffeisenbank-austria-croatia/README.md) — camt.052.001.02; camt.053.001.02

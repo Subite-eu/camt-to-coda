@@ -41,3 +41,4 @@ The library provides recommended ISO 8583 and ISO 20022 conversion in PDF and in
 - [Handelsbanken](handelsbanken/README.md) — camt.052.001.02; camt.053.001.02; camt.054 (reference)
 - [NatWest](natwest/README.md) — camt.052; camt.053
 - [Goldman Sachs](goldman-sachs/README.md) — camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08
+- [Lloyds Bank](lloyds-bank/README.md) — camt.053

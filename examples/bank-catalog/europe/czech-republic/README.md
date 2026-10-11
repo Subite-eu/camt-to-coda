@@ -28,3 +28,4 @@ Current landing content embedded as JSON; normal shell HTTP fetch verified. New1
 - [Komerční banka](komercni-banka/README.md) — camt.053.001.02 CBA national format
 - [ČSOB](csob/README.md) — camt.053.001.02 with CBA local rules
 - [Česká spořitelna](ceska-sporitelna/README.md) — SEPA XML (camt.053); exact version not stated
+- [Raiffeisenbank a.s.](raiffeisenbank-czech/README.md) — camt.053.001.02

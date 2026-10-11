@@ -40,3 +40,6 @@ Supplementary page Chapter7 explicitly provides original ISO2019 CAMT schemas, c
 - [Deutsche Bundesbank](deutsche-bundesbank/README.md) — camt.052.001.08; camt.053.001.08 (intended; published namespace defects)
 - [UniCredit / HypoVereinsbank](unicredit-hypovereinsbank/README.md) — camt.052.001.08 / .053.001.08 / .054.001.08; compares previous .02
 - [DNB](dnb/README.md) — camt.053; camt.054C; camt.052 (coming later in page)
+- [Hamburg Commercial Bank (HCOB)](hcob/README.md) — camt.052; camt.053
+- [DZ BANK](dz-bank/README.md) — camt.052.001.08; camt.053.001.08
+- [Landesbank Baden-Württemberg (LBBW)](lbbw/README.md) — camt.052; camt.053

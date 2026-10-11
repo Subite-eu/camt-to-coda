@@ -22,3 +22,4 @@ PFMI principle 22 states that ISO 20022 XML messages were first optional in the 
 ## Banks and published resources
 
 - [Mizuho](mizuho/README.md) — camt.052.001.08; camt.053.001.08
+- [MUFG Bank](mufg/README.md) — camt.053.001.08

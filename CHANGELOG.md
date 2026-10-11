@@ -6,7 +6,10 @@ Current changes are listed under Unreleased. Older entries describe their histor
 
 ### Added
 
-- Worldwide catalog with 57 bank/brand entries, 57 national/regional/global authorities and 104 byte-verified CAMT052/053 sources; generated geography/bank indexes, searchable browser filters, clear access/reporting scope, 22 unchanged attributed Bundesbank originals and a required source/XSD CI gate.
+- Additional worldwide source sweep: PostFinance, BMO workbook attachments, LHV, Slovenská sporiteľňa and Bank of Korea interbank payloads, with original container/member/payload pins and explicit schema defects.
+- Separate 29-file third-party CODA research corpus, deduplicated from 65 downloads, with immutable URLs, encoding/license evidence, independently extracted field facts, positive/negative tests and required ephemeral CI acquisition. Belgian bank CODA service/specification evidence remains distinct from complete bank-issued originals.
+
+- Worldwide catalog with 97 bank/brand entries, 58 national/regional/global authorities and 119 byte-verified CAMT052/053 originals/payloads; generated geography/bank indexes, searchable browser filters, clear access/reporting scope, 22 unchanged attributed Bundesbank originals and a required source/XSD CI gate.
 - Separate provenance and pinned acquisition for 12 bank-published CAMT originals from ING, ABN AMRO and Nordea; 181 Node checks, real browser uploads/downloads, official UI download links and a required CI publication gate. These twelve publisher originals stay outside Git and published artifacts. Complete bank-issued CODA sourcing remains an explicit acquisition gap.
 
 - Bidirectional browser review with statement summaries, reconciliation, pagination, multi-statement selection/ZIP, exact field provenance, keyboard navigation, responsive panels, cancellation and recovery.
@@ -19,6 +22,8 @@ Current changes are listed under Unreleased. Older entries describe their histor
 - Current documentation index and HTTP API reference covering request/response shapes, limits, validation and privacy.
 
 ### Changed
+
+- Reverse XML serialization rejects invalid account/counterparty BICs using the target version’s bundled ISO pattern, including invalid placeholders found in external CODA fixtures, instead of producing schema-invalid XML.
 
 - CAMT 052/053 input and CAMT 053 output support versions 02–13 with version-specific XML serialization; reverse output defaults to .08 and preserves all statements.
 - Transaction mapping and CODA reference descriptions, 30 EEA holiday calendars, standard AWS SDK credentials/region handling and paginated S3 listing.
