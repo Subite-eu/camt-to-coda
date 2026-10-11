@@ -6,16 +6,17 @@ Verified 2026-10-11. Publisher: commercial-bank.
 
 **Documented market:** Mexican enterprise cash-management pages; distinct jurisdiction-specific offering.
 
-**Formats / versions:** camt.052; camt.053; camt.054
+**Formats / versions:** camt.052; camt.053; camt.054 (financial-institution / vostro reporting)
 
 ## Official resources
 
 - [ISO20022 account reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/iso-20022.aspx) — availability; public-page
 - [SWIFT connectivity and reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/swift.aspx) — availability; public-page
+- [Virtual-reference collections: CAMT052/053 reconciliation reports](https://www.scotiabank.com.mx/empresas-y-gobierno/cobranza/referencia-virtual.aspx) — availability; public-page
 
 ## Scope and source notes
 
-Bank explicitly advertises available 052 intraday movements without balances and 053 previous-business-day movements with opening/closing balances over SWIFT, online and host-to-host; SWIFT page also lists 054 debit/credit notifications for vostro accounts. Exact versions and public original XML samples not verified.
+Bank explicitly advertises available 052 intraday movements without balances and 053 previous-business-day movements with opening/closing balances over SWIFT, online and host-to-host; SWIFT page also lists 054 debit/credit notifications for vostro accounts. Exact versions and public original XML samples not verified. Rechecked corporate reporting separately from financial-institution/vostro reporting: the public source does not establish corporate camt.054 entitlement. Virtual-reference collections also advertise 052/053 reports; service contract and eligible account required. No bank-specific public layout or complete raw sample was located.
 
 No open redistribution licence established. Consult the publisher before republishing originals.
 

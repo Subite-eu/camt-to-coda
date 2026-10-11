@@ -1773,11 +1773,20 @@
           "country": "Unspecified global markets"
         }
       ],
-      "marketBasis": "Global FI/CBPR+ documentation (market not enumerated)",
+      "marketBasis": "Global FI/CBPR+ documentation (market not enumerated); corporate channels and FI reference material are distinguished. US account-booking eligibility is not enumerated by these global sources.",
       "formats": [
-        "camt.053.001.08"
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02",
+        "camt.053.001.08 (global FI reference example)"
       ],
       "resources": [
+        {
+          "url": "https://images.em.bankofamerica.com/GTS/ISO20022migrationfaqs.pdf",
+          "label": "ISO 20022 Migration FAQs: corporate CashPro formats",
+          "kind": "availability",
+          "access": "public-file"
+        },
         {
           "url": "https://images.em.bankofamerica.com/GTS/ISO_20022/ReferenceGuideBanktoCustomerStatement%28CAMT.053%29.pdf",
           "label": "Official reporting guide",
@@ -1791,13 +1800,13 @@
           "access": "public-file"
         }
       ],
-      "notes": "Reference guide provides MT940/MT950-to-camt.053 mapping and complete AppHdr + Document example, schema .08; example BICs are generic counterparties and do not prove a specific BofA geography. Bank PDF copyright all rights reserved; no open license established.",
+      "notes": "Public FAQ Q15 explicitly confirms all three v2 messages through CashPro Online and CashPro Connect. Q16 confirms 052/053 via Connect FileAct or Host-to-Host. Copyright 2024; later-version roadmap dates do not establish completed rollout. The separate global FI reference guide includes a complete AppHdr + Document v8 PDF example and mapping, with generic counterparties. This PDF example is not a public raw corporate XML file and does not prove any account booking country. No open redistribution license established.",
       "termsUrl": null,
       "verifiedOn": "2026-10-11"
     },
     {
       "id": "citi",
-      "bank": "Citi",
+      "bank": "Citi / Citibank",
       "publisherType": "commercial-bank",
       "markets": [
         {
@@ -1805,28 +1814,36 @@
           "country": "Unspecified global markets"
         }
       ],
-      "marketBasis": "Global corporate channels (country coverage not enumerated)",
+      "marketBasis": "Global corporate channels (country coverage not enumerated); corporate channels and FI reference material are distinguished. US account-booking eligibility is not enumerated by these global sources.",
       "formats": [
         "camt.052.001.02",
         "camt.053.001.02",
-        "camt.053.001.08",
-        "camt.05x v8 CBPR+"
+        "camt.054.001.02",
+        "camt.052.001.08 (specific branches)",
+        "camt.053.001.08 (specific branches)",
+        "camt.054.001.08 (specific branches)"
       ],
       "resources": [
         {
-          "url": "https://www.citibank.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf",
-          "label": "Official reporting documentation",
+          "url": "https://www.citigroup.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf",
+          "label": "ISO 20022 FAQs, updated 16 February 2026",
           "kind": "availability",
           "access": "public-file"
         },
         {
           "url": "https://developer.citi.com/apidocs/account-reporting/statements/statements-api-reference/",
-          "label": "Additional official reporting information",
+          "label": "Statements API reference: v2 statement format enums",
           "kind": "specification",
           "access": "public-page"
+        },
+        {
+          "url": "https://www.swift.com/mystandards",
+          "label": "Citi MyStandards specifications and samples (client/group access)",
+          "kind": "portal",
+          "access": "registration"
         }
       ],
-      "notes": "FAQ p9 explicitly confirms current CitiDirect 052/053 v2, v2/v8 file channels CitiDirect/CitiConnect Files/API and multi-account file support; CBPR+ v8 restricts one account per statement. API reference formatName enums CAMT_052_001_02 and CAMT_053_001_02; API labels 053 'intraday' inconsistently, so follow FAQ for business meaning. No open redistribution license established.",
+      "notes": "FAQ pp11–12 confirms v2 via CitiDirect, CitiConnect for Files and API, including event-driven 054 API. V8 CGI-MP files available since 2023 for specific branches; branch eligibility requires confirmation. Separate FINplus v8 service is eligible-FI only. MyStandards samples require access; API request examples are not original CAMT statement files. No open redistribution license established. These global sources do not enumerate US-booked account eligibility. API reference formatName labels include v2; its inconsistent intraday naming does not change the FAQ business meanings.",
       "termsUrl": null,
       "verifiedOn": "2026-10-11"
     },
@@ -1921,7 +1938,7 @@
     },
     {
       "id": "rbc",
-      "bank": "RBC",
+      "bank": "RBC / Royal Bank of Canada",
       "publisherType": "commercial-bank",
       "markets": [
         {
@@ -1929,21 +1946,28 @@
           "country": "Canada"
         }
       ],
-      "marketBasis": "Canada / RBC Express SWIFT statements",
+      "marketBasis": "Canadian RBC Express viewing/export of incoming SWIFT CAMT statements and advices; distinct from U.S. RBC Clear and not a universal bank-originated Canadian reporting claim.",
       "formats": [
         "camt.052",
-        "camt.053"
+        "camt.053",
+        "camt.054"
       ],
       "resources": [
         {
           "url": "https://www.rbcroyalbank.com/rbcexpress/rbc-express-sps-import-export.pdf",
-          "label": "Official reporting documentation",
+          "label": "RBC Express SWIFT Payments & Statements Import/Export File Guide, March 2023",
           "kind": "availability",
           "access": "public-file"
+        },
+        {
+          "url": "https://www.rbcroyalbank.com/dms/enterprise/national-day-truth-reconciliation-faqs.html",
+          "label": "Canadian business FAQ: CAMT .053/.052/.054 reporting files",
+          "kind": "availability",
+          "access": "public-page"
         }
       ],
-      "notes": "Version 032023 page48 lists Sample.camt052.txt and Sample.camt053.txt under SWIFT Incoming Statements; needs embedded-attachment extraction to confirm XML namespaces. Not claimed raw XML yet. Original PDF downloaded: pdfdetach found zero embedded files and pdftohtml found no external sample hyperlinks at sample listing; sample TXT binaries were not retrievable from this PDF. No open redistribution license established.",
-      "termsUrl": null,
+      "notes": "Public March 2023 RBC Express guide lists incoming camt.052/053 statements and camt.054 debit/credit advices; The guide establishes viewing/export of received messages, not bank-originated reporting for every Canadian account. Canadian business FAQ also names .053/.052/.054 transmission reporting. Exact schema versions are unstated in these Canadian sources. Sample TXT filenames are listed, but prior PDF extraction found no embedded files or sample hyperlinks; no retrievable public original XML established. Do not apply U.S. RBC Clear versions or delivery channels to Canadian accounts. Account/channel entitlement requires bank confirmation; no open redistribution license established.",
+      "termsUrl": "https://www.rbc.com/legal/",
       "verifiedOn": "2026-10-11"
     },
     {
@@ -2042,6 +2066,12 @@
           "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-v8-struct-remi",
           "label": "Inline CAMT XML — camt-053-v8-struct-remi",
           "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/report-scheduling/",
+          "label": "Report scheduling: US branch reporting scope",
+          "kind": "availability",
           "access": "public-page"
         }
       ],
@@ -3054,7 +3084,7 @@
       "formats": [
         "camt.052",
         "camt.053",
-        "camt.054"
+        "camt.054 (financial-institution / vostro reporting)"
       ],
       "resources": [
         {
@@ -3068,9 +3098,15 @@
           "url": "https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/swift.aspx",
           "kind": "availability",
           "access": "public-page"
+        },
+        {
+          "url": "https://www.scotiabank.com.mx/empresas-y-gobierno/cobranza/referencia-virtual.aspx",
+          "label": "Virtual-reference collections: CAMT052/053 reconciliation reports",
+          "kind": "availability",
+          "access": "public-page"
         }
       ],
-      "notes": "Bank explicitly advertises available 052 intraday movements without balances and 053 previous-business-day movements with opening/closing balances over SWIFT, online and host-to-host; SWIFT page also lists 054 debit/credit notifications for vostro accounts. Exact versions and public original XML samples not verified.",
+      "notes": "Bank explicitly advertises available 052 intraday movements without balances and 053 previous-business-day movements with opening/closing balances over SWIFT, online and host-to-host; SWIFT page also lists 054 debit/credit notifications for vostro accounts. Exact versions and public original XML samples not verified. Rechecked corporate reporting separately from financial-institution/vostro reporting: the public source does not establish corporate camt.054 entitlement. Virtual-reference collections also advertise 052/053 reports; service contract and eligible account required. No bank-specific public layout or complete raw sample was located.",
       "termsUrl": null,
       "verifiedOn": "2026-10-11"
     },
@@ -3170,7 +3206,8 @@
       ],
       "marketBasis": "US-headquartered bank global interbank cash-account reporting; individual account booking countries not enumerated.",
       "formats": [
-        "camt.053.001.08"
+        "camt.053.001.08",
+        "camt.054.001.08"
       ],
       "resources": [
         {
@@ -3183,10 +3220,10 @@
           "label": "BNY MyStandards domain: specifications and sample (registration / group access required)",
           "url": "https://www.swift.com/mystandards",
           "kind": "portal",
-          "access": "unavailable"
+          "access": "registration"
         }
       ],
-      "notes": "FAQ explicitly offers camt053 in replacement of MT940/950 on demand since June2025, one message per account, RMA and client configuration required. Table lists camt.053.001.08 available; corporate ScorePlus camt053 remains to be confirmed, camt052 currently not foreseen. MyStandards sample is gated; no public raw XML sample verified.",
+      "notes": "May 2026 FAQ table lists sending 053.001.08 and 054.001.08 available. Reporting section offers 053 instead of MT940/950 since June2025 and confirms readiness to send 054 to preferring clients. RMA and account/BIC configuration required. Corporate ScorePlus 053/054 TBC; 052 currently not foreseen. MyStandards specifications/samples are gated. No public raw XML sample or open redistribution license verified.",
       "termsUrl": null,
       "verifiedOn": "2026-10-11"
     },
@@ -3383,6 +3420,234 @@
         }
       ],
       "notes": "The official March 2018 information sheet documents the bank-reference change effective 1 August 2018 and shows old/new CODA record 2.1 snippets alongside CAMT053/054 AcctSvcrRef snippets. This is historical mapping evidence for the Belgian bank, distinct from the BNP Paribas group entry. It is not a complete CODA file, does not establish current message versions, and was excluded from original-file counts. No complete public bank-published CODA original was verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "rbc-clear-us",
+      "bank": "RBC Capital Markets / RBC Clear (U.S. 3 WFC Branch)",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "Current 2026 MRS FAQ explicitly says all products/services and deposit accounts are in the United States, offered from 3 WFC Branch; non-U.S. clients use U.S. products cross-border.",
+      "formats": [
+        "camt.052 v2",
+        "camt.053 v2",
+        "camt.054 v8"
+      ],
+      "resources": [
+        {
+          "label": "Machine-Readable Statements: formats, delivery channels and gated guide instructions",
+          "url": "https://www.rbccm.com/en/expertise/rbcclear/reports/machine-readable-statements",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "label": "Machine-Readable Statements FAQ, 2026; explicit U.S. account scope",
+          "url": "https://www.rbccm.com/assets/rbccm/docs/expertise/rbc-clear/resources/MRS_FAQs.pdf",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Live corporate 052 v2 intraday and 053 v2 end-of-day statements through SFTP and Swift FileAct; 054 v8 event-driven debit/credit notifications through SFTP, FileAct and FINplus. End-of-day covers transactions through 9 PM ET and is available by 10 PM ET. Enrollment/connectivity setup required. Detailed statement formatting guides are explicitly client-gated in RBC Clear insights / Connectivity / Developer Portal; testing requires account manager. Exact namespace suffixes and public original XML samples were not independently established. Separate from Canadian RBC Express. No open redistribution license established.",
+      "termsUrl": "https://www.rbc.com/legal/",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hsbc-mexico",
+      "bank": "HSBC Mexico",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "Mexico"
+        }
+      ],
+      "marketBasis": "Mexican enterprise HSBCnet tariff explicitly identifies contracted H2H CAMT52/CAMT53 reporting under SWIFT services; exact account entitlement requires bank confirmation.",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.empresas.hsbc.com.mx/-/media/media/mexico/pdfs/regulations/comisiones-hsbcnet-1115.pdf",
+          "label": "HSBCnet electronic banking services tariff, page 3: H2H CAMT52 / CAMT53 reporting",
+          "kind": "availability",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.empresas.hsbc.com.mx/es-mx/solutions/canales-directos",
+          "label": "Mexico enterprise direct channels / host-to-host overview",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public Mexico tariff names H2H CAMT52/CAMT53 reporting as a contracted service. This confirms a commercial reporting offering, not a public XML fixture or bank-specific layout. Document publication date, exact schema versions and public original XML samples were not established. The direct-channel overview corroborates H2H connectivity but does not identify CAMT versions. Spanish-Mexico newsletters about Thailand v8 reporting do not establish v8 for Mexican accounts. Confirm current account/channel entitlement with HSBC; tariff amounts are not reproduced as current pricing.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "jpmorgan-chase",
+      "bank": "JPMorgan Chase / J.P. Morgan",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States corporate account reporting",
+      "formats": [
+        "camt.052 (US corporate reporting; version unspecified)",
+        "camt.053 (US corporate reporting; version unspecified)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.jpmorgan.com/payments/client-resource-center/cash-concentration-service-enhancements/united-states",
+          "label": "United States cash-concentration reporting enhancements",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.jpmorgan.com/insights/payments/fx-cross-border/iso-20022-faqs",
+          "label": "ISO 20022 FAQ: separate FI/NBFI SWIFT reporting roadmap",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "US cash-concentration page explicitly names CAMT.52 and CAMT.53 transaction statements and provides partial XML narrative fragments. Exact schema versions and file transport are not stated there. FAQ 4.1 separately describes receiving FI/NBFI SWIFT 052/053/054 since Q4 2024; 4.2 plans opt-in outbound MX for late 2026. These are distinct services. No complete public original XML sample verified. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "truist",
+      "bank": "Truist",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States corporate account reporting",
+      "formats": [
+        "camt.052 (version unspecified)",
+        "camt.053 (version unspecified)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.truist.com/treasuryterms",
+          "label": "Treasury Management Terms, revised March 2026: SWIFT for Corporates",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "SWIFT for Corporates terms explicitly support current-day CAMT.052 and previous-day CAMT.053 over FileAct. Client must satisfy SWIFT participation/SCORE or initiating-party requirements. Technical requirements are provided in the client SWIFT Service Reference. Version and 054 support are not established. No public original XML sample or open redistribution license verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "huntington",
+      "bank": "Huntington National Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States corporate account reporting",
+      "formats": [
+        "camt.052 (production version unspecified)",
+        "camt.052.001.08 (public inline example)",
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://developer.huntington.com/enterprisepayments/docs/camt052",
+          "label": "CAMT.052 field guide and generation/delivery details",
+          "kind": "specification",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.huntington.com/enterprisepayments/docs/camt052",
+          "label": "Complete inline XML example with camt.052.001.08 namespace",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.huntington.com/enterprisepayments/docs/camt053",
+          "label": "CAMT.053 field guide and generation/delivery details",
+          "kind": "specification",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.huntington.com/enterprisepayments/docs/camt053",
+          "label": "Complete inline XML example with camt.053.001.02 namespace",
+          "kind": "inline-example",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Bank-specific sections confirm automatic intraday 052 and prior-day 053 generation under client agreements; secure MFT delivery, with BOL also mentioned for 052. 053 states .001.02 or later versions without naming another suffix. Complete inline examples are illustrative, not downloadable original statement files. The 053 example includes US-prefixed IBAN placeholders; do not represent examples as validated production output. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "citizens-bank",
+      "bank": "Citizens Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States corporate account reporting",
+      "formats": [
+        "camt.052 (version unspecified)",
+        "camt.053 (version unspecified)"
+      ],
+      "resources": [
+        {
+          "url": "https://citizenscommercial.com/shared_code/pdf.php?override=&p=0448",
+          "label": "Corporate online banking reporting product sheet (copyright 2021)",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public product sheet lists camt052/camt053 among balance/transaction export formats, with manual real-time/prior-day export and scheduled daily email reporting. Evidence is historical (copyright 2021); current availability and exact versions require product confirmation. No public original XML sample or open redistribution license verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "first-citizens-innovation-banking",
+      "bank": "First Citizens Innovation Banking (former SVB)",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States corporate account reporting",
+      "formats": [
+        "camt.052 (version unspecified)",
+        "camt.053 (version unspecified)",
+        "camt.054 (version unspecified)"
+      ],
+      "resources": [
+        {
+          "url": "https://innovation.firstcitizens.com/iso20022/guide",
+          "label": "ISO 20022 guide: SWIFT services migration table",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "SWIFT services table explicitly says started sending 054 debit/credit confirmations, 053 external and Loro/Vostro/Nostro statements, and 052 interim reports in July 2026. Page header is 8 December 2025, while the live table records later rollout. Applies to Innovation Banking/SVB services, not every First Citizens product. Exact versions and public original samples not verified. No open redistribution license established.",
       "termsUrl": null,
       "verifiedOn": "2026-10-11"
     }

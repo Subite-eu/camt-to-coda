@@ -6,7 +6,7 @@ These files are synthetic, independently authored source documents. Neither the 
 
 The separate [bank-published corpus](bank-published/README.md) records 12 official CAMT downloads from ING, ABN AMRO and Nordea with provenance, pinned hashes and independent compatibility tests. Those twelve publisher originals remain outside version control and deployed artifacts. No complete bank-published CODA original has been verified; do not confuse the synthetic CODA fixtures below with bank-issued reports.
 
-The broader [worldwide bank and country reference catalog](bank-catalog/README.md) inventories 97 bank/brand entries, 58 authority references and 119 bank-published CAMT XML originals or unchanged payloads. Geography folders group banks and national/regional references. Twenty-two Bundesbank XML originals are committed unchanged with attribution; other bank originals are external with pinned acquisition. This does not certify converter compatibility with every linked format.
+The broader [worldwide bank and country reference catalog](bank-catalog/README.md) inventories 104 bank/brand entries, 58 authority references and 119 bank-published CAMT XML originals or unchanged payloads. Geography folders group banks and national/regional references. Twenty-two Bundesbank XML originals are committed unchanged with attribution; other bank originals are external with pinned acquisition. This does not certify converter compatibility with every linked format. The [North America review](bank-catalog/north-america-review.md) additionally records unverified services, historical evidence and announced migrations for individual banks in Canada, the US and Mexico.
 
 ## Browser download library
 

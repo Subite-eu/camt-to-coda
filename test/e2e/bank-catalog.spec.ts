@@ -62,3 +62,31 @@ test('expanded sources distinguish embedded bank samples, interbank reporting an
   await expect(page.getByRole('heading', { name: /Bank of Korea/ })).toBeVisible();
   await expect(page.getByText(/interbank.*reporting|reporting.*interbank/i).first()).toBeVisible();
 });
+
+test('North America separates Canadian and US services and links bank specifications with their limits', async ({ page }) => {
+  await page.goto('/#bank-catalog');
+  await page.getByLabel('Region', { exact: true }).selectOption('North America');
+  await expect(page.getByRole('link', { name: /Full North America bank-by-bank review/ })).toHaveAttribute('href', /north-america-review\.md$/);
+  await page.getByLabel('Country / market').selectOption('Canada');
+  await page.getByLabel('Search banks and reporting formats').fill('RBC');
+  const canada = page.getByRole('article', { name: 'RBC / Royal Bank of Canada', exact: true });
+  await canada.getByText('Scope and source notes', { exact: true }).click();
+  await expect(canada).toContainText('Exact schema versions are unstated');
+  await expect(page.getByRole('heading', { name: /RBC Clear/ })).toHaveCount(0);
+  await page.getByLabel('Country / market').selectOption('United States');
+  const clear = page.getByRole('article', { name: /RBC Clear/ });
+  await expect(clear).toContainText('camt.054 v8');
+  await clear.getByText('Scope and source notes', { exact: true }).click();
+  await expect(clear).toContainText('client-gated');
+  await page.getByLabel('Search banks and reporting formats').fill('Huntington');
+  const huntington = page.getByRole('article', { name: 'Huntington National Bank', exact: true });
+  await expect(huntington.getByRole('link', { name: /CAMT.052 field guide/ })).toHaveAttribute('href', 'https://developer.huntington.com/enterprisepayments/docs/camt052');
+  await expect(huntington.getByRole('link', { name: /Complete inline XML example with camt.053/ })).toBeVisible();
+  await expect(huntington.getByRole('link', { name: /CAMT example files/ })).toHaveCount(0);
+  await page.getByLabel('Search banks and reporting formats').fill('Scotiabank');
+  await page.getByLabel('Country / market').selectOption('Mexico');
+  const mexico = page.getByRole('article', { name: 'Scotiabank Mexico', exact: true });
+  await expect(mexico).toContainText('financial-institution / vostro reporting');
+  await mexico.getByText('Scope and source notes', { exact: true }).click();
+  await expect(mexico).toContainText('does not establish corporate camt.054 entitlement');
+});

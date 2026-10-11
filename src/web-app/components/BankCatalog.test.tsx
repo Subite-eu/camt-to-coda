@@ -53,3 +53,18 @@ it("finds national technical files and original examples through resource filter
   const entry = screen.getByRole("article", { name: "Czech Banking Association (CBA)" });
   expect(within(entry).getByRole("link", { name: /camt053 national example/ })).toHaveAttribute("href", "https://cbaonline.cz/journal_files_storage/camt053_vypis.xml");
 });
+
+it("keeps North American reporting scope and unavailable public evidence discoverable", async () => {
+  render(<BankCatalog />);
+  await userEvent.selectOptions(screen.getByLabelText("Region"), "North America");
+  expect(screen.getByRole("link", { name: /Full North America bank-by-bank review/ })).toHaveAttribute("href", expect.stringContaining("north-america-review.md"));
+  await userEvent.selectOptions(screen.getByLabelText("Country / market"), "Canada");
+  await userEvent.type(screen.getByLabelText("Search banks and reporting formats"), "RBC");
+  const canada = screen.getByRole("article", { name: "RBC / Royal Bank of Canada" });
+  expect(within(canada).getByText(/Exact schema versions are unstated/)).toBeInTheDocument();
+  expect(screen.queryByRole("heading", { name: /RBC Clear/ })).not.toBeInTheDocument();
+  await userEvent.selectOptions(screen.getByLabelText("Country / market"), "United States");
+  const us = screen.getByRole("article", { name: /RBC Clear/ });
+  expect(within(us).getByText(/camt.054 v8/)).toBeInTheDocument();
+  expect(within(us).getByText(/client-gated/)).toBeInTheDocument();
+});

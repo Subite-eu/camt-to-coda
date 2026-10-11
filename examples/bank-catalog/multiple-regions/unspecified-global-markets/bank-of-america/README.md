@@ -4,18 +4,19 @@
 
 Verified 2026-10-11. Publisher: commercial-bank.
 
-**Documented market:** Global FI/CBPR+ documentation (market not enumerated)
+**Documented market:** Global FI/CBPR+ documentation (market not enumerated); corporate channels and FI reference material are distinguished. US account-booking eligibility is not enumerated by these global sources.
 
-**Formats / versions:** camt.053.001.08
+**Formats / versions:** camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.053.001.08 (global FI reference example)
 
 ## Official resources
 
+- [ISO 20022 Migration FAQs: corporate CashPro formats](https://images.em.bankofamerica.com/GTS/ISO20022migrationfaqs.pdf) — availability; public-file
 - [Official reporting guide](https://images.em.bankofamerica.com/GTS/ISO_20022/ReferenceGuideBanktoCustomerStatement%28CAMT.053%29.pdf) — pdf-example; public-file
 - [Additional official reporting information](https://images.em.bankofamerica.com/GTS/ISO20022clientreportingandstatements.pdf) — pdf-example; public-file
 
 ## Scope and source notes
 
-Reference guide provides MT940/MT950-to-camt.053 mapping and complete AppHdr + Document example, schema .08; example BICs are generic counterparties and do not prove a specific BofA geography. Bank PDF copyright all rights reserved; no open license established.
+Public FAQ Q15 explicitly confirms all three v2 messages through CashPro Online and CashPro Connect. Q16 confirms 052/053 via Connect FileAct or Host-to-Host. Copyright 2024; later-version roadmap dates do not establish completed rollout. The separate global FI reference guide includes a complete AppHdr + Document v8 PDF example and mapping, with generic counterparties. This PDF example is not a public raw corporate XML file and does not prove any account booking country. No open redistribution license established.
 
 No open redistribution licence established. Consult the publisher before republishing originals.
 

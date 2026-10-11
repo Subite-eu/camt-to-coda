@@ -10,8 +10,8 @@ No country-level reference verified in this catalog yet. Consult bank-specific d
 
 ## Banks and published resources
 
-- [Bank of America](bank-of-america/README.md) — camt.053.001.08
-- [Citi](citi/README.md) — camt.052.001.02; camt.053.001.02; camt.053.001.08; camt.05x v8 CBPR+
+- [Bank of America](bank-of-america/README.md) — camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.053.001.08 (global FI reference example)
+- [Citi / Citibank](citi/README.md) — camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.052.001.08 (specific branches); camt.053.001.08 (specific branches); camt.054.001.08 (specific branches)
 - [HSBC](hsbc/README.md) — camt v2; camt v8 (phased opt-in market rollout)
 - [J.P. Morgan](j-p-morgan/README.md) — camt.052; camt.053; camt.054
 - [Standard Chartered](standard-chartered/README.md) — camt.052; camt.053; camt.054

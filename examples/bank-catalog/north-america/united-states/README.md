@@ -51,4 +51,10 @@ CHIPS migrated on 2024-04-08. Payment-rail migration alone does not establish co
 - [DNB](dnb/README.md) — camt.053; camt.054C; camt.052 (coming later in page)
 - [Goldman Sachs](goldman-sachs/README.md) — camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08
 - [HSBC United States](hsbc-united-states/README.md) — camt.052; camt.053
-- [BNY / The Bank of New York Mellon](bny/README.md) — camt.053.001.08
+- [BNY / The Bank of New York Mellon](bny/README.md) — camt.053.001.08; camt.054.001.08
+- [RBC Capital Markets / RBC Clear (U.S. 3 WFC Branch)](rbc-clear-us/README.md) — camt.052 v2; camt.053 v2; camt.054 v8
+- [JPMorgan Chase / J.P. Morgan](jpmorgan-chase/README.md) — camt.052 (US corporate reporting; version unspecified); camt.053 (US corporate reporting; version unspecified)
+- [Truist](truist/README.md) — camt.052 (version unspecified); camt.053 (version unspecified)
+- [Huntington National Bank](huntington/README.md) — camt.052 (production version unspecified); camt.052.001.08 (public inline example); camt.053.001.02
+- [Citizens Bank](citizens-bank/README.md) — camt.052 (version unspecified); camt.053 (version unspecified)
+- [First Citizens Innovation Banking (former SVB)](first-citizens-innovation-banking/README.md) — camt.052 (version unspecified); camt.053 (version unspecified); camt.054 (version unspecified)
