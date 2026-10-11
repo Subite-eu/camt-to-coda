@@ -1,3 +1,6 @@
 # Original source fixture bytes (including the deliberate CRLF example) are contractual.
 examples/** -text
 examples/**/*.cod whitespace=cr-at-eol
+
+# Bank-published originals retain contractual CRLF bytes.
+examples/bank-catalog/europe/germany/deutsche-bundesbank/**/*.xml whitespace=cr-at-eol

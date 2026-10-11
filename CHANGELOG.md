@@ -6,6 +6,9 @@ Current changes are listed under Unreleased. Older entries describe their histor
 
 ### Added
 
+- Worldwide catalog with 57 bank/brand entries, 57 national/regional/global authorities and 104 byte-verified CAMT052/053 sources; generated geography/bank indexes, searchable browser filters, clear access/reporting scope, 22 unchanged attributed Bundesbank originals and a required source/XSD CI gate.
+- Separate provenance and pinned acquisition for 12 bank-published CAMT originals from ING, ABN AMRO and Nordea; 181 Node checks, real browser uploads/downloads, official UI download links and a required CI publication gate. These twelve publisher originals stay outside Git and published artifacts. Complete bank-issued CODA sourcing remains an explicit acquisition gap.
+
 - Bidirectional browser review with statement summaries, reconciliation, pagination, multi-statement selection/ZIP, exact field provenance, keyboard navigation, responsive panels, cancellation and recovery.
 - Privacy exports in both browser/API directions, with consistent result preview/download, safe filenames and explicit retained-data boundaries.
 - 104 independently authored original CAMT and CODA fixtures with literal expectations, positive/negative cases and all supported input/output XSD checks; business scenarios include salaries, cards, direct debits, international transfers, interest, refunds and busy statements.
@@ -24,6 +27,8 @@ Current changes are listed under Unreleased. Older entries describe their histor
 - Dependency updates include PostCSS 8.5.29 and Vitest/coverage 4.1.11.
 
 ### Fixed
+
+- CAMT052 interim booked (`ITBD`) closing balances and deterministic booked-before-available balance selection, including a regression found in ING's official intraday example.
 
 - Exact three-decimal money handling, lexical precision/overflow checks, mixed-currency rejection and balance/trailer reconciliation.
 - Record 3.1 positions, Belgian BBAN currency placement, movement/detail numbering and continuation links; monetary details no longer count as additional account movements.

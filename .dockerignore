@@ -8,6 +8,9 @@
 !src/
 !src/**
 !examples/catalog.json
+!examples/bank-published/catalog.json
+!examples/bank-catalog/catalog.json
+!examples/bank-catalog/country-references.json
 !examples/camt/*.xml
 !examples/coda/*.cod
 !examples/invalid/*.xml

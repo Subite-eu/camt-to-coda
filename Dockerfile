@@ -5,6 +5,9 @@ RUN npm ci
 COPY tsconfig*.json vite.config.ts ./
 COPY src/ src/
 COPY examples/catalog.json examples/catalog.json
+COPY examples/bank-published/catalog.json examples/bank-published/catalog.json
+COPY examples/bank-catalog/catalog.json examples/bank-catalog/catalog.json
+COPY examples/bank-catalog/country-references.json examples/bank-catalog/country-references.json
 COPY examples/camt/ examples/camt/
 COPY examples/coda/ examples/coda/
 COPY examples/invalid/ examples/invalid/

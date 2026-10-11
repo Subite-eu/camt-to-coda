@@ -1,0 +1,2072 @@
+{
+  "version": 1,
+  "verifiedOn": "2026-10-11",
+  "scope": "Official national, regional and global sources. Payment clearing adoption does not imply a national customer CAMT reporting profile. Missing jurisdictions are not yet inventoried, not evidence of absence.",
+  "references": [
+    {
+      "id": "central-bank-of-kenya",
+      "authority": "Central Bank of Kenya",
+      "role": "KEPSS RTGS operator / regulator",
+      "markets": [
+        {
+          "country": "Kenya",
+          "region": "Africa"
+        }
+      ],
+      "reportingCoverage": "High-value payment migration evidence; CAMT052/053 not established",
+      "formats": [
+        "ISO20022 RTGS; exact families not verified"
+      ],
+      "resources": [
+        {
+          "label": "CBK pressrelease index",
+          "url": "https://www.centralbank.go.ke/press/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CBK officialcircular index",
+          "url": "https://www.centralbank.go.ke/policy-procedures/legislation-and-guidelines/circulars/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The official press index lists a successful KEPSS ISO 20022 migration release dated 15 October 2024. The circular index lists 2024 circular number 2 on domestic high-value ISO migration. Exact reporting namespaces and raw XML were not established.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "central-bank-of-nigeria",
+      "authority": "Central Bank of Nigeria",
+      "role": "RTGS/S4operator / regulator",
+      "markets": [
+        {
+          "country": "Nigeria",
+          "region": "Africa"
+        }
+      ],
+      "reportingCoverage": "RTGS ISO 20022 support; corporateCAMT052/053 not established",
+      "formats": [
+        "ISO20022 RTGS; exact reporting IDs not verified"
+      ],
+      "resources": [
+        {
+          "label": "CBN LargeValuePayments",
+          "url": "https://www.cbn.gov.ng/PaymentsSystem/LargeValuePayments.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The official page identifies the RTGS/S4 upgrade on 11 April 2023, including ISO 20022 support, migration to a private network and 24/7 support. Reviewed contents do not publish a CAMT052/053 customer reporting guide.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "south-african-reserve-bank",
+      "authority": "South African Reserve Bank",
+      "role": "SAMOS RTGS operator / payment regulator",
+      "markets": [
+        {
+          "country": "South Africa",
+          "region": "Africa"
+        }
+      ],
+      "reportingCoverage": "DomesticRTGS ISO 20022 migration; CAMT052/053 profile not established",
+      "formats": [
+        "ISO20022 RTGS; exact reporting identifiers not verified"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 postgolive announcement",
+          "url": "https://www.resbank.co.za/en/home/publications/publication-detail-pages/media-releases/2022/ISO-20022-Post-go-live-press-release",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "publicannouncement+FAQattachments"
+        },
+        {
+          "label": "RTGS renewal program documentation",
+          "url": "https://www.resbank.co.za/en/home/what-we-do/payments-and-settlements/Real-time_Gross_Settlement_System_Renewal_Programme",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The announcement dated 3 November 2022 confirms domestic RTGS migration. The renewal page links SAMOS version 8.2 news and separate SADC materials. SAMOS software version 8.2 differs from CAMT namespace 08. No corporate CAMT052/053 sample was verified.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bankservafrica",
+      "authority": "BankservAfrica",
+      "role": "Domesticclearing operator / regionalCSM",
+      "markets": [
+        {
+          "country": "Southern African regional references",
+          "region": "Africa"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 DebiCheck/PayShap andRCSOpaymentstreams;052/053 not established",
+      "formats": [
+        "ISO20022 authenticatedcollections/instantpayments; exact CAMT IDs not verified"
+      ],
+      "resources": [
+        {
+          "label": "PFMI disclosure2023",
+          "url": "https://www.bankservafrica.com/api/public/v2/filehandler/image/65c2425e54153d0001a4e2ff",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "publiclyreachable; document markedconfidential/no copying withoutpermission"
+        }
+      ],
+      "notes": "PFMI principle 22 says batch payments still use proprietary formats while DebiCheck, PayShap and regional RCSO streams adopt ISO 20022. Public reachability does not grant reuse: the PDF footer restricts dissemination, copying and disclosure without prior written permission.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "cips-co-ltd",
+      "authority": "CIPS Co.Ltd",
+      "role": "Cross-border interbank payment-system operator",
+      "markets": [
+        {
+          "country": "China / cross-border RMB",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "Cash/account management is within standard scope; exact CAMT052/053 not verified",
+      "formats": [
+        "ISO20022-derived payment/account/cashmanagement; exact identifiers not verified"
+      ],
+      "resources": [
+        {
+          "label": "CIPS official services+standards",
+          "url": "https://www.cips.com.cn/kjjqgsyyingw/cipsfw/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CIPS Message Exchange Standardv3.0.1",
+          "url": "https://www.cips.com.cn/kjjqgsyyingw/2026-07/18/article_2026071800223796343.shtml",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public landing; attachments not inspected"
+        }
+      ],
+      "notes": "The current standard index lists RMB version 3.0.1 and HKD version 1.0.1. ISO 20022 methodology covers payments, accounts, cash, liquidity and system management; CIPS also offers a multi-bank account-statement service. Exact CAMT052/053 identifiers and raw XML examples were not confirmed.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hkicl-hkma-hkex-hkscc",
+      "authority": "HKICL / HKMA / HKEX HKSCC",
+      "role": "RTGS operator / regulator / clearinghouse participant",
+      "markets": [
+        {
+          "country": "Hong Kong",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "CHATS RTGS ISO 20022 migration; corporate CAMT reporting profile not established",
+      "formats": [
+        "ISO20022 RTGS payment messages; exact CAMT types not verified"
+      ],
+      "resources": [
+        {
+          "label": "HKEX money-settlement ISO 20022 migration guidance",
+          "url": "https://www.hkex.com.hk/Services/Clearing/Securities/What_s-New/ISO-20022-Upgrade-of-SWIFT-Messages-for-Money-Settlement?sc_lang=en",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public overview; HKICL participant guidelines referenced"
+        },
+        {
+          "label": "HKMA2024 annualreport bankingstability",
+          "url": "https://www.hkma.gov.hk/media/gb_chi/publications-and-research/annual-report/2024/C15_Banking_Stability.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "HKEX cites the HKICL RTGS migration date of 22 April 2024 and tells settlement and designated banks to follow HKICL guidelines. Separate HKTR ISO 20022 derivatives reporting is not bank account CAMT reporting and was not counted as CAMT052/053 coverage.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "reserve-bank-of-india",
+      "authority": "Reserve Bank of India",
+      "role": "RTGS/NEFT operator and regulator",
+      "markets": [
+        {
+          "country": "India",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "NG-RTGS ISO 20022 adoption; CAMT052/053 coverage not established",
+      "formats": [
+        "ISO20022 RTGS; exact families not verified"
+      ],
+      "resources": [
+        {
+          "label": "RBI centralised payment-system accessFAQ",
+          "url": "https://systemhealth.rbi.org.in/Scripts/FS_FAQs.aspx_Id%3D144%26fn%3D9.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public indexed officialRBI subdomain"
+        },
+        {
+          "label": "RBI payment-system vision",
+          "url": "https://systemhealth.rbi.org.in/Scripts/PublicationVisionDocuments.aspx_Id%3D1202.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public indexed"
+        }
+      ],
+      "notes": "The RBI FAQ states that NG-RTGS is built on ISO 20022 with liquidity and future-date features. The payments vision discusses migration of RBI-operated messages. An exact public CAMT052/053 implementation guide was not confirmed; RTGS adoption alone does not establish statement availability.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bank-indonesia",
+      "authority": "Bank Indonesia",
+      "role": "BI-FAST/RTGS operator / regulator",
+      "markets": [
+        {
+          "country": "Indonesia",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "BI-FASTISO 20022readiness; no CAMT052/053 profile established",
+      "formats": [
+        "ISO20022 BI-FAST; exact message IDs not verified"
+      ],
+      "resources": [
+        {
+          "label": "BI-FASTpublicFAQ",
+          "url": "https://www.bi.go.id/id/publikasi/ruang-media/news-release/Documents/Lampiran-FAQ_BI-FAST.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "IndonesiaEconomicReport2024chapter7",
+          "url": "https://www.bi.go.id/id/publikasi/laporan/Documents/LPI%202024_09_Bab%207.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The BI-FAST FAQ requires ISO 20022 message-format readiness. The 2024 economic report targets the ISO 20022 phase of third-generation BI-RTGS for 2027; this future RTGS program must not be described as already live. A corporate CAMT reporting profile was not found.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "japanese-banks-payment-clearing-network-zengin-net",
+      "authority": "Japanese Banks Payment Clearing Network / Zengin-Net",
+      "role": "Domestic interbank clearing operator",
+      "markets": [
+        {
+          "country": "Japan",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 XML clearing / ZEDI adoption; CAMT052/053 profile not established",
+      "formats": [
+        "ISO20022XML; exact CAMT types not verified"
+      ],
+      "resources": [
+        {
+          "label": "ZenginNet PFMI disclosure2025",
+          "url": "https://www.zengin-net.jp/en/zengin_net/pdf/pfmi_disclosure_e_2025.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "ZenginNet system overview",
+          "url": "https://www.zengin-net.jp/en/zengin_net/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "PFMI principle 22 states that ISO 20022 XML messages were first optional in the sixth-generation system in 2011, and that ZEDI uses compliant XML. This supports domestic clearing and remittance infrastructure adoption, not a corporate account-statement standard.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "payments-network-malaysia-paynet",
+      "authority": "Payments Network Malaysia / PayNet",
+      "role": "Retailpayment-systemoperator / APIstandardsprovider",
+      "markets": [
+        {
+          "country": "Malaysia",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "Transaction/controlISO 20022documentation;CAMT052/053not established",
+      "formats": [
+        "camt.007.001.08",
+        "camt.025.001.05"
+      ],
+      "resources": [
+        {
+          "label": "DuitNowtransactioncodetable",
+          "url": "https://docs.developer.paynet.my/docs/duitnowbill/transaction-codes",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The official table maps a decoupled Request to Pay rejection to a CAMT007 request and CAMT025 response. These are control messages, not account statements. No CAMT052/053 schema or national corporate statement profile was verified.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bangko-sentral-ng-pilipinas-ph-iso-20022task-force",
+      "authority": "Bangko Sentral ng Pilipinas / PH ISO 20022Task Force",
+      "role": "PhilPaSSplusRTGS operator / national payment standardbody",
+      "markets": [
+        {
+          "country": "Philippines",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "PublicCAMT052/053v8 reportingbusiness examples",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.05",
+        "camt.060.001.01",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "PhilippineRulebookonPaymentsandSettlements04June2021",
+          "url": "https://www.bsp.gov.ph/PaymentAndSettlement/PH_ISO_Rulebook_04Jun2021.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public232pagePDFwithXMLbusinessexamples"
+        }
+      ],
+      "notes": "The public rulebook version 1.5 covers domestic financial-institution clearing, settlement and cash management. Sections 5.17 and 5.18 explicitly include CAMT052/053.001.08 examples, section 5.7 CAMT054.001.05 and section 5.16 CAMT060.001.01. Reporting examples begin at printed pages 163 and 167. Scope is RTGS participants.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "saudi-central-bank-sama",
+      "authority": "Saudi Central Bank / SAMA",
+      "role": "sarie instant payment system owner / regulator",
+      "markets": [
+        {
+          "country": "Saudi Arabia",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 instantpaymentinteroperability;CAMT052/053not established",
+      "formats": [
+        "ISO20022instantpayments; exactCAMT IDs notverified"
+      ],
+      "resources": [
+        {
+          "label": "sarieofficialserviceoverview",
+          "url": "https://sama.gov.sa/en-US/payment/pages/Sarie.aspx",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The service overview states that sarie launched in 2021 and supports compatibility with regional and global instant payment systems under ISO 20022. The reviewed page provides no account-reporting profile, version or example.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "monetary-authority-of-singapore-association-of-banks-in-singapore",
+      "authority": "Monetary Authority of Singapore / Association of Banks in Singapore",
+      "role": "MEPS+ RTGS operator / banking association",
+      "markets": [
+        {
+          "country": "Singapore",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "MEPS+ payment specifications; no052/053 statement profile established",
+      "formats": [
+        "pacs.009 (non-participantSTP listed September2026); other exact types not verified"
+      ],
+      "resources": [
+        {
+          "label": "ABS official MEPS+ documentation index",
+          "url": "https://www.abs.org.sg/e-payments/meps",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public study/selectedPDF; manuals/testpack/software requireMAS-Tx Singpass/CorpPass login"
+        }
+      ],
+      "notes": "The official indexed page lists an ISO 20022 adoption study and a non-participant STP pacs.009 format dated September 2026. Industry test packs, user and operation manuals, and software require MAS-Tx login. The direct web view returned minimal content; indexed official contents were verified. No raw CAMT052/053 samples confirmed.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bank-of-thailand",
+      "authority": "Bank of Thailand",
+      "role": "BAHTNET RTGS operator / national standardauthority",
+      "markets": [
+        {
+          "country": "Thailand",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 BAHTNETpayment messages; CAMT052/053 not established",
+      "formats": [
+        "ISO20022 highvaluepaymentmessages; exact types not verified"
+      ],
+      "resources": [
+        {
+          "label": "BAHTNETofficialoverview",
+          "url": "https://www.bot.or.th/th/our-roles/payment-systems/Payment-systems.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "BOTpayment-systemmembercorner",
+          "url": "https://www.bot.or.th/th/our-services/financial-service/Member-BOT/Member-Corner.html",
+          "kind": "portal",
+          "access": "linked-unverified",
+          "accessNote": "public labels; detailedmessage attachments/access not inspected"
+        }
+      ],
+      "notes": "The overview states that BAHTNET adopted ISO 20022 in 2022. The member corner lists message specification versions 1.3 and 1.2 plus project training and testing materials. Specification version 1.3 differs from a CAMT namespace version. Corporate statement formats were not established.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "central-bank-of-the-uae",
+      "authority": "Central Bank of the UAE",
+      "role": "Centralbank / payment regulator",
+      "markets": [
+        {
+          "country": "United Arab Emirates",
+          "region": "Asia"
+        }
+      ],
+      "reportingCoverage": "PublicISO 20022correspondentpaymenttransitionguidance;CAMT052/053profile not established",
+      "formats": [
+        "ISO20022paymentstandard; exactCAMT IDs notverified"
+      ],
+      "resources": [
+        {
+          "label": "CBUAEAnnex3ISO 20022paymenttransition",
+          "url": "https://rulebook.centralbank.ae/en/rulebook/annex-3-transition-swift-iso-20022-payment-standard",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CBUAEFinancialStabilityReport2023",
+          "url": "https://www.centralbank.ae/media/3hvhkdfs/cbuae-financial-stability-report-2023_a4_e.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The financial stability report states that the domestic Instant Payments Platform uses ISO 20022. Annex 3 is broad correspondent and AML guidance, not an XML implementation guide. Its statement about MT9xx retirement should not be reused as a verified Swift deadline because payment and reporting migrations differ.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "psa-payment-services-austria-stuzza-payment-standard-resources",
+      "authority": "PSA Payment Services Austria / STUZZA payment-standard resources",
+      "role": "Austrian banking-community technical formats and EBICS implementation resources",
+      "markets": [
+        {
+          "country": "Austria",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "National Austrian account-reporting profiles and BTF mappings",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02",
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08"
+      ],
+      "resources": [
+        {
+          "label": "Austrian BTF mapping, account-information section",
+          "url": "https://ebics.psa.at/html/btf%20mappings.html",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO2019 customer-bank schemas",
+          "url": "https://zv.psa.at/de/download/xml/kunde-bank/rb-2023/xml-schemata-2.html",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public link; direct fetch certificate issue"
+        },
+        {
+          "label": "Archived RB2023 implementation PDFs",
+          "url": "https://zv.psa.at/de/download/xml/archiv/rb-2023-1/dokumentation-1.html?direction=desc&sort=title",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public indexed; direct fetch timeout"
+        }
+      ],
+      "notes": "Official BTF table last history4Jul2025 identifies Austrian .02 and .08 CAMT profiles, downloads ZIP with C52/C53/C54 orders; current exact national subversion not asserted. Indexed archived PDFs identify Austrian003 profiles18Oct2023. Schema host certificate failed standard Python trust; not bypassed.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "febelfin",
+      "authority": "Febelfin",
+      "role": "Belgian financial-sector federation and national banking-standard publisher",
+      "markets": [
+        {
+          "country": "Belgium",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Public Belgian subset guides for 053 and 054; the 053 guide also references the 052 v02 base schema. CODA is a separate fixed-width standard.",
+      "formats": [
+        "camt.053.001.02",
+        "camt.054.001.02",
+        "camt.052.001.02 (reference)",
+        "pain.002",
+        "pain.001",
+        "pain.008",
+        "CODA"
+      ],
+      "resources": [
+        {
+          "label": "Febelfin standards for online banking",
+          "url": "https://febelfin.be/nl/publicaties/2023/febelfin-standaarden-voor-online-bankieren",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 053 statement guideline 2.1",
+          "url": "https://febelfin.be/media/pages/publicaties/2023/febelfin-standaarden-voor-online-bankieren/6779fe8903-1786373983/standard-camt053-statement-v2.1.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 054 notification guideline 2.1",
+          "url": "https://febelfin.be/media/pages/publicaties/2023/febelfin-standaarden-voor-online-bankieren/bbc7ad29ea-1786373475/standard-camt054-notification-v2.1.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "Archived bank standards",
+          "url": "https://febelfin.be/nl/publicaties/2023/archief-bankstandaarden",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Current landing links 242-page 053 and 223-page 054 guides. Guideline 2.1 uses namespace 001.02. No independent national 052 guide verified. 2025 payment-initiation publications do not establish CAMT v08 support. Febelfin disclaimer does not grant open redistribution.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bulgarian-national-bank-bnb",
+      "authority": "Bulgarian National Bank (BNB)",
+      "role": "Central bank and TARGET-BNB national system-component authority",
+      "markets": [
+        {
+          "country": "Bulgaria",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "ISO20022 centralbank settlement context; no national customer reporting profile verified",
+      "formats": [
+        "ISO 20022; exact messages unverified"
+      ],
+      "resources": [
+        {
+          "label": "T2/TARGET-BNB overview, national rules and ECB technical-documentation links",
+          "url": "https://bnb.bg/PaymentSystem/PSTARGET2/PSTARGETT2/index.htm",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Official page explains ISO20022 T2 central liquidity, realtimesettlement and ancillary systems, links rules effective1Jan2026 and ECB functional/technical specifications. Settlement participant requirements must not be treated as commercial customer CAMT profile.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "croatian-sepa-national-project-croatian-banking-community",
+      "authority": "Croatian SEPA national project / Croatian banking community",
+      "role": "National SEPA implementation resource publisher",
+      "markets": [
+        {
+          "country": "Croatia",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed national customer-reporting implementation guide",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08"
+      ],
+      "resources": [
+        {
+          "label": "National SEPA SCT user guides",
+          "url": "https://sepa.hr/upute-za-korisnike/shema-za-sepa-kreditni-transfer/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "camt053052054 implementation guide effective17Mar2024",
+          "url": "https://sepa.hr/wp-content/uploads/2023/10/Uputa-za-klijente-camt.053-052-i-054-17.3.2024.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Guide v1.4 September2023 migrates2009 .02 to ISO2019 .08; includes statement, accountreport and debitcreditnotification field structures. This reporting guide is separate from SCT/SDD payment-only guidance on same site.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "czech-banking-association-cba",
+      "authority": "Czech Banking Association (CBA)",
+      "role": "National banking-association format standard publisher",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Czech Republic"
+        }
+      ],
+      "reportingCoverage": "Detailed national customer-bank reporting, schemas and examples",
+      "formats": [
+        "camt.053.001.08",
+        "camt.052.001.02 (legacy national profile)",
+        "camt.086 (legacy national fees profile)",
+        "pain.001.001.09",
+        "pain.002.001.10",
+        "pain.008.001.08"
+      ],
+      "resources": [
+        {
+          "label": "National XML formats and archive",
+          "url": "https://www.cbaonline.cz/clanky/formaty-xml-pro-vzajemnou-komunikaci-bank-s-klienty",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CBA ISO2019 national standard v2026_1_00,15Jul2026",
+          "url": "https://cbaonline.cz/journal_files_storage/cba-xml-rel2019_v2026_1_00.xlsx",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "CZ CBA camt05308 XSD",
+          "url": "https://cbaonline.cz/journal_files_storage/cz_cba_camt05300108.xsd",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "camt053 national example",
+          "url": "https://cbaonline.cz/journal_files_storage/camt053_vypis.xml",
+          "kind": "sample-file",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "camt052 national example2018",
+          "url": "https://cbaonline.cz/journal_files_storage/820-camt052cz-vzorovy-obrat-v2018.xml",
+          "kind": "sample-file",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Current landing content embedded as JSON; normal shell HTTP fetch verified. New15Jul2026 standard adopts ISO2019. It says archived camt052 and086 remain valid pending updates. Many older archive URLs point to test.awebsys.cz host; those were not fetched as primary examples. No redistribution permission inferred.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "danmarks-nationalbank",
+      "authority": "Danmarks Nationalbank",
+      "role": "Central bank / TARGETDKK account authority",
+      "markets": [
+        {
+          "country": "Denmark",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "TARGETDKK ISO 20022 A2A framework; exact CAMT reporting messages not established from reviewed source",
+      "formats": [
+        "ISO20022 A2A; message numbers not evidenced"
+      ],
+      "resources": [
+        {
+          "label": "Appendices to TARGETDKK account terms",
+          "url": "https://www.nationalbanken.dk/media/rocf1q0c/appendices-to-the-terms-and-conditions-for-accounts-in-target-dkk.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The connectivity appendix says TARGET Services A2A uses XML and ISO 20022 where applicable and points to ECB UDFS and user handbooks. This is infrastructure scope; no independent Danish corporate CAMT profile was established. The NPC reporting recommendation is separately catalogued.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "estonian-banking-association-pangaliit",
+      "authority": "Estonian Banking Association (Pangaliit)",
+      "role": "Banking-association customer-bank standards publisher",
+      "markets": [
+        {
+          "country": "Estonia",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Historical detailed common reporting standard; current implementation information directed to each bank",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02"
+      ],
+      "resources": [
+        {
+          "label": "XML B2C/C2B notice and archived standards",
+          "url": "https://pangaliit.ee/arveldused/xml-b2c-and-c2b-suhtlussonumid",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Archived Account Reporting Standards for Bank to Customer v1.02",
+          "url": "https://media.voog.com/0000/0042/1620/files/Account_Reporting_Standards_for_Bank_to_Customer_1_02-1.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The official association page links its Voog-hosted PDF. Archived common reporting standard approved31Jan2013. Page says banks abandoned common payment-initiation standard from17Mar2024 and directs payment/reporting message information to bank websites; do not claim archived .02 applies unchanged to all banks today.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "eba-clearing",
+      "authority": "EBA CLEARING",
+      "role": "Pan-European interbank payment system operator (EURO1, STEP2-T, RT1)",
+      "markets": [
+        {
+          "country": "European regional references",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Public ISO 20022 payment-clearing information; reviewed pages do not establish CAMT 052/053/054 customer-reporting profiles.",
+      "formats": [
+        "ISO20022 (interbank payments)",
+        "camt.056 (cancellation)"
+      ],
+      "resources": [
+        {
+          "label": "STEP2 advanced standard functionality",
+          "url": "https://www.ebaclearing.eu/services-sepa-payments/step2-t/advanced-standard-functionality/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "EURO1 ISO 20022 migration, March 2023",
+          "url": "https://www.ebaclearing.eu/large-value-payment-system-euro1-successfully-migrates-to-iso-20022/?stream=press_releases",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Public ISO 20022 harmonisation response, May 2023",
+          "url": "https://www.ebaclearing.eu/wp-content/uploads/2025/02/eba-clearings-response-to-the-cpmi-consultative-report-on-iso-20022-harmonisation-requirements_may-2023.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public sources establish interbank ISO 20022 and 056 cancellation, not a bank-to-customer statement profile. EBA CLEARING is distinct from the European Banking Authority.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "european-central-bank-eurosystem",
+      "authority": "European Central Bank / Eurosystem",
+      "role": "TARGET payment infrastructure operator and technical documentation publisher",
+      "markets": [
+        {
+          "country": "European regional references",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Central-bank account reporting in TARGET services; 053 statements and 052/054 reporting appear in public documents. Context differs from commercial bank customer reporting.",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054",
+        "pacs",
+        "head",
+        "camt (liquidity/control)"
+      ],
+      "resources": [
+        {
+          "label": "TARGET shared features and documentation entry",
+          "url": "https://www.ecb.europa.eu/paym/target/coco/html/index.en.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "TIPS consultative documents including 052/053 proposals",
+          "url": "https://www.ecb.europa.eu/paym/target/tips/profuse/html/index_meetdocs.en.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "TIPS change requests including 054 business date",
+          "url": "https://www.ecb.europa.eu/paym/target/tips/governance/html/changerequests.en.html",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Historical 2018 ISO 20022 message list",
+          "url": "https://www.ecb.europa.eu/paym/groups/shared/docs/e6f8a-t2-t2s-2018-03-14-tccg-iso-20022-messaging-excel.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public entry points and reporting-message context verified; current production namespaces not verified. Change proposals are not implemented requirements. National central-bank TARGET contracts are not national corporate CAMT profiles.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "european-payments-council-epc",
+      "authority": "European Payments Council (EPC)",
+      "role": "Pan-European SEPA payment-scheme owner and customer-reporting recommendation publisher",
+      "markets": [
+        {
+          "country": "European regional references",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Direct mapping of SEPA transaction details into CAMT 052/053/054 v08; recommendation rather than a bank-specific full statement profile.",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08",
+        "pacs",
+        "pain"
+      ],
+      "resources": [
+        {
+          "label": "EPC 188-09 customer-reporting recommendation 5.0",
+          "url": "https://www.europeanpaymentscouncil.eu/document-library/guidance-documents/epc-recommendation-iso-20022-customer-reporting-scts-oct-inst",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "EPC 188-09 v 5.0, April 2025 PDF",
+          "url": "https://www.europeanpaymentscouncil.eu/sites/default/files/kb/file/2025-04/EPC188-09%20v5.0%20Recommendation%20on%20Customer%20Reporting%20SCTs%2C%20OCT%20Inst%20and%20SDDs.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Version 5.0 dated 2025-04-25, effective 2025-10-05, covers SCT, SDD and OCT Inst. It primarily maps TransactionDetails rather than defining a complete account-report profile. It is neither a national guide nor a bank-published sample.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "finance-finland-finanssiala",
+      "authority": "Finance Finland / Finanssiala",
+      "role": "National financial industry body",
+      "markets": [
+        {
+          "country": "Finland",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Explicit bank-to-customer account reporting guide and named XML samples",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 account statement guide2020",
+          "url": "https://www.finanssiala.fi/wp-content/uploads/2021/03/ISO-20022-Account-Statement-Guide-2020.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "Transaction reporting guide landing",
+          "url": "https://www.finanssiala.fi/julkaisut/iso20022-tapahtumaraportti-opas/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Account guide dated 15 January 2020 has 46 pages. Section 4.3 names FI_camt.052_sample.xml, FI_camt.053_sample.xml and FI_camt.054_sample.xml and explains their contents; standalone raw sample download URLs were not confirmed. Banks need not offer every reporting choice. CAMT054 is reference-only.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "cfonb-comite-francais-d-organisation-et-de-normalisation-bancaires",
+      "authority": "CFONB - Comite francais d'organisation et de normalisation bancaires",
+      "role": "French banking community implementation-guideline publisher",
+      "markets": [
+        {
+          "country": "France",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "National CAMT 053 and CAMT 054 implementation guidelines; 052 is described as an intraday message, but no separate 052 guide was found.",
+      "formats": [
+        "camt.052.001.02 (context)",
+        "camt.053.001.02",
+        "camt.054.001.02",
+        "camt.086",
+        "pain.002"
+      ],
+      "resources": [
+        {
+          "label": "Public reporting guides",
+          "url": "https://www.cfonb.org/organisation-des-echanges/restitution-dinformation",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 053 national guide 1.3, November 2022",
+          "url": "https://www.cfonb.org/sites/www.cfonb.org/files/documents/Guide%20d%27utilisation%20ISO20022%20-%20Relev%C3%A9%20de%20compte%20-%20camt%20053%20-%20V%201.3%20-%2011%202022%20-%20Valid%C3%A9_0.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 054 national guide 1.4, November 2022",
+          "url": "https://www.cfonb.org/sites/www.cfonb.org/files/documents/Guide%20d%27utilisation%20ISO20022%20-%20Relev%C3%A9s%20d%27op%C3%A9rations%20-%20camt.054%20-%20v.1.4%20-%2011%202022%20-%20Valid%C3%A9.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public 134-page 053 guide and 86-page 054 guide verified. They use ISO 2009 version 02; guideline versions 1.3/1.4 are separate publication numbers. Landing also publishes an 086 billing guide and sample annexes. Member-only documentation is separate from these public guides.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "deutsche-bundesbank",
+      "authority": "Deutsche Bundesbank",
+      "role": "Central bank; account servicer and customer test centre",
+      "markets": [
+        {
+          "country": "Germany",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Cash-handling accounts of banks; central-bank participant examples, not universal commercial customer profile",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "label": "Customer test centre downloads",
+          "url": "https://www.bundesbank.de/de/aufgaben/unbarer-zahlungsverkehr/serviceangebot/kundentestzentrum/kundentestzentrum-602786",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Usage terms",
+          "url": "https://www.bundesbank.de/de/startseite/benutzerhinweise/benutzerhinweise-642874?index=2",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The publisher’s 29 October 2024 SWIFT/EBICS archives were retrieved on 2026-10-11; hashes are recorded in source-inventory.json. There are 22 XML originals, including five with missing element namespaces. Originals are retained unchanged. Terms permit unchanged reproduction, storage and forwarding for personal/business use with the attribution “Quelle: Deutsche Bundesbank”.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "die-deutsche-kreditwirtschaft-dk-published-through-ebics-de-siz",
+      "authority": "Die Deutsche Kreditwirtschaft (DK), published through EBICS.de/SIZ",
+      "role": "Banking-community payload-format standard publisher; EBICS also maintains separate transport standard",
+      "markets": [
+        {
+          "country": "Germany",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed national account-information rules and illustrative XML",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08",
+        "camt.086.001.02"
+      ],
+      "resources": [
+        {
+          "label": "Current Anlage 3 data-format specification v3.9",
+          "url": "https://www.ebics.de/de/datenformate/gueltige-version",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Supplementary schemas, July2025 CAMT examples and mapping",
+          "url": "https://www.ebics.de/de/datenformate/ergaenzende-dokumente",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "EBICS transport standard (separate from payload)",
+          "url": "https://www.ebics.de/de/ebics-standard",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Supplementary page Chapter7 explicitly provides original ISO2019 CAMT schemas, camt053 complete example and camt054 collection breakdown, XLSX rules and GVC/BTC mapping. Download links use expiring signed securedl URLs; use stable landing. Chapter12 separately covers camt086 bank charges. Footer all rights reserved.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hungarian-banking-association-magyar-bankszovetseg",
+      "authority": "Hungarian Banking Association (Magyar Bankszovetseg)",
+      "role": "National banking-association XML statement standard workinggroup",
+      "markets": [
+        {
+          "country": "Hungary",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Historical national HU_CAMT053 recommendation presentation",
+      "formats": [
+        "camt.053 (national recommendation selects V02)"
+      ],
+      "resources": [
+        {
+          "label": "HU_CAMT053 Hungarian XML statement standard recommendation,25Apr2016",
+          "url": "https://www.bankszovetseg.hu/Content/Projektek/HU_CAMT053_pdf.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Presentation describes national HU_CAMT053 workinggroup, GIRO documentation/XSD generation, selectsV02 onp10. Intro lists ISOv06 families but that list is not evidence that national HUprofile usesv06. Current definitive implementationguide not verified.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hungarian-state-treasury-magyar-allamkincstar",
+      "authority": "Hungarian State Treasury (Magyar Allamkincstar)",
+      "role": "Treasury account-service authority",
+      "markets": [
+        {
+          "country": "Hungary",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Public treasury SZR XML accountstatement specification and XSD",
+      "formats": [
+        "camt.053 (version not independently verified)"
+      ],
+      "resources": [
+        {
+          "label": "SZR XML statement technical resources",
+          "url": "https://www.allamkincstar.gov.hu/nem-lakossagi-ugyek/Penzforgalom/szamlavezeto-rendszer/tajekoztato-az-xml-formatumu-szr-kivonatrol",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Statement field specification13Mar2025",
+          "url": "https://www.allamkincstar.gov.hu/pfile/file?path=/nem-lakossagi-ugyek/Penzforgalom/szamlavezeto-rendszer/tajekoztato-az-xml-formatumu-szr-kivonatrol/kivonat_camt053_20250313&inline=true",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public linked; byte content not fetched"
+        },
+        {
+          "label": "Statement XSD template",
+          "url": "https://www.allamkincstar.gov.hu/pfile/file?path=/nem-lakossagi-ugyek/Penzforgalom/szamlavezeto-rendszer/tajekoztato-az-xml-formatumu-szr-kivonatrol/kivonat_xsd-sablon_2022.01.01-tol_20211026&inline=true",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public linked; byte content not fetched"
+        }
+      ],
+      "notes": "Scope treasury SZR clients. Page explicitly lists CAMT053 XLSX and XSD ZIP. Footer permits website information distribution unchanged in content and form; no additional licence inference for individual linked files.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "cbi-s-c-p-a",
+      "authority": "CBI S.c.p.a.",
+      "role": "Italian interbank corporate-banking service and technical-standard maintainer",
+      "markets": [
+        {
+          "country": "Italy",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Cash-management and information flows are in scope, but exact CAMT 052/053/054 namespace coverage and current CBI XML versions are not publicly verified.",
+      "formats": [
+        "ISO20022 (general; exact reporting message identifiers not publicly verified)",
+        "CBI-specific payment and information formats"
+      ],
+      "resources": [
+        {
+          "label": "Servizio CBI scope and access requirements",
+          "url": "https://www.cbi-org.eu/Servizio-CBI",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CBI standards portal",
+          "url": "https://www.cbi-org.eu/Standard",
+          "kind": "portal",
+          "access": "registration",
+          "accessNote": "registration/login required"
+        },
+        {
+          "label": "Official free-registration standard-download announcement",
+          "url": "https://www.cbi-org.eu/News/A-disposizione-la-versione-inglese-degli-Standard-del-Servizio-CBI",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Official announcement states standards align with ISO 20022/Berlin Group and are downloadable free after registration. Do not relabel CBIDlyStmtReqLogMsg or CBIPrdcStmtReqLogMsg as raw camt 053 without inspecting their schemas. Third-party legacy CBI-RND 001 mirrors excluded; no account created.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "finance-latvia-association",
+      "authority": "Finance Latvia Association",
+      "role": "National financial/banking-association implementation-guideline publisher",
+      "markets": [
+        {
+          "country": "Latvia",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed historical national customer-bank guideline including reporting",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "pain.001",
+        "pain.002",
+        "pain.008"
+      ],
+      "resources": [
+        {
+          "label": "Latvian ISO20022 customer-bank guideline2018",
+          "url": "https://www.financelatvia.eu/wp-content/uploads/2018/10/003_06_02_LV_ISO20022_Klients_banka_2018-01_v2_17_07_2018.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public112page guideline dated2018, not verified as newest. camt054 appears in consistency references but standalone054 implementation coverage not established.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "lithuanian-banking-association-lba",
+      "authority": "Lithuanian Banking Association (LBA)",
+      "role": "National banking-association format-rule publisher",
+      "markets": [
+        {
+          "country": "Lithuania",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "High-level reporting recommendation; detailed current national field rules chiefly payment initiation/status",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054",
+        "pain.001.001.09",
+        "pain.002.001.10"
+      ],
+      "resources": [
+        {
+          "label": "ISO20022 XML usage rules v4,April2025,effective5Oct2025",
+          "url": "https://www.lba.lt/uploads/documents/files/Banku%20klientams/SEPA/Darbo%20su%20formatu%20taisykles%20v_4.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Section3.3 references ISO2019 Bank-to-Customer CashManagement and EPC customer reporting recommendations, explicitly tells customers to consult their servicing bank for message structure. No detailed national CAMT schema version asserted.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "abbl-luxembourg-bankers-association",
+      "authority": "ABBL - Luxembourg Bankers Association",
+      "role": "Luxembourg banking-community payment-standard coordinator and guideline publisher",
+      "markets": [
+        {
+          "country": "Luxembourg",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "National XML B2C account-statement guideline explicitly covers camt.053.001.02.",
+      "formats": [
+        "camt.053.001.02",
+        "pain.001",
+        "pain.008",
+        "pain.002"
+      ],
+      "resources": [
+        {
+          "label": "National payment standards toolbox",
+          "url": "https://www.abbl.lu/professionals/payments/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "National XML statement guideline scope",
+          "url": "https://www.abbl.lu/professionals/payments/xml-statement-message-guidelines/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Account-statement guideline 2.0, November 2021",
+          "url": "https://www.abbl.lu/publications/abbl-payments-xml-message-statement/",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public landing; linked PDF fetch failed"
+        }
+      ],
+      "notes": "Official scope page identifies 053.001.02 and guide 2.0, November 2021. Publication offers a PDF on office-membernet.abbl.lu, but fetch failed; hostname alone does not prove membership restrictions. BIL bank guide separately confirms an adapted ABBL 053 guideline. No national 052/054 guide verified.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "betaalvereniging-nederland-dutch-payments-association",
+      "authority": "Betaalvereniging Nederland / Dutch Payments Association",
+      "role": "National coordination and implementation-guideline publisher",
+      "markets": [
+        {
+          "country": "Netherlands",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Maintains national CAMT 053 implementation guidelines; public sources reviewed do not establish separate national 052/054 guides.",
+      "formats": [
+        "camt.053",
+        "pain.001",
+        "pain.008"
+      ],
+      "resources": [
+        {
+          "label": "National CAMT 053 overview",
+          "url": "https://www.betaalvereniging.nl/kennisbank/standaarden-in-betalingsverkeer/camt-053/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Standards catalog with 053 guidelines 1.1 and 2.0",
+          "url": "https://www.betaalvereniging.nl/kennisbank/standaarden-in-betalingsverkeer/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 053 guideline 1.1, October 2013",
+          "url": "https://www.betaalvereniging.nl/wp-content/uploads/2026/03/IG-Bank-to-Customer-Statement-CAMT-053-v1-1.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "CAMT 053 guideline 2.0 download",
+          "url": "https://www.betaalvereniging.nl/en/download/3874/?tmstv=1773826301",
+          "kind": "specification",
+          "access": "linked-unverified",
+          "accessNote": "public-indexed; direct fetch timed out"
+        },
+        {
+          "label": "Guideline 2.0 publication announcement, August 2016",
+          "url": "https://www.betaalvereniging.nl/actueel/nieuws/nieuwe-versie-2-0-camt-053-xml-bericht-bank-to-customer-statement/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public catalog offers 053 guidelines 1.1 and 2.0. Catalog lists the same 2013 date for both, while the historical announcement says 2.0 was published 2016 and implemented 2017. Guideline version numbers are separate from ISO namespace versions; do not assume v08.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "nordic-payments-council",
+      "authority": "Nordic Payments Council",
+      "role": "Regional credit-transfer scheme and market-practice body",
+      "markets": [
+        {
+          "country": "Nordic region",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "CAMT052/053/054 customer-reporting recommendation",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08",
+        "pain",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "NPC NCT scheme rulebook and implementation guidelines",
+          "url": "https://www.nordicpaymentscouncil.org/npc-schemes/npc-credit-transfer-scheme-rulebook/",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "NPC004-01 reporting recommendation 2025 version1.0",
+          "url": "https://www.nordicpaymentscouncil.org/media/w4cpr1sg/npc004-01-recommendation-on-customer-reporting-nct-and-nct-inst-2025-version-10.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "40-page reporting recommendation maps NCT and NCT Inst data to CAMT052/053/054 v8. Participants are recommended to support it; it is not proof that every Nordic bank offers every format. Scheme version 2025 entered effect on 2025-10-05; operational readiness differs by participant and CSM.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bits-as",
+      "authority": "Bits AS",
+      "role": "Norwegian banking infrastructure/standards body",
+      "markets": [
+        {
+          "country": "Norway",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "National CAMT053/054 MIGs",
+      "formats": [
+        "camt.053.001.08",
+        "camt.054.001.08",
+        "camt.055.001.08",
+        "camt.029.001.09",
+        "pain.001.001.09",
+        "pain.002.001.10"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 national specification overview",
+          "url": "https://bits.no/bank/iso-20022/",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Bits Standards MIG portal",
+          "url": "https://www.bits-standards.org/",
+          "kind": "portal",
+          "access": "linked-unverified",
+          "accessNote": "registration / entitlement may be required; portal content not independently inspected"
+        }
+      ],
+      "notes": "Bits maintains Norwegian message specifications and lists current CAMT053/054 v8. The overview states that Norwegian banks cover nationally defined cash-management messages. Circular 12/22 describes migration from 2009 to 2019 base messages; MIG version 2.0 differs from namespace version 08.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "polish-bank-association-zbp-iso20022-group-under-payment-services-and-sepa-committee",
+      "authority": "Polish Bank Association (ZBP), ISO20022 group under Payment Services and SEPA Committee",
+      "role": "National banking-community recommendation publisher",
+      "markets": [
+        {
+          "country": "Poland",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed national account-statement recommendation",
+      "formats": [
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "label": "KUPiS-GISO20022 working-group documentation",
+          "url": "https://www.zbp.pl/Dla-Bankow/Bankowosc-elektroniczna/KUPiS-GISO20022",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Recommendation: camt05300108 statement on Polish market",
+          "url": "https://www.zbp.pl/getContentAsset/9f161734-17c7-402d-a56b-c285e7e7e7d6/1b52933d-ceff-4d97-bee2-094d491a3634/rekomendacja_standardu_4.pdf?language=pl",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "25page public national statement recommendation includes balances, pagination, parties, transactioncode tables. No camt052/054 coverage inferred from this053 guide. KIR payment clearing and NBP SORBNET documentation should be treated separately; SORBNET3 portal requires login.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "banco-de-portugal-task-force-c2b",
+      "authority": "Banco de Portugal / Task-Force C2B",
+      "role": "Central-bank host of Portuguese national customer-bank XML manual",
+      "markets": [
+        {
+          "country": "Portugal",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Reviewed public manual covers payment initiation, reversals and status, with no CAMT reporting. This does not prove Portugal lacks a separate reporting specification.",
+      "formats": [
+        "pain.001.001.03",
+        "pain.008.001.02",
+        "pain.007.001.02",
+        "pain.002.001.03"
+      ],
+      "resources": [
+        {
+          "label": "C2B normalised SEPA XML manual 4.00, November 2019",
+          "url": "https://www.bportugal.pt/sites/default/files/c2b_-_registo_normalizado_xml_v04_00.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public 155-page manual 04.00 dated 2019-11-18 verified. Message table p24 lists 001/002/007/008; appendix contains payment examples. No CAMT text found. Manual 4.00 is not a CAMT namespace. A newer manual was not verified; label this a dated reference.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "transfond",
+      "authority": "TRANSFOND",
+      "role": "National interbank payment clearing operator",
+      "markets": [
+        {
+          "country": "Romania",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "ISO20022 payment-system context only; customer account-reporting guideline not located",
+      "formats": [
+        "ISO 20022; exact messages unverified"
+      ],
+      "resources": [
+        {
+          "label": "SENT disclosure framework2023",
+          "url": "https://www.transfond.ro/pdf/SENT-%20Disclosure%20Framework%202023_RO_clean.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Frameworkp15 confirms proprietary SENT or SEPA ISO20022 formats for domestic/crossborder credittransfers and directdebits. No052053054 implementation coverage demonstrated. Do not classify as customer CAMT reporting standard.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "slovak-banking-association-sba",
+      "authority": "Slovak Banking Association (SBA)",
+      "role": "National banking-association publisher of nonbinding technical standards",
+      "markets": [
+        {
+          "country": "Slovakia",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed national electronic account statement standard",
+      "formats": [
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "label": "Payment-service projects and standards",
+          "url": "https://www.sbaonline.sk/projekt/projekty-z-oblasti-platobnych-sluzieb/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Cash Account XML Statement v3.1, effective1Apr2025",
+          "url": "https://www.sbaonline.sk/wp-content/uploads/2020/03/XMLStatement_SK_v3.1_2025_final.docx",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "National transactioncodes v3.1",
+          "url": "https://www.sbaonline.sk/wp-content/uploads/2020/03/XML_Statements_TrnCodes_SK_v3.1_2025.xls",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Landing explicitly calls standards nonbinding. DOCX downloaded and text verified .053.001.08. v3.0 effective18Mar2024-31Mar2025 and v2.6 historical remain public. CGI credit-transfer pain001 guide is separate.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "republic-of-slovenia-public-payments-administration-ujp",
+      "authority": "Republic of Slovenia Public Payments Administration (UJP)",
+      "role": "Public-sector treasury/account-service authority",
+      "markets": [
+        {
+          "country": "Slovenia",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed treasury client reporting specifications, XSD and XML examples",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.052.001.02 (ISO2009)",
+        "camt.053.001.02 (ISO2009)"
+      ],
+      "resources": [
+        {
+          "label": "UJP electronic-exchange structures and codes",
+          "url": "https://www.gov.si/drzavni-organi/organi-v-sestavi/uprava-za-javna-placila/storitve/strukture-in-sifranti-za-elektronsko-izmenjavo-datotek-z-ujp/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO2019 statement specification",
+          "url": "https://www.gov.si/assets/organi-v-sestavi/UJP/datoteke/storitve/strukture-sifranti/ISO-20022-v2019-XML-Struktura-izpisek.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO2019 statement/partial XSD",
+          "url": "https://www.gov.si/assets/organi-v-sestavi/UJP/datoteke/storitve/strukture-sifranti/ISO-20022-v2019-XSD-shema-Izpisek-DelniIzpis-camt-053-001-08.zip",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO2009 statement with comments",
+          "url": "https://www.gov.si/assets/organi-v-sestavi/UJP/datoteke/storitve/strukture-sifranti/ISO-20022-v2009-XML-primer-Izpisek-s-komentarji.zip",
+          "kind": "sample-file",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO2009 partial statement example",
+          "url": "https://www.gov.si/assets/organi-v-sestavi/UJP/datoteke/storitve/strukture-sifranti/ISO-20022-v2009-XML-primer-DelniIzpis.zip",
+          "kind": "sample-file",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Scope exchanges with UJP; not a universal Slovenian commercial-bank profile. Public page offers current2019 structures and historical2009 side by side. Both exampleZIP downloaded/hash logged.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "asociacion-espanola-de-banca-aeb",
+      "authority": "Asociacion Espanola de Banca (AEB)",
+      "role": "Spanish banking association and domestic SEPA implementation-booklet publisher",
+      "markets": [
+        {
+          "country": "Spain",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Payment initiation and payment status; no national CAMT 052/053/054 implementation guide verified in the public AEB catalog.",
+      "formats": [
+        "pain.001.001.09",
+        "pain.002.001.10",
+        "pain.008"
+      ],
+      "resources": [
+        {
+          "label": "Official SEPA payment booklets",
+          "url": "https://aebanca.es/sector-bancario/documentos-de-interes-sectorial/operativa-bancaria/folletos-de-pago-sepa/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO 20022 credit transfers and euro cheques, November 2025",
+          "url": "https://aebanca.es/wp-content/uploads/2026/03/Folleto.-Ordenes-en-formato-ISO-20022-para-emision-de-transferencias-y-cheques-en-euros-noviembre-2025.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public 57-page 2025 transfer booklet explicitly scopes itself to pain 001 v09 and 002 v10. Landing also links 2025 SDD Core/B2B booklets. Account-information flow diagrams do not mean CAMT reporting is specified. Historical Cuaderno 43 is not CAMT.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "sveriges-riksbank",
+      "authority": "Sveriges Riksbank",
+      "role": "Central bank and RIX-RTGS operator",
+      "markets": [
+        {
+          "country": "Sweden",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Settlement account CAMT052/053/054 reporting plus request",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08",
+        "camt.060.001.05",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "RIX-RTGS AnnexA1 Message Specifications",
+          "url": "https://www.riksbank.se/globalassets/media/rix/rix-inst-rtgs/engelska/annex-a1-message-specifications.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "RIX-RTGS Instructions",
+          "url": "https://www.riksbank.se/globalassets/media/rix/rix-inst-rtgs/engelska/rix-rtgs-instructions.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Annex A1 table 1 lists CAMT052/053/054 v8 and CAMT060 v5. The public 59-page PDF includes simplified XML request examples; detailed usage guidelines are on Swift MyStandards. Scope is RIX account holders, not a universal corporate statement profile.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "six-interbank-clearing-ag",
+      "authority": "SIX Interbank Clearing AG",
+      "role": "Swiss market payment-standard publisher and infrastructure operator",
+      "markets": [
+        {
+          "country": "Switzerland",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Detailed national customer-reporting implementation guidelines",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.08"
+      ],
+      "resources": [
+        {
+          "label": "SPS download center",
+          "url": "https://www.six-group.com/de/products-services/banking-services/payment-standardization/downloads-faq/download-center.html",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "SPS 2025 Cash Management v2.2; effective 22 Nov 2025",
+          "url": "https://www.six-group.com/dam/download/banking-services/standardization/sps/ig-cash-management-sps-2025-de.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "SPS 2026 Cash Management v2.3; effective 14 Nov 2026",
+          "url": "https://www.six-group.com/dam/download/banking-services/standardization/sps/ig-cash-management-sps-2026-de.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "2026 document is published but future-effective as of verification. Current 2025 guideline and future 2026 guideline use ISO2019 v08. All rights reserved in guidelines; no redistribution licence inferred.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bank-of-england",
+      "authority": "Bank of England",
+      "role": "Central bank / CHAPS and RTGS operator",
+      "markets": [
+        {
+          "country": "United Kingdom",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "CHAPS/RTGS statements, liquidity reports and notifications",
+      "formats": [
+        "camt.052",
+        "camt.053.001.08",
+        "camt.054",
+        "camt.060",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "Final CHAPS/RTGS changes forNov2025",
+          "url": "https://www.bankofengland.co.uk/-/media/boe/files/payments/rtgs-renewal-programme/iso-20022/chaps-rtgs-iso20022-change-request-nov25-final.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "ISO 20022 Handbook",
+          "url": "https://www.bankofengland.co.uk/payment-and-settlement/rtgs-renewal-programme/iso-20022-handbook",
+          "kind": "availability",
+          "access": "unavailable",
+          "accessNote": "search-index contents available; direct open returned404"
+        },
+        {
+          "label": "Schema distribution",
+          "url": "https://www2.swift.com/mystandards/",
+          "kind": "specification",
+          "access": "registration",
+          "accessNote": "Swift registration and relevant community access"
+        }
+      ],
+      "notes": "The public final changes PDF discusses CAMT060 requesting CAMT052 liquidity reports, CAMT053.001.08, and CAMT054 proprietary transaction codes. Detailed schemas and guidance are on MyStandards. The handbook search index mentions CAMT060.001.05, but the direct handbook URL returned 404; the live PDF supports reporting scope.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "pay-uk-standards-authority",
+      "authority": "Pay.UK Standards Authority",
+      "role": "Retail payment-system operator and standards body",
+      "markets": [
+        {
+          "country": "United Kingdom",
+          "region": "Europe"
+        }
+      ],
+      "reportingCoverage": "Payment conversion / retail ISO 20022 standards; no CAMT052/053 customer-statement profile established",
+      "formats": [
+        "pacs.008",
+        "pacs.002",
+        "pacs.004",
+        "ISO8583-to-ISO20022 mapping"
+      ],
+      "resources": [
+        {
+          "label": "FPS ISO 20022 standards library",
+          "url": "https://www.wearepay.uk/what-we-do/payment-systems/faster-payment-system/faster-payment-system-iso20022-standards-library/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public overview; library registration required"
+        },
+        {
+          "label": "Standards Authority",
+          "url": "https://www.wearepay.uk/what-we-do/standards-authority/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The library provides recommended ISO 8583 and ISO 20022 conversion in PDF and interactive HTML. It does not establish universal CAMT statement output from FPS or Bacs corporate files. Authority scope also includes Confirmation of Payee and Request to Pay.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "iso20022-registration-authority-message-catalogue",
+      "authority": "ISO20022 Registration Authority / message catalogue",
+      "role": "Global base message definitions, MDRs and XSD publisher",
+      "markets": [
+        {
+          "country": "Global standards",
+          "region": "Global"
+        }
+      ],
+      "reportingCoverage": "Global base 052/053/054 messages and archives; these are not country or bank usage profiles.",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054",
+        "pain",
+        "pacs",
+        "head"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 message catalogue",
+          "url": "https://www.iso20022.org/iso-20022-message-definitions?search=camt.053",
+          "kind": "standard",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Catalogue overview",
+          "url": "https://www.iso20022.org/catalogue-messages",
+          "kind": "standard",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public catalog offers XSD and message-set documentation. 2026 catalog shows 053.001.14 as a base version; that does not establish bank support or supersede every national guideline. Use the archived namespace matching the actual file.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "asc-x9-iso20022-market-practices-forum-resource-hosted-by-eact",
+      "authority": "ASC X9 ISO20022 Market Practices Forum; resource hosted by EACT",
+      "role": "Informative remittance-data market guide author; EACT is European treasury-association host",
+      "markets": [
+        {
+          "country": "International market practice",
+          "region": "Global"
+        }
+      ],
+      "reportingCoverage": "RemittanceInformation hierarchy and usage for CAMT 052/053/054 alongside payment/remittance messages; not a full CAMT implementation guide.",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054",
+        "pain.013",
+        "camt.028",
+        "remt",
+        "pain",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 Remittance Content Market Guide, February 2022",
+          "url": "https://eact.eu/Core/Images/EACT_PDFs/ISO-20022-Remittance-Content-Market-Guide-February-2022.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Cover author is ASC X9, not EACT: ASC X9 IR 01-2022, first edition released 2022-02-14. Public 65-page PDF contains a 052/053/054 remittance hierarchy table and XML examples. It is not European regulation or a national profile. X9 retains all copyrights despite free availability.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "payments-canada",
+      "authority": "Payments Canada",
+      "role": "National payment-system and standards authority",
+      "markets": [
+        {
+          "country": "Canada",
+          "region": "North America"
+        }
+      ],
+      "reportingCoverage": "Public draft corporate CAMT052/053/054 usage guidelines",
+      "formats": [
+        "camt.052.001.06",
+        "camt.053.001.06",
+        "camt.054.001.06",
+        "pain",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "AFT specifications and corporate reporting draft collection",
+          "url": "https://www.payments.ca/payment-resources/iso-20022/automatic-funds-transfer",
+          "kind": "specification",
+          "access": "public-page",
+          "accessNote": "public PDF/Excel; XSD by request"
+        },
+        {
+          "label": "CAMT052 DraftUG2017",
+          "url": "https://www.payments.ca/sites/default/files/2022-08/bank_to_corporate_messages_portfolio-_draft-_jan_banktocustomeraccountreportv06_20170130_1957_0.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public draft"
+        },
+        {
+          "label": "CAMT053 DraftUG2017",
+          "url": "https://www.payments.ca/sites/default/files/2022-08/bank_to_corporate_messages_portfolio-_draft-_jan_banktocustomerstatementv06_20170130_1957_1.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public draft"
+        }
+      ],
+      "notes": "Corporate reporting usage guidelines on this page are explicitly DRAFT and for information only; the page says they must not be relied on for system development. V06 namespaces were verified inside PDFs. Separate AFT inter-FI messages are offered for use; Lynx and RTR specifications are separate.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "federal-reserve-financial-services-fednow",
+      "authority": "Federal Reserve Financial Services / FedNow",
+      "role": "Instant payment-system operator",
+      "markets": [
+        {
+          "country": "United States",
+          "region": "North America"
+        }
+      ],
+      "reportingCoverage": "CAMT052 account reporting and CAMT054 debit/credit notification",
+      "formats": [
+        "camt.052",
+        "camt.054",
+        "camt.060",
+        "pacs"
+      ],
+      "resources": [
+        {
+          "label": "FedNow Operating Procedures v3.2 June2025",
+          "url": "https://frbservices.org/binaries/content/assets/crsocms/resources/rules-regulations/062425-fednow-service-operating-procedures.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        },
+        {
+          "label": "FedNow Customer Readiness Guide",
+          "url": "https://explore.fednow.org/resources/customer-readiness-guide.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "Public procedures and readiness guidance describe optional CAMT052 balance, activity totals and activity details reports, CAMT060 requests, and CAMT054 correspondent notifications. This is infrastructure reporting, not a universal corporate statement convention. Exact namespace version was not established from reviewed excerpts.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "federal-reserve-financial-services-fedwire",
+      "authority": "Federal Reserve Financial Services / Fedwire",
+      "role": "High-value RTGS operator",
+      "markets": [
+        {
+          "country": "United States",
+          "region": "North America"
+        }
+      ],
+      "reportingCoverage": "Fedwire CAMT052 account reporting and CAMT060 requests",
+      "formats": [
+        "camt.052",
+        "camt.060",
+        "admi.002"
+      ],
+      "resources": [
+        {
+          "label": "Fedwire Account Reporting FAQ",
+          "url": "https://www.frbservices.org/resources/financial-services/wires/fedwire-services-frequently-asked-questions/fedwire-service-iso-20022-faq/account-reporting-faq/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "Request technical-guide/XSD access",
+          "url": "https://www.frbservices.org/binaries/content/assets/crsocms/resources/financial-services/request-access-fedwire-funds-iso-20022-technical-guide.pdf",
+          "kind": "specification",
+          "access": "public-file",
+          "accessNote": "public access instructions; technical material access controlled"
+        }
+      ],
+      "notes": "The FAQ confirms CAMT052 balance, activity and endpoint reports and CAMT060 requests, rejected through admi.002. Activity reports can paginate at approximately 2,000 transactions or 4 MB per message. Scope is direct Fedwire customers; CAMT053 was not evidenced. Exact namespace version requires the technical guide.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "the-clearing-house-chips",
+      "authority": "The Clearing House / CHIPS",
+      "role": "Private-sector high-value clearing and settlement operator",
+      "markets": [
+        {
+          "country": "United States",
+          "region": "North America"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 payment migration established; CAMT052/053 statement coverage not established",
+      "formats": [
+        "ISO20022 payment messages; exact families not verified"
+      ],
+      "resources": [
+        {
+          "label": "CHIPS official document library",
+          "url": "https://www.theclearinghouse.org/payment-systems/CHIPS/CHIPS-Resources",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public library; detailed specification access not established"
+        },
+        {
+          "label": "CHIPS ISO 20022 migration announcement",
+          "url": "https://www.theclearinghouse.org/payment-systems/Articles/2024/04/CHIPS_Network_Migrates_ISO_20022_04-10-2024",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "CHIPS migrated on 2024-04-08. Payment-rail migration alone does not establish corporate CAMT052/053 offerings. Keep this separate from CGI bank-to-corporate reporting.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "australian-payments-network-reserve-bank-of-australia",
+      "authority": "Australian Payments Network / Reserve Bank of Australia",
+      "role": "Industry standards body / RITS RTGS operator",
+      "markets": [
+        {
+          "country": "Australia",
+          "region": "Oceania"
+        }
+      ],
+      "reportingCoverage": "HVCS interbank payment+investigation profile; no052/053 statement profile established",
+      "formats": [
+        "pacs.008.001.09",
+        "pacs.009.001.09",
+        "pacs.004.001.10",
+        "camt.056.001.09",
+        "camt.029.001.10"
+      ],
+      "resources": [
+        {
+          "label": "RITS SWIFTInterfaceUserGuideJan2025",
+          "url": "https://www.rba.gov.au/rits/info/pdf/RITSWIFT_Interface_User_Guide.pdf",
+          "kind": "payment-guideline",
+          "access": "public-file",
+          "accessNote": "public; detailed content specifications onMyStandards"
+        },
+        {
+          "label": "HVCS migration announcement",
+          "url": "https://www.auspaynet.com.au/insights/Media-Release/HVCS20022",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The RBA guide enumerates exact HVCS payment and investigation message versions. CAMT029 and CAMT056 concern investigations and cancellations, not account statements. AusPayNet coordinates HVCS and distributes usage guidelines through industry and MyStandards channels. Migration occurred on 2023-03-20.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "reserve-bank-of-new-zealand-payments-nz",
+      "authority": "Reserve Bank of New Zealand / Payments NZ",
+      "role": "ESAS RTGS operator / HVCS scheme body",
+      "markets": [
+        {
+          "country": "New Zealand",
+          "region": "Oceania"
+        }
+      ],
+      "reportingCoverage": "ESAS account statements and request messages supported; exact CAMT namespace not publicly established in reviewed overview",
+      "formats": [
+        "ISO20022 statements/requests; exact reporting message numbers not evidenced"
+      ],
+      "resources": [
+        {
+          "label": "ESAS andfinancialsystem",
+          "url": "https://www.rbnz.govt.nz/payments-and-settlement-systems/exchange-settlements-account-system/esas-and-the-financial-system",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        },
+        {
+          "label": "PaymentsNZ ISO 20022 project perspective",
+          "url": "https://www.paymentsnz.co.nz/resources/articles/iso-20022-a-project-perspective/",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "RBNZ states that ESAS version 7 added statement and request messages in July 2025, completing ISO compliance; MT and MX statement/enquiry coexistence continues after November 2025. Payments NZ HVCS aligns closely with CBPR+ while adding local requirements. Exact corporate reporting versions were not established.",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "banco-central-do-brasil",
+      "authority": "Banco Central do Brasil",
+      "role": "Central bank / SPI-Pix infrastructure authority",
+      "markets": [
+        {
+          "country": "Brazil",
+          "region": "South America"
+        }
+      ],
+      "reportingCoverage": "ISO 20022 fundtransfer study and Pix message development;052/053 not established",
+      "formats": [
+        "ISO20022 fundtransfer/Pix; exact reporting message IDs not verified"
+      ],
+      "resources": [
+        {
+          "label": "ISO 20022 informationcentre",
+          "url": "https://www.bcb.gov.br/estabilidadefinanceira/ISO20022",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public studyPDF+annexes"
+        },
+        {
+          "label": "Pix forum message governance",
+          "url": "https://www.bcb.gov.br/estabilidadefinanceira/forumpagamentosinstantaneos",
+          "kind": "availability",
+          "access": "public-page",
+          "accessNote": "public"
+        }
+      ],
+      "notes": "The 2018 study mapped 256 SPB messages to 13 ISO messages and concluded that the standard was suitable with changes. The Pix message group defines ISO 20022 messages for SPI. The historical study does not establish that all current SPB payments or corporate statements use CAMT.",
+      "verifiedOn": "2026-10-11"
+    }
+  ]
+}

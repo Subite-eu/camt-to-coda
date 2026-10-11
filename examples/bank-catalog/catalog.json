@@ -1,0 +1,2088 @@
+{
+  "version": 1,
+  "verifiedOn": "2026-10-11",
+  "scope": "Curated primary-source evidence, not an exhaustive availability guarantee or bank certification. Market labels follow source documents; contact the bank for account/channel entitlement.",
+  "banks": [
+    {
+      "id": "fnb",
+      "bank": "FNB / FirstRand Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Africa",
+          "country": "South Africa"
+        }
+      ],
+      "marketBasis": "South African business-account host-statement service documented by the bank.",
+      "formats": [
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "kind": "availability",
+          "access": "public-file",
+          "label": "Business accounts guide: host statements (page 39)",
+          "url": "https://www.fnb.co.za/downloads/pricing-guides/FNB-Business-Accounts.pdf"
+        }
+      ],
+      "notes": "Guide lists CAMT053 host statements. No public raw sample or technical specification verified; confirm account/channel eligibility with FNB.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "dbs-indonesia",
+      "bank": "DBS Indonesia",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Asia",
+          "country": "Indonesia"
+        }
+      ],
+      "marketBasis": "Indonesia",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.dbs.id/documents/37756383/0/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29_Apr23.pdf/8f99f3e1-724d-a55d-8371-5dffbbecb58e?t=1684737990985",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "IDEAL Connect / SWIFTNet FileAct section lists CAMT052 interim and CAMT053 daily statement; 052 frequency 1hr/30min and 053 daily/monthly; ISO 20022 XML checkbox. Search index contents verified; web open returned cache miss. Do not claim schema version or raw sample. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "mizuho",
+      "bank": "Mizuho",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Asia",
+          "country": "Japan"
+        }
+      ],
+      "marketBasis": "Japan / JPY clearing, MHCBJPJT",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://www.mizuhogroup.com/binaries/content/assets/pdf/mizuho-bank/what-we-do/yen_clearing/mig/mig_of_camt052_for_mhcbjpjt.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "unavailable"
+        },
+        {
+          "url": "https://www.mizuhogroup.com/binaries/content/assets/pdf/mizuho-bank/what-we-do/yen_clearing/mig/mig_of_camt053_for_mhcbjpjt.pdf",
+          "label": "Additional official reporting information",
+          "kind": "specification",
+          "access": "unavailable"
+        }
+      ],
+      "notes": "Official yen-clearing documents for MHCBJPJT; 052 CGI technical/business implementation and 053 SWIFT FINplus structure. Do not generalize to all Mizuho branches. Access check 2026-10-11 returned 404 for both PDF URLs; preserve as broken official reference, not available public download. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hsbc-thailand",
+      "bank": "HSBC Thailand",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Asia",
+          "country": "Thailand"
+        }
+      ],
+      "marketBasis": "Thailand",
+      "formats": [
+        "camt.052 v2",
+        "camt.053 v2",
+        "camt.052 v8 (announced, date TBD in this document)",
+        "camt.053 v8 (announced, date TBD in this document)",
+        "camt.054 (announced, date TBD)"
+      ],
+      "resources": [
+        {
+          "url": "https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Dated 1 May 2024: Thailand accounts supported v2 through HSBCnet/GIR, HSBC Connect and Account Information API. Explicitly says v8 and 054 later date to be confirmed. This historical document does not establish current v8 rollout. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "raiffeisenlandesbank-niederosterreich-wien",
+      "bank": "Raiffeisenlandesbank Niederösterreich-Wien",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Austria"
+        }
+      ],
+      "marketBasis": "Regional RLB NÖ-Wien EBICS offering",
+      "formats": [
+        "camt.052 / .053 / .054 listed in EBICS BTF table; schema version unstated"
+      ],
+      "resources": [
+        {
+          "url": "https://www.raiffeisen.at/noew/rlb/de/firmenkunden/online-banking/ebics.html",
+          "label": "Official reporting information",
+          "kind": "specification",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public EBICS technical page and BTF tables; authenticated Infinity / EBICS statements.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "raiffeisenlandesbank-oberosterreich",
+      "bank": "Raiffeisenlandesbank Oberösterreich",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Austria"
+        }
+      ],
+      "marketBasis": "RLB Oberösterreich specifically",
+      "formats": [
+        "camt.052 replaces MT941/942; .053 MT940; .054 Cremul/Demul; exact version unstated"
+      ],
+      "resources": [
+        {
+          "url": "https://www.raiffeisen.at/ooe/website/de/firmenkunden/zahlungsverkehr/bezahlloesungen/sepa.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public service overview; statements through existing electronic banking; no public raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "unicredit-bank-austria",
+      "bank": "UniCredit Bank Austria",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Austria"
+        }
+      ],
+      "marketBasis": "Austrian configuration explicitly stated",
+      "formats": [
+        "camt.052 / .053 / .054 ISO versions 2009 and 2019; exact schema suffix not independently stated in cited migration PDF"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bankaustria.at/files/iso_migration_en.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.bankaustria.at/firmenkunden-kontoauszugsdienst.jsp",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public 3-page migration PDF and service page; no public raw example verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "belfius-bank",
+      "bank": "Belfius Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Belgium"
+        }
+      ],
+      "marketBasis": "Belgium",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054"
+      ],
+      "resources": [
+        {
+          "url": "https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.belfius.be/redirect?key=EEPFORMSWIFT_EN",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public official page describes EOD053/intraday052 and links Febelfin statement specification1.0; exact namespace version unspecified. XML migration on customer request. Swift configuration form lists052/053/054. No public bank original XML found; linked Febelfin guideline is standards-body material. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "kbc-bank",
+      "bank": "KBC Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Belgium"
+        }
+      ],
+      "marketBasis": "Belgium and KBC Reach international branches",
+      "formats": [
+        "CAMT05x version2",
+        "CAMT05x version3"
+      ],
+      "resources": [
+        {
+          "url": "https://www.kbc.be/commercial-banking/nl/product/betalingsverkeer/tools/kbc-reach-faq.html?zone=topnav",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.kbc.be/commercial-banking/nl/artikel/betalingsverkeer/iso-20022.html",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Official indexed Reach FAQ lists downloadable CAMT05x v2/v3 and CODA. This is availability evidence; no bank-specific public schema/example verified. ISO migration page explicitly maps MT940/942 to053/052. Exact053/052 schema versions not inferred from broad05x wording. Site terms prohibit reproduction/distribution without prior written rightsholder permission; not an open licence.",
+      "termsUrl": "https://www.kbc.be/particulieren/nl/juridische-info/juridische-informatie.html",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "fio-banka",
+      "bank": "Fio banka",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Czech Republic"
+        },
+        {
+          "region": "Europe",
+          "country": "Slovakia"
+        }
+      ],
+      "marketBasis": "API bank statement exports using Czech CBA and Slovak SBA national formats as documented on fio.cz",
+      "formats": [
+        "camt.053.001.02 CBA and SBA variants"
+      ],
+      "resources": [
+        {
+          "url": "https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public 60-page API PDF dated 16 Oct 2025; authenticated/token API for actual statements; no public raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "komercni-banka",
+      "bank": "Komerční banka",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Czech Republic"
+        }
+      ],
+      "marketBasis": "Profibanka, MojeBanka Business, Přímý kanál and MultiCash KB in dated bank specification; Slovak branch also mentioned but do not infer current universal scope",
+      "formats": [
+        "camt.053.001.02 CBA national format"
+      ],
+      "resources": [
+        {
+          "url": "https://mojebanka.kb.cz/file/en/format_xml_statements_en.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public 21-page English specification effective 25 February 2016; historical/currently hosted reference, no 2026 freshness claim or raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "csob",
+      "bank": "ČSOB",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Czech Republic"
+        }
+      ],
+      "marketBasis": "ČSOB CEB Czech Banking Association XML statement format",
+      "formats": [
+        "camt.053.001.02 with CBA local rules"
+      ],
+      "resources": [
+        {
+          "url": "https://www.csob.cz/documents/10710/1927786/ceb-vypisy-format-xml-en.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.csob.cz/firmy/prehled-on-line-kanalu-a-aplikaci/csob-ceb",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public English PDF specification; actual customer exports via CEB login; no raw example verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "ceska-sporitelna",
+      "bank": "Česká spořitelna",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Czech Republic"
+        }
+      ],
+      "marketBasis": "George Business data statements",
+      "formats": [
+        "SEPA XML (camt.053); exact version not stated"
+      ],
+      "resources": [
+        {
+          "url": "https://www.csas.cz/en/george-help/george-business/accounts-and-loans/accounts/account-statements",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public help page evidences support; data statements in authenticated George Business; no raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "danske-bank",
+      "bank": "Danske Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Denmark"
+        },
+        {
+          "region": "Europe",
+          "country": "Finland"
+        },
+        {
+          "region": "Europe",
+          "country": "Ireland"
+        },
+        {
+          "region": "Europe",
+          "country": "Norway"
+        },
+        {
+          "region": "Europe",
+          "country": "Poland"
+        },
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        },
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        }
+      ],
+      "marketBasis": "Denmark, Finland, Ireland, Norway, Poland, Sweden, United Kingdom",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02 (reference)"
+      ],
+      "resources": [
+        {
+          "url": "https://danskeci.com/ci/transaction-banking/instructions/iso-20022-xml",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://danskeci.com/ci/transaction-banking/instructions/iso-20022-xml/account-report-examples",
+          "label": "Official XML example directory",
+          "kind": "portal",
+          "access": "public-page"
+        },
+        {
+          "url": "https://danskeci.com/ci/transaction-banking/instructions/iso-20022-xml/account-statement-examples",
+          "label": "Official XML example directory",
+          "kind": "portal",
+          "access": "public-page"
+        },
+        {
+          "url": "https://danskeci.com/-/media/pdf/danskeci-com/iso-20022-xml/camt,-d-,053,-d-,001,-d-,02-cgi.pdf?hash=E3E23B40B9B1213EA94F04E451CE3B89&rev=6be4277d69fe43119f807507beceae0a",
+          "label": "Official implementation guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Downloaded 27 original raw XML examples: 17 CAMT052 (account entries/balance-only in seven named countries plus three cashpool examples) and 10 CAMT053 (seven country examples plus three cashpool examples). All namespace001.02. Current CAMT053 CGI MIG v7.0 dated2026-09-09. 054 examples available reference-only. Landing reserves all rights; no open redistribution license established. Footer also has US/Australian-person website access restriction.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "nordea",
+      "bank": "Nordea",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Denmark"
+        },
+        {
+          "region": "Europe",
+          "country": "Finland"
+        },
+        {
+          "region": "Europe",
+          "country": "Norway"
+        },
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        }
+      ],
+      "marketBasis": "Countries represented by the downloaded reporting examples; not a claim about every bank office or account.",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "kind": "specification",
+          "access": "public-page",
+          "label": "Official account-reporting documentation",
+          "url": "https://www.nordea.com/en/en/our-services/cash-management/corporate-access-documents"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-standard-dk",
+          "url": "https://www.nordea.com/en/doc/camt053-standard-dk-cpe.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-standard-fi",
+          "url": "https://www.nordea.com/en/doc/camt.053-example-file-fi-cpe.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-extended-dk",
+          "url": "https://www.nordea.com/en/doc/camt-053-ext-dk.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-extended-fi",
+          "url": "https://www.nordea.com/en/doc/camt.053-extended-finland.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-standard-no",
+          "url": "https://www.nordea.com/en/doc/camt.053std-example-file-no-cpe.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-standard-se",
+          "url": "https://www.nordea.com/en/doc/camt.053std-example-file-se-cpe.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-extended-no",
+          "url": "https://www.nordea.com/en/doc/camt.053-ext-example-file-norway.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "nordea-extended-se",
+          "url": "https://www.nordea.com/en/doc/camt.053-extended-sweden.zip"
+        }
+      ],
+      "notes": "12-file tested corpus includes these originals. Illustrative source quirks are documented separately; bank usage terms apply.",
+      "termsUrl": "https://www.nordea.com/en/general-terms",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "seb",
+      "bank": "SEB",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Denmark"
+        },
+        {
+          "region": "Europe",
+          "country": "Finland"
+        },
+        {
+          "region": "Europe",
+          "country": "Norway"
+        },
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        },
+        {
+          "region": "Europe",
+          "country": "Poland"
+        },
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        },
+        {
+          "region": "North America",
+          "country": "United States"
+        },
+        {
+          "region": "Asia",
+          "country": "Singapore"
+        },
+        {
+          "region": "Europe",
+          "country": "Baltic states"
+        }
+      ],
+      "marketBasis": "Nordics, Baltics, Poland, United Kingdom, United States, Singapore (country-specific sample filenames)",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.052.001.08",
+        "camt.053.001.08",
+        "camt.054.001.02 (reference)",
+        "camt.054.001.08 (reference)"
+      ],
+      "resources": [
+        {
+          "url": "https://sebgroup.com/partnertesting",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://webapp.sebgroup.com/mb/mblib.nsf/b9689b435071dbeec12571240046964b/cac913935e9c5287c12579790031fcaa/%24FILE/SEB_MIG_ISO20022XML_Camt_B2C.zip",
+          "label": "Original sample archive — SEB_MIG_ISO20022XML_Camt_B2C.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://webapp.sebgroup.com/mb/mblib.nsf/alldocsbyunid/51CAB0DA5762D17BC1258AE100360328/%24FILE/SEB_MIG_camt052_053_054V8_26.2.0.0.zip",
+          "label": "Original sample archive — SEB_MIG_camt052_053_054V8_26.2.0.0.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Two original archives downloaded and hashed. V2 has41XML, V8 has37XML. Each has5CAMT052 plus12CAMT053; 054reference counts24(v2),20(v8). Country attribution from sample filenames, not a blanket operational-availability claim. https://sebgroup.com/legal-and-regulatory-information/legal-notice restricts copyrighted materials to private purposes and requires originator consent for other copying/reproduction/transfer/commercial use.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "op",
+      "bank": "OP",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Finland"
+        }
+      ],
+      "marketBasis": "Finland",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.op.fi/documents/10208/1130741/B2C%20Account%20reporting%20customer%20instrctions.pdf/21ecc4a6-e56f-006c-3eba-f35ea6dc8d98",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "January2022 PDF 44 pages covers domestic statement, reference payments/paid invoice reporting and real-time account queries; UTF8; BIC OKOYFIHH. PDF explicitly © OP, all rights reserved; no open license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bnp-paribas",
+      "bank": "BNP Paribas",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "France"
+        }
+      ],
+      "marketBasis": "International Cash Management, France-headquartered",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054"
+      ],
+      "resources": [
+        {
+          "url": "https://cashmanagement.bnpparibas.com/iso-20022-migration-hub",
+          "label": "Official sample portal information (registration required)",
+          "kind": "portal",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.cashmanagement.bnpparibas.com/fr/node/68",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://cashmanagement.bnpparibas.com/sites/default/files/2023-04/Newsletter_ISO20022_2023%20%231_EN_Feb2023.pdf",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public channel page advertises XMLcamt05x reporting;2023 official newsletter names052/053/054 equivalents. Migration hub directs customers to MyStandards for message guidelines. No bank-hosted public original XML verified. Exact schema versions unspecified;2019 interbank migration statement is not proof of customer053v8 availability. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "caisse-d-epargne",
+      "bank": "Caisse d'Epargne",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "France"
+        }
+      ],
+      "marketBasis": "France",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.img.caisse-epargne.fr/app/uploads/sites/8/2024/04/24161957/n11533-cg-ebic-v-finale.pdf",
+          "label": "Official reporting documentation",
+          "kind": "specification",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public24page EBICS general-conditions/technical-services annex. Section5 p15 lists053 endofday and052 intraday (subject to availability), BTF service/request names. Service/transport specification, not full field mapping or sample XML. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "commerzbank",
+      "bank": "Commerzbank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Germany"
+        }
+      ],
+      "marketBasis": "Page explicitly applies to Commerzbank accounts in Germany",
+      "formats": [
+        "camt.053.001.08 vs .001.02 comparison; camt.05x account information"
+      ],
+      "resources": [
+        {
+          "url": "https://www.commerzbank.com/insights-research/magazin/iso-20022/umstellung/",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.commerzbank.com/ms/documents/en/iso-20022-conversion-account-information.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public PDFs and bank guidance; sample links point to EBICS banking-industry source, not Commerzbank-published originals.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "deutsche-bank",
+      "bank": "Deutsche Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Germany"
+        }
+      ],
+      "marketBasis": "Corporate Bank cash management channels; not inferred for every office",
+      "formats": [
+        "camt.052 / .053 / .054; public factsheet compares camt.053 V08"
+      ],
+      "resources": [
+        {
+          "url": "https://corporates.db.com/in-focus/Focus-topics/iso20022/test-tabs?language_id=1",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://corporates.db.com/files/documents/in-focus/focus-topics/iso20022/camt-FactSheet-final-EN.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public factsheet/documentation; guidelines and samples stated available on SWIFT MyStandards via dbAutobahn login.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "deutsche-bundesbank",
+      "bank": "Deutsche Bundesbank",
+      "publisherType": "central-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Germany"
+        }
+      ],
+      "marketBasis": "Central-bank cash-account / interbank reporting examples for EBICS and SWIFT; not commercial retail accounts.",
+      "formats": [
+        "camt.052.001.08",
+        "camt.053.001.08 (intended; published namespace defects)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bundesbank.de/resource/blob/943092/4b2c43de91b04dc4cf2b36ee73a025aa/472B63F073F071307366337C94F8C870/beispieldateien-format-camt-052-swift-data.zip",
+          "label": "Original SWIFT sample archive",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.bundesbank.de/resource/blob/943090/3d1c4aa7aa18e86e724a5a42ce10a889/472B63F073F071307366337C94F8C870/beispieldateien-format-camt-052-ebics-data.zip",
+          "label": "Original EBICS sample archive",
+          "kind": "sample-file",
+          "access": "public-file"
+        }
+      ],
+      "notes": "22 unchanged XML originals (20 CAMT052 and two CAMT053) are stored in this repository with attribution. Five have unused namespace declarations and are invalid against the intended schema. Other report examples can omit balances needed for conversion. These are reference fixtures, not a converter compatibility certification.",
+      "termsUrl": "https://www.bundesbank.de/de/startseite/benutzerhinweise/benutzerhinweise-642874?index=2",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "unicredit-hypovereinsbank",
+      "bank": "UniCredit / HypoVereinsbank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Germany"
+        }
+      ],
+      "marketBasis": "German HVB customer reporting guide; no extrapolation to every UniCredit office",
+      "formats": [
+        "camt.052.001.08 / .053.001.08 / .054.001.08; compares previous .02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.hypovereinsbank.de/content/dam/hypovereinsbank/unternehmen/pdf/Downloadcenter/ZV-Reporting-DE.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.hypovereinsbank.de/hvb/unternehmen/konto-zahlungsverkehr/ebanking-loesungen/ferndiagnose-go-to-assist",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public 104-page reporting manual with embedded XML snippets and field tables; test-platform samples described, not anonymously downloaded.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "otp-bank",
+      "bank": "OTP Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Hungary"
+        }
+      ],
+      "marketBasis": "OTPdirekt Electra Terminal export documentation; document age noted",
+      "formats": [
+        "camt.053.001.02 per interface guide"
+      ],
+      "resources": [
+        {
+          "url": "https://www.otpbank.hu/static/portal/sw/file/OTPdirekt_Electra_Terminal_interfesz_leiras_2_1.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public PDF specification (older indexed document), not evidence of latest 2026 version; no raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "intesa-sanpaolo",
+      "bank": "Intesa Sanpaolo",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Italy"
+        }
+      ],
+      "marketBasis": "Italy Inbiz corporate banking",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.intesasanpaolo.com/content/dam/vetrina/trasparenza/it/Documenti/Doc/Pdf/FI/FI-Other/FI-1069.pdf",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public23page official information sheet069/069 for Inbiz. Account balance/transaction reception service explicitly lists XML052 and053. Pricing/product availability evidence, not schema guide or original example; exact versions unspecified. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "banque-internationale-a-luxembourg-bil",
+      "bank": "Banque Internationale a Luxembourg (BIL)",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Luxembourg"
+        }
+      ],
+      "marketBasis": "Luxembourg",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bil.com/BIL-digital/multiline-en.html",
+          "label": "Official reporting documentation",
+          "kind": "specification",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.bil.com/BIL-digital/assets/doc/BIL_CAMT053_V2_final.pdf",
+          "label": "Bank technical specification",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.bil.com/BIL-digital/index-en.html",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public155page Implementation Guidelines v2.1,08.08.2023. Digital catalog explicitly identifies053.001.02 for EBICS and Multiline. Multiline page announces updated format effective2023-10-01. No original XML download verified; do not treat PDF field examples as fixture. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "abn",
+      "bank": "ABN AMRO",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Countries represented by the downloaded reporting examples; not a claim about every bank office or account.",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "kind": "specification",
+          "access": "public-page",
+          "label": "Official account-reporting documentation",
+          "url": "https://www.abnamro.nl/nl/zakelijk/producten/betalen/sepa/rapportages/comprimeerinstellingen.html"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "abn-credit-transfer",
+          "url": "https://assets.abnamro.com/api/public/content/sepa-rapportage-voorbeeld-camt053-gecomprimeerd-overboeking-original.zip"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "abn-direct-debit",
+          "url": "https://assets.abnamro.com/api/public/content/sepa-rapportage-voorbeeld-camt053-gecomprimeerd-incasso-original.zip"
+        }
+      ],
+      "notes": "12-file tested corpus includes these originals. Illustrative source quirks are documented separately; bank usage terms apply.",
+      "termsUrl": "https://www.abnamro.nl/nl/zakelijk/over-abnamro/disclaimer.html",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "asn-bank",
+      "bank": "ASN Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Netherlands",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.asnbank.nl/downloads/formaatbeschrijving-camt053.html",
+          "label": "Official reporting documentation",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.asnbank.nl/zakelijk/zakelijk-betalen/asn-online-bankieren-zakelijk.html",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public12pagePDF despite .html URL. Full field mapping and namespace. Customer statement export requires ASN Online Bankieren. Same related brand family as SNS/RegioBank; no complete original XML identified. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bng-bank",
+      "bank": "BNG Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Netherlands",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bngbank.nl/producten/informeren-beheren/formaten-voorbeelden",
+          "label": "Official reporting documentation",
+          "kind": "pdf-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.bngbank.nl/v3/assets/bltd8a6f23fc3c861a3/bltdc40acef374a52ab/6984a9a98e3cba6f87a42710/BNG_Betalingsverkeer_Exportformaten.pdf",
+          "label": "Bank XML example in PDF",
+          "kind": "pdf-example",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Official indexed catalog advertises a CAMT.053.001.002 sample file; exact download URL not recovered because page fetch returns403. Indexed January2026 export-format PDF section2.2 contains XML example dated2021-10-29. No extracted fixture created. Raw XML existence advertised, not downloaded or validated. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "ing",
+      "bank": "ING",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Countries represented by the downloaded reporting examples; not a claim about every bank office or account.",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "kind": "specification",
+          "access": "public-page",
+          "label": "Official account-reporting documentation",
+          "url": "https://www.ingwb.com/en/payments-and-collections/account-reporting-format-specifications"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "ing-camt052-v2",
+          "url": "https://assets.ing.com/asset/bcca3912-1648-4f52-aab8-0a6d4c43f700/CAMT-052-v2-CGI-Example.xml"
+        },
+        {
+          "kind": "sample-file",
+          "access": "public-file",
+          "label": "ing-camt053-v8",
+          "url": "https://assets.ing.com/m/7250f7bbf11854a4/original/CAMT-053-v8-Sample.xml"
+        }
+      ],
+      "notes": "12-file tested corpus includes these originals. Illustrative source quirks are documented separately; bank usage terms apply.",
+      "termsUrl": "https://www.ingwb.com/en/service/compliance/privacy-and-legal-statements/legal",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "rabobank",
+      "bank": "Rabobank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Netherlands / international Rabo Business Banking",
+      "formats": [
+        "camt.052.001.02",
+        "camt.052.001.08",
+        "camt.053.001.02",
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://www.rabobank.nl/bedrijven/service/online-bankieren/informatie-over-bestandsformaten",
+          "label": "Official sample portal information (registration required)",
+          "kind": "portal",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.rabobank.com/products/manage-my-trade-and-cash/rabo-business-banking/downloads-and-documentation",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public catalog documents versions and states all XML specifications and sample files are available in Swift MyStandards Rabobank Daily Business Banking community. Requires Swift account and community access; no login attempted. .02B batchdetails variants are also advertised, not distinct ISO namespaces. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "regiobank",
+      "bank": "RegioBank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Netherlands",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.regiobank.nl/downloads/technische-specificaties-van-camt.053.html",
+          "label": "Official reporting documentation",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public9pagePDF despite .html URL. Formaatbeschrijving dated26-07-2024. Namespace and field-level mapping; snippets only, no complete original XML identified. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "sns-bank",
+      "bank": "SNS Bank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Netherlands"
+        }
+      ],
+      "marketBasis": "Netherlands",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.snsbank.nl/zakelijk/zzp/camt053-voor-boekhoudpakketten.html",
+          "label": "Official reporting documentation",
+          "kind": "specification",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.snsbank.nl/particulier/support/download-tonen-op-pagina/sns-formaatbeschrijving-camt053.html",
+          "label": "Bank technical specification",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public11pagePDF despite .html URL,30-07-2024. Official user page explains CAMT downloads inside Mijn SNS. Specification contains field snippets, not raw complete sample. SNS/RegioBank/ASN related brands: avoid counting these as unrelated bank engines. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "dnb",
+      "bank": "DNB",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Norway"
+        },
+        {
+          "region": "Europe",
+          "country": "Denmark"
+        },
+        {
+          "region": "Europe",
+          "country": "Finland"
+        },
+        {
+          "region": "Europe",
+          "country": "Germany"
+        },
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        },
+        {
+          "region": "North America",
+          "country": "United States"
+        },
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        }
+      ],
+      "marketBasis": "Norway, Denmark, Finland, Germany, UK, US; Sweden separate schedule",
+      "formats": [
+        "camt.053",
+        "camt.054C",
+        "camt.052 (coming later in page)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.dnb.no/en/business/help-and-guidance/erp-and-integration?la=EN",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Explicit bank page account-country scope: transition on 30 June 2026 for Norway/Denmark/Finland/Germany/UK/US, Sweden separate 2025 deadline. Important caveat: page says camt052 not fully developed, to be announced, so do not mark 052 as live. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "pko-bank-polski",
+      "bank": "PKO Bank Polski",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Poland"
+        }
+      ],
+      "marketBasis": "iPKO biznes",
+      "formats": [
+        "existing camt.053; new optional camt.053.001.08 daily / .052.001.08 intraday explicitly available at customer request; legacy PDF .053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.pkobp.pl/aktualnosci/modifications-to-foreign-transfers-implemented-as-a-result-of-the-iso-20022-standard",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.pkobp.pl/api/public/bc9e3376-f678-4095-a37c-e75b46e41f29.pdf?content-disposition=filename%3DStruktura_plik%C3%B3w_wyj%C5%9Bciowych.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public announcement and output structure PDF; actual reports in authenticated iPKO biznes; no public raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "mbank",
+      "bank": "mBank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Poland"
+        }
+      ],
+      "marketBasis": "CompanyNet / corporate reporting",
+      "formats": [
+        "camt.052.001.08 / .053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://www.mbank.pl/msp-korporacje/bankowosc-elektroniczna/pytania-i-odpowiedzi/struktury-plikow-wymiany-danych/",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.mbank.pl/pdf/msp-korporacje/bankowosc-elektroniczna/opis-formatu-pliku-eksportu-camt.052.001.08.pdf",
+          "label": "Official reporting guide",
+          "kind": "pdf-example",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.mbank.pl/pdf/msp-korporacje/bankowosc-elektroniczna/opis-formatu-pliku-eksportu-wyciagow-dziennych-camt.053.001.08.pdf",
+          "label": "Official reporting guide",
+          "kind": "pdf-example",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public 66/72-page PDF specifications with complete embedded XML examples and CBPR+ pagination examples; no separate raw sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "banco-bpi",
+      "bank": "Banco BPI",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Portugal"
+        }
+      ],
+      "marketBasis": "Portugal",
+      "formats": [
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bancobpi.pt/empresas/servicos-24-7/canal-swift",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Official Swift-channel catalog lists053 on FIN Plus, explicitly available only to financial-institution BICs. Do not imply unrestricted corporate CAMT download. No schema version/public original sample verified. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "citi-slovakia",
+      "bank": "Citi Slovakia",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Slovakia"
+        }
+      ],
+      "marketBasis": "Slovakia",
+      "formats": [
+        "camt.053 (version unspecified)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.citibank.com/icg/sa/emea/slovakia/english/solutions/liquidity/internet-banking.html",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Country product page explicitly lists account statement export XML CAMT.053 and cross-country Citi account access; does not establish all-country CAMT availability. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "tatra-banka",
+      "bank": "Tatra banka",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Slovakia"
+        }
+      ],
+      "marketBasis": "Slovak Internet banking / Business banking; Slovak national camt.053 format",
+      "formats": [
+        "camt.053; raw example namespace unverified due HTTP403"
+      ],
+      "resources": [
+        {
+          "url": "https://www.tatrabanka.sk/en/personal/account-payments/internet-banking/statement-accounting-records/",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.tatrabanka.sk/files/sk/personal/ucet-platby/elektronicke-bankovnictvo/internet-banking/vypis-do-uctovnictva/vypis_xml_camt053.xml",
+          "label": "Official XML sample (download returned 403)",
+          "kind": "sample-file",
+          "access": "linked-unverified"
+        },
+        {
+          "url": "https://www.tatrabanka.sk/sk/business/ucty-platby/business-banking/",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public official landing links raw XML example and format description; sample HTTP403 in download environment (web confirms application/xml); authenticated account statements separate.  Official page links instant payment XML statement example RAR; archive not downloaded or content verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bbva",
+      "bank": "BBVA",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Spain"
+        }
+      ],
+      "marketBasis": "Spain plus international BBVA Pivot footprint incl Belgium,France,Portugal,UK,USA,LatinAmerica,Asia",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.bbvapivot.com/en/financial-solutions/bank-account-management/",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.bbvacib.com/solutions/corporate-transaction-banking/cash-management/",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Official Pivot reporting page names053, channel/market footprint; official CIB cash-management page names052/053 account reporting via Host-to-Host or Swift. No schema versions, technical mapping, or original XML sample verified. No explicit redistribution licence verified in this bounded research. Public URL is not permission to republish.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "handelsbanken",
+      "bank": "Handelsbanken",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        },
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        }
+      ],
+      "marketBasis": "Sweden, United Kingdom (downloaded target samples); Norway reference054 examples",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054 (reference)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.handelsbanken.com/en/our-services/digital-services/global-gateway/iso-20022-xml",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146939",
+          "label": "Original sample archive — handelsbanken-72-146939.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146942",
+          "label": "Original sample archive — handelsbanken-72-146942.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146944",
+          "label": "Original sample archive — handelsbanken-72-146944.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146945",
+          "label": "Original sample archive — handelsbanken-72-146945.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146946",
+          "label": "Original sample archive — handelsbanken-72-146946.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.handelsbanken.com/tron/xgpu/info/contents/v1/document/72-146947",
+          "label": "Original sample archive — handelsbanken-72-146947.zip",
+          "kind": "sample-file",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Six downloaded archives contain one CAMT052 example for Sweden and five CAMT053 examples for Sweden/UK, including incoming/outgoing payments and Swish ecommerce. All target namespaces are version02. Archive/member hashes are recorded in source-inventory.json. No open redistribution licence established; public access alone does not grant permission to republish fixtures.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "swedbank",
+      "bank": "Swedbank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Sweden"
+        }
+      ],
+      "marketBasis": "Sweden",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.054.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://www.swedbank.se/foretag/betala-och-ta-betalt/betala/fakturahantering/betala-via-fil/mig.html",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-page"
+        }
+      ],
+      "notes": "052 report/053 statement schema ZIPs must not be mistaken for XML sample statements. 054 debit/credit example ZIPs are reference-only for this converter. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "postfinance",
+      "bank": "PostFinance",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Switzerland"
+        }
+      ],
+      "marketBasis": "PostFinance Swiss EBICS reporting",
+      "formats": [
+        "camt.052 / .053 / .054 versions 04 and 08, ZIP; Z52/Z53/ZS2/Z54"
+      ],
+      "resources": [
+        {
+          "url": "https://www.postfinance.ch/content/dam/pfch/doc/0_399/01765_de.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.postfinance.ch/de/support/partner/partnerinformationen-zahlungsverkehr-und-billing-solutions.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://testplattform.postfinance.ch",
+          "label": "Testing portal (registration required)",
+          "kind": "portal",
+          "access": "registration"
+        }
+      ],
+      "notes": "Public PDF parameter/specification; test platform login; no public static sample found.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "raiffeisen-schweiz",
+      "bank": "Raiffeisen Schweiz",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Switzerland"
+        }
+      ],
+      "marketBasis": "Swiss SPS reporting",
+      "formats": [
+        "camt.052.001.08 / .053.001.08 / .054.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://www.raiffeisen.ch/content/dam/www/rch/pdf/firmenkunden/zahlungsverkehr-und-konten/download/de/handbuch-raiffeisen-iso-20022-version-2019.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.raiffeisen.ch/rch/de/hilfe-und-kontakt/e-banking/camt-dateien-herunterladen.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Public 39-page bank implementation PDF; customer e-banking for actual statements; no public static sample found.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "ubs",
+      "bank": "UBS",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Switzerland"
+        }
+      ],
+      "marketBasis": "Swiss corporate account reporting; Bank-for-Banks sample context distinct",
+      "formats": [
+        "camt.052 / .053 / .054; downloaded correspondent samples .052.001.08 and .053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://www.ubs.com/ch/de/services/payments/cash-management/account-reporting.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.ubs.com/ch/en/bank-for-banks/offering/cash/iso20022.html?wcmmode=disabled",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.ubs.com/ch/en/services/payments/connection-ubs/iso-20022/test-platform.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.ubs.com/ch/en/bank-for-banks/offering/cash/iso20022/_jcr_content/root/contentarea/mainpar/toplevelgrid_1499850408/col_1/innergrid/col_3/linklist_523666064_c/link.2039249064.file/PS9jb250ZW50L2RhbS9hc3NldHMvcmMvYmFuay1mb3ItYmFua3MvdWJzLWNhbXQtMDUyLnhtbA==/ubs-camt-052.xml",
+          "label": "Original wrapped XML — ubs-camt-052.xml",
+          "kind": "sample-file",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.ubs.com/ch/en/bank-for-banks/offering/cash/iso20022/_jcr_content/root/contentarea/mainpar/toplevelgrid_1499850408/col_1/innergrid/col_3/linklist_523666064_c/link_copy_1461806870.1080186696.file/PS9jb250ZW50L2RhbS9hc3NldHMvcmMvYmFuay1mb3ItYmFua3MvdWJzLWNhbXQtMDUzLnhtbA==/ubs-camt-053.xml",
+          "label": "Original wrapped XML — ubs-camt-053.xml",
+          "kind": "sample-file",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public raw XML samples; public implementation guidelines; authenticated payments test platform. UBS general terms restrictive; see source-inventory.json.",
+      "termsUrl": "https://www.ubs.com/global/en/legal/disclaimer.html",
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "zurcher-kantonalbank",
+      "bank": "Zürcher Kantonalbank",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "Switzerland"
+        }
+      ],
+      "marketBasis": "ZKB Swiss eBanking / Datalink EBICS / SWIFT FileAct",
+      "formats": [
+        "camt.052 / .053 / .054 versions 04 and 08 per EBICS parameter PDF; old version 04 scheduled until 13 Nov 2026"
+      ],
+      "resources": [
+        {
+          "url": "https://www.zkb.ch/de/unternehmen/konten-karten/zahlungsverkehr/testplattform.html",
+          "label": "Official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.zkb.ch/media/zkb/dokumente/merkblaetter/ebics_verbindungsparameter.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://www.zkb.ch/media/zkb/dokumente/sonstige/fs-iso-20022.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        },
+        {
+          "url": "https://testplattform.zkb.ch/",
+          "label": "Testing portal (registration required)",
+          "kind": "portal",
+          "access": "registration"
+        },
+        {
+          "url": "https://testplattform.zkb.ch/help/ZKB_Testplattform_BenHB.pdf",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Public PDFs; Best-Practice XML ZIPs described on bank site/manual but portal requires login/registration; no anonymous static sample verified.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "natwest",
+      "bank": "NatWest",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        }
+      ],
+      "marketBasis": "United Kingdom / Bankline Direct Digital",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.natwest.com/corporates/everyday-banking/bankline-direct/bankline-direct-iso-adoption.html",
+          "label": "Official reporting documentation",
+          "kind": "portal",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Official landing says Bankline Direct Digital required and full samples via registered Swift MyStandards NatWest ISO Open Community. Linked reporting translation PDFs failed web fetch; RBS sister-site separately confirms v8, not used as exact NatWest version proof. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "bank-of-america",
+      "bank": "Bank of America",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Multiple regions",
+          "country": "Unspecified global markets"
+        }
+      ],
+      "marketBasis": "Global FI/CBPR+ documentation (market not enumerated)",
+      "formats": [
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://images.em.bankofamerica.com/GTS/ISO_20022/ReferenceGuideBanktoCustomerStatement%28CAMT.053%29.pdf",
+          "label": "Official reporting guide",
+          "kind": "pdf-example",
+          "access": "public-file"
+        },
+        {
+          "url": "https://images.em.bankofamerica.com/GTS/ISO20022clientreportingandstatements.pdf",
+          "label": "Additional official reporting information",
+          "kind": "pdf-example",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Reference guide provides MT940/MT950-to-camt.053 mapping and complete AppHdr + Document example, schema .08; example BICs are generic counterparties and do not prove a specific BofA geography. Bank PDF copyright all rights reserved; no open license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "citi",
+      "bank": "Citi",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Multiple regions",
+          "country": "Unspecified global markets"
+        }
+      ],
+      "marketBasis": "Global corporate channels (country coverage not enumerated)",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.053.001.08",
+        "camt.05x v8 CBPR+"
+      ],
+      "resources": [
+        {
+          "url": "https://www.citibank.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-file"
+        },
+        {
+          "url": "https://developer.citi.com/apidocs/account-reporting/statements/statements-api-reference/",
+          "label": "Additional official reporting information",
+          "kind": "specification",
+          "access": "public-page"
+        }
+      ],
+      "notes": "FAQ p9 explicitly confirms current CitiDirect 052/053 v2, v2/v8 file channels CitiDirect/CitiConnect Files/API and multi-account file support; CBPR+ v8 restricts one account per statement. API reference formatName enums CAMT_052_001_02 and CAMT_053_001_02; API labels 053 'intraday' inconsistently, so follow FAQ for business meaning. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hsbc",
+      "bank": "HSBC",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Multiple regions",
+          "country": "Unspecified global markets"
+        }
+      ],
+      "marketBasis": "Global corporate/FI channels (CAMT market coverage not enumerated)",
+      "formats": [
+        "camt v2",
+        "camt v8 (phased opt-in market rollout)"
+      ],
+      "resources": [
+        {
+          "url": "https://www.business.hsbc.com/en-gb/campaigns/iso20022",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://www.business.hsbc.com/-/media/media/assets/pdf/campaign/iso-20022-customer-faq-global-payment-solutions.pdf?download=1",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "FAQ p7 says corporate HSBCnet/Connect clients continue designated statement delivery incl camt v2, v8 opt-in when available; FI rollout v8 phased at market level. Global network 50+ markets refers CBPR+ payments reception/forwarding, not universal CAMT availability. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "j-p-morgan",
+      "bank": "J.P. Morgan",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Multiple regions",
+          "country": "Unspecified global markets"
+        }
+      ],
+      "marketBasis": "Global FI/NBFI reporting (markets not enumerated)",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054"
+      ],
+      "resources": [
+        {
+          "url": "https://www.jpmorgan.com/insights/payments/fx-cross-border/iso-20022-faqs",
+          "label": "Official reporting documentation",
+          "kind": "portal",
+          "access": "public-page"
+        }
+      ],
+      "notes": "FAQ 4.1: receive FI/NBFI reporting on Swift since Q4 2024 after bilateral agreement and testing. 4.2/1.2: outbound reporting opt-in planned late 2026, enhanced MT9xx default. 7.2: CBPR+ Sample Library in Swift Portal registered users only. Do not claim universally live outbound CAMT or enumerate countries. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "standard-chartered",
+      "bank": "Standard Chartered",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Multiple regions",
+          "country": "Unspecified global markets"
+        }
+      ],
+      "marketBasis": "Global corporate/investment banking (markets not enumerated)",
+      "formats": [
+        "camt.052",
+        "camt.053",
+        "camt.054"
+      ],
+      "resources": [
+        {
+          "url": "https://www.sc.com/en/corporate-investment-banking/iso-20022/",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Official page explicitly lists report/statement/debit-credit notification guidelines; versions not evidenced on public index. No public raw XML downloaded. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "rbc",
+      "bank": "RBC",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "Canada"
+        }
+      ],
+      "marketBasis": "Canada / RBC Express SWIFT statements",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://www.rbcroyalbank.com/rbcexpress/rbc-express-sps-import-export.pdf",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-file"
+        }
+      ],
+      "notes": "Version 032023 page48 lists Sample.camt052.txt and Sample.camt053.txt under SWIFT Incoming Statements; needs embedded-attachment extraction to confirm XML namespaces. Not claimed raw XML yet. Original PDF downloaded: pdfdetach found zero embedded files and pdftohtml found no external sample hyperlinks at sample listing; sample TXT binaries were not retrievable from this PDF. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "goldman-sachs",
+      "bank": "Goldman Sachs",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        },
+        {
+          "region": "Europe",
+          "country": "United Kingdom"
+        },
+        {
+          "region": "Europe",
+          "country": "European Union"
+        }
+      ],
+      "marketBasis": "United States, United Kingdom, European Union branch samples",
+      "formats": [
+        "camt.052.001.02",
+        "camt.053.001.02",
+        "camt.052.001.08",
+        "camt.053.001.08"
+      ],
+      "resources": [
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt53-sample/",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt52-sample",
+          "label": "Inline CAMT XML — camt52-sample",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-052-us-sample",
+          "label": "Inline CAMT XML — camt-052-us-sample",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-052-uk-sample",
+          "label": "Inline CAMT XML — camt-052-uk-sample",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-052-v8-sample",
+          "label": "Inline CAMT XML — camt-052-v8-sample",
+          "kind": "inline-example",
+          "access": "unavailable"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-052-v8-struct-remi",
+          "label": "Inline CAMT XML — camt-052-v8-struct-remi",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-us-sample",
+          "label": "Inline CAMT XML — camt-053-us-sample",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-uk-sample",
+          "label": "Inline CAMT XML — camt-053-uk-sample",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-itemized-eu-txn",
+          "label": "Inline CAMT XML — camt-053-itemized-eu-txn",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-uetr-sample-01",
+          "label": "Inline CAMT XML — camt-053-uetr-sample-01",
+          "kind": "inline-example",
+          "access": "public-page"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-v8-sample",
+          "label": "Inline CAMT XML — camt-053-v8-sample",
+          "kind": "inline-example",
+          "access": "unavailable"
+        },
+        {
+          "url": "https://developer.gs.com/docs/services/transaction-banking/camt-053-v8-struct-remi",
+          "label": "Inline CAMT XML — camt-053-v8-struct-remi",
+          "kind": "inline-example",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Landing lists 5 052 links and 7 053 links, but UK v2 virtual-account label duplicates same URL: 11 distinct URLs, 9 viewable and two EU v8 broken. Samples include US structured remittance v8; document instructions explicitly describe saving inline text as XML. https://www.goldmansachs.com/terms-and-conditions allows own-use storage/analysis/modification but prohibits publication/transmission/reproduction to third parties without express written consent.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "hsbc-united-states",
+      "bank": "HSBC United States",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "North America",
+          "country": "United States"
+        }
+      ],
+      "marketBasis": "United States",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2019/October/19_us_outward_rtp_stmts.html",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "US-domiciled accounts RTP narratives and ISO bank transaction code mappings; full sample statement entry fragment in page. Historical October 2019, version unspecified. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "anz",
+      "bank": "ANZ",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Oceania",
+          "country": "Australia"
+        },
+        {
+          "region": "Oceania",
+          "country": "New Zealand"
+        }
+      ],
+      "marketBasis": "ANZ Fileactive (AU/NZ context; exact CAMT country coverage not enumerated)",
+      "formats": [
+        "camt.052",
+        "camt.053"
+      ],
+      "resources": [
+        {
+          "url": "https://help.online.anz.com/hc/id/articles/4412678689305-FAQ-ANZ-Fileactive",
+          "label": "Official reporting documentation",
+          "kind": "availability",
+          "access": "public-page"
+        },
+        {
+          "url": "https://help.online.anz.com/hc/en-au/articles/56730381730073-New-Zealand-7-day-End-of-Day-BTR",
+          "label": "Additional official reporting information",
+          "kind": "availability",
+          "access": "public-page"
+        }
+      ],
+      "notes": "Fileactive explicitly supports/recommends ISO XML pain/camt052/053; no version given. NZ 7-day BTR supports NZ-domiciled NZD accounts except FX accounts/cards; CAMT053 snippet shows booking/value-date mapping. No open redistribution license established.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    },
+    {
+      "id": "westpac",
+      "bank": "Westpac",
+      "publisherType": "commercial-bank",
+      "markets": [
+        {
+          "region": "Oceania",
+          "country": "Australia"
+        }
+      ],
+      "marketBasis": "Australia",
+      "formats": [
+        "camt.053.001.02"
+      ],
+      "resources": [
+        {
+          "url": "https://bankrec.westpac.com.au/docs/statements/iso/cash-management/",
+          "label": "Official reporting guide",
+          "kind": "specification",
+          "access": "public-page"
+        },
+        {
+          "url": "https://bankrec.westpac.com.au/docs/downloads/camt053/camt053-npp-sample-file.xml",
+          "label": "Original CAMT XML sample",
+          "kind": "sample-file",
+          "access": "public-file"
+        }
+      ],
+      "notes": "BankRec states it produces bank statements with Australian transactions; NPP example contains all NPP transaction codes. Page has typo camt.053.001.002 once, but title and explicit schema reference identify .02. No open redistribution license identified; terms linked from page.",
+      "termsUrl": null,
+      "verifiedOn": "2026-10-11"
+    }
+  ]
+}

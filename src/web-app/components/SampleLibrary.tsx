@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { SAMPLES, type Sample } from "@/lib/samples";
 import { Button } from "./ui/button";
+import bankSources from "../../../examples/bank-published/catalog.json";
 
 export function SampleLibrary({ onSelect, loading }: { onSelect: (sample: Sample) => void; loading: boolean }) {
   const [query, setQuery] = useState("");
@@ -11,7 +12,7 @@ export function SampleLibrary({ onSelect, loading }: { onSelect: (sample: Sample
     && query.toLowerCase().trim().split(/\s+/).every(word => s.keywords.includes(word)));
   return <section aria-label="Sample library" className="sample-library min-w-0 space-y-4">
     <div><h2 className="text-xl font-semibold">Explore sample files</h2>
-      <p className="text-sm text-muted-foreground mt-1">{SAMPLES.length} original samples. Try payroll, card purchases, international transfers, batches and more.</p></div>
+      <p className="text-sm text-muted-foreground mt-1">{SAMPLES.length} independently authored synthetic samples. Try payroll, card purchases, international transfers, batches and more.</p></div>
     <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
       <label className="text-sm space-y-1">Search samples<input type="search" aria-label="Search samples" placeholder="Try salary, USD, batch or version 13" value={query} onChange={e => setQuery(e.target.value)} className="block w-full rounded-md border bg-background px-3 py-2 min-h-11" /></label>
       <label className="text-sm space-y-1">Sample format<select aria-label="Sample format" value={format} onChange={e => setFormat(e.target.value)} className="block w-full rounded-md border bg-background px-3 py-2 min-h-11"><option value="all">CAMT and CODA</option><option value="camt">CAMT XML</option><option value="coda">CODA</option></select></label>
@@ -29,5 +30,19 @@ export function SampleLibrary({ onSelect, loading }: { onSelect: (sample: Sample
     </ul>
     {!matches.length && <p className="text-sm">No samples match. Try another search or include invalid examples to test error handling.</p>}
     <p className="text-sm text-muted-foreground">Independently authored with invented data. For testing and review, never bank import.</p>
+    <details aria-label="Bank-published CAMT examples" className="border-t pt-3 text-sm">
+      <summary className="cursor-pointer min-h-11 py-3 font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring">{bankSources.length} bank-published CAMT examples</summary>
+      <div className="space-y-3 pb-2">
+        <p className="text-muted-foreground">Download originals directly from ING, ABN AMRO and Nordea. Unzip downloads marked ZIP, then upload the XML or text file above. The bank’s usage terms apply. CODA samples remain synthetic.</p>
+        <p className="text-muted-foreground">Published examples are illustrative and may contain validation warnings. These are for testing, never bank import.</p>
+        <ul className="divide-y" aria-label="Official bank downloads">
+          {bankSources.map(s => <li key={s.id} className="py-3 space-y-1">
+            <a href={s.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline underline-offset-4 font-medium">Download {s.label} · {s.currency}{s.archive ? " (ZIP)" : " (XML)"}</a>
+            {s.caution && <p className="text-[color:var(--warning)]">Known issue in the publisher’s example; review validation notes.</p>}
+            <a href={s.landingPage} target="_blank" rel="noopener noreferrer" className="block w-fit min-h-11 py-3 text-muted-foreground underline underline-offset-4">Publisher’s documentation for {s.label}</a>
+          </li>)}
+        </ul>
+      </div>
+    </details>
   </section>;
 }

@@ -9,13 +9,14 @@ export function Header(props: {
   anonymize: boolean;
   onAnonymizeChange: (v: boolean) => void;
   locked?: boolean;
+  catalogOpen?: boolean;
 }) {
   return (
     <header className="flex flex-wrap items-center gap-3 px-4 py-3 border-b">
       <p className="font-bold tracking-tight">
         camt2coda <span className="text-muted-foreground text-xs font-medium">bank statement converter</span>
       </p>
-      <ToggleGroup
+      {!props.catalogOpen && <ToggleGroup
         aria-label="Conversion direction"
         disabled={props.locked}
         type="single"
@@ -26,12 +27,13 @@ export function Header(props: {
       >
         <ToggleGroupItem value="camt-to-coda">CAMT → CODA</ToggleGroupItem>
         <ToggleGroupItem value="coda-to-camt">CODA → CAMT</ToggleGroupItem>
-      </ToggleGroup>
+      </ToggleGroup>}
       <div className="ml-auto flex items-center gap-3">
-        <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
+        {!props.catalogOpen && <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
           <Switch aria-label="Anonymize exported artifact" checked={props.anonymize} onCheckedChange={props.onAnonymizeChange} />
           Anonymize
-        </label>
+        </label>}
+        <a aria-current={props.catalogOpen ? "page" : undefined} href="#bank-catalog" className="inline-flex min-h-11 items-center text-sm underline underline-offset-4">Bank catalog</a>
         <ThemeToggle />
       </div>
     </header>

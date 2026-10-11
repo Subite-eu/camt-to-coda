@@ -213,6 +213,7 @@ A conversion review workflow with an expert field inspector:
 - **Explicit download review** — runtime errors block download and conversion notes require acknowledgment
 - **Clear download action** — a dedicated panel shows the output filename and Download CODA/CAMT button, plus ZIP for multiple forward results
 - **Searchable sample library** — 104 independently authored original files, format filters, scenario descriptions and opt-in invalid examples
+- **Worldwide reporting catalog** — 57 bank/brand entries and 57 national, regional and global authority references, with geography filters, official examples/specifications, access labels and explicit reporting scope
 - **Privacy exports** — source stays original; result preview and download share the same anonymized artifact. Amounts/dates remain identifiable and deterministic pseudonyms are linkable. Synthetic account identifiers are for review, never bank import.
 
 ## Features
@@ -258,6 +259,10 @@ Configure paths and format options with the CLI arguments shown above; the retir
 
 The [public source library](examples/README.md) contains 104 independently authored original CAMT and CODA inputs, with a literal expectation manifest. It includes salaries, card purchases, direct debits, instant and international payments, refunds, fees, interest, busy months, multi-currency accounts, CAMT 052/053 v02–13, multi-statement and empty statements, three-decimal currencies, long/structured communication, modern party wrappers, returns, continuation links, and invalid sources. The browser sample picker searches this same library.
 
+The separate [bank-published corpus](examples/bank-published/README.md) adds 12 official CAMT originals from ING, ABN AMRO and Nordea, covering 61 movements and 84 monetary details. Originals are downloaded directly into an ignored/ephemeral test folder with pinned hashes; publisher terms prevent treating them as MIT-licensed bundled fixtures. The browser links to the official downloads. A complete bank-published CODA original remains an explicit acquisition gap; the bundled CODA examples are synthetic.
+
+The [worldwide bank and country reference catalog](examples/bank-catalog/README.md) groups primary sources by geography and bank, including CFONB, Febelfin, Betaalvereniging, SIX, DK, CBA, SBA and references across the Americas, Asia, Africa and Oceania. Its **104 byte-verified bank-published CAMT052/053 examples** include the twelve compatibility-tested originals above; **22 unchanged Bundesbank files** are committed with permitted attribution, while the other 82 stay external. Source integrity/XSD checks cover all 104. National CAMT profiles, settlement-account reporting and payment-only ISO adoption are distinguished. Open **Bank catalog** in the browser to search banks or country/regional references; returning retains your conversion.
+
 ```sh
 npm ci
 # Install xmllint first (Ubuntu: apt-get install libxml2-utils).
@@ -266,8 +271,12 @@ npm run typecheck
 npm run build
 npm run build:web
 npm run test:coverage
+npm run catalog:check      # Verify primary-source metadata and geography indexes
+npm run test:bank:catalog  # Fetch/check all 104 inventoried bank XML originals
+npm run test:bank          # Fetch pinned bank originals; source/XSD/round-trip checks
 npx playwright install --with-deps chromium firefox webkit
 npm run test:e2e
+npm run test:bank:e2e -- --project=chromium
 ```
 
 The browser suite also uploads all 104 original fixtures, checks invalid-input blocking and compares actual downloads with the verified converter. To exercise a deployed app instead of starting a local preview:
@@ -279,7 +288,7 @@ PLAYWRIGHT_BASE_URL=https://coda2camt.subite.io npm run test:e2e -- --workers=2
 node scripts/verify-deployment.mjs https://camt2coda.subite.io https://coda2camt.subite.io
 ```
 
-GitHub Actions runs conversion/build/coverage on Node 22 and 24, XSD checks using the bundled specifications, Chromium/Firefox/WebKit/mobile browser workflows with axe accessibility checks and actual downloads, a dependency audit, and a Docker CLI/web smoke test. Main image publication and tagged releases depend on those checks. Live MinIO read/write/list/move checks run in a dedicated required job; they can be enabled locally with `MINIO_ENDPOINT=http://localhost:9000`. Mocked pagination and failure regressions run in every Node test job.
+GitHub Actions runs conversion/build/coverage on Node 22 and 24, XSD checks using the bundled specifications, Chromium/Firefox/WebKit/mobile browser workflows with axe accessibility checks and actual downloads, a required bank-original acquisition/integrity/XSD/conversion/Chromium job plus catalog consistency checks, a dependency audit, and a Docker CLI/web smoke test. Main image publication and tagged releases depend on those checks. Bank downloads are never uploaded as CI artifacts or shared caches; acquisition/hash failures fail the job. Live MinIO read/write/list/move checks run in a dedicated required job; they can be enabled locally with `MINIO_ENDPOINT=http://localhost:9000`. Mocked pagination and failure regressions run in every Node test job.
 
 ## Specifications
 
