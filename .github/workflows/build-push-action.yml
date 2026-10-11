@@ -64,10 +64,10 @@ jobs:
     name: Bank originals / integrity, conversion and browser
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      BANK_CORPUS_DIR: ${{ runner.temp }}/bank-published
-      BANK_CATALOG_DIR: ${{ runner.temp }}/bank-catalog
     steps:
+      - name: Configure ephemeral original-source directories
+        run: |
+          printf 'BANK_CORPUS_DIR=%s/bank-published\nBANK_CATALOG_DIR=%s/bank-catalog\n' "$RUNNER_TEMP" "$RUNNER_TEMP" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: npm }
