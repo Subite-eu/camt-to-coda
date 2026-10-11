@@ -11,6 +11,7 @@ export type PublisherSource = {
   zipMemberSha256?: string;
   zipMemberBytes?: number;
   payloadRange?: { offset: number; length: number };
+  inlineRange?: { offset: number; length: number };
   allowedRedirectOrigins?: string[];
 };
 
@@ -97,6 +98,41 @@ function extractTarMember(download: Uint8Array, member: string, signal: AbortSig
   throw new Error("Pinned regular TAR member is missing");
 }
 
+function validateInlineRange(source: PublisherSource): void {
+  if (!source.inlineRange) return;
+  if (source.zipMember || source.tarMember || source.payloadRange) throw new Error("Ambiguous inline publisher source");
+  const { offset, length } = source.inlineRange;
+  if (!Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length <= 0
+    || length !== source.sourceBytes || offset + length > source.downloadBytes) throw new Error("Invalid inline XML range");
+}
+
+/** Extract pinned bytes from a publisher container, including a locally saved page. */
+export async function extractExampleOriginal(source: PublisherSource, download: Uint8Array<ArrayBuffer>, signal?: AbortSignal): Promise<Uint8Array<ArrayBuffer>> {
+  const active = signal ?? new AbortController().signal;
+  active.throwIfAborted();
+  validateInlineRange(source);
+  if (download.length > maximumDownloadBytes || source.sourceBytes > maximumOriginalBytes) throw new Error("Publisher source exceeds maximum size");
+  // Verify the container before touching any archive data or payload range.
+  await verifyBytes(download, source.downloadSha256, source.downloadBytes);
+  let original = source.zipMember ? extractZipMember(download, source.zipMember, active)
+    : source.tarMember ? extractTarMember(download, source.tarMember, active) : download;
+  if (source.inlineRange) {
+    const { offset, length } = source.inlineRange;
+    original = download.slice(offset, offset + length);
+  }
+  if (source.payloadRange) {
+    await verifyBytes(original, source.zipMemberSha256!, source.zipMemberBytes!);
+    const { offset, length } = source.payloadRange;
+    if (!Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length <= 0
+      || length > maximumOriginalBytes || offset + length > original.length) throw new Error("Invalid embedded payload range");
+    original = original.slice(offset, offset + length);
+  }
+  if (original.length > maximumOriginalBytes) throw new Error("Original publisher source exceeds maximum size");
+  await verifyBytes(original, source.sourceSha256, source.sourceBytes);
+  active.throwIfAborted();
+  return original;
+}
+
 /** Fetch directly from the publisher only when explicitly requested by the UI.
  * CORS failures propagate so the caller can offer the publisher's original link.
  */
@@ -106,6 +142,7 @@ export async function fetchExampleOriginal(
   request: typeof fetch = fetch,
 ): Promise<Uint8Array<ArrayBuffer>> {
   signal?.throwIfAborted();
+  validateInlineRange(source);
   const publisher = new URL(source.url);
   if (publisher.protocol !== "https:" || publisher.username || publisher.password) throw new Error("Publisher sources require HTTPS without credentials");
   if (source.zipMember && source.tarMember) throw new Error("Ambiguous publisher archive member");
@@ -162,21 +199,7 @@ export async function fetchExampleOriginal(
       chunks.push(value);
     }
     const download = concatenate(chunks, size);
-    // Verify the container before touching any archive data or payload range.
-    await Promise.race([verifyBytes(download, source.downloadSha256, source.downloadBytes), aborted]);
-    let original = source.zipMember ? extractZipMember(download, source.zipMember, controller.signal)
-      : source.tarMember ? extractTarMember(download, source.tarMember, controller.signal) : download;
-    if (source.payloadRange) {
-      await Promise.race([verifyBytes(original, source.zipMemberSha256!, source.zipMemberBytes!), aborted]);
-      const { offset, length } = source.payloadRange;
-      if (!Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length <= 0
-        || length > maximumOriginalBytes || offset + length > original.length) throw new Error("Invalid embedded payload range");
-      original = original.slice(offset, offset + length);
-    }
-    if (original.length > maximumOriginalBytes) throw new Error("Original publisher source exceeds maximum size");
-    await Promise.race([verifyBytes(original, source.sourceSha256, source.sourceBytes), aborted]);
-    controller.signal.throwIfAborted();
-    return original;
+    return await Promise.race([extractExampleOriginal(source, download, controller.signal), aborted]);
   } finally {
     clearTimeout(timeout);
     signal?.removeEventListener("abort", forwardAbort);

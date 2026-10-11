@@ -14,13 +14,20 @@ Verified 2026-10-11. Publisher: commercial-bank.
 - [Complete inline XML example with camt.052.001.08 namespace](https://developer.huntington.com/enterprisepayments/docs/camt052) — inline-example; public-page
 - [CAMT.053 field guide and generation/delivery details](https://developer.huntington.com/enterprisepayments/docs/camt053) — specification; public-page
 - [Complete inline XML example with camt.053.001.02 namespace](https://developer.huntington.com/enterprisepayments/docs/camt053) — inline-example; public-page
+- [CAMT.052 publisher Markdown container with unchanged inline XML](https://developer.huntington.com/enterprisepayments/docs/camt052.md) — inline-example; public-file
+- [CAMT.053 publisher Markdown container with unchanged inline XML](https://developer.huntington.com/enterprisepayments/docs/camt053.md) — inline-example; public-file
 
 ## Scope and source notes
 
-Bank-specific sections confirm automatic intraday 052 and prior-day 053 generation under client agreements; secure MFT delivery, with BOL also mentioned for 052. 053 states .001.02 or later versions without naming another suffix. Complete inline examples are illustrative, not downloadable original statement files. The 053 example includes US-prefixed IBAN placeholders; do not represent examples as validated production output. No open redistribution license established.
+Bank-specific sections confirm automatic intraday 052 and prior-day 053 generation under client agreements; secure MFT delivery, with BOL also mentioned for 052. The 053 guide states .001.02 or later without naming another suffix. Two illustrative XML code blocks are acquired unchanged from official Markdown documentation, with independent container/range/XML hashes; filenames are assigned by this library. The 052 v8 illustration fails XSD and lacks an opening balance required for CODA. The 053 v2 illustration passes XSD and forward/reverse conversion checks but uses US-prefixed IBAN placeholders, not verified real accounts. No production-output certification or open redistribution license established. Originals remain external; browser CORS fallback supports local extraction of the pinned saved Markdown.
 
 No open redistribution licence established. Consult the publisher before republishing originals.
 
 ## Original-source inventory
 
-No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+Exact byte lengths, archive/member hashes and source structure facts are in [the canonical source inventory](../../../source-inventory.json). Market-specific sample names do not establish service entitlement for every account.
+
+| Inventory ID | Original filename / ZIP member | Source XSD status |
+| --- | --- | --- |
+| huntington-052 | Huntington-camt-052-inline-example.xml | invalid-as-published |
+| huntington-053 | Huntington-camt-053-inline-example.xml | valid |

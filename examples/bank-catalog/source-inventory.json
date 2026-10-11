@@ -1,7 +1,7 @@
 {
   "version": 1,
   "verifiedOn": "2026-10-11",
-  "scope": "Byte-verified CAMT052/053 bank-published examples. Integrity and source-schema inventory, not a claim that every variant can convert to CODA. Twelve ING/ABN/Nordea originals additionally have semantic conversion and browser tests. No original CODA acquisition claimed.",
+  "scope": "Byte-verified CAMT052/053 bank-published examples. Integrity and source-schema inventory, not a claim that every variant can convert to CODA. Twelve ING/ABN/Nordea originals and two illustrative Huntington inline examples additionally have semantic conversion and browser tests. No original CODA acquisition claimed.",
   "cases": [
     {
       "id": "ing-01",
@@ -2798,6 +2798,62 @@
         "https://file-cdn.bok.or.kr"
       ],
       "schemaNotes": "Official BOK-Wire+ interbank scenario. Original ZIP member contains two XML roots, AppHdr and Document, and is not a standalone well-formed XML document. The standalone Document is an unchanged contiguous byte range of that separately hash-pinned source member; ISO XSD validation applies to this payload. Reports contain balance/limit information and no transaction entries."
+    },
+    {
+      "id": "huntington-052",
+      "bankId": "huntington",
+      "filename": "Huntington-camt-052-inline-example.xml",
+      "url": "https://developer.huntington.com/enterprisepayments/docs/camt052.md",
+      "downloadSha256": "f3e5f3451103161b319b9e8bcbbfeb224962ca0eee3b99beba28f60f0d7de5b8",
+      "downloadBytes": 39316,
+      "sourceSha256": "8349d60cb39418e95f1dbb2c0a79bf7181a6cd3d47ec487851043b03d00bd468",
+      "sourceBytes": 3979,
+      "inlineRange": {
+        "offset": 25219,
+        "length": 3979
+      },
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.052.001.08}Document",
+      "intendedSchema": "camt.052.001.08",
+      "xsdStatus": "invalid-as-published",
+      "counts": {
+        "reports": 1,
+        "entries": 2,
+        "transactionDetails": 2
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://developer.huntington.com/enterprisepayments/docs/camt052",
+      "publishedUpdatedAt": "2026-08-10T16:55:01.000Z",
+      "schemaNotes": "Bank-authored illustrative inline XML, extracted unchanged from the official Markdown code block. Filename assigned by this library. CAMT052 v8 fails XSD: text-only Sts, out-of-order AcctSvcrRef, and direct party Nm instead of Pty. No opening balance is supplied; CODA validation rejects the output. Not a production statement."
+    },
+    {
+      "id": "huntington-053",
+      "bankId": "huntington",
+      "filename": "Huntington-camt-053-inline-example.xml",
+      "url": "https://developer.huntington.com/enterprisepayments/docs/camt053.md",
+      "downloadSha256": "a286444638582ec7c81763d923b135d66b6e40af66561b7e7be43c4a9b8ec25d",
+      "downloadBytes": 20848,
+      "sourceSha256": "dded24ff032e15578c05b770e08bc6a23bcce65d887ec3c7941d47d36ffb7a76",
+      "sourceBytes": 2514,
+      "inlineRange": {
+        "offset": 9121,
+        "length": 2514
+      },
+      "rootQName": "{urn:iso:std:iso:20022:tech:xsd:camt.053.001.02}Document",
+      "intendedSchema": "camt.053.001.02",
+      "xsdStatus": "valid",
+      "counts": {
+        "reports": 1,
+        "entries": 1,
+        "transactionDetails": 1
+      },
+      "storage": "external-only",
+      "repositoryPath": null,
+      "retrievedOn": "2026-10-11",
+      "landingPage": "https://developer.huntington.com/enterprisepayments/docs/camt053",
+      "publishedUpdatedAt": "2026-08-10T16:58:56.000Z",
+      "schemaNotes": "Bank-authored illustrative inline XML, extracted unchanged from the official Markdown code block. Filename assigned by this library. CAMT053 v2 passes XSD and forward CODA checks, but uses US-prefixed IBAN placeholders; schema validity does not certify real accounts or production suitability."
     }
   ]
 }

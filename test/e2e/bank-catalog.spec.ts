@@ -82,7 +82,7 @@ test('North America separates Canadian and US services and links bank specificat
   const huntington = page.getByRole('article', { name: 'Huntington National Bank', exact: true });
   await expect(huntington.getByRole('link', { name: /CAMT.052 field guide/ })).toHaveAttribute('href', 'https://developer.huntington.com/enterprisepayments/docs/camt052');
   await expect(huntington.getByRole('link', { name: /Complete inline XML example with camt.053/ })).toBeVisible();
-  await expect(huntington.getByRole('link', { name: /CAMT example files/ })).toHaveCount(0);
+  await expect(huntington.getByRole('link', { name: 'View 2 CAMT example files' })).toHaveAttribute('href', '#examples?bank=huntington');
   await page.getByLabel('Search banks and reporting formats').fill('Scotiabank');
   await page.getByLabel('Country / market').selectOption('Mexico');
   const mexico = page.getByRole('article', { name: 'Scotiabank Mexico', exact: true });

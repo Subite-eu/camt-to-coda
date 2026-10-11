@@ -46,3 +46,16 @@ it("requires separate pins for an unchanged embedded XML payload", () => {
     expect(() => validateCatalog(banks.banks, refs.references, [invalid])).toThrow(/payload|redirect/i);
   }
 });
+
+it("requires unambiguous bounded pins for unchanged inline XML", () => {
+  const source = inventory.cases.find(s => s.id === "huntington-052")!;
+  expect(() => validateCatalog(banks.banks, refs.references, [source])).not.toThrow();
+  for (const invalid of [
+    { ...source, inlineRange: { offset: -1, length: source.sourceBytes } },
+    { ...source, inlineRange: { offset: 0.5, length: source.sourceBytes } },
+    { ...source, inlineRange: { offset: source.downloadBytes, length: source.sourceBytes } },
+    { ...source, inlineRange: { offset: 0, length: source.sourceBytes - 1 } },
+    { ...source, zipMember: "original.xml" },
+    { ...source, tarMember: "original.xml" },
+  ]) expect(() => validateCatalog(banks.banks, refs.references, [invalid])).toThrow(/inline XML range/i);
+});

@@ -12,6 +12,21 @@ const hash = (data: Uint8Array) => createHash("sha256").update(data).digest("hex
 const fixture = { id: "test-source", url: "https://bank.example/source.xml", sourceSha256: hash(bytes), sourceBytes: bytes.length, downloadSha256: hash(bytes), downloadBytes: bytes.length };
 
 describe("bank original acquisition fails closed", () => {
+  it("extracts an unchanged inline XML range from a pinned publisher Markdown page", async () => {
+    const prefix = strToU8("# Publisher sample\n```xml\n");
+    const markdown = new Uint8Array([...prefix, ...bytes, ...strToU8("```\n")]);
+    const source = { ...fixture, downloadSha256: hash(markdown), downloadBytes: markdown.length, inlineRange: { offset: prefix.length, length: bytes.length } };
+    const dir = await mkdtemp(join(tmpdir(), "bank-inline-test-"));
+    try {
+      await fetchSource(source, dir, async () => new Response(markdown));
+      expect(new Uint8Array(await readFile(join(dir, fixture.id + ".xml")))).toEqual(bytes);
+      await rm(join(dir, fixture.id + ".xml"));
+      for (const inlineRange of [{ offset: -1, length: bytes.length }, { offset: 0.5, length: bytes.length }, { offset: markdown.length, length: bytes.length }, { offset: prefix.length, length: bytes.length - 1 }]) {
+        await expect(fetchSource({ ...source, inlineRange }, dir, async () => new Response(markdown))).rejects.toThrow(/range/i);
+      }
+      await expect(fetchSource({ ...source, tarMember: "example.xml" }, dir, async () => new Response(markdown))).rejects.toThrow(/ambiguous/i);
+    } finally { await rm(dir, { recursive: true, force: true }); }
+  });
   it("rejects altered or truncated publisher bytes", () => {
     expect(() => verifyBytes(strToU8("changed"), fixture.sourceSha256, fixture.sourceBytes)).toThrow(/integrity/);
   });

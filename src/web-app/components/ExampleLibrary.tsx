@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import catalog from "../../../examples/download-catalog.json";
 import { SAMPLES } from "../lib/samples";
 import { downloadBlob } from "../lib/download";
-import { fetchExampleOriginal, type PublisherSource } from "../lib/publisher-download";
+import { extractExampleOriginal, fetchExampleOriginal, type PublisherSource } from "../lib/publisher-download";
 import type { Direction } from "../lib/convert";
 
 type Example = {
@@ -11,6 +11,7 @@ type Example = {
   status: string; caution: boolean; description: string; documentationUrl: string; termsUrl: string | null; license: string;
   source?: PublisherSource; archive?: string | null; member?: string | null; extractedPayload?: boolean; sampleId?: string; verifiedOn?: string;
   classification?: string; encoding?: string;
+  sourceKind?: string; filenameBasis?: string;
 };
 const examples = catalog.examples as Example[];
 const provenanceLabels = { bank: "Bank-published original", "third-party": "Third-party fixture", synthetic: "Synthetic test data" };
@@ -24,14 +25,17 @@ function ExampleRow({ example: e, onTry }: { example: Example; onTry?: TryExampl
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
   useEffect(() => () => controller.current?.abort(), []);
-  async function act(tryInConverter = false) {
+  async function act(tryInConverter = false, savedPage?: File) {
     controller.current?.abort();
     const current = new AbortController();
     controller.current = current;
     setBusy(true); setError(""); setSaved(false);
     try {
       if (e.source) {
-        const bytes = await fetchExampleOriginal(e.source, current.signal);
+        if (savedPage && savedPage.size !== e.source.downloadBytes) throw new Error("Saved page size mismatch");
+        const bytes = savedPage
+          ? await extractExampleOriginal(e.source, new Uint8Array(await savedPage.arrayBuffer()), current.signal)
+          : await fetchExampleOriginal(e.source, current.signal);
         if (!current.signal.aborted) downloadBlob(e.filename, new Blob([bytes], { type: "application/octet-stream" }));
       } else {
         const sample = SAMPLES.find(s => s.id === e.sampleId);
@@ -43,13 +47,17 @@ function ExampleRow({ example: e, onTry }: { example: Example; onTry?: TryExampl
       }
       if (!current.signal.aborted) setSaved(!tryInConverter);
     } catch {
-      if (!current.signal.aborted) setError(e.source
+      if (!current.signal.aborted) setError(savedPage
+        ? "This saved page does not match the verified publisher source. Use the exact linked Markdown source; modified or updated pages cannot be extracted."
+        : e.source?.inlineRange
+        ? "Your browser could not read this publisher page. Open Publisher Markdown source, save it as a .md file, then use Extract saved publisher page below."
+        : e.source
         ? "Your browser could not save this publisher file. Use the publisher download link; archives may need unpacking. If it opens in a tab, save the file from that tab."
         : "This test file could not be loaded. Please try again.");
     } finally { if (!current.signal.aborted) setBusy(false); }
   }
   return <article aria-label={e.id} className="border-b py-5 space-y-3 min-w-0">
-    <div className="flex flex-wrap gap-2 text-xs font-medium"><span className="rounded border px-2 py-1">{provenanceLabels[e.provenance]}</span><span className="rounded border px-2 py-1">{e.version}</span><span className={`rounded border px-2 py-1 ${e.caution ? "text-[color:var(--warning)]" : ""}`}>{e.status}</span></div>
+    <div className="flex flex-wrap gap-2 text-xs font-medium"><span className="rounded border px-2 py-1">{provenanceLabels[e.provenance]}</span>{e.sourceKind && <span className="rounded border px-2 py-1">{e.sourceKind}</span>}<span className="rounded border px-2 py-1">{e.version}</span><span className={`rounded border px-2 py-1 ${e.caution ? "text-[color:var(--warning)]" : ""}`}>{e.status}</span></div>
     <h2 className="font-semibold break-all">{e.filename}</h2>
     <div className="text-sm space-y-1 break-words"><p>Bank: {e.bank} · Publisher: {e.publisher}</p><p>Country / scope: {e.countries.join(" · ")}</p><p className="text-muted-foreground">{e.countryBasis}</p></div>
     <p className="text-sm break-words">{e.description}</p>
@@ -57,12 +65,14 @@ function ExampleRow({ example: e, onTry }: { example: Example; onTry?: TryExampl
     <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
       <button disabled={busy} onClick={() => void act()} className="min-h-11 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-60">{busy ? "Preparing file…" : e.source ? "Save original file" : "Download test file"}</button>
       {!e.source && onTry && <button disabled={busy} onClick={() => void act(true)} className="min-h-11 underline underline-offset-4 text-sm">Try in converter</button>}
-      {e.source && <a href={e.source.url} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center underline underline-offset-4 text-sm">Publisher {e.archive ?? e.format} download ↗</a>}
+      {e.source && <a href={e.source.url} target="_blank" rel="noopener noreferrer" className="min-h-11 inline-flex items-center underline underline-offset-4 text-sm">{e.source.inlineRange ? "Publisher Markdown source" : `Publisher ${e.archive ?? e.format} download`} ↗</a>}
     </div>
+    {e.source?.inlineRange && <div className="text-sm space-y-2"><p>Direct browser access may be blocked. Open the publisher Markdown source above and save it as a .md file, then choose it here to download the unchanged XML example. Extraction stays in your browser.</p><label className="inline-flex min-h-11 cursor-pointer items-center rounded-md border px-4 py-2 focus-within:outline focus-within:outline-2 focus-within:outline-ring">Extract saved publisher page<input type="file" accept=".md,.markdown,text/markdown,text/plain" aria-label={`Choose saved publisher Markdown for ${e.filename}`} className="sr-only" disabled={busy} onChange={event => { const file = event.currentTarget.files?.[0]; event.currentTarget.value = ""; if (file) void act(false, file); }} /></label></div>}
     {error && <p role="alert" className="text-sm">{error}</p>}
     {saved && <p role="status" className="text-sm">File prepared. Check your browser’s downloads.</p>}
     <details className="text-sm"><summary className="min-h-11 cursor-pointer py-3">Provenance, verification and usage terms</summary>
       <div className="space-y-2 break-words"><p>{e.license}</p>{e.verifiedOn && <p>Source checked {e.verifiedOn}.</p>}
+        {e.filenameBasis && <p>{e.filenameBasis}</p>}
         {e.classification && <p>Fixture type: {e.classification.replaceAll("-", " ")} · Encoding: {e.encoding}</p>}
         {e.source && <p className="break-all">Original SHA-256: {e.source.sourceSha256} · {e.source.sourceBytes.toLocaleString()} bytes</p>}
         <p><a href={e.documentationUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">Publisher documentation ↗</a></p>
@@ -95,7 +105,7 @@ export function ExampleLibrary({ initialBank = "", onTry }: { initialBank?: stri
   return <section className="mx-auto max-w-6xl p-4 sm:p-6 space-y-6 min-w-0" aria-labelledby="examples-title">
     <a href="#workspace" className="inline-flex min-h-11 items-center underline underline-offset-4">← Return to converter</a>
     <div className="max-w-3xl space-y-3"><h1 id="examples-title" tabIndex={-1} className="text-2xl font-bold tracking-tight focus:outline-none">Example files</h1>
-      <p>Find and download CAMT and CODA examples by country, bank and source. {examples.filter(e => e.provenance === "bank").length} bank originals, {examples.filter(e => e.provenance === "third-party").length} third-party CODA fixtures and {SAMPLES.length} fictional test files.</p>
+      <p>Find and download CAMT and CODA examples by country, bank and source. {examples.filter(e => e.provenance === "bank").length} bank-published examples, {examples.filter(e => e.provenance === "third-party").length} third-party CODA fixtures and {SAMPLES.length} fictional test files.</p>
       <details className="text-sm"><summary className="min-h-11 cursor-pointer py-3">How sources and downloads work</summary><div className="space-y-3 text-muted-foreground">
         <p>Bank originals download from their publishers when you request them. If your browser cannot save a file, use its publisher download link. Published examples may have known defects or unsupported formats; check the status and source notes. Examples are for testing, never bank import.</p>
         <p>No complete bank-issued CODA original has been verified. Third-party fixtures are labeled separately. “XSD valid” does not guarantee conversion support; this converter supports standalone CAMT052/053 and CODA 2.6.</p>

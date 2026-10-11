@@ -40,6 +40,11 @@ export function verifyBytes(bytes, sha256, size) {
 export async function fetchSource(source, directory, request = fetch) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(source.id)) throw new Error('Unsafe source identifier');
   if (source.format !== undefined && !['camt', 'CAMT', 'CAMT052', 'CAMT053', 'CODA'].includes(source.format)) throw new Error('Unsupported source format');
+  if (source.inlineRange) {
+    if (source.zipMember || source.tarMember || source.payloadRange) throw new Error('Ambiguous inline publisher source');
+    const { offset, length } = source.inlineRange;
+    if (!Number.isSafeInteger(offset) || !Number.isSafeInteger(length) || offset < 0 || length <= 0 || length !== source.sourceBytes || offset + length > source.downloadBytes) throw new Error('Invalid inline XML range');
+  }
   if (source.zipMember && source.tarMember) throw new Error('Ambiguous source archive member');
   if (new URL(source.url).protocol !== 'https:') throw new Error('Bank sources require HTTPS');
   const path = resolve(directory, source.id + (source.format === 'CODA' ? '.cod' : '.xml'));
@@ -87,6 +92,10 @@ export async function fetchSource(source, directory, request = fetch) {
     ? unzipSync(download, { filter: file => file.name === source.zipMember && file.originalSize <= maximumOriginalBytes })[source.zipMember]
     : source.tarMember ? extractTarMember(download, source.tarMember) : download;
   if (!original) throw new Error('Pinned bank ZIP member is missing or exceeds maximum size');
+  if (source.inlineRange) {
+    const { offset, length } = source.inlineRange;
+    original = download.subarray(offset, offset + length);
+  }
   if (source.payloadRange) {
     // Some banks attach XML inside an OLE package in an XLSX ZIP. A reviewed
     // contiguous range is sufficient: pin the container/member/payload, rather
