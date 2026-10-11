@@ -10,5 +10,6 @@ No country-level reference verified in this catalog yet. Consult bank-specific d
 
 ## Banks and published resources
 
-- [Scotiabank Mexico](scotiabank-mexico/README.md) — camt.052; camt.053; camt.054
+- [Scotiabank Mexico](scotiabank-mexico/README.md) — camt.052; camt.053; camt.054 (financial-institution / vostro reporting)
 - [BBVA Mexico](bbva-mexico/README.md) — camt.053
+- [HSBC Mexico](hsbc-mexico/README.md) — camt.052; camt.053

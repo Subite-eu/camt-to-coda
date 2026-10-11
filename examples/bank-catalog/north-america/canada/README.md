@@ -22,5 +22,5 @@ Corporate reporting usage guidelines on this page are explicitly DRAFT and for i
 
 ## Banks and published resources
 
-- [RBC](rbc/README.md) — camt.052; camt.053
+- [RBC / Royal Bank of Canada](rbc/README.md) — camt.052; camt.053; camt.054
 - [BMO / Bank of Montreal](bmo/README.md) — camt.052.001.02; camt.053.001.02

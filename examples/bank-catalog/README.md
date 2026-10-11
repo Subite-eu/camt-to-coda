@@ -2,7 +2,7 @@
 
 # Worldwide bank and country reference catalog
 
-Verified 2026-10-11: **97 bank/brand entries**, **58 authority references**, **61 country, regional or global groupings**, and **119 byte-verified CAMT052/053 originals**.
+Verified 2026-10-11: **104 bank/brand entries**, **58 authority references**, **61 country, regional or global groupings**, and **119 byte-verified CAMT052/053 originals**.
 
 This curated catalog records primary-source evidence, not universal availability or bank certification. A country may share regional guidance, publish only payment/clearing rules, or leave CAMT reporting to individual banks. An absent country is **not yet inventoried**, not evidence that ISO 20022 or CAMT is unavailable.
 
@@ -21,6 +21,8 @@ Run `npm run catalog:check` for metadata/index consistency. `npm run test:bank:c
 The converter supports standalone CAMT052/053 and CODA 2.6. CAMT054, SWIFT wrappers, payment-clearing messages and namespace-less originals are reference material. No complete bank-published CODA original with established reuse rights has yet been acquired; that gap remains explicit.
 
 See the separate [Belgian CODA publisher research and fixture corpus](../coda-published/README.md) for developer examples, source limitations and documented bank availability. These are not bank-issued originals.
+
+The [North America bank-by-bank review](north-america-review.md) records Canada, United States and Mexico findings, including historical offerings, client-gated specifications, announced migrations and banks whose CAMT reporting could not be publicly verified. Global-only evidence remains separate from confirmed local account scope.
 
 ## Geography index
 
@@ -82,8 +84,8 @@ See the separate [Belgian CODA publisher research and fixture corpus](../coda-pu
 | Global | [International market practice](global/international-market-practice/README.md) | 0 | 1 |
 | Multiple regions | [Unspecified global markets](multiple-regions/unspecified-global-markets/README.md) | 5 | 0 |
 | North America | [Canada](north-america/canada/README.md) | 2 | 1 |
-| North America | [Mexico](north-america/mexico/README.md) | 2 | 0 |
-| North America | [United States](north-america/united-states/README.md) | 5 | 3 |
+| North America | [Mexico](north-america/mexico/README.md) | 3 | 0 |
+| North America | [United States](north-america/united-states/README.md) | 11 | 3 |
 | Oceania | [Australia](oceania/australia/README.md) | 2 | 1 |
 | Oceania | [New Zealand](oceania/new-zealand/README.md) | 1 | 1 |
 | South America | [Brazil](south-america/brazil/README.md) | 1 | 1 |

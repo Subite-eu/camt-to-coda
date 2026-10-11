@@ -213,7 +213,7 @@ A conversion review workflow with an expert field inspector:
 - **Explicit download review** — runtime errors block download and conversion notes require acknowledgment
 - **Clear download action** — a dedicated panel shows the output filename and Download CODA/CAMT button, plus ZIP for multiple forward results
 - **Searchable sample library** — 104 independently authored original files, format filters, scenario descriptions and opt-in invalid examples
-- **Worldwide reporting catalog** — 97 bank/brand entries and 58 national, regional and global authority references, with geography filters, official examples/specifications, access labels and explicit reporting scope
+- **Worldwide reporting catalog** — 104 bank/brand entries and 58 national, regional and global authority references, with geography filters, official examples/specifications, access labels and explicit reporting scope
 - **Privacy exports** — source stays original; result preview and download share the same anonymized artifact. Amounts/dates remain identifiable and deterministic pseudonyms are linkable. Synthetic account identifiers are for review, never bank import.
 
 ## Features
@@ -264,6 +264,8 @@ The [public source library](examples/README.md) contains 104 independently autho
 The separate [bank-published corpus](examples/bank-published/README.md) adds 12 official CAMT originals from ING, ABN AMRO and Nordea, covering 61 movements and 84 monetary details. Originals are downloaded directly into an ignored/ephemeral test folder with pinned hashes; publisher terms prevent treating them as MIT-licensed bundled fixtures. The browser links to the official downloads. A complete bank-published CODA original remains an explicit acquisition gap; the bundled CODA examples are synthetic. The separate [Belgian CODA publisher corpus](examples/coda-published/README.md) inventories 29 deduplicated developer/vendor fixtures from 65 downloads, with immutable source pins, license evidence and expected acceptance/rejection checks. These are third-party test fixtures, not verified bank-issued statements.
 
 The [worldwide bank and country reference catalog](examples/bank-catalog/README.md) groups primary sources by geography and bank, including CFONB, Febelfin, Betaalvereniging, SIX, DK, CBA, SBA and references across the Americas, Asia, Africa and Oceania. Its **119 byte-verified bank-published CAMT052/053 originals/payloads** include the twelve compatibility-tested originals above; **22 unchanged Bundesbank files** are committed with permitted attribution, while the other 97 stay external. Source integrity/XSD checks cover all 119. National CAMT profiles, settlement-account reporting and payment-only ISO adoption are distinguished. Open **Bank catalog** in the browser to search banks or country/regional references; returning retains your conversion.
+
+The [North America review](examples/bank-catalog/north-america-review.md) records 38 individual bank/jurisdiction checks across Canada, the US and Mexico, including message versions, reporting channels, public specifications/examples, gated materials and unresolved availability. Announced migrations and payment-network ISO readiness are kept separate from confirmed CAMT reporting.
 
 ```sh
 npm ci

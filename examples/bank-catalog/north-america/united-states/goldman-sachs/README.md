@@ -22,6 +22,7 @@ Verified 2026-10-11. Publisher: commercial-bank.
 - [Inline CAMT XML — camt-053-uetr-sample-01](https://developer.gs.com/docs/services/transaction-banking/camt-053-uetr-sample-01) — inline-example; public-page
 - [Inline CAMT XML — camt-053-v8-sample](https://developer.gs.com/docs/services/transaction-banking/camt-053-v8-sample) — inline-example; unavailable
 - [Inline CAMT XML — camt-053-v8-struct-remi](https://developer.gs.com/docs/services/transaction-banking/camt-053-v8-struct-remi) — inline-example; public-page
+- [Report scheduling: US branch reporting scope](https://developer.gs.com/docs/services/transaction-banking/report-scheduling/) — availability; public-page
 
 ## Scope and source notes
 

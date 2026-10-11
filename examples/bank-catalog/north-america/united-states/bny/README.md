@@ -6,16 +6,16 @@ Verified 2026-10-11. Publisher: commercial-bank.
 
 **Documented market:** US-headquartered bank global interbank cash-account reporting; individual account booking countries not enumerated.
 
-**Formats / versions:** camt.053.001.08
+**Formats / versions:** camt.053.001.08; camt.054.001.08
 
 ## Official resources
 
 - [ISO20022 FAQ, May 2026](https://www.bny.com/assets/corporate/documents/pdf/iso-20022/ISO-FAQ-May-2026.pdf) — availability; public-file
-- [BNY MyStandards domain: specifications and sample (registration / group access required)](https://www.swift.com/mystandards) — portal; unavailable
+- [BNY MyStandards domain: specifications and sample (registration / group access required)](https://www.swift.com/mystandards) — portal; registration
 
 ## Scope and source notes
 
-FAQ explicitly offers camt053 in replacement of MT940/950 on demand since June2025, one message per account, RMA and client configuration required. Table lists camt.053.001.08 available; corporate ScorePlus camt053 remains to be confirmed, camt052 currently not foreseen. MyStandards sample is gated; no public raw XML sample verified.
+May 2026 FAQ table lists sending 053.001.08 and 054.001.08 available. Reporting section offers 053 instead of MT940/950 since June2025 and confirms readiness to send 054 to preferring clients. RMA and account/BIC configuration required. Corporate ScorePlus 053/054 TBC; 052 currently not foreseen. MyStandards specifications/samples are gated. No public raw XML sample or open redistribution license verified.
 
 No open redistribution licence established. Consult the publisher before republishing originals.
 
