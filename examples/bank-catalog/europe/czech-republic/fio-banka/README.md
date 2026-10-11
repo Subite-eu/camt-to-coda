@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Fio API Banking — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053.001.02. **Scope:** Europe / Czech Republic; Europe / Slovakia.
+
+The authenticated API supports Czech ČBA XML and Slovak SBA XML account statements based on CAMT053 v02.
+
+**Setup / access:** Create an account-specific API token in Internet Banking and use the documented HTTPS endpoints.
+
+- [Fio API Banking](https://www.fio.cz/docs/cz/API_Bankovnictvi.pdf)
+
+Channel evidence checked 2026-10-11.

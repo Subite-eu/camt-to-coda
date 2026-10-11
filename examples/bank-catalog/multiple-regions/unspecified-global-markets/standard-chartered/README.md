@@ -21,3 +21,34 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Straight2Bank Access reporting — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Multiple regions / Unspecified global markets.
+
+FAQ says CGI CAMT v2/v8 are live through Straight2Bank channels; Access provides H2H reporting. Country coverage is not enumerated.
+
+**Setup / access:** Request implementation specifications and account/channel entitlement from relationship manager.
+
+- [Standard Chartered ISO 20022 FAQ, 4 August 2025, pp10 and31](https://www.sc.com/en/uploads/sites/66/content/docs/SC-ISO20022-FAQ-4Aug2025.pdf)
+- [Straight2Bank channels and reporting access](https://www.sc.com/en/corporate-investment-banking/transaction-banking/straight2bank/)
+
+Channel evidence checked 2026-10-11.
+
+### CBPR+ CAMT v8 reporting — SWIFT FINplus
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Multiple regions / Unspecified global markets.
+
+V8 CBPR+ rollout is phased across supported markets, live since February 2025; this is separate from CGI file delivery. CBPR+ network reporting is separated here because ordinary corporate FINplus eligibility is not established by this evidence.
+
+**Setup / access:** Relationship/implementation manager must confirm market readiness and FINplus eligibility.
+
+- [Standard Chartered ISO 20022 FAQ, 4 August 2025, pp10 and31](https://www.sc.com/en/uploads/sites/66/content/docs/SC-ISO20022-FAQ-4Aug2025.pdf)
+
+Channel evidence checked 2026-10-11.

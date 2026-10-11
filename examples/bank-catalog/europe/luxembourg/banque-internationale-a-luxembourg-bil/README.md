@@ -23,3 +23,37 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BIL EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053.001.02. **Scope:** Europe / Luxembourg.
+
+The digital service matrix explicitly lists outgoing end-of-day XML statements over EBICS.
+
+**Setup / access:** Arrange EBICS access and statement reporting with BIL.
+
+**Schedule:** End of day.
+
+- [BIL EBICS](https://www.bil.com/BIL-digital/index-en.html)
+
+Channel evidence checked 2026-10-11.
+
+### Multiline — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053.001.02. **Scope:** Europe / Luxembourg.
+
+The digital service matrix explicitly lists outgoing end-of-day XML statements through Multiline.
+
+**Setup / access:** Arrange Multiline access and CAMT statement reporting.
+
+**Schedule:** End of day.
+
+- [Multiline](https://www.bil.com/BIL-digital/index-en.html)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Innovation Banking SWIFT reporting — SWIFT (service unspecified)
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 (version unspecified); camt.053 (version unspecified); camt.054 (version unspecified). **Scope:** North America / United States.
+
+SWIFT services table says sending began July 2026; exact network service (FileAct/FINplus) is not named. Applies to Innovation Banking/former SVB services.
+
+**Setup / access:** SWIFT reporting onboarding and eligible accounts; confirm exact transport, schema and corporate/FI scope.
+
+**Schedule:** Sending 052 interim reports, 053 statements and 054 confirmations since July 2026 per live table.
+
+- [ISO 20022 guide: SWIFT services migration table](https://innovation.firstcitizens.com/iso20022/guide)
+
+Channel evidence checked 2026-10-11.

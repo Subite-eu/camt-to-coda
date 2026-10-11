@@ -22,3 +22,19 @@ Public March 2023 RBC Express guide lists incoming camt.052/053 statements and c
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### RBC Express SWIFT statements export — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** North America / Canada.
+
+View/export incoming SWIFT CAMT statements and advices; not proof of RBC-originated CAMT for all Canadian accounts. XML is exposed in a .txt export container.
+
+**Setup / access:** RBC Express SWIFT Payments and Statements service and authorized viewing/export access.
+
+- [RBC Express SWIFT Payments & Statements Import/Export File Guide, March 2023](https://www.rbcroyalbank.com/rbcexpress/rbc-express-sps-import-export.pdf)
+
+Channel evidence checked 2026-10-11.

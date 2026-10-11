@@ -10,6 +10,8 @@ Use the browser’s **Bank catalog** to search by bank/authority, region, countr
 
 Open **Example files** (`/#examples`) to find and download all inventoried CAMT originals alongside third-party CODA and synthetic files. Country/scope, bank/publisher and provenance filters distinguish verified publication from uncertain sample geography. Bank entries with verified originals link to their filtered example lists. See the [download guide](../../docs/user-guide.md#find-and-download-example-files) for extraction, integrity checks and publisher-link fallback.
 
+See the [regional communication-channel overview](communication-channels.md) for customer file delivery, API/M2M options, setup requirements and source evidence. These optional records distinguish CAMT/CODA files from adjacent account-data APIs and operator-only reporting.
+
 ## Original samples and validation
 
 **104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **121 different bank-published XML originals/payloads**: 108 validate against the bundled ISO XSD, 5 have missing element namespaces, 6 are invalid as published, and 2 are wrapped SWIFT references without a bundled envelope schema.

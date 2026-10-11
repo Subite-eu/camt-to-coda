@@ -21,3 +21,33 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SGKB EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+The technical handbook effective 15 August 2025 explicitly lists all three report types over EBICS.
+
+**Setup / access:** Arrange EBICS access and the cash-management report configuration with SGKB.
+
+- [SGKB EBICS](https://www.sgkb.ch/.dam/e4f7e04a-0c64-442e-a990-e4c1fef1ef30/sgkb-cash-management-handbuch.pdf?638886812877205393=)
+
+Channel evidence checked 2026-10-11.
+
+### SGKB E-Banking — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+The technical handbook lists all three report types through E-Banking.
+
+**Setup / access:** Use authorised E-Banking access and arrange the required report configuration.
+
+- [SGKB E-Banking](https://www.sgkb.ch/.dam/e4f7e04a-0c64-442e-a990-e4c1fef1ef30/sgkb-cash-management-handbuch.pdf?638886812877205393=)
+
+Channel evidence checked 2026-10-11.

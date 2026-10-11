@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### OP Web Services B2C — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.054.001.02. **Scope:** Europe / Finland.
+
+The customer guide explicitly documents statement/report retrieval and real-time CAMT060 requests returning CAMT052 over Web Services. January 2022 guide; confirm current versions.
+
+**Setup / access:** Make a written B2C retrieval agreement and agree the CAMT version and maximum uncompressed file size.
+
+**Schedule:** Real-time queries and agreed batch material availability.
+
+- [OP Web Services B2C](https://www.op.fi/documents/10208/1130741/B2C%20Account%20reporting%20customer%20instrctions.pdf/21ecc4a6-e56f-006c-3eba-f35ea6dc8d98)
+
+Channel evidence checked 2026-10-11.

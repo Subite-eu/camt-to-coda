@@ -21,3 +21,33 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Codabox — Accounting integration
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+Automatic CODA delivery to the customer’s or accountant’s accounting package. CARO card statements are a separate product.
+
+**Setup / access:** Ask the accountant to request Codabox; digitally sign the mandate authorising Argenta to share statements.
+
+- [Codabox](https://www.argenta.be/nl/ondernemen/bankieren/coda-caro.html)
+
+Channel evidence checked 2026-10-11.
+
+### Argenta Internetbankieren — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+The customer can download CODA statements in Internetbankieren.
+
+**Setup / access:** Use authorised Argenta Internetbankieren access.
+
+- [Argenta Internetbankieren](https://www.argenta.be/nl/ondernemen/bankieren/coda-caro.html)
+
+Channel evidence checked 2026-10-11.

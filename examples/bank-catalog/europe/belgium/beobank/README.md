@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Codabox — Accounting integration
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+Daily automated statement delivery to the accountant’s software.
+
+**Setup / access:** The accountant submits the signed mandate to Codabox; Codabox opens the reporting flow with Beobank.
+
+**Schedule:** Daily automated delivery.
+
+- [Codabox](https://www.beobank.be/fr/business/payer/flux-et-paiements/coda.html)
+
+Channel evidence checked 2026-10-11.

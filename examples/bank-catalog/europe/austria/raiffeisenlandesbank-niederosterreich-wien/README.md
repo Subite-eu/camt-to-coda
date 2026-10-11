@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Raiffeisen EBICS 3.0 — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Austria.
+
+The regional bank’s Austrian BTF table explicitly lists downloads of all three CAMT report types.
+
+**Setup / access:** Arrange EBICS access and compatible financial software; initialise the bank connection.
+
+- [Raiffeisen EBICS 3.0](https://www.raiffeisen.at/noew/rlb/de/firmenkunden/online-banking/ebics.html)
+
+Channel evidence checked 2026-10-11.

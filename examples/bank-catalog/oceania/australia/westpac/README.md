@@ -26,3 +26,63 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | Inventory ID | Original filename / ZIP member | Source XSD status |
 | --- | --- | --- |
 | westpac-01 | westpac-camt053-npp-sample-file.xml | valid |
+
+## Customer delivery and automation
+
+### BankRec via iLink — SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02. **Scope:** Oceania / Australia.
+
+BankRec statements delivered through iLink; homepage names its SFTP option.
+
+**Setup / access:** BankRec implementation with Westpac representative; connectivity entitlement required.
+
+- [Westpac BankRec statements: delivery routes and camt053 version](https://bankrec.westpac.com.au/docs/statements/)
+- [Westpac BankRec overview: automatic delivery and iLink SFTP/API](https://bankrec.westpac.com.au/)
+
+Channel evidence checked 2026-10-11.
+
+### BankRec via iLink — API — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02. **Scope:** Oceania / Australia.
+
+iLink API is a file-delivery option for BankRec, not a claim about a JSON statement API.
+
+**Setup / access:** Arrange iLink connectivity during implementation.
+
+- [Westpac BankRec statements: delivery routes and camt053 version](https://bankrec.westpac.com.au/docs/statements/)
+- [Westpac BankRec overview: iLink API](https://bankrec.westpac.com.au/)
+
+Channel evidence checked 2026-10-11.
+
+### BankRec — SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02. **Scope:** Oceania / Australia.
+
+BankRec guide explicitly lists FileAct for its statement formats.
+
+**Setup / access:** BankRec and SWIFT connectivity setup.
+
+- [Westpac BankRec statements: delivery routes and camt053 version](https://bankrec.westpac.com.au/docs/statements/)
+
+Channel evidence checked 2026-10-11.
+
+### QuickStream downloadable BankRec report — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02. **Scope:** Oceania / Australia.
+
+BankRec statements are available as QuickStream downloads.
+
+**Setup / access:** Authenticated QuickStream/BankRec access.
+
+- [Westpac BankRec statements: delivery routes and camt053 version](https://bankrec.westpac.com.au/docs/statements/)
+
+Channel evidence checked 2026-10-11.

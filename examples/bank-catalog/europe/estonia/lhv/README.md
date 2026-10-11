@@ -26,3 +26,21 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | Inventory ID | Original filename / ZIP member | Source XSD status |
 | --- | --- | --- |
 | lhv-01 | lhv-camt053.xml | invalid-as-published |
+
+## Customer delivery and automation
+
+### LHV CONNECT — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.06; camt.053.001.02; camt.054.001.02. **Scope:** Europe / Estonia.
+
+Account balance and statement requests return CAMT XML; the message inbox also supports automatic prior-day statements and debit/credit notifications. Announced v08 changes are not represented as current delivery.
+
+**Setup / access:** Contract for LHV CONNECT, configure certificates and account permissions, and consume/acknowledge messages.
+
+**Schedule:** Real-time balance requests; automatic prior-day statements.
+
+- [LHV CONNECT](https://partners.lhv.ee/connect/)
+
+Channel evidence checked 2026-10-11.

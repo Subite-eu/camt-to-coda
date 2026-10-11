@@ -23,3 +23,47 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### CashPro Online — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.054.001.02. **Scope:** Multiple regions / Unspecified global markets.
+
+Corporate v2 statement exports; global source does not enumerate account booking countries.
+
+**Setup / access:** CashPro enrollment and reporting entitlement; confirm eligible accounts.
+
+- [ISO 20022 Migration FAQs: corporate CashPro formats](https://images.em.bankofamerica.com/GTS/ISO20022migrationfaqs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### CashPro Connect host-to-host — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02. **Scope:** Multiple regions / Unspecified global markets.
+
+Corporate current/prior-day information reporting. Q16 explicitly names these two messages for host-to-host; no country entitlement inferred.
+
+**Setup / access:** Arrange CashPro Connect reporting integration with BofA.
+
+- [ISO 20022 Migration FAQs: corporate CashPro formats](https://images.em.bankofamerica.com/GTS/ISO20022migrationfaqs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### CashPro Connect SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02. **Scope:** Multiple regions / Unspecified global markets.
+
+Corporate current/prior-day file reporting. Q16 identifies FileAct; Q15 separately lists 054 through Connect without assigning its transport.
+
+**Setup / access:** CashPro Connect/SWIFT FileAct onboarding and reporting entitlement.
+
+- [ISO 20022 Migration FAQs: corporate CashPro formats](https://images.em.bankofamerica.com/GTS/ISO20022migrationfaqs.pdf)
+
+Channel evidence checked 2026-10-11.

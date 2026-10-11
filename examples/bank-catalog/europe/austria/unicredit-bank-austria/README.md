@@ -22,3 +22,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT account statement service — SWIFT (service unspecified)
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Europe / Austria.
+
+The Austrian service sends account information by SWIFT into a processing centre or cash management system. The page does not identify FINplus versus FileAct.
+
+**Setup / access:** Contact Bank Austria to arrange the account statement service and receiving destination.
+
+- [SWIFT account statement service](https://www.bankaustria.at/firmenkunden-kontoauszugsdienst.jsp)
+
+Channel evidence checked 2026-10-11.

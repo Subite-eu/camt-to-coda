@@ -30,3 +30,47 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | --- | --- | --- |
 | ubs-01 | ubs-camt-052.xml | wrapped-reference |
 | ubs-02 | ubs-camt-053.xml | wrapped-reference |
+
+## Customer delivery and automation
+
+### UBS KeyPort EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+UBS names KeyPort EBICS as a channel for its XML account reporting; customer reporting settings determine batch details.
+
+**Setup / access:** Arrange KeyPort access and the selected CAMT reports with UBS.
+
+- [UBS KeyPort EBICS](https://www.ubs.com/ch/de/services/payments/cash-management/account-reporting.html)
+
+Channel evidence checked 2026-10-11.
+
+### UBS KeyPort SWIFT for Corporates FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+UBS names SWIFT for Corporates FileAct within KeyPort as a CAMT reporting channel.
+
+**Setup / access:** Arrange KeyPort and SWIFT corporate connectivity plus reporting entitlement with UBS.
+
+- [UBS KeyPort SWIFT for Corporates FileAct](https://www.ubs.com/ch/de/services/payments/cash-management/account-reporting.html)
+
+Channel evidence checked 2026-10-11.
+
+### UBS E-Banking camt self-service — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+CAMT reports can be ordered, adjusted and downloaded in E-Banking.
+
+**Setup / access:** Use authorised E-Banking access and configure CAMT self-service.
+
+- [UBS E-Banking camt self-service](https://www.ubs.com/ch/de/services/payments/cash-management/account-reporting.html)
+
+Channel evidence checked 2026-10-11.

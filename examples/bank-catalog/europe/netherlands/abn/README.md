@@ -28,3 +28,19 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | --- | --- | --- |
 | abn-01 | Voorbeeld CAMT.053-bericht met gecomprimeerde batchboeking.txt | valid |
 | abn-02 | Voorbeeld CAMT.053-bericht met een gecomprimeerde batchincasso.txt | valid |
+
+## Customer delivery and automation
+
+### Access Online Renewed — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.05X. **Scope:** Europe / Netherlands.
+
+The bank explicitly documents statement downloads in camt.05X for Dutch accounts. This page does not distinguish individual CAMT subtypes or versions.
+
+**Setup / access:** Use authorised Access Online Renewed access.
+
+- [Access Online Renewed](https://www.abnamro.nl/nl/zakelijk/producten/access-online/aol-vernieuwt.html)
+
+Channel evidence checked 2026-10-11.

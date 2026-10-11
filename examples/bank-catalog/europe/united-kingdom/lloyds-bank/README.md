@@ -21,3 +21,19 @@ Service terms define outward CAMT053 reporting of balances/statements via SWIFT 
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Lloyds Customer Statement Message Outward via SWIFT — SWIFT (service unspecified)
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Europe / United Kingdom.
+
+The service sends balances/statements for the customer’s Lloyds accounts to the customer, a nominated bank or another third party via SWIFT. FINplus versus FileAct is not identified in the terms.
+
+**Setup / access:** Agree the service commencement in writing, nominate the recipient and coordinate an acceptable receiving format under SWIFT rules.
+
+- [Lloyds Customer Statement Message Outward via SWIFT](https://www.lloydsbank.com/assets/commercial/pdfs/customer-statement-message-outward-december-2025.pdf)
+
+Channel evidence checked 2026-10-11.

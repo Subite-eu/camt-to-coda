@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BEKB Direct-Banking — Host-to-host
+
+**Optional automation · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052.001.04; camt.053.001.04; camt.054.001.04. **Scope:** Europe / Switzerland.
+
+The July 2020 handbook documents Direct-Banking reporting. This is historical evidence; current channel and version availability must be checked.
+
+**Setup / access:** A Direct-Banking agreement and compatible software are required.
+
+**Schedule:** Historical manual: CAMT053 available around 05:00 next day; incremental intraday CAMT052.
+
+- [BEKB Direct-Banking](https://www.bekb.ch/-/media/bekb/portal/documents/firmenkunden/zahlungen-und-rechnungen/handbuch-harmonisierung-zv-direct-banking.pdf?hash=ED0512597E4E12071B6CFD6506C2116E7084406D&la=de&vs=2)
+
+Channel evidence checked 2026-10-11.

@@ -54,3 +54,47 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | danske-bank-25 | camt053_cashpool_endofdaysweeping_detailaccount_example.xml | valid |
 | danske-bank-26 | camt053_cashpool_endofdaysweeping_facilityaccount_example.xml | valid |
 | danske-bank-27 | camt053_cashpool_alltransactions_detailaccount_example.xml | valid |
+
+## Customer delivery and automation
+
+### Danske Bank SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053; camt.054. **Scope:** Europe / Denmark.
+
+Danske’s integration guidance explicitly links CAMT reconciliation files with direct automatic upload/download through SFTP.
+
+**Setup / access:** Arrange a file integration; the bank recommends PGP encryption and file signing for SFTP.
+
+- [Danske Bank SFTP](https://danskeci.com/ci/transaction-banking/our-services/integrate-with--danske-bank)
+
+Channel evidence checked 2026-10-11.
+
+### Danske Bank Webservice file integration — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053; camt.054. **Scope:** Europe / Denmark.
+
+The integration guide describes Webservice as a direct automatic XML file channel. This is distinct from the separately discussed regulatory account-data APIs.
+
+**Setup / access:** Arrange a Webservice file integration with Danske Bank.
+
+- [Danske Bank Webservice file integration](https://danskeci.com/ci/transaction-banking/our-services/integrate-with--danske-bank)
+
+Channel evidence checked 2026-10-11.
+
+### District file exchange — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053; camt.054. **Scope:** Europe / Denmark.
+
+The integration guide describes District as the manual XML file upload/download channel.
+
+**Setup / access:** Use authorised District file-transfer access.
+
+- [District file exchange](https://danskeci.com/ci/transaction-banking/our-services/integrate-with--danske-bank)
+
+Channel evidence checked 2026-10-11.

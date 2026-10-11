@@ -60,7 +60,7 @@ test('expanded sources distinguish embedded bank samples, interbank reporting an
   await page.getByRole('button', { name: /Country & regional references/ }).click();
   await page.getByLabel('Country / market').selectOption('South Korea');
   await expect(page.getByRole('heading', { name: /Bank of Korea/ })).toBeVisible();
-  await expect(page.getByText(/interbank.*reporting|reporting.*interbank/i).first()).toBeVisible();
+  await expect(page.getByRole('article', { name: /Bank of Korea/ }).getByText(/not a national corporate CAMT profile/)).toBeVisible();
 });
 
 test('North America separates Canadian and US services and links bank specifications with their limits', async ({ page }) => {

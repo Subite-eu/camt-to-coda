@@ -23,3 +23,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### LLB Connect — Accounting integration
+
+**Optional automation · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053; camt.054. **Scope:** Europe / Liechtenstein.
+
+The integrated company-software interface supports CAMT statements and notices; the page describes reporting on demand and automatic reconciliation in the accounting system, without establishing unattended file retrieval.
+
+**Setup / access:** Requires an LLB account, E-Banking access, LLB Connect agreement and compatible ERP/financial software.
+
+- [LLB Connect](https://llb.li/de/firmen/zahlen/digitale-leistungen/llb-connect)
+
+Channel evidence checked 2026-10-11.

@@ -23,3 +23,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### AKB EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.04; camt.052.001.08; camt.053.001.04; camt.053.001.08; camt.054.001.04; camt.054.001.08. **Scope:** Europe / Switzerland.
+
+The BTF table documents CAMT052/053/054 in v04/v08. v08 is not activated automatically and requires EBICS 3.0.
+
+**Setup / access:** Contact the bank’s e-banking helpline to activate ISO 2019 reporting and initialise the EBICS 3.0 connection.
+
+- [AKB EBICS](https://www.akb.ch/documents/30573/89691/ebics-3.0-umstellung.pdf)
+
+Channel evidence checked 2026-10-11.

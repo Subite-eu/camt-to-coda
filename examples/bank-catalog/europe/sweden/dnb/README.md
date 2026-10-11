@@ -21,3 +21,48 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### DNB File Gateway (US account scope) — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053; camt.054C. **Scope:** North America / United States.
+
+ERP migration notice expressly includes US accounts and DNB FileGateway; 052 is expressly still under development.
+
+**Setup / access:** Existing File Gateway SFTP connection and ISO20022-capable ERP; confirm account/report entitlements.
+
+- [Official reporting documentation](https://www.dnb.no/en/business/help-and-guidance/erp-and-integration?la=EN)
+- [DNB prices: existing sFTP link is DNB File Gateway](https://www.dnb.no/en/business/prices/betaling?la=EN)
+
+Channel evidence checked 2026-10-11.
+
+### DNB File Gateway — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** Camt.053; Camt.054C. **Scope:** Europe / Norway; Europe / Denmark; Europe / Finland; Europe / Germany; Europe / United Kingdom.
+
+DNB explicitly identifies File Gateway as automated SFTP delivery and names the account markets covered by ISO reporting. The source still says CAMT052 is unfinished, so it is excluded here.
+
+**Setup / access:** Arrange File Gateway access using the bank’s SFTP onboarding documentation and order reporting.
+
+- [DNB File Gateway](https://www.dnb.no/en/business/help-and-guidance/erp-and-integration?la=EN)
+
+Channel evidence checked 2026-10-11.
+
+### DNB Connect — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** Camt.053; Camt.054C. **Scope:** Europe / Norway; Europe / Denmark; Europe / Finland; Europe / Germany; Europe / United Kingdom.
+
+The bank identifies DNB Connect as a delivery channel for ISO account information and incoming-payment files. This entry does not establish unattended portal retrieval.
+
+**Setup / access:** Order the required reporting through business banking and arrange authorised access.
+
+- [DNB Connect](https://www.dnb.no/en/business/help-and-guidance/erp-and-integration?la=EN)
+
+Channel evidence checked 2026-10-11.

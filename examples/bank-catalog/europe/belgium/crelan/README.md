@@ -23,3 +23,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### myCrelan Pro — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+Download the CODA file after payments execute and import it into accounting software.
+
+**Setup / access:** Activate CODA reporting and use a myCrelan Pro subscription and authorised login.
+
+- [myCrelan Pro](https://www.crelan.be/fr/entrepreneurs/article/mycrelan-pro-mode-demploi)
+
+Channel evidence checked 2026-10-11.

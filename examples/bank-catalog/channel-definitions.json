@@ -1,0 +1,34 @@
+{
+  "kinds": {
+    "api": "API",
+    "sftp": "SFTP",
+    "ebics": "EBICS",
+    "swift-fileact": "SWIFT FileAct",
+    "swift-fin": "SWIFT FIN",
+    "swift-finplus": "SWIFT FINplus",
+    "host-to-host": "Host-to-host",
+    "managed-file-transfer": "Managed file transfer",
+    "banking-portal": "Banking portal",
+    "accounting-integration": "Accounting integration",
+    "other-network": "Other documented network",
+    "swift-unspecified": "SWIFT (service unspecified)",
+    "webdav": "WebDAV",
+    "secure-ftp": "Secure FTP (protocol unspecified)"
+  },
+  "automation": {
+    "automated": "Automated / M2M",
+    "optional": "Optional automation",
+    "manual": "Manual download",
+    "not-established": "Automation not established"
+  },
+  "availability": {
+    "documented": "Documented service",
+    "announced": "Announcement; activation unverified",
+    "historical": "Historical evidence"
+  },
+  "payload": {
+    "reporting-files": "CAMT / CODA files",
+    "account-data": "Other account data",
+    "infrastructure": "Operator / interbank reporting"
+  }
+}

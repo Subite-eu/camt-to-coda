@@ -40,3 +40,48 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | nordea-06 | CAMT.053Std example file SE-CPE.xml | valid |
 | nordea-07 | Camt.053 ext example file Norway.sendfile | valid |
 | nordea-08 | Camt.053ext_with_Bankgiro_and_crossborder.xml | valid |
+
+## Customer delivery and automation
+
+### Nordea Corporate Access SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02 (standard); camt.053.001.02 (extended); camt.054.001.02. **Scope:** Europe / Denmark; Europe / Finland; Europe / Norway; Europe / Sweden.
+
+Corporate Access Account Reporting provides Nordic statements and credit notifications as XML files.
+
+**Setup / access:** Arrange Corporate Access and file-transfer access. Secure Envelope is required for SFTP/Web Service and optional for FileAct.
+
+- [Nordea Corporate Access SFTP](https://www.nordea.com/en/our-services/corporate-access)
+
+Channel evidence checked 2026-10-11.
+
+### Nordea Corporate Access SWIFTNet FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02 (standard); camt.053.001.02 (extended); camt.054.001.02. **Scope:** Europe / Denmark; Europe / Finland; Europe / Norway; Europe / Sweden.
+
+Corporate Access Account Reporting provides Nordic statements and credit notifications as XML files.
+
+**Setup / access:** Arrange Corporate Access and file-transfer access. Secure Envelope is required for SFTP/Web Service and optional for FileAct.
+
+- [Nordea Corporate Access SWIFTNet FileAct](https://www.nordea.com/en/our-services/corporate-access)
+- [Corporate Access file-transfer service description and FileAct protocol](https://www.nordea.com/media/8235)
+
+Channel evidence checked 2026-10-11.
+
+### Nordea Corporate Access Web Service — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02 (standard); camt.053.001.02 (extended); camt.054.001.02. **Scope:** Europe / Denmark; Europe / Finland; Europe / Norway; Europe / Sweden.
+
+Corporate Access Account Reporting provides Nordic statements and credit notifications as XML files.
+
+**Setup / access:** Arrange Corporate Access and file-transfer access. Secure Envelope is required for SFTP/Web Service and optional for FileAct.
+
+- [Nordea Corporate Access Web Service](https://www.nordea.com/en/our-services/corporate-access)
+
+Channel evidence checked 2026-10-11.

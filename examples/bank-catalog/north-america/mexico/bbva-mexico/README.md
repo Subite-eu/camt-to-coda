@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BBVA Net Cash payroll reconciliation export — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** North America / Mexico.
+
+Payroll movement reconciliation exports include CAMT053; not a general account-reporting API claim.
+
+**Setup / access:** Use eligible Nómina en tiempo real service in Net Cash with export permissions.
+
+- [Real-time payroll: Net Cash reconciliations](https://www.bbva.mx/empresas/servicios-digitales/nomina-en-tiempo-real.html)
+
+Channel evidence checked 2026-10-11.

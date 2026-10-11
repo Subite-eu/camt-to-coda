@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT corporate connectivity — FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Asia / China.
+
+Official China product names MX camt053 in FileAct reporting. Individual overseas account markets are not enumerated.
+
+**Setup / access:** SWIFT-member corporate connectivity; local branch rules and activation apply.
+
+- [ICBC corporate SWIFT connectivity solution](https://wap.icbc.com.cn/page/721855709586014225.html)
+
+Channel evidence checked 2026-10-11.

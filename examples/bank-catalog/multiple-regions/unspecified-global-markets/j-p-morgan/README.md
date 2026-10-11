@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### FI/NBFI outbound MX reporting roadmap — SWIFT FINplus
+
+**Automated / M2M · Announcement; activation unverified · Operator / interbank reporting**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Multiple regions / Unspecified global markets.
+
+Outbound FI/NBFI 052/053/054 opt-in planned for late 2026; no generally live outbound offering asserted. Existing receiving capability is bank inbound reporting.
+
+**Setup / access:** Bilateral agreement, reporting RMA and testing; confirm rollout with J.P. Morgan.
+
+**Schedule:** Opt-in outbound rollout planned late 2026; MT9xx remains default beforehand.
+
+- [Official reporting documentation](https://www.jpmorgan.com/insights/payments/fx-cross-border/iso-20022-faqs)
+
+Channel evidence checked 2026-10-11.

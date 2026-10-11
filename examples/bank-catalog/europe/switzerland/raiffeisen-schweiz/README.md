@@ -22,3 +22,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Raiffeisen Switzerland EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Switzerland.
+
+The bank’s channel matrix documents CAMT cash-management reporting through EBICS; detail visibility differs for structured references and salary/pension bookings.
+
+**Setup / access:** Arrange EBICS access and select reporting variants with the bank.
+
+- [Raiffeisen Switzerland EBICS](https://www.raiffeisen.ch/content/dam/www/rch/pdf/firmenkunden/zahlungsverkehr-und-konten/download/de/handbuch-raiffeisen-iso-20022-version-2019.pdf)
+
+Channel evidence checked 2026-10-11.

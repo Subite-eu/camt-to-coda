@@ -22,3 +22,20 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### MHCBJPJT yen-clearing FINplus reporting — SWIFT FINplus
+
+**Automation not established · Historical evidence · Operator / interbank reporting**
+
+**Formats:** camt.053.001.08. **Scope:** Asia / Japan.
+
+FI/correspondent yen-clearing implementation evidence. Indexed September 2025 MIG explicitly defines FINplus structure; old PDF URL is unavailable. Not generalized to corporate branches.
+
+**Setup / access:** Confirm bilateral correspondent reporting activation with yen-clearing team.
+
+- [Mizuho current yen-clearing MIG index](https://www.mizuhogroup.com/bank/what-we-do/yen-clearing-mig)
+- [Indexed Mizuho camt053 MIG v3: FINplus message structure (old URL unavailable)](https://www.mizuhogroup.com/binaries/content/assets/pdf/mizuho-bank/what-we-do/yen_clearing/mig/mig_of_camt053_for_mhcbjpjt.pdf)
+
+Channel evidence checked 2026-10-11.

@@ -6,6 +6,8 @@ Current changes are listed under Unreleased. Older entries describe their histor
 
 ### Added
 
+- Optional source-backed customer communication-channel records for 71 banks and five operating/reference institutions (131 records), with regional coverage, API/M2M and delivery filters, per-channel geography, access/setup, schedules and evidence. Other account-data APIs, operator/interbank reporting, historical sources and announcements remain distinct from documented automated CAMT/CODA file delivery. Catalog metadata validation and browser accessibility/filter/navigation tests cover the new view.
+
 - Two unchanged Huntington illustrative CAMT052 v8 / CAMT053 v2 inline examples, extracted from pinned official Markdown containers. Provenance records assigned filenames and publication dates; schema/business defects remain explicit. Browser saved-page extraction offers a local download path when publisher CORS blocks access, with container/range/XML integrity checks and required acquisition, semantic and real-download CI tests.
 
 - North America bank reporting recheck with 38 bank/jurisdiction outcomes across Canada, the US and Mexico; worldwide catalog expanded to 104 bank/brand entries. Public inline examples, exact published versions, client-gated guides, FI/vostro scope, historical evidence and unverified or announced services are distinguished. Regional browser filters link to the full review; downloaded fixture counts remain unchanged.

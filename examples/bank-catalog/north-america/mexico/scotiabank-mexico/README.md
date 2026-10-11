@@ -23,3 +23,62 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Scotiabank Mexico host-to-host — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** North America / Mexico.
+
+Corporate checking-account reporting: 052 intraday movements without balances; 053 previous-business-day balances and movements.
+
+**Setup / access:** Arrange Cash Management reporting with business executive.
+
+- [ISO20022 account reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/iso-20022.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Scotiabank Mexico Banca por Internet — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** North America / Mexico.
+
+Corporate 052/053 reporting through internet banking; production export automation not described.
+
+**Setup / access:** Eligible business checking account and internet-banking/reporting entitlement.
+
+- [ISO20022 account reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/iso-20022.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Scotiabank Mexico SWIFT reporting — SWIFT (service unspecified)
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** North America / Mexico.
+
+Bank names SWIFT but does not specify FileAct versus FINplus for corporate CAMT reporting.
+
+**Setup / access:** Arrange SWIFT reporting service and applicable connectivity with the bank.
+
+- [ISO20022 account reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/iso-20022.aspx)
+- [SWIFT connectivity and reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/swift.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Scotiabank Mexico SWIFT Vostro reporting — SWIFT (service unspecified)
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.053; camt.054 (financial-institution / vostro reporting). **Scope:** North America / Mexico.
+
+Financial-institution/Vostro account statements and debit/credit notifications; no corporate 054 entitlement inferred. SWIFT transport unspecified.
+
+**Setup / access:** Vostro/financial-institution reporting agreement and connectivity setup.
+
+- [SWIFT connectivity and reporting](https://www.scotiabank.com.mx/empresas-y-gobierno/cash-management/swift.aspx)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT statements — transport unspecified — SWIFT (service unspecified)
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Africa / Malawi.
+
+Malawi February 2026 tariff lists MT940/camt053 SWIFT statements; no FileAct/FINplus identification.
+
+**Setup / access:** Contract/account eligibility and reporting setup require bank confirmation.
+
+- [Standard Bank Malawi Revised Fees & Commissions 2026](https://www.standardbank.co.mw/static_file/Malawi/Downloadable%20files/Revised%20Fees%20%26%20Commissions%202026.pdf)
+
+Channel evidence checked 2026-10-11.

@@ -29,3 +29,20 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | --- | --- | --- |
 | ing-01 | CAMT-052-v2-CGI-Example.xml | valid |
 | ing-02 | CAMT-053-v8-Sample.xml | valid |
+
+## Customer delivery and automation
+
+### InsideBusiness Connect File Transfer — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.052.001.02; CAMT.053.001.02; CAMT.054.001.02. **Scope:** Europe / Netherlands; Europe / Belgium.
+
+InsideBusiness Connect reporting lists these CAMT formats; File Transfer offers automated SFTP connectivity. The bank explicitly requires country-specific confirmation for v08, which is excluded here.
+
+**Setup / access:** Arrange InsideBusiness Connect implementation, test connectivity and formats, and confirm the account-country reporting entitlement.
+
+- [InsideBusiness Connect File Transfer](https://www.ingwb.com/en/payments-and-collections/account-reporting-format-specifications)
+- [InsideBusiness Connect File Transfer: SFTP and automated reporting](https://www.ingwb.com/en/insidebusiness/connectivity-channels/insidebusiness-connect-file-transfer)
+
+Channel evidence checked 2026-10-11.

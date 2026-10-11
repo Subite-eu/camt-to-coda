@@ -31,3 +31,36 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | --- | --- | --- |
 | huntington-052 | Huntington-camt-052-inline-example.xml | invalid-as-published |
 | huntington-053 | Huntington-camt-053-inline-example.xml | valid |
+
+## Customer delivery and automation
+
+### Huntington Transmission / MFT — Managed file transfer
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 (production version unspecified); camt.053.001.02. **Scope:** North America / United States.
+
+Bank generates CAMT automatically and places files in customer MFT folders for polling/pickup. Production 052 version is unspecified.
+
+**Setup / access:** Client reporting agreement, secure MFT authentication and schedule; encryption/signature options and fProtect available.
+
+**Schedule:** 052 default hourly 9 AM–5 PM ET weekdays; 15/30/60-minute or custom options. 053 Tue–Sat by 7 AM ET, typically 4:15 AM.
+
+- [CAMT.052 field guide and generation/delivery details](https://developer.huntington.com/enterprisepayments/docs/camt052)
+- [CAMT.053 field guide and generation/delivery details](https://developer.huntington.com/enterprisepayments/docs/camt053)
+
+Channel evidence checked 2026-10-11.
+
+### Huntington Business Online (BOL) — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 (production version unspecified). **Scope:** North America / United States.
+
+052 guide expressly names Business Online retrieval; 053 delivery through BOL is not established by its guide.
+
+**Setup / access:** Business Online access and reporting entitlement; agree applicable schedule.
+
+- [CAMT.052 field guide and generation/delivery details](https://developer.huntington.com/enterprisepayments/docs/camt052)
+
+Channel evidence checked 2026-10-11.

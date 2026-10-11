@@ -22,3 +22,33 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### HSBCnet designated statement delivery — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt v2. **Scope:** Multiple regions / Unspecified global markets.
+
+Existing corporate statement formats; camt v8 opt-in depends on market availability. Global channel statement gives no US or Canadian account eligibility.
+
+**Setup / access:** HSBCnet reporting entitlement; obtain account/market-specific specifications.
+
+- [Additional official reporting information](https://www.business.hsbc.com/-/media/media/assets/pdf/campaign/iso-20022-customer-faq-global-payment-solutions.pdf?download=1)
+
+Channel evidence checked 2026-10-11.
+
+### HSBC Connect designated statement delivery — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt v2. **Scope:** Multiple regions / Unspecified global markets.
+
+Corporate CAMT v2 files; exact transport and account markets are not enumerated in the global FAQ.
+
+**Setup / access:** Contract HSBC Connect and confirm reporting format/market with client services.
+
+- [Additional official reporting information](https://www.business.hsbc.com/-/media/media/assets/pdf/campaign/iso-20022-customer-faq-global-payment-solutions.pdf?download=1)
+
+Channel evidence checked 2026-10-11.

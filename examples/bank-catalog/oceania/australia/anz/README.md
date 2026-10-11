@@ -22,3 +22,53 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### ANZ Fileactive automated file exchange — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Oceania / Australia; Oceania / New Zealand.
+
+FAQ covers all ANZ Fileactive geographies and names CAMT formats. AU/NZ catalog context; exact per-country format entitlement is not enumerated.
+
+**Setup / access:** ERP/treasury integration, encryption, onboarding and testing with ANZ.
+
+**Schedule:** Intraday or end of day according to customer setup.
+
+- [ANZ Fileactive FAQs: automated H2H, reporting and formats](https://help.online.anz.com/hc/en-au/articles/4412678689305-ANZ-Fileactive-FAQs)
+
+Channel evidence checked 2026-10-11.
+
+### ANZ Fileactive — New Zealand seven-day reporting — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Oceania / New Zealand.
+
+New Zealand domiciled NZD accounts; excludes foreign-currency accounts and cards.
+
+**Setup / access:** Contact transaction-banking/relationship manager; select five or seven days for all NZD accounts and enable value dates.
+
+**Schedule:** Available from 29 June 2026; daily morning delivery including weekends/holidays; maintenance may delay weekends.
+
+- [ANZ New Zealand seven-day End-of-Day BTR](https://help.online.anz.com/hc/en-au/articles/56730381730073-New-Zealand-7-day-End-of-Day-BTR)
+
+Channel evidence checked 2026-10-11.
+
+### ANZ Fileactive — account-information APIs — API
+
+**Automated / M2M · Documented service · Other account data**
+
+**Formats:** Account statement data (encoding unspecified). **Scope:** Oceania / Australia; Oceania / New Zealand.
+
+Adjacent API reporting: statements, statuses and notifications. Public FAQ does not connect API responses to CAMT XML.
+
+**Setup / access:** OAuth/JWT authentication; implementation and test gateway setup.
+
+**Schedule:** APIs available 24/7; near-real-time integration.
+
+- [ANZ Fileactive FAQs: API reporting and security](https://help.online.anz.com/hc/en-au/articles/4412678689305-ANZ-Fileactive-FAQs)
+
+Channel evidence checked 2026-10-11.

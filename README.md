@@ -265,6 +265,8 @@ The separate [bank-published corpus](examples/bank-published/README.md) adds 12 
 
 The [worldwide bank and country reference catalog](examples/bank-catalog/README.md) groups primary sources by geography and bank, including CFONB, Febelfin, Betaalvereniging, SIX, DK, CBA, SBA and references across the Americas, Asia, Africa and Oceania. Its **121 byte-verified bank-published CAMT052/053 originals/payloads** include the twelve compatibility-tested originals above; **22 unchanged Bundesbank files** are committed with permitted attribution, while the other 99 stay external. Source integrity/XSD checks cover all 121. National CAMT profiles, settlement-account reporting and payment-only ISO adoption are distinguished. Open **Bank catalog** in the browser to search banks or country/regional references; returning retains your conversion.
 
+The Bank catalog’s **Communication channels** view inventories customer CAMT/CODA delivery, API/M2M options and setup requirements where officially documented. Its [regional overview](examples/bank-catalog/communication-channels.md) separates file delivery, other account-data APIs and operator-only reporting.
+
 The [North America review](examples/bank-catalog/north-america-review.md) records 38 individual bank/jurisdiction checks across Canada, the US and Mexico, including message versions, reporting channels, public specifications/examples, gated materials and unresolved availability. Announced migrations and payment-network ISO readiness are kept separate from confirmed CAMT reporting.
 
 ```sh
