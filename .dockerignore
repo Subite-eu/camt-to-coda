@@ -12,6 +12,7 @@
 !examples/bank-published/catalog.json
 !examples/bank-catalog/catalog.json
 !examples/bank-catalog/country-references.json
+!examples/bank-catalog/channel-definitions.json
 !examples/camt/*.xml
 !examples/coda/*.cod
 !examples/invalid/*.xml

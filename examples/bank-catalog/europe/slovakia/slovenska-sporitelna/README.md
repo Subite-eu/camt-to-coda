@@ -28,3 +28,33 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | Inventory ID | Original filename / ZIP member | Source XSD status |
 | --- | --- | --- |
 | slovenska-sporitelna-01 | Camt05302-eur.xml | valid |
+
+## Customer delivery and automation
+
+### Business24 / George — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053.001.02; CAMT.053.001.08. **Scope:** Europe / Slovakia.
+
+The bank lists SEPA XML statement delivery through Business24 and George and links CAMT053 v02/v08 format documentation.
+
+**Setup / access:** Set up an electronic statement instruction in Business24 or George.
+
+- [Business24 / George](https://www.slsp.sk/sk/biznis/elektronicke-bankovnictvo/elektronicke-vypisy)
+
+Channel evidence checked 2026-10-11.
+
+### MultiCash — Host-to-host
+
+**Optional automation · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053.001.02; CAMT.053.001.08. **Scope:** Europe / Slovakia.
+
+MultiCash is explicitly listed for SEPA XML electronic statements. The public page does not establish unattended scheduling details.
+
+**Setup / access:** Contact the adviser to establish or change MultiCash electronic statement instructions.
+
+- [MultiCash](https://www.slsp.sk/sk/biznis/elektronicke-bankovnictvo/elektronicke-vypisy)
+
+Channel evidence checked 2026-10-11.

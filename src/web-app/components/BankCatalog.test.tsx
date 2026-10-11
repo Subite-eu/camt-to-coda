@@ -65,6 +65,45 @@ it("keeps North American reporting scope and unavailable public evidence discove
   expect(screen.queryByRole("heading", { name: /RBC Clear/ })).not.toBeInTheDocument();
   await userEvent.selectOptions(screen.getByLabelText("Country / market"), "United States");
   const us = screen.getByRole("article", { name: /RBC Clear/ });
-  expect(within(us).getByText(/camt.054 v8/)).toBeInTheDocument();
+  expect(within(us).getByText("camt.052 v2 · camt.053 v2 · camt.054 v8", { exact: true })).toBeInTheDocument();
   expect(within(us).getByText(/client-gated/)).toBeInTheDocument();
+});
+
+it("opens a regional communication-channel overview with honest automation and payload filters", async () => {
+  render(<BankCatalog />);
+  await userEvent.click(screen.getByRole("button", { name: "Communication channels" }));
+  expect(screen.getByRole("table", { name: "Communication channels by region" })).toBeInTheDocument();
+  expect(screen.getByLabelText("Delivery channel")).toBeInTheDocument();
+  expect(screen.getByLabelText("Automation")).toBeInTheDocument();
+  expect(screen.getByLabelText("Delivered content")).toBeInTheDocument();
+  expect(screen.getByText(/Counts describe verified catalog coverage/)).toBeInTheDocument();
+});
+
+it("shows source-backed delivery on bank entries and filters current CAMT APIs separately from JSON APIs", async () => {
+  render(<BankCatalog />);
+  await userEvent.type(screen.getByLabelText("Search banks and reporting formats"), "DBS Indonesia");
+  const bank = screen.getByRole("article", { name: "DBS Indonesia" });
+  await userEvent.click(within(bank).getByText(/Customer delivery and automation/));
+  expect(within(bank).getByText(/CAMT statement push\/pull/)).toBeInTheDocument();
+  expect(within(bank).getByText(/JSON statement push\/pull/)).toBeInTheDocument();
+  await userEvent.click(screen.getByRole("button", { name: "Communication channels" }));
+  await userEvent.selectOptions(screen.getByLabelText("Region"), "Asia");
+  await userEvent.selectOptions(screen.getByLabelText("Country / market"), "Indonesia");
+  await userEvent.selectOptions(screen.getByLabelText("Delivery channel"), "api");
+  await userEvent.selectOptions(screen.getByLabelText("Automation"), "possible");
+  await userEvent.selectOptions(screen.getByLabelText("Delivered content"), "reporting-files");
+  await userEvent.type(screen.getByLabelText("Search delivery information"), "DBS");
+  const entry = screen.getByRole("article", { name: "DBS Indonesia communication channels" });
+  await userEvent.click(within(entry).getByText(/Customer delivery and automation/));
+  expect(within(entry).getByText(/CAMT statement push\/pull/)).toBeInTheDocument();
+  expect(within(entry).queryByText(/JSON statement push\/pull/)).not.toBeInTheDocument();
+  await userEvent.selectOptions(screen.getByLabelText("Delivered content"), "account-data");
+  expect(within(entry).getByText(/JSON statement push\/pull/)).toBeInTheDocument();
+  await userEvent.type(screen.getByLabelText("Search delivery information"), " unverifiedbank");
+  expect(screen.getByText(/No documented channels match/)).toBeInTheDocument();
+  await userEvent.click(screen.getByRole("button", { name: "Reset channel filters" }));
+  expect(screen.getByLabelText("Delivery channel")).toHaveValue("");
+  await userEvent.click(screen.getByRole("button", { name: "Filter channels to Oceania" }));
+  expect(screen.getByLabelText("Region")).toHaveValue("Oceania");
+  expect(screen.queryByRole("article", { name: "DBS Indonesia communication channels" })).not.toBeInTheDocument();
 });

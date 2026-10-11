@@ -70,6 +70,16 @@ Open **Bank catalog** in the header, or visit `/#bank-catalog`. Search by bank n
 
 ISO 20022 adoption for payment clearing does not establish a national CAMT customer-reporting standard. The authority entries distinguish those cases and settlement-account reporting. CAMT054 and SWIFT envelopes are reference-only for this converter. See the [geography and bank indexes](../examples/bank-catalog/README.md) and [original-source inventory](../examples/bank-catalog/source-inventory.json); an absent country is not yet inventoried, rather than evidence that the format is unavailable.
 
+### Customer delivery and communication channels
+
+Select **Communication channels** in the Bank catalog, or open `/#bank-catalog?section=channels`. The regional overview summarizes evidence for 71 banks and five operating/reference institutions across 131 channel records. Filter by region, country/market, delivery channel, automation and delivered content; search covers bank names, formats and setup requirements. Each bank/reference entry also has an optional **Customer delivery and automation** section when verified information is available.
+
+Records distinguish API, SFTP, secure FTP with unspecified protocol, EBICS, WebDAV, host-to-host, managed file transfer, SWIFT FileAct/FINplus or unspecified SWIFT service, banking portals and accounting integrations. A public developer portal is not itself evidence of customer API delivery. Records state the actual reporting format, documented market, customer restrictions, onboarding/credentials, available schedules and primary sources with a verification date.
+
+An API supplying other account data is labeled separately from CAMT/CODA XML delivery. Operator/interbank reporting is also separate from corporate file channels. Historical material and announcements remain visible, with their status, but do not contribute to current documented automated-file totals. “Documented” means the publisher describes the service; account entitlement and implementation still require bank confirmation.
+
+Regional counts describe catalog coverage, not national adoption or market share. An institution is counted once per region even if it offers several channels. Automated-file counts include documented CAMT/CODA channels with automation available and exclude other account-data APIs, operator-only infrastructure, historical evidence and announcements. Each channel has its own geography; global scope is not assigned to individual countries. Missing information means not established. A [generated regional evidence document](../examples/bank-catalog/communication-channels.md) provides the same source records outside the app.
+
 ## CLI commands
 
 ### CAMT to CODA

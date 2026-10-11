@@ -18,6 +18,25 @@ Region: Asia. Sources verified 2026-10-11. Scope follows source documentation, n
 
 The public rulebook version 1.5 covers domestic financial-institution clearing, settlement and cash management. Sections 5.17 and 5.18 explicitly include CAMT052/053.001.08 examples, section 5.7 CAMT054.001.05 and section 5.16 CAMT060.001.01. Reporting examples begin at printed pages 163 and 167. Scope is RTGS participants.
 
+## Customer delivery and automation
+
+### PhilPaSSplus participant request/response — Other documented network
+
+**Automated / M2M · Historical evidence · Operator / interbank reporting**
+
+**Formats:** camt.052.001.08; camt.053.001.08. **Scope:** Asia / Philippines.
+
+2021 rulebook §4.25–4.26: BSP responds to participant camt060 requests with balance/statement reports. Institutional RTGS only; exact transport subtype unspecified.
+
+**Setup / access:** Domestic participant settlement account access and registered SWIFT distinguished-name signer.
+
+**Schedule:** Request/response during PhilPaSSplus business periods.
+
+- [Philippine Payments and Settlements Rulebook, 4 June 2021, §4.25–4.26 and Annex O](https://www.bsp.gov.ph/PaymentAndSettlement/PH_ISO_Rulebook_04Jun2021.pdf)
+
+Channel evidence checked 2026-10-11.
+
+
 ## Banks and published resources
 
 No bank-specific sources verified for this jurisdiction yet.

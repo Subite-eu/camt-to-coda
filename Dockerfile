@@ -9,6 +9,7 @@ COPY examples/download-catalog.json examples/download-catalog.json
 COPY examples/bank-published/catalog.json examples/bank-published/catalog.json
 COPY examples/bank-catalog/catalog.json examples/bank-catalog/catalog.json
 COPY examples/bank-catalog/country-references.json examples/bank-catalog/country-references.json
+COPY examples/bank-catalog/channel-definitions.json examples/bank-catalog/channel-definitions.json
 COPY examples/camt/ examples/camt/
 COPY examples/coda/ examples/coda/
 COPY examples/invalid/ examples/invalid/

@@ -19,6 +19,25 @@ Region: North America. Sources verified 2026-10-11. Scope follows source documen
 
 Public procedures and readiness guidance describe optional CAMT052 balance, activity totals and activity details reports, CAMT060 requests, and CAMT054 correspondent notifications. This is infrastructure reporting, not a universal corporate statement convention. Exact namespace version was not established from reviewed excerpts.
 
+## Customer delivery and automation
+
+### FedNow ISO messaging over FedLine / IBM MQ — Other documented network
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.052. **Scope:** North America / United States.
+
+Participant Activity Totals/Details and balance reporting; camt060 requests return camt052. Operator/FI service, not end-customer statement delivery.
+
+**Setup / access:** FedNow participation; direct FedLine connection and MQ/certificate setup, or authorized service-provider arrangement.
+
+**Schedule:** Activity Totals sent automatically at cycle end; eligible reports also on demand, with 90-day history.
+
+- [Federal Reserve FedNow Readiness Guide, pp28–30 and51–54](https://explore.fednow.org/resources/customer-readiness-guide.pdf)
+
+Channel evidence checked 2026-10-11.
+
+
 ### Federal Reserve Financial Services / Fedwire
 
 **Role:** High-value RTGS operator
@@ -31,6 +50,25 @@ Public procedures and readiness guidance describe optional CAMT052 balance, acti
 - [Request technical-guide/XSD access](https://www.frbservices.org/binaries/content/assets/crsocms/resources/financial-services/request-access-fedwire-funds-iso-20022-technical-guide.pdf) — specification; public-file
 
 The FAQ confirms CAMT052 balance, activity and endpoint reports and CAMT060 requests, rejected through admi.002. Activity reports can paginate at approximately 2,000 transactions or 4 MB per message. Scope is direct Fedwire customers; CAMT053 was not evidenced. Exact namespace version requires the technical guide.
+
+## Customer delivery and automation
+
+### FedLine Direct / IBM MQ activity reporting — Other documented network
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.052. **Scope:** North America / United States.
+
+Federal Reserve participant Activity Report; operator/FI reconciliation, not commercial customer CAMT statements. FedPayments Manager screen/CSV exports are distinct.
+
+**Setup / access:** FedLine Direct participant connection and report subscription; authorized signed request; test in DIT2.
+
+**Schedule:** Subscribed end-of-day Activity Report; high volume reports may span multiple MQ messages.
+
+- [Federal Reserve Fedwire account-reporting FAQ](https://www.frbservices.org/resources/financial-services/wires/fedwire-services-frequently-asked-questions/fedwire-service-iso-20022-faq/account-reporting-faq/)
+
+Channel evidence checked 2026-10-11.
+
 
 ### The Clearing House / CHIPS
 

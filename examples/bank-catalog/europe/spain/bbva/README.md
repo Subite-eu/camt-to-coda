@@ -22,3 +22,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BBVA Pivot Banco Relay direct channels — Host-to-host
+
+**Optional automation · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.053. **Scope:** Europe / Spain.
+
+The reporting page explicitly offers CAMT053 balances and transactions through Banco Relay direct channels, with configurable delivery. It does not identify a specific transport protocol.
+
+**Setup / access:** Arrange Pivot direct-channel access and choose the accounts, format and delivery schedule.
+
+- [BBVA Pivot Banco Relay direct channels](https://www.bbvapivot.com/en/financial-solutions/bank-account-management/)
+
+Channel evidence checked 2026-10-11.

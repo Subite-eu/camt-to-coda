@@ -22,3 +22,20 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### GCMS Plus / COMSUITE XML download — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.08. **Scope:** Asia / Japan.
+
+Authenticated account-information download; Japanese manual links the v8 appendix.
+
+**Setup / access:** GCMS Plus access and reporting permissions.
+
+- [MUFG GCMS Plus reporting manual: chapter 2 section 7](https://ebusiness.bk.mufg.jp/pls/commongcms/help/help_Reporting_ja.html)
+- [MUFG camt053 v8 download appendix](https://ebusiness.bk.mufg.jp/pls/commongcms/help/data/Appendix_Reports_Download_Data_Format_camt05300108_ja.pdf)
+
+Channel evidence checked 2026-10-11.

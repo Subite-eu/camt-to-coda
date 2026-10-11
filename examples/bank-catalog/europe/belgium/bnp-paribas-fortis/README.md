@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Easy Banking Business — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+The accounts module provides CODA downloads; a contract manager can activate reporting for an individual account. The product also mentions XML reports without identifying CAMT versions on this page.
+
+**Setup / access:** A contract manager requests CODA in Administration, chooses the account and signs the request.
+
+- [Easy Banking Business](https://www.bnpparibasfortis.be/fr/public/faq/comment-puis-je-activer-le-rapport-coda)
+
+Channel evidence checked 2026-10-11.

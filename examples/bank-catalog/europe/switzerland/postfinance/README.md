@@ -39,3 +39,19 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | postfinance-04 | camt053_P_CH2909000000250094239_1110092698_0_2024012503071366_v2019.xml | valid |
 | postfinance-05 | 200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347.xml | valid |
 | postfinance-06 | 200519_camt052_P_CH2909000000250094239_1110092686_0_2019042416072347_v2019.xml | valid |
+
+## Customer delivery and automation
+
+### PostFinance EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 version 04; camt.052 version 08; camt.053 version 04; camt.053 version 08; camt.054 version 04; camt.054 version 08. **Scope:** Europe / Switzerland.
+
+The EBICS parameter sheet explicitly maps zipped CAMT downloads to order types and BTF parameters. ISO 2019 messages require EBICS 3.0.
+
+**Setup / access:** Initialise participant keys, send the INI letter and wait for PostFinance to verify keys and activate EBICS.
+
+- [PostFinance EBICS](https://www.postfinance.ch/content/dam/pfch/doc/0_399/01765_de.pdf)
+
+Channel evidence checked 2026-10-11.

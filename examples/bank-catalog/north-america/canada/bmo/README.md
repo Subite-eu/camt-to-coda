@@ -30,3 +30,19 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | bmo-02 | ReconciliationReport_052.xml | invalid-as-published |
 | bmo-03 | Previous day Sample File.xml | valid |
 | bmo-04 | Current day Sample File.xml | valid |
+
+## Customer delivery and automation
+
+### Online Banking for Business reconciliation reports — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02. **Scope:** North America / Canada.
+
+Canadian current-day 052 v2 and previous-day 053 v2; limited to Reconciliation reports.
+
+**Setup / access:** Ask BMO representative to add ISO CAMT entitlement in Account Reporting.
+
+- [What is the ISO CAMT report format?](https://bmocm.intelliresponse.com/olbb/en/?id=6904&question=What+is+the+ISO+CAMT+report+format%3F&requestType=NormalRequest&source=1)
+
+Channel evidence checked 2026-10-11.

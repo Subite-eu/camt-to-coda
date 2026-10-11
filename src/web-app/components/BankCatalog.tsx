@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import bankData from "../../../examples/bank-catalog/catalog.json";
 import referenceData from "../../../examples/bank-catalog/country-references.json";
 import exampleData from "../../../examples/download-catalog.json";
+import { ChannelDetails, CommunicationChannels } from "./CommunicationChannels";
+import type { ChannelInstitution } from "../lib/communication-channels";
 
 type Resource = { kind: string; access: string; label: string; url: string };
-type Entry = {
+type Entry = ChannelInstitution & {
   id: string; title: string; markets: { region: string; country: string }[];
   formats: string[]; resources: Resource[]; notes: string; context: string;
 };
@@ -17,13 +19,13 @@ const accessLabels: Record<string, string> = {
   "public-page": "Public page", "public-file": "Public file", registration: "Registration / client access",
   "linked-unverified": "Publisher-linked; download unverified", unavailable: "Currently unavailable",
 };
-const banks: Entry[] = bankData.banks.map(b => ({ ...b, title: b.bank, context: b.marketBasis }));
-const references: Entry[] = referenceData.references.map(r => ({ ...r, title: r.authority, context: r.reportingCoverage }));
+const banks: Entry[] = bankData.banks.map(b => ({ ...b, title: b.bank, context: b.marketBasis, institutionType: "bank" } as Entry));
+const references = referenceData.references.map(r => ({ ...r, title: r.authority, context: r.reportingCoverage, institutionType: "reference" })) as Entry[];
 const controlClass = "min-h-11 w-full rounded-md border bg-background px-3 py-2 text-sm";
 
-export function BankCatalog({ initialSection = "banks" }: { initialSection?: "banks" | "references" }) {
+export function BankCatalog({ initialSection = "banks" }: { initialSection?: "banks" | "references" | "channels" }) {
   useEffect(() => { document.getElementById("catalog-title")?.focus(); }, []);
-  const [section, setSection] = useState<"banks" | "references">(initialSection);
+  const [section, setSection] = useState<"banks" | "references" | "channels">(initialSection);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
   const [country, setCountry] = useState("");
@@ -54,7 +56,9 @@ export function BankCatalog({ initialSection = "banks" }: { initialSection?: "ba
       <a href="#examples" className="inline-flex min-h-11 items-center rounded-md border px-4 text-sm underline underline-offset-4">Example files ({exampleData.examples.length})</a>
       <button className="min-h-11 rounded-md border px-4 text-sm aria-pressed:bg-secondary aria-pressed:font-semibold" aria-pressed={section === "banks"} onClick={() => { setSection("banks"); reset(); }}>Banks ({banks.length})</button>
       <button className="min-h-11 rounded-md border px-4 text-sm aria-pressed:bg-secondary aria-pressed:font-semibold" aria-pressed={section === "references"} onClick={() => { setSection("references"); reset(); }}>Country & regional references ({references.length})</button>
+      <button className="min-h-11 rounded-md border px-4 text-sm aria-pressed:bg-secondary aria-pressed:font-semibold" aria-pressed={section === "channels"} onClick={() => { setSection("channels"); reset(); }}>Communication channels</button>
     </nav>
+    {section === "channels" ? <CommunicationChannels institutions={[...banks, ...references]} /> : <>
     {section === "references" && <p className="max-w-3xl text-sm">National authorities often publish local implementation rules, but some cover payment clearing only. Each entry states whether CAMT account reporting is covered. Regional and global references are listed separately from country rules.</p>}
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       <label className="col-span-2 lg:col-span-1 space-y-1 text-sm">{section === "banks" ? "Search banks and reporting formats" : "Search authorities and message formats"}<input type="search" aria-label={section === "banks" ? "Search banks and reporting formats" : "Search authorities and message formats"} value={query} onChange={e => setQuery(e.target.value)} className={controlClass} placeholder="Name, country or CAMT version" /></label>
@@ -70,7 +74,9 @@ export function BankCatalog({ initialSection = "banks" }: { initialSection?: "ba
       <p className="text-sm">{e.context}</p><p className="text-sm font-medium">{e.formats.join(" · ")}</p>
       {section === "banks" && exampleData.examples.some(s => s.publisherId === `bank:${e.id}`) && <a href={`#examples?bank=${encodeURIComponent(e.id)}`} className="inline-flex min-h-11 items-center underline underline-offset-4 text-sm font-medium">View {exampleData.examples.filter(s => s.publisherId === `bank:${e.id}`).length} CAMT example files</a>}
       <ul className="space-y-2">{e.resources.filter(r => !kind || r.kind === kind).map((r, i) => <li key={`${r.url}-${i}`} className="text-sm"><a href={r.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">{r.label} ↗</a><span className="block text-muted-foreground">{resourceLabels[r.kind] ?? r.kind} · {accessLabels[r.access] ?? r.access}</span></li>)}</ul>
+      {e.communicationChannels && <ChannelDetails channels={e.communicationChannels} region={region} country={country} />}
       <details className="text-sm"><summary className="cursor-pointer min-h-11 py-3">Scope and source notes</summary><p className="mt-2 text-muted-foreground">{e.notes}</p></details>
     </article>)}</div>
+    </>}
   </section>;
 }

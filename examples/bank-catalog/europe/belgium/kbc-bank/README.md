@@ -23,3 +23,35 @@ Official indexed Reach FAQ lists downloadable CAMT05x v2/v3 and CODA. This is av
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Codabox and external accounting partners — Accounting integration
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+KBC documents automatic statement delivery to accountants through Codabox or another accounting partner linked in KBC Touch or Business Dashboard.
+
+**Setup / access:** Choose the partner, information and accounts; accept the terms and establish the link in KBC Touch or Business Dashboard.
+
+**Schedule:** CODA files are supplied at the end of each banking business day.
+
+- [Codabox and external accounting partners](https://www.kbc.be/entreprendre/fr/produits/payer-et-etre-paye/infocomptes/coda.html)
+
+Channel evidence checked 2026-10-11.
+
+### KBC-Online for Business / KBC@Isabel — Banking portal
+
+**Optional automation · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+KBC supplies CODA automatically through its secure banking solutions; subsequent file import into accounting software is described.
+
+**Setup / access:** Arrange CODA reporting for the account and use an authorised KBC or Isabel banking channel.
+
+- [KBC-Online for Business / KBC@Isabel](https://www.kbc.be/entreprendre/fr/produits/payer-et-etre-paye/infocomptes/coda.html)
+
+Channel evidence checked 2026-10-11.

@@ -22,3 +22,34 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Itaú Empresas reconciliation file transmission — Other documented network
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.08. **Scope:** South America / Brazil.
+
+CAMT053 catalog and file-transmission service documented; production transport, download procedure and automation of delivery are not specified. Format links lead to manuals.
+
+**Setup / access:** Arrange reconciliation-file connectivity and CAMT profile with Itaú; confirm delivery protocol.
+
+- [Financial management: downloadable CAMT053 file](https://www.itau.com.br/empresas/pagamentos-recebimentos/gestao-financeira)
+- [Itau Empresas CAMT053 manual, 6 May 2026](https://www.itau.com.br/media/dam/m/f93a4a663581443/original/itau-empresas-manual-camt-053.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### Itaú PJ account reconciliation API — API
+
+**Automated / M2M · Documented service · Other account data**
+
+**Formats:** Account/transaction data (API serialization unspecified). **Scope:** South America / Brazil.
+
+Adjacent real-time transaction/reconciliation data API, separately described from CAMT file catalog. No CAMT XML delivery through this API established.
+
+**Setup / access:** Corporate API enrollment and integration; obtain technical specifications and eligible account details.
+
+- [Financial management: downloadable CAMT053 file](https://www.itau.com.br/empresas/pagamentos-recebimentos/gestao-financeira)
+
+Channel evidence checked 2026-10-11.

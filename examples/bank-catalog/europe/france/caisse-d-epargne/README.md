@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Caisse d’Epargne CEPAC EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.02; camt.052.001.02; camt.054.001.02. **Scope:** Europe / France.
+
+The CEPAC service annex lists CAMT account statements and operation reports. Intraday and several periodic statement options are expressly subject to availability; this is not a guarantee for every regional Caisse.
+
+**Setup / access:** Conclude the EBICS service agreement and select the reporting services with CEPAC.
+
+- [Caisse d’Epargne CEPAC EBICS](https://www.img.caisse-epargne.fr/app/uploads/sites/8/2024/04/24161957/n11533-cg-ebic-v-finale.pdf)
+
+Channel evidence checked 2026-10-11.

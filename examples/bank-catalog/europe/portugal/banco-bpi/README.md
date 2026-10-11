@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BPI SWIFTNet FIN Plus — SWIFT FINplus
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** CAMT.053. **Scope:** Europe / Portugal.
+
+BPI explicitly restricts this CAMT053 account-information service to financial-institution BICs. It is not evidence of FINplus access for ordinary corporate BICs.
+
+**Setup / access:** Arrange SWIFTNet service with BPI and confirm the recipient’s financial-institution BIC eligibility.
+
+- [BPI SWIFTNet FIN Plus](https://www.bancobpi.pt/empresas/servicos-24-7/canal-swift)
+
+Channel evidence checked 2026-10-11.

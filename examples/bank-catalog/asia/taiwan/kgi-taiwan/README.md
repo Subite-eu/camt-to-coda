@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT camt053 statement delivery — transport unspecified — SWIFT (service unspecified)
+
+**Automated / M2M · Announcement; activation unverified · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Asia / Taiwan.
+
+6 February 2026 announcement concerns foreign-currency and OBU accounts; explicit automated reporting objective.
+
+**Setup / access:** Per-account setup and monthly service; confirm activation and network subtype with KGI.
+
+**Schedule:** Announced fee schedule applies 60 days after publication; transmission frequency unspecified.
+
+- [KGI announcement: SWIFT Camt053 statement service, 6 February 2026](https://www.kgibank.com.tw/zh-tw/others/news-listing?type=66a675a281d74edcac8e6cba9bd41a93)
+
+Channel evidence checked 2026-10-11.

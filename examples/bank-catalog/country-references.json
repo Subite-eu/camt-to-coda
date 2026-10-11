@@ -341,7 +341,36 @@
         }
       ],
       "notes": "The public rulebook version 1.5 covers domestic financial-institution clearing, settlement and cash management. Sections 5.17 and 5.18 explicitly include CAMT052/053.001.08 examples, section 5.7 CAMT054.001.05 and section 5.16 CAMT060.001.01. Reporting examples begin at printed pages 163 and 167. Scope is RTGS participants.",
-      "verifiedOn": "2026-10-11"
+      "verifiedOn": "2026-10-11",
+      "communicationChannels": [
+        {
+          "kind": "other-network",
+          "label": "PhilPaSSplus participant request/response",
+          "automation": "automated",
+          "availability": "historical",
+          "formats": [
+            "camt.052.001.08",
+            "camt.053.001.08"
+          ],
+          "payload": "infrastructure",
+          "markets": [
+            {
+              "country": "Philippines",
+              "region": "Asia"
+            }
+          ],
+          "scope": "2021 rulebook §4.25–4.26: BSP responds to participant camt060 requests with balance/statement reports. Institutional RTGS only; exact transport subtype unspecified.",
+          "setup": "Domestic participant settlement account access and registered SWIFT distinguished-name signer.",
+          "sources": [
+            {
+              "label": "Philippine Payments and Settlements Rulebook, 4 June 2021, §4.25–4.26 and Annex O",
+              "url": "https://www.bsp.gov.ph/PaymentAndSettlement/PH_ISO_Rulebook_04Jun2021.pdf"
+            }
+          ],
+          "verifiedOn": "2026-10-11",
+          "timing": "Request/response during PhilPaSSplus business periods."
+        }
+      ]
     },
     {
       "id": "saudi-central-bank-sama",
@@ -1909,7 +1938,35 @@
         }
       ],
       "notes": "Public procedures and readiness guidance describe optional CAMT052 balance, activity totals and activity details reports, CAMT060 requests, and CAMT054 correspondent notifications. This is infrastructure reporting, not a universal corporate statement convention. Exact namespace version was not established from reviewed excerpts.",
-      "verifiedOn": "2026-10-11"
+      "verifiedOn": "2026-10-11",
+      "communicationChannels": [
+        {
+          "kind": "other-network",
+          "label": "FedNow ISO messaging over FedLine / IBM MQ",
+          "automation": "automated",
+          "availability": "documented",
+          "formats": [
+            "camt.052"
+          ],
+          "payload": "infrastructure",
+          "markets": [
+            {
+              "region": "North America",
+              "country": "United States"
+            }
+          ],
+          "scope": "Participant Activity Totals/Details and balance reporting; camt060 requests return camt052. Operator/FI service, not end-customer statement delivery.",
+          "setup": "FedNow participation; direct FedLine connection and MQ/certificate setup, or authorized service-provider arrangement.",
+          "sources": [
+            {
+              "label": "Federal Reserve FedNow Readiness Guide, pp28–30 and51–54",
+              "url": "https://explore.fednow.org/resources/customer-readiness-guide.pdf"
+            }
+          ],
+          "verifiedOn": "2026-10-11",
+          "timing": "Activity Totals sent automatically at cycle end; eligible reports also on demand, with 90-day history."
+        }
+      ]
     },
     {
       "id": "federal-reserve-financial-services-fedwire",
@@ -1944,7 +2001,35 @@
         }
       ],
       "notes": "The FAQ confirms CAMT052 balance, activity and endpoint reports and CAMT060 requests, rejected through admi.002. Activity reports can paginate at approximately 2,000 transactions or 4 MB per message. Scope is direct Fedwire customers; CAMT053 was not evidenced. Exact namespace version requires the technical guide.",
-      "verifiedOn": "2026-10-11"
+      "verifiedOn": "2026-10-11",
+      "communicationChannels": [
+        {
+          "kind": "other-network",
+          "label": "FedLine Direct / IBM MQ activity reporting",
+          "automation": "automated",
+          "availability": "documented",
+          "formats": [
+            "camt.052"
+          ],
+          "payload": "infrastructure",
+          "markets": [
+            {
+              "region": "North America",
+              "country": "United States"
+            }
+          ],
+          "scope": "Federal Reserve participant Activity Report; operator/FI reconciliation, not commercial customer CAMT statements. FedPayments Manager screen/CSV exports are distinct.",
+          "setup": "FedLine Direct participant connection and report subscription; authorized signed request; test in DIT2.",
+          "sources": [
+            {
+              "label": "Federal Reserve Fedwire account-reporting FAQ",
+              "url": "https://www.frbservices.org/resources/financial-services/wires/fedwire-services-frequently-asked-questions/fedwire-service-iso-20022-faq/account-reporting-faq/"
+            }
+          ],
+          "verifiedOn": "2026-10-11",
+          "timing": "Subscribed end-of-day Activity Report; high volume reports may span multiple MQ messages."
+        }
+      ]
     },
     {
       "id": "the-clearing-house-chips",
@@ -2047,7 +2132,36 @@
         }
       ],
       "notes": "RBNZ states that ESAS version 7 added statement and request messages in July 2025, completing ISO compliance; MT and MX statement/enquiry coexistence continues after November 2025. Payments NZ HVCS aligns closely with CBPR+ while adding local requirements. Exact corporate reporting versions were not established.",
-      "verifiedOn": "2026-10-11"
+      "verifiedOn": "2026-10-11",
+      "communicationChannels": [
+        {
+          "kind": "swift-unspecified",
+          "label": "ESAS SWIFT statement/enquiry messaging",
+          "automation": "optional",
+          "availability": "documented",
+          "formats": [
+            "ISO 20022 MX statements (exact CAMT identifiers unspecified)",
+            "MT statement/enquiry messages"
+          ],
+          "payload": "infrastructure",
+          "markets": [
+            {
+              "country": "New Zealand",
+              "region": "Oceania"
+            }
+          ],
+          "scope": "ESAS account-holder infrastructure. Operator documents statement/request support since July 2025; exact namespace not established.",
+          "setup": "Eligible ESAS account holder with operational SWIFT/back-office integration.",
+          "sources": [
+            {
+              "label": "RBNZ ESAS and financial system: v7 reporting and SWIFT coexistence",
+              "url": "https://www.rbnz.govt.nz/payments-and-settlement-systems/exchange-settlements-account-system/esas-and-the-financial-system"
+            }
+          ],
+          "verifiedOn": "2026-10-11",
+          "timing": "ESAS v7 July2025 introduced statement/request messages; reporting MT/MX coexistence remains documented."
+        }
+      ]
     },
     {
       "id": "banco-central-do-brasil",
@@ -2136,7 +2250,44 @@
         }
       ],
       "notes": "Official scenario ZIP contains three original v8 052/053 members, each AppHdr plus Document with two roots. Preserve full source; exact contiguous Document byte ranges are recorded separately and all validate against ISO XSDs. Samples contain balances/limits and no Ntry/TxDtls. Copyright policy permits linking; use beyond designated public datasets requires prior consultation/approval; samples were not verified as designated public datasets, so retained external-only.",
-      "verifiedOn": "2026-10-11"
+      "verifiedOn": "2026-10-11",
+      "communicationChannels": [
+        {
+          "kind": "host-to-host",
+          "label": "BOK-Wire+ direct server connection",
+          "automation": "automated",
+          "availability": "documented",
+          "formats": [
+            "camt.052.001.08",
+            "camt.053.001.08"
+          ],
+          "payload": "infrastructure",
+          "markets": [
+            {
+              "country": "South Korea",
+              "region": "Asia"
+            }
+          ],
+          "scope": "FI participants only: account balances/limits and aggregate reconciliation; not corporate transaction statements.",
+          "setup": "BOK account agreement, participant eligibility and server integration; admi007 reconciliation acknowledgement required.",
+          "sources": [
+            {
+              "label": "BOK-Wire+ operation: direct server STP and eligibility",
+              "url": "https://www.bok.or.kr/portal/main/contents.do?menuNo=200727"
+            },
+            {
+              "label": "BOK ISO20022 participant guide v2.4 and samples",
+              "url": "https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873"
+            },
+            {
+              "label": "BOK ISO20022 introduction: live 26 May 2026",
+              "url": "https://www.bok.or.kr/portal/main/contents.do?menuNo=201665"
+            }
+          ],
+          "verifiedOn": "2026-10-11",
+          "timing": "Guide specifies hourly 052 or 053 reporting; receipt timing depends on systems/network."
+        }
+      ]
     }
   ]
 }

@@ -22,3 +22,49 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### IDEAL Connect — SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Taiwan.
+
+Corporate account reporting; ISO 20022 XML selectable. Exact versions unspecified.
+
+**Setup / access:** Signed application, selected accounts, IP/port and PGP/SLIFT configuration; bank push or customer pull.
+
+**Schedule:** 052 every 1/2/3/4 hours during 08:00–20:00 or 24 hours; 053 daily/monthly.
+
+- [DBS Taiwan Corporate Connectivity application, December 2023, pp3,5](https://www.dbs.com.tw/documents/1055043/7869568/corporate-connectivity-form-en%2B202312v2.pdf/d70bdaef-65e4-78c2-f75a-9f4ee6223786?t=1702533715093)
+
+Channel evidence checked 2026-10-11.
+
+### IDEAL Connect — Connect:Direct — Managed file transfer
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Taiwan.
+
+Alternative transport listed for IDEAL Connect reporting.
+
+**Setup / access:** Implementation setup and encryption selection.
+
+- [DBS Taiwan Corporate Connectivity application, December 2023, pp3,5](https://www.dbs.com.tw/documents/1055043/7869568/corporate-connectivity-form-en%2B202312v2.pdf/d70bdaef-65e4-78c2-f75a-9f4ee6223786?t=1702533715093)
+
+Channel evidence checked 2026-10-11.
+
+### SWIFTNet FileAct reporting — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Taiwan.
+
+CAMT52/53 reporting in the FileAct products section.
+
+**Setup / access:** Test/production BIC, service, distinguished names and encryption configuration.
+
+- [DBS Taiwan Corporate Connectivity application, December 2023, pp3,5](https://www.dbs.com.tw/documents/1055043/7869568/corporate-connectivity-form-en%2B202312v2.pdf/d70bdaef-65e4-78c2-f75a-9f4ee6223786?t=1702533715093)
+
+Channel evidence checked 2026-10-11.

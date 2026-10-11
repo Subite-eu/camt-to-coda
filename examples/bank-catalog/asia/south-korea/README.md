@@ -22,6 +22,27 @@ Region: Asia. Sources verified 2026-10-11. Scope follows source documentation, n
 
 Official scenario ZIP contains three original v8 052/053 members, each AppHdr plus Document with two roots. Preserve full source; exact contiguous Document byte ranges are recorded separately and all validate against ISO XSDs. Samples contain balances/limits and no Ntry/TxDtls. Copyright policy permits linking; use beyond designated public datasets requires prior consultation/approval; samples were not verified as designated public datasets, so retained external-only.
 
+## Customer delivery and automation
+
+### BOK-Wire+ direct server connection — Host-to-host
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.052.001.08; camt.053.001.08. **Scope:** Asia / South Korea.
+
+FI participants only: account balances/limits and aggregate reconciliation; not corporate transaction statements.
+
+**Setup / access:** BOK account agreement, participant eligibility and server integration; admi007 reconciliation acknowledgement required.
+
+**Schedule:** Guide specifies hourly 052 or 053 reporting; receipt timing depends on systems/network.
+
+- [BOK-Wire+ operation: direct server STP and eligibility](https://www.bok.or.kr/portal/main/contents.do?menuNo=200727)
+- [BOK ISO20022 participant guide v2.4 and samples](https://www.bok.or.kr/portal/bbs/P0001992/view.do?menuNo=200351&nttId=10088873)
+- [BOK ISO20022 introduction: live 26 May 2026](https://www.bok.or.kr/portal/main/contents.do?menuNo=201665)
+
+Channel evidence checked 2026-10-11.
+
+
 ## Banks and published resources
 
 - [Bank of Korea / BOK-Wire+](bank-of-korea/README.md) — camt.052.001.08; camt.053.001.08; camt.054 (reference only)

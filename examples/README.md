@@ -39,3 +39,5 @@ Do not use these synthetic documents or anonymized exports for bank import. Add 
 ## Additional publisher research
 
 The [worldwide catalog](bank-catalog/README.md) inventories bank/authority availability and 121 byte-pinned CAMT052/053 originals or unchanged payloads. The separate [Belgian CODA publisher corpus](coda-published/README.md) inventories 29 distinct third-party fixtures, with original bytes, encodings, license evidence and source defects recorded. They supplement this synthetic library; no complete bank-issued CODA original has been verified.
+
+The Bank catalog also provides an optional [regional communication-channel overview](bank-catalog/communication-channels.md), with publisher-documented delivery transports, API/M2M options, setup requirements and explicit coverage limits. These describe customer services, not sample-download methods.

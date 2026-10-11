@@ -21,3 +21,77 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### HSBCnet / Global Information Reporting — Banking portal
+
+**Manual download · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052 v2; camt.053 v2. **Scope:** Asia / Thailand.
+
+Thailand accounts; historical channel table.
+
+**Setup / access:** HSBCnet/GIR access; contact Client Services for current entitlements.
+
+**Schedule:** 052 intraday; 053 end of day.
+
+- [HSBC Thailand reporting changes, 1 May 2024: channel/format table](https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html)
+
+Channel evidence checked 2026-10-11.
+
+### HSBC Connect — Host-to-host
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052 v2; camt.053 v2. **Scope:** Asia / Thailand.
+
+Thailand reporting in the 2024 table; transport subtype unspecified.
+
+**Setup / access:** HSBC Connect implementation with Client Services.
+
+- [HSBC Thailand reporting changes, 1 May 2024: channel/format table](https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html)
+
+Channel evidence checked 2026-10-11.
+
+### Account Information API — XML reports — API
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052 v2; camt.053 v2. **Scope:** Asia / Thailand.
+
+The table explicitly includes CAMT XML in the API channel.
+
+**Setup / access:** API onboarding and account entitlement.
+
+- [HSBC Thailand reporting changes, 1 May 2024: channel/format table](https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html)
+
+Channel evidence checked 2026-10-11.
+
+### Account Information API — JSON — API
+
+**Automated / M2M · Historical evidence · Other account data**
+
+**Formats:** JSON. **Scope:** Asia / Thailand.
+
+Adjacent account information; listed separately from XML statements.
+
+**Setup / access:** API onboarding.
+
+- [HSBC Thailand reporting changes, 1 May 2024: channel/format table](https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html)
+
+Channel evidence checked 2026-10-11.
+
+### GIR enhanced statements roadmap — Banking portal
+
+**Automation not established · Announcement; activation unverified · CAMT / CODA files**
+
+**Formats:** camt.052 v8; camt.053 v8; camt.054. **Scope:** Asia / Thailand.
+
+2024 announcement says availability date remained unconfirmed; no later activation verified.
+
+**Setup / access:** Ask Client Services manager for specifications and rollout status.
+
+- [HSBC Thailand reporting changes, 1 May 2024: channel/format table](https://connect-content.us.hsbc.com/hsbc_pcm/onetime/2024/June/24_th_iso_rtgs_ai_gir.html)
+
+Channel evidence checked 2026-10-11.

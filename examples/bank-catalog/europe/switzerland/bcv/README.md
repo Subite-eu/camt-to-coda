@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BCV-connect EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 version 04/08; camt.053 version 04/08; camt.054 version 04/08. **Scope:** Europe / Switzerland.
+
+EBICS 2.5/3.0 reporting includes intraday and end-of-day bookings plus QR-IBAN collective booking details, always in ZIP files.
+
+**Setup / access:** Arrange BCV-connect access, initialise keys and configure the relevant BTF report downloads.
+
+- [BCV-connect EBICS](https://www.bcv.ch/content/dam/bcv/brochure---flyer/44-516e_Fiche-technique-BCV-connect_web.pdf)
+
+Channel evidence checked 2026-10-11.

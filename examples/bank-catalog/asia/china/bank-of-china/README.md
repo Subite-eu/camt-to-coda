@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT direct corporate cash management — SWIFT FileAct
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / China.
+
+Corporate FileAct account reports; 2015 page remains hosted. Overseas account jurisdictions unspecified.
+
+**Setup / access:** Corporate SWIFT connection; contact cash-management team for implementation.
+
+- [Bank of China SWIFT direct service and reporting case](https://www.boc.cn/cbservice/cb14/201507/t20150731_5400963.html)
+
+Channel evidence checked 2026-10-11.

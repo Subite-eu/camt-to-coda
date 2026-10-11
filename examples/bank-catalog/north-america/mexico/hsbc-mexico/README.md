@@ -22,3 +22,20 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### HSBC Mexico H2H CAMT reporting — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** North America / Mexico.
+
+Mexican tariff explicitly names H2H CAMT52/CAMT53 reporting; no precise transport or schema suffix established.
+
+**Setup / access:** Contract reporting service and direct-channel connectivity; confirm current eligible accounts with HSBC.
+
+- [HSBCnet electronic banking services tariff, page 3: H2H CAMT52 / CAMT53 reporting](https://www.empresas.hsbc.com.mx/-/media/media/mexico/pdfs/regulations/comisiones-hsbcnet-1115.pdf)
+- [Mexico enterprise direct channels / host-to-host overview](https://www.empresas.hsbc.com.mx/es-mx/solutions/canales-directos)
+
+Channel evidence checked 2026-10-11.

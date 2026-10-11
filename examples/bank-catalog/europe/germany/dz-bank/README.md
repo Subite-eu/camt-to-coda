@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### DZ BANK EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053 version 08; camt.052 version 08. **Scope:** Europe / Germany.
+
+Account statements and intraday turnover information in the German banking standard can be retrieved through EBICS. The bank says v02 accounts were migrated on 15 May 2026.
+
+**Setup / access:** Arrange EBICS access and account reporting; confirm configuration with the bank.
+
+- [DZ BANK EBICS](https://firmenkunden.dzbank.de/content/firmenkunden/de/homepage/leistungen/Zahlungsverkehr/zahlungen_in-_und_ausland/iso-20022/camt-053-52.html)
+
+Channel evidence checked 2026-10-11.

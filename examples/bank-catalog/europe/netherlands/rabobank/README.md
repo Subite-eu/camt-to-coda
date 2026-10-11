@@ -22,3 +22,47 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Rabo Business Banking Professional — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.052.001.08; camt.053.001.02; camt.053.001.08. **Scope:** Europe / Netherlands.
+
+The bank’s current format guidance documents intraday and end-of-day statement downloads, including manual CAMT053 import into accounting software.
+
+**Setup / access:** Use authorised Rabo Business Banking Professional access and choose the supported file format.
+
+- [Rabo Business Banking Professional](https://www.rabobank.nl/bedrijven/service/online-bankieren/informatie-over-bestandsformaten)
+
+Channel evidence checked 2026-10-11.
+
+### Rabo Direct Connect — Host-to-host
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** Camt.053 Batchdetails. **Scope:** Europe / Netherlands.
+
+The official 2025 business tariff explicitly names CAMT053 batch details through RDC. This source does not establish all CAMT variants or current pricing.
+
+**Setup / access:** Arrange the contracted RDC reporting service with Rabobank.
+
+- [Rabo Direct Connect](https://bankieren.rabobank.nl/wapi/onboarding-organisations/documents/pdf/tarieven-zakelijk-betalingsverkeer)
+
+Channel evidence checked 2026-10-11.
+
+### Rabobank SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** Camt.053 Batchdetails. **Scope:** Europe / Netherlands.
+
+The official 2025 business tariff explicitly names CAMT053 batch details through SWIFT FileAct. This source does not establish all CAMT variants or current pricing.
+
+**Setup / access:** Arrange the contracted SWIFT FileAct reporting service with Rabobank.
+
+- [Rabobank SWIFT FileAct](https://bankieren.rabobank.nl/wapi/onboarding-organisations/documents/pdf/tarieven-zakelijk-betalingsverkeer)
+
+Channel evidence checked 2026-10-11.

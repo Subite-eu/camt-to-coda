@@ -19,6 +19,25 @@ Region: Oceania. Sources verified 2026-10-11. Scope follows source documentation
 
 RBNZ states that ESAS version 7 added statement and request messages in July 2025, completing ISO compliance; MT and MX statement/enquiry coexistence continues after November 2025. Payments NZ HVCS aligns closely with CBPR+ while adding local requirements. Exact corporate reporting versions were not established.
 
+## Customer delivery and automation
+
+### ESAS SWIFT statement/enquiry messaging — SWIFT (service unspecified)
+
+**Optional automation · Documented service · Operator / interbank reporting**
+
+**Formats:** ISO 20022 MX statements (exact CAMT identifiers unspecified); MT statement/enquiry messages. **Scope:** Oceania / New Zealand.
+
+ESAS account-holder infrastructure. Operator documents statement/request support since July 2025; exact namespace not established.
+
+**Setup / access:** Eligible ESAS account holder with operational SWIFT/back-office integration.
+
+**Schedule:** ESAS v7 July2025 introduced statement/request messages; reporting MT/MX coexistence remains documented.
+
+- [RBNZ ESAS and financial system: v7 reporting and SWIFT coexistence](https://www.rbnz.govt.nz/payments-and-settlement-systems/exchange-settlements-account-system/esas-and-the-financial-system)
+
+Channel evidence checked 2026-10-11.
+
+
 ## Banks and published resources
 
 - [ANZ](anz/README.md) — camt.052; camt.053

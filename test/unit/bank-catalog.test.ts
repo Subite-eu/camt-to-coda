@@ -59,3 +59,39 @@ it("requires unambiguous bounded pins for unchanged inline XML", () => {
     { ...source, tarMember: "original.xml" },
   ]) expect(() => validateCatalog(banks.banks, refs.references, [invalid])).toThrow(/inline XML range/i);
 });
+
+it("rejects delivery-channel claims without evidence, precise scope or known classifications", () => {
+  const channel = {
+    kind: "api", label: "Statement API", automation: "automated", availability: "documented",
+    formats: ["camt.053"], payload: "reporting-files", markets: [{ region: "Africa", country: "South Africa" }],
+    scope: "Business accounts", setup: "Client agreement and credentials", verifiedOn: "2026-10-11",
+    sources: [{ label: "Official service guide", url: "https://www.fnb.co.za/guide" }],
+  };
+  for (const invalid of [
+    { ...channel, sources: [] }, { ...channel, kind: "unknown" }, { ...channel, automation: "yes" },
+    { ...channel, payload: "xml-maybe" }, { ...channel, availability: "assumed" },
+    { ...channel, formats: [] }, { ...channel, scope: "" }, { ...channel, setup: "" },
+    { ...channel, markets: [{ region: "Europe", country: "France" }] },
+    { ...channel, sources: [{ label: "Unsafe", url: "http://example.com" }] },
+  ]) {
+    const entries = structuredClone(banks.banks);
+    Object.assign(entries[0], { communicationChannels: [invalid] });
+    expect(() => validateCatalog(entries, refs.references, inventory.cases)).toThrow(/channel/i);
+  }
+});
+
+it("generates regional channel evidence without counting JSON APIs as automated CAMT files", () => {
+  const entry = structuredClone(banks.banks[0]);
+  const common = { automation: "automated", availability: "documented", markets: entry.markets,
+    setup: "Enrolment required", verifiedOn: "2026-10-11", sources: [{ label: "Official guide", url: "https://www.fnb.co.za/guide" }] };
+  Object.assign(entry, { communicationChannels: [
+    { ...common, kind: "sftp", label: "File feed", formats: ["camt.053"], payload: "reporting-files", scope: "Business-account CAMT files" },
+    { ...common, kind: "api", label: "Data API", formats: ["JSON"], payload: "account-data", scope: "Account data only" },
+  ] });
+  const files: Map<string, string> = renderCatalog([entry], [], [], banks.verifiedOn);
+  const overview = files.get("examples/bank-catalog/communication-channels.md")!;
+  expect(overview).toContain("| Africa | 1 | 1 |");
+  expect(overview).toContain("Data API");
+  expect(overview).toContain("Account data only");
+  expect(files.get("examples/bank-catalog/africa/south-africa/fnb/README.md")).toContain("Customer delivery and automation");
+});

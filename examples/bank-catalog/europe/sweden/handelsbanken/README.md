@@ -36,3 +36,19 @@ Exact byte lengths, archive/member hashes and source structure facts are in [the
 | handelsbanken-04 | ISO20022_camt053_extended_SE_incoming_payments_incl_CB_example.xml | valid |
 | handelsbanken-05 | ISO20022_camt053_extended_SE_outgoing_payments_example.xml | valid |
 | handelsbanken-06 | camt_053_ver_2_extended_se_account_swish_ecommerce.xml | valid |
+
+## Customer delivery and automation
+
+### Handelsbanken Global Gateway SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** ISO 20022 camt.053. **Scope:** Europe / Sweden; Europe / United Kingdom.
+
+Global Gateway lists SFTP among its host-to-host options and explicitly offers CAMT053 statements across Handelsbanken and third-party accounts.
+
+**Setup / access:** Arrange Global Gateway access and the desired account statement reporting.
+
+- [Handelsbanken Global Gateway SFTP](https://www.handelsbanken.com/en/our-services/digital-services/global-gateway)
+
+Channel evidence checked 2026-10-11.

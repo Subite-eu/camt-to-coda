@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### SWIFT host statements — transport unspecified — SWIFT (service unspecified)
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053. **Scope:** Africa / South Africa.
+
+2026–27 guide lists CAMT053 under SWIFT host statements. Adjacent SFTP tariff does not explicitly tie CAMT to SFTP.
+
+**Setup / access:** Service/account eligibility and technical setup require FNB confirmation.
+
+- [FNB Business Annual Pricing Guide 2026–27, printed p42](https://www.fnb.co.za/downloads/pricing-guides/FNB-Business-Accounts.pdf)
+
+Channel evidence checked 2026-10-11.

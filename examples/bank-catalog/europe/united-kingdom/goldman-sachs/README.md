@@ -33,3 +33,66 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### TxB file report subscription and download API — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08. **Scope:** North America / United States; Europe / United Kingdom; Europe / European Union.
+
+Explicit CAMT52/CAMT53 file download, separate from JSON ledger APIs. Report scheduling identifies US/UK/DE/NL branches.
+
+**Setup / access:** Create FILE_REPORT subscription with API delivery; query /v2/documents/query and retrieve the returned link. API authentication required.
+
+**Schedule:** Intraday or end-of-day subscription; download links expire after 5 days.
+
+- [Subscribe and Download File Reports: CAMT52/CAMT53 API subscription and download](https://developer.gs.com/docs/services/transaction-banking/download-account-transactions/)
+- [Report scheduling: US branch reporting scope](https://developer.gs.com/docs/services/transaction-banking/report-scheduling/)
+
+Channel evidence checked 2026-10-11.
+
+### TxB SFTP report pull — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08. **Scope:** North America / United States; Europe / United Kingdom; Europe / European Union.
+
+Pull scheduled report files from TxB SFTP; CAMT file catalog and branch reporting scope apply.
+
+**Setup / access:** Exchange SSH and PGP public keys, register IP/CIDR ranges, configure report subscriptions.
+
+- [TxB SFTP report pull and connectivity prerequisites](https://developer.gs.com/docs/services/transaction-banking/fileconnectivity/)
+- [Report scheduling: US branch reporting scope](https://developer.gs.com/docs/services/transaction-banking/report-scheduling/)
+
+Channel evidence checked 2026-10-11.
+
+### TxB SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08. **Scope:** North America / United States; Europe / United Kingdom; Europe / European Union.
+
+All supported TxB formats; published production/test endpoints include US, GB, DE and NL branches.
+
+**Setup / access:** SWIFT registered BIC, DN/certificate configuration and RMA; supports generic and SCORE FileAct.
+
+- [TxB FileAct formats and US/GB/DE/NL branch endpoints](https://developer.gs.com/docs/services/transaction-banking/fileact/)
+- [Report scheduling: US branch reporting scope](https://developer.gs.com/docs/services/transaction-banking/report-scheduling/)
+
+Channel evidence checked 2026-10-11.
+
+### TxB EBICS 2.5 / 3.0 — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.052.001.08; camt.053.001.08. **Scope:** North America / United States; Europe / United Kingdom; Europe / European Union.
+
+Bank explicitly permits reports for accounts in EU, UK or US; C52/C53 retrieve zipped CAMT messages.
+
+**Setup / access:** IP allowlisting, host/server configuration and key exchange; configure applicable C52/C53 order or BTF.
+
+- [TxB EBICS: EU/UK/US account reports; C52/C53 download orders](https://developer.gs.com/docs/services/transaction-banking/ebicsconnectivity/)
+
+Channel evidence checked 2026-10-11.

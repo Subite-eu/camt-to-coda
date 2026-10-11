@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Van Breda customer banking statement export — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CODA. **Scope:** Europe / Belgium.
+
+Select an account and statement period, choose CODA with details, and export. Separate CSV transaction exports are not CODA.
+
+**Setup / access:** Use authorised customer banking access.
+
+- [Van Breda customer banking statement export](https://www.banquevanbreda.be/foire-aux-questions)
+
+Channel evidence checked 2026-10-11.

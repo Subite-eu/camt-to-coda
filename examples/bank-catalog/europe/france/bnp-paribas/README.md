@@ -23,3 +23,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BNP Paribas Direct Connectivity — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** XML camt.05x. **Scope:** Europe / France.
+
+The digital channels page lists CAMT reporting and automated ERP file exchange using FTPS, SFTP or EBICS. Exact report versions and country entitlement require bank confirmation.
+
+**Setup / access:** Arrange Direct Connectivity and the corresponding reporting subscription.
+
+- [BNP Paribas Direct Connectivity](https://www.cashmanagement.bnpparibas.com/fr/node/68)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,33 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Erste EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Austria.
+
+EBICS 2.5 and 3.0 provide intraday information, electronic statements and return data. Scope here is the Austrian catalogue entry.
+
+**Setup / access:** Arrange EBICS access and reporting with Erste; use compatible ERP or banking software.
+
+- [Erste EBICS](https://www.erstegroup.com/en/corporates/liquidity/digital-banking)
+
+Channel evidence checked 2026-10-11.
+
+### s Fileservice — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Austria.
+
+Direct ERP file exchange explicitly supports CAMT reporting over SFTP or HTTPS. A replacement platform is being prepared; that announcement does not establish a completed migration.
+
+**Setup / access:** Arrange s Fileservice access and file reporting with the bank.
+
+- [s Fileservice](https://www.erstegroup.com/en/corporates/liquidity/digital-banking)
+
+Channel evidence checked 2026-10-11.

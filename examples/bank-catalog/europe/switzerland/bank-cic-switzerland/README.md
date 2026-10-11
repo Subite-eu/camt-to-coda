@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Bank CIC EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.04; camt.052.001.08; camt.053.001.04; camt.053.001.08; camt.054.001.04; camt.054.001.08. **Scope:** Europe / Switzerland.
+
+The connection parameter sheet explicitly lists zipped intraday reports, statements and BESR account notices in v04/v08.
+
+**Setup / access:** Arrange EBICS access and initialise customer keys using the published parameters.
+
+- [Bank CIC EBICS](https://www.cic.ch/dam/jcr:f47b77c1-db6a-4850-9ca6-c3f364907820/Connection%20Parameters%20EBICS%20Bank%20CIC.pdf)
+
+Channel evidence checked 2026-10-11.

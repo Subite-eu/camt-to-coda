@@ -23,3 +23,62 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### CitiDirect file export — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.052.001.08 (specific branches); camt.053.001.08 (specific branches); camt.054.001.08 (specific branches). **Scope:** Multiple regions / Unspecified global markets.
+
+Corporate CAMT v2; v8 available only at specific branches. Global documentation does not enumerate US-booked account eligibility.
+
+**Setup / access:** Configure file-export format and enhanced-data options with Citi.
+
+- [ISO 20022 FAQs, updated 16 February 2026](https://www.citigroup.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### CitiConnect for Files — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.052.001.08 (specific branches); camt.053.001.08 (specific branches); camt.054.001.08 (specific branches). **Scope:** Multiple regions / Unspecified global markets.
+
+Scheduled corporate CAMT files; v8 branch restrictions apply. Public FAQ does not identify the specific file-transfer protocol.
+
+**Setup / access:** Contract and configure CitiConnect file reporting; confirm branch entitlement.
+
+- [ISO 20022 FAQs, updated 16 February 2026](https://www.citigroup.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### CitiConnect statement files and notifications — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052.001.02; camt.053.001.02; camt.054.001.02; camt.052.001.08 (specific branches); camt.053.001.08 (specific branches); camt.054.001.08 (specific branches). **Scope:** Multiple regions / Unspecified global markets.
+
+Explicit CAMT statement delivery by API; includes event-driven camt.054 v2. V8 remains branch-dependent.
+
+**Setup / access:** API onboarding and statement subscriptions; confirm branch and account eligibility.
+
+- [ISO 20022 FAQs, updated 16 February 2026](https://www.citigroup.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf)
+- [Statements API reference: v2 statement format enums](https://developer.citi.com/apidocs/account-reporting/statements/statements-api-reference/)
+
+Channel evidence checked 2026-10-11.
+
+### CBPR+ reporting for eligible financial institutions — SWIFT FINplus
+
+**Automated / M2M · Documented service · Operator / interbank reporting**
+
+**Formats:** camt.052.001.08 (specific branches); camt.053.001.08 (specific branches); camt.054.001.08 (specific branches). **Scope:** Multiple regions / Unspecified global markets.
+
+Separate FI-only v8 service; corporate file-channel availability does not confer FINplus eligibility.
+
+**Setup / access:** Eligible FI, bilateral arrangement and reporting RMAs with Citi.
+
+- [ISO 20022 FAQs, updated 16 February 2026](https://www.citigroup.com/tts/sa/iso-20022-migration/assets/docs/ISO-20022-FAQs.pdf)
+
+Channel evidence checked 2026-10-11.

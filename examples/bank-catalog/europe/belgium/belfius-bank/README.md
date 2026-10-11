@@ -22,3 +22,63 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Belfius Secure EDI — Secure FTP (protocol unspecified)
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CODA version 2; MX.CAMT.052; MX.CAMT.053. **Scope:** Europe / Belgium.
+
+Secure FTP delivery of coded statements. The bank names secure FTP, without establishing SSH SFTP. XML conversion is available on customer request.
+
+**Setup / access:** Order coded reporting from the bank and arrange Secure EDI access.
+
+**Schedule:** CODA per account on banking days with movements; empty files can be requested.
+
+- [Belfius Secure EDI](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Belfius Direct Net Business — Banking portal
+
+**Manual download · Documented service · CAMT / CODA files**
+
+**Formats:** CODA version 2; MX.CAMT.052; MX.CAMT.053. **Scope:** Europe / Belgium.
+
+Customer access to CODA and XML statements through professional online banking.
+
+**Setup / access:** Activate reporting with Belfius and use the authorised banking access.
+
+- [Belfius Direct Net Business](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Isabel download module — Other documented network
+
+**Optional automation · Documented service · CAMT / CODA files**
+
+**Formats:** CODA version 2; MX.CAMT.052; MX.CAMT.053. **Scope:** Europe / Belgium.
+
+Belfius explicitly lists Isabel with its download module as a channel for CODA and XML reporting.
+
+**Setup / access:** Activate reporting and arrange Isabel access with the download module.
+
+- [Isabel download module](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx)
+
+Channel evidence checked 2026-10-11.
+
+### Codabox intermediary — Accounting integration
+
+**Automation not established · Documented service · CAMT / CODA files**
+
+**Formats:** CODA; XML. **Scope:** Europe / Belgium.
+
+The reporting page names Codabox as an intermediary delivery service. It does not establish which CAMT subtype or version Codabox receives.
+
+**Setup / access:** Arrange the intermediary reporting connection for the relevant accounts.
+
+- [Codabox intermediary](https://www.belfius.be/professional/fr/banque-par-vous-meme/services/reporting-coda/index.aspx)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Truist SWIFT for Corporates FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 (version unspecified); camt.053 (version unspecified). **Scope:** North America / United States.
+
+FileAct current-day CAMT052 and previous-day CAMT053 under Treasury Terms revised March 2026.
+
+**Setup / access:** Authorized SWIFT participant/SCORE or qualifying initiating-party arrangement; obtain client SWIFT Service Reference and configure reporting.
+
+- [Treasury Management Terms, revised March 2026: SWIFT for Corporates](https://www.truist.com/treasuryterms)
+
+Channel evidence checked 2026-10-11.

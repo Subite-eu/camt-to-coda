@@ -21,3 +21,33 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Citizens accessOPTIMA export — Banking portal
+
+**Manual download · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052 (version unspecified); camt.053 (version unspecified). **Scope:** North America / United States.
+
+2021 product sheet: manual real-time/prior-day balance and transaction exports. Current service/version entitlement needs confirmation.
+
+**Setup / access:** accessOPTIMA account and reporting access.
+
+- [Corporate online banking reporting product sheet (copyright 2021)](https://citizenscommercial.com/shared_code/pdf.php?override=&p=0448)
+
+Channel evidence checked 2026-10-11.
+
+### Citizens scheduled reporting email — Other documented network
+
+**Automated / M2M · Historical evidence · CAMT / CODA files**
+
+**Formats:** camt.052 (version unspecified); camt.053 (version unspecified). **Scope:** North America / United States.
+
+2021 product sheet: daily current/prior-day report exports emailed to selected users. This is scheduled email, not an M2M file-transfer protocol.
+
+**Setup / access:** Configure export schedule and recipient users; confirm current availability.
+
+- [Corporate online banking reporting product sheet (copyright 2021)](https://citizenscommercial.com/shared_code/pdf.php?override=&p=0448)
+
+Channel evidence checked 2026-10-11.

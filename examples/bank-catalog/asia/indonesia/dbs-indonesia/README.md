@@ -21,3 +21,77 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### IDEAL Connect — SFTP — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Indonesia.
+
+Enrolled corporate accounts; XML reporting selected in IDEAL Connect section.
+
+**Setup / access:** Signed application, account entitlements, UAT/production IPs, encryption and bank-push/customer-pull configuration.
+
+**Schedule:** 052 every 30 minutes or hour; 053 daily/monthly, with optional nil statements.
+
+- [DBS Indonesia Corporate Connectivity application, September 2024, pp3,5–6,10–11](https://www.dbs.id/documents/37753546/409798660/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29.pdf/22e6b9a9-ce75-2197-fcc9-5b860dd2da0a)
+
+Channel evidence checked 2026-10-11.
+
+### IDEAL Connect — Connect:Direct — Managed file transfer
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Indonesia.
+
+Alternative IDEAL Connect transport in the same reporting application.
+
+**Setup / access:** Bank implementation and encryption setup.
+
+- [DBS Indonesia Corporate Connectivity application, September 2024, pp3,5–6,10–11](https://www.dbs.id/documents/37753546/409798660/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29.pdf/22e6b9a9-ce75-2197-fcc9-5b860dd2da0a)
+
+Channel evidence checked 2026-10-11.
+
+### SWIFTNet FileAct reporting — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Indonesia.
+
+Corporate XML account reporting.
+
+**Setup / access:** Application plus test/live BIC, service and distinguished-name configuration.
+
+- [DBS Indonesia Corporate Connectivity application, September 2024, pp3,5–6,10–11](https://www.dbs.id/documents/37753546/409798660/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29.pdf/22e6b9a9-ce75-2197-fcc9-5b860dd2da0a)
+
+Channel evidence checked 2026-10-11.
+
+### IDEAL RAPID — CAMT statement push/pull — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Indonesia.
+
+Annex 2 lists CAMT052IN/OUT and CAMT053IN/OUT separately from JSON products. Exact schema versions unspecified.
+
+**Setup / access:** RAPID registration; CAMT applicants additionally need IGWEB setup.
+
+- [DBS Indonesia Corporate Connectivity application, September 2024, pp3,5–6,10–11](https://www.dbs.id/documents/37753546/409798660/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29.pdf/22e6b9a9-ce75-2197-fcc9-5b860dd2da0a)
+
+Channel evidence checked 2026-10-11.
+
+### IDEAL RAPID — JSON statement push/pull — API
+
+**Automated / M2M · Documented service · Other account data**
+
+**Formats:** JSON. **Scope:** Asia / Indonesia.
+
+Adjacent account data: CAMT052JI/JO and CAMT053JI/JO are explicitly JSON equivalents, not XML files.
+
+**Setup / access:** Subscribe to corresponding API products and customer URLs.
+
+- [DBS Indonesia Corporate Connectivity application, September 2024, pp3,5–6,10–11](https://www.dbs.id/documents/37753546/409798660/DBS%2BConnectivity%2BID%2BApplication%2BForm%2B%28Parent-Subsidiary%29.pdf/22e6b9a9-ce75-2197-fcc9-5b860dd2da0a)
+
+Channel evidence checked 2026-10-11.

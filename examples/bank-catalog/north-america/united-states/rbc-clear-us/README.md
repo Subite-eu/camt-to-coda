@@ -22,3 +22,52 @@ Live corporate 052 v2 intraday and 053 v2 end-of-day statements through SFTP and
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### RBC Clear SFTP (H2H) — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 v2; camt.053 v2; camt.054 v8. **Scope:** North America / United States.
+
+US 3 WFC Branch deposit accounts; non-US customers access US products cross-border.
+
+**Setup / access:** TIM user establishes SFTP connectivity in RBC Clear, then enrolls accounts/formats; testing via account manager.
+
+**Schedule:** 052 intraday; 053 covers through 9 PM ET, available by 10 PM ET; 054 event-driven.
+
+- [Machine-Readable Statements: formats, delivery channels and gated guide instructions](https://www.rbccm.com/en/expertise/rbcclear/reports/machine-readable-statements)
+- [Machine-Readable Statements FAQ, 2026; explicit U.S. account scope](https://www.rbccm.com/assets/rbccm/docs/expertise/rbc-clear/resources/MRS_FAQs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### RBC Clear SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052 v2; camt.053 v2; camt.054 v8. **Scope:** North America / United States.
+
+US RBC Clear CAMT file reporting; Canadian RBC Express is a distinct service.
+
+**Setup / access:** Establish FileAct connectivity in portal and enroll machine-readable statements.
+
+- [Machine-Readable Statements: formats, delivery channels and gated guide instructions](https://www.rbccm.com/en/expertise/rbcclear/reports/machine-readable-statements)
+- [Machine-Readable Statements FAQ, 2026; explicit U.S. account scope](https://www.rbccm.com/assets/rbccm/docs/expertise/rbc-clear/resources/MRS_FAQs.pdf)
+
+Channel evidence checked 2026-10-11.
+
+### RBC Clear SWIFT FINplus — SWIFT FINplus
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.054 v8. **Scope:** North America / United States.
+
+Event-driven debit/credit notifications only; 052/053 are not assigned to FINplus by the format table.
+
+**Setup / access:** Establish FINplus connectivity in RBC Clear and enroll notification reporting.
+
+- [Machine-Readable Statements: formats, delivery channels and gated guide instructions](https://www.rbccm.com/en/expertise/rbcclear/reports/machine-readable-statements)
+- [Machine-Readable Statements FAQ, 2026; explicit U.S. account scope](https://www.rbccm.com/assets/rbccm/docs/expertise/rbc-clear/resources/MRS_FAQs.pdf)
+
+Channel evidence checked 2026-10-11.

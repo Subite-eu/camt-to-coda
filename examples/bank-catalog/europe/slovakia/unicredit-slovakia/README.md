@@ -21,3 +21,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### BusinessNet Connect WebDAV — WebDAV
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053 v.2; camt.053 v.8; camt.052 v.2; camt.052 v.8. **Scope:** Europe / Slovakia.
+
+Authenticated HTTPS WebDAV exposes daily and intraday XML statement folders and predefined naming for automated retrieval.
+
+**Setup / access:** Execute BusinessNet Connect documentation, establish the technical user and certificate configuration, and connect a WebDAV client.
+
+**Schedule:** Daily CAMT053 and intraday CAMT052 folders.
+
+- [BusinessNet Connect WebDAV](https://www.unicreditbank.sk/content/dam/cee2020-pws-sk/en-documents/product-documents/BusinessNet%20Professional/BusinessNet_Connect_Integration_document_SK.pdf)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Business Banking EBICS / EBICS Web — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** CAMT.052; CAMT.053; CAMT.054. **Scope:** Europe / Austria.
+
+Business reporting covers intraday information, account statements and filtered return data. The same product page documents automated retrieval of account data through EBICS Web.
+
+**Setup / access:** Arrange business EBICS access and the required reporting configuration.
+
+- [Business Banking EBICS / EBICS Web](https://www.bawag.at/bawag/cb/zahlungsverkehr)
+
+Channel evidence checked 2026-10-11.

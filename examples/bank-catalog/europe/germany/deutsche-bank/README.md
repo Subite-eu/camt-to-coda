@@ -22,3 +22,61 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Deutsche Bank EBICS — EBICS
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Germany.
+
+The bank’s account-information channel table explicitly lists these three CAMT message types for this channel. Individual account and country entitlement still requires confirmation.
+
+**Setup / access:** Coordinate channel access, reporting configuration and migration tests with the Deutsche Bank service contact.
+
+- [Deutsche Bank EBICS](https://corporates.db.com/in-focus/Focus-topics/iso20022/implications-for-corporate-clients/iso-changes-on-account-information-messages)
+
+Channel evidence checked 2026-10-11.
+
+### Deutsche Bank Host-to-Host — Host-to-host
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Germany.
+
+The bank’s account-information channel table explicitly lists these three CAMT message types for this channel. Individual account and country entitlement still requires confirmation.
+
+**Setup / access:** Coordinate channel access, reporting configuration and migration tests with the Deutsche Bank service contact.
+
+- [Deutsche Bank Host-to-Host](https://corporates.db.com/in-focus/Focus-topics/iso20022/implications-for-corporate-clients/iso-changes-on-account-information-messages)
+
+Channel evidence checked 2026-10-11.
+
+### Deutsche Bank SWIFT FileAct — SWIFT FileAct
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Germany.
+
+The bank’s account-information channel table explicitly lists these three CAMT message types for this channel. Individual account and country entitlement still requires confirmation.
+
+**Setup / access:** Coordinate channel access, reporting configuration and migration tests with the Deutsche Bank service contact.
+
+- [Deutsche Bank SWIFT FileAct](https://corporates.db.com/in-focus/Focus-topics/iso20022/implications-for-corporate-clients/iso-changes-on-account-information-messages)
+
+Channel evidence checked 2026-10-11.
+
+### Deutsche Bank API — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053; camt.054. **Scope:** Europe / Germany.
+
+The bank’s account-information channel table explicitly lists these three CAMT message types for this channel. Individual account and country entitlement still requires confirmation.
+
+**Setup / access:** Coordinate channel access, reporting configuration and migration tests with the Deutsche Bank service contact.
+
+- [Deutsche Bank API](https://corporates.db.com/in-focus/Focus-topics/iso20022/implications-for-corporate-clients/iso-changes-on-account-information-messages)
+
+Channel evidence checked 2026-10-11.

@@ -21,3 +21,19 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### GOconnect Biznes Get V1 — API
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.053.001.08; camt.052.001.08. **Scope:** Europe / Poland.
+
+GetStatementV1, GetAccountReportV1 and GetIncrementalAccountReportV1 use CAMT v08 structures. Structured address changes are announced for 15 November 2026.
+
+**Setup / access:** Arrange GOconnect Biznes access and use the bank’s technical specification for the contracted services.
+
+- [GOconnect Biznes Get V1](https://www.bnpparibas.pl/en/english-info/international-standard-for-electronic-communication)
+
+Channel evidence checked 2026-10-11.

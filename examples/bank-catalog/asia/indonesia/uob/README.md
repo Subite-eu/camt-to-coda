@@ -22,3 +22,21 @@ No open redistribution licence established. Consult the publisher before republi
 ## Original-source inventory
 
 No byte-verified original XML acquired for this entry. PDF excerpts, schemas and service descriptions are not represented as original statement files.
+
+## Customer delivery and automation
+
+### Regional File Transfer Services (RFTS) — SFTP
+
+**Automated / M2M · Documented service · CAMT / CODA files**
+
+**Formats:** camt.052; camt.053. **Scope:** Asia / Singapore; Asia / Malaysia; Asia / Thailand; Asia / Indonesia; Asia / Vietnam; Asia / China; Asia / Hong Kong.
+
+Direct host-to-host intraday/end-of-day reporting across seven named franchise locations; per-account/format entitlement requires confirmation.
+
+**Setup / access:** ERP integration, SFTP/SSH and PGP; contact Relationship Manager for onboarding.
+
+**Schedule:** Intraday and end of day; exact schedules not published.
+
+- [UOB RFTS product and FAQ: geography, security and CAMT statements](https://www.uob.com.sg/business/digital/regional-file-transfer-services.page)
+
+Channel evidence checked 2026-10-11.
