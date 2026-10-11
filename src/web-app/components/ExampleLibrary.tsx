@@ -8,7 +8,7 @@ import type { Direction } from "../lib/convert";
 type Example = {
   id: string; filename: string; format: string; version: string; provenance: "bank" | "third-party" | "synthetic";
   publisher: string; publisherId: string; bank: string; countries: string[]; countryBasis: string;
-  status: string; caution: boolean; description: string; documentationUrl: string; termsUrl: string; license: string;
+  status: string; caution: boolean; description: string; documentationUrl: string; termsUrl: string | null; license: string;
   source?: PublisherSource; archive?: string | null; member?: string | null; extractedPayload?: boolean; sampleId?: string; verifiedOn?: string;
   classification?: string; encoding?: string;
 };
@@ -66,7 +66,7 @@ function ExampleRow({ example: e, onTry }: { example: Example; onTry?: TryExampl
         {e.classification && <p>Fixture type: {e.classification.replaceAll("-", " ")} · Encoding: {e.encoding}</p>}
         {e.source && <p className="break-all">Original SHA-256: {e.source.sourceSha256} · {e.source.sourceBytes.toLocaleString()} bytes</p>}
         <p><a href={e.documentationUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">Publisher documentation ↗</a></p>
-        <p><a href={e.termsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">Usage terms ↗</a></p>
+        {e.termsUrl ? <p><a href={e.termsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">Usage terms ↗</a></p> : <p>No separate usage-terms link verified. Check publisher documentation before reuse.</p>}
       </div>
     </details>
   </article>;

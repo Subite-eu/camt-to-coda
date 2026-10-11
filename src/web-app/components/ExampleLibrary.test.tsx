@@ -9,6 +9,13 @@ vi.mock("../lib/publisher-download", () => ({ fetchExampleOriginal: vi.fn() }));
 vi.mock("../lib/download", () => ({ downloadBlob: vi.fn() }));
 afterEach(() => vi.clearAllMocks());
 
+it("does not offer a dead usage-terms link where the source inventory has no verified URL", () => {
+  render(<ExampleLibrary initialBank="seb" />);
+  const row = screen.getAllByRole("article")[0];
+  expect(within(row).queryByRole("link", { name: "Usage terms ↗", hidden: true })).not.toBeInTheDocument();
+  expect(within(row).getByText(/No separate usage-terms link verified/)).toBeInTheDocument();
+});
+
 it("pages the whole catalog without requesting originals and resets pagination when filtering", async () => {
   render(<ExampleLibrary />);
   expect(screen.getByText("252 of 252 examples")).toBeInTheDocument();
