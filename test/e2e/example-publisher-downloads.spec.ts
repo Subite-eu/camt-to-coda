@@ -17,12 +17,14 @@ for (const id of ids) test(`publisher download preserves pinned original bytes: 
   // Acquire fresh originals outside browser CORS policy. Interception below
   // reproduces a CORS-permitted publisher response without rehosting files in
   // the product; the ordinary suite separately checks browser-blocked fallback.
+  // GitHub explicitly allows cross-origin access: exercise its live browser
+  // response without interception, including the publisher's actual CORS policy.
   const response = await fetch(source.url, { signal: AbortSignal.timeout(45_000) });
   expect(response.ok, `Publisher HTTP status for ${id}`).toBe(true);
   const container = Buffer.from(await response.arrayBuffer());
   expect(container.length).toBe(source.downloadBytes);
   expect(hash(container)).toBe(source.downloadSha256);
-  await page.route(source.url, route => route.fulfill({ status: 200, body: container,
+  if (id !== "third-party:acsone-02") await page.route(source.url, route => route.fulfill({ status: 200, body: container,
     headers: { "access-control-allow-origin": "*", "content-type": "application/octet-stream" } }));
   await page.goto("/#examples");
   await page.getByLabel("Bank or publisher").selectOption(example.publisherId);
