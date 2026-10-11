@@ -9,8 +9,8 @@ it("publishes every inventoried source with download pins and honest attribution
   const result = spawnSync(process.execPath, ["scripts/build-example-catalog.mjs", "--check"], { encoding: "utf8" });
   expect(result.status, result.stderr).toBe(0);
   const catalog = JSON.parse(readFileSync("examples/download-catalog.json", "utf8"));
-  expect(catalog.examples).toHaveLength(252);
-  expect(new Set(catalog.examples.map((s: { id: string }) => s.id)).size).toBe(252);
+  expect(catalog.examples).toHaveLength(254);
+  expect(new Set(catalog.examples.map((s: { id: string }) => s.id)).size).toBe(254);
   for (const [sources, prefix] of [[inventory.cases, "bank"], [coda.cases, "third-party"], [synthetic.cases, "synthetic"]] as const) {
     for (const source of sources) {
       const entry = catalog.examples.find((e: { id: string }) => e.id === `${prefix}:${source.id}`);

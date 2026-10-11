@@ -2,7 +2,7 @@
 
 # Worldwide bank and country reference catalog
 
-Verified 2026-10-11: **104 bank/brand entries**, **58 authority references**, **61 country, regional or global groupings**, and **119 byte-verified CAMT052/053 originals**.
+Verified 2026-10-11: **104 bank/brand entries**, **58 authority references**, **61 country, regional or global groupings**, and **121 byte-verified CAMT052/053 originals**.
 
 This curated catalog records primary-source evidence, not universal availability or bank certification. A country may share regional guidance, publish only payment/clearing rules, or leave CAMT reporting to individual banks. An absent country is **not yet inventoried**, not evidence that ISO 20022 or CAMT is unavailable.
 
@@ -12,11 +12,11 @@ Open **Example files** (`/#examples`) to find and download all inventoried CAMT 
 
 ## Original samples and validation
 
-**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **119 different bank-published XML originals/payloads**: 107 validate against the bundled ISO XSD, 5 have missing element namespaces, 5 are invalid as published, and 2 are wrapped SWIFT references without a bundled envelope schema.
+**104 independently authored synthetic originals** remain in the separate [example library](../README.md). This catalog inventories **121 different bank-published XML originals/payloads**: 108 validate against the bundled ISO XSD, 5 have missing element namespaces, 6 are invalid as published, and 2 are wrapped SWIFT references without a bundled envelope schema.
 
-**22 Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. 97 original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from this count.
+**22 Bundesbank originals are committed unchanged** under [Germany / Deutsche Bundesbank](europe/germany/deutsche-bundesbank/ATTRIBUTION.md), with its required attribution and usage conditions. 99 original XML files remain in an ignored/ephemeral cache; public downloads do not establish redistribution rights. Their exact URL, archive/member hashes and byte lengths are committed. CAMT054 examples linked by banks are reference-only and excluded from this count.
 
-Run `npm run catalog:check` for metadata/index consistency. `npm run test:bank:catalog` retrieves all external originals and checks unchanged bytes, independently counted reports/entries/details and documented XSD outcomes. The separate [12-file ING/ABN/Nordea compatibility corpus](../bank-published/README.md) additionally checks literal monetary/account/detail facts, CODA output, twelve reverse versions and real browser downloads. Inventory membership alone does not certify converter compatibility.
+Run `npm run catalog:check` for metadata/index consistency. `npm run test:bank:catalog` retrieves all external originals and checks unchanged bytes, independently counted reports/entries/details and documented XSD outcomes. The separate [12-file ING/ABN/Nordea compatibility corpus](../bank-published/README.md) additionally checks literal monetary/account/detail facts, CODA output, twelve reverse versions and real browser downloads. The two [Huntington inline illustrations](north-america/united-states/huntington/VALIDATION.md) also have literal source-fact, conversion and browser-download checks, including rejection of the published 052 defects. Inventory membership alone does not certify converter compatibility.
 
 The converter supports standalone CAMT052/053 and CODA 2.6. CAMT054, SWIFT wrappers, payment-clearing messages and namespace-less originals are reference material. No complete bank-published CODA original with established reuse rights has yet been acquired; that gap remains explicit.
 

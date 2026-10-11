@@ -12,7 +12,7 @@ const ing = examples.find(example => example.id === 'bank:ing-01')!;
 const thirdParty = examples.find(example => example.id === 'third-party:acsone-02')!;
 const synthetic = examples.find(example => example.id === 'synthetic:coda-card-purchases')!;
 
-test('all 252 example files can be browsed in pages of 20 without requesting publisher originals', async ({ page }) => {
+test('all 254 example files can be browsed in pages of 20 without requesting publisher originals', async ({ page }) => {
   const sourceUrls = new Set(examples.flatMap(example => example.source ? [example.source.url] : []));
   const publisherRequests: string[] = [];
   await page.route('**/*', async route => {
@@ -23,16 +23,16 @@ test('all 252 example files can be browsed in pages of 20 without requesting pub
   });
   await page.goto('/#examples');
   await expect(page.getByRole('heading', { level: 1, name: 'Example files', exact: true })).toBeVisible();
-  await expect(page.getByRole('status').filter({ hasText: /of 252 examples/ })).toHaveText('252 of 252 examples');
+  await expect(page.getByRole('status').filter({ hasText: /of 254 examples/ })).toHaveText('254 of 254 examples');
   await expect(page.getByRole('button', { name: 'Previous examples' })).toBeDisabled();
   const ids: string[] = [];
   for (let index = 0; index < 13; index++) {
     await expect(page.getByText(`Page ${index + 1} of 13`, { exact: true })).toBeVisible();
-    await expect(page.getByRole('article')).toHaveCount(index === 12 ? 12 : 20);
+    await expect(page.getByRole('article')).toHaveCount(index === 12 ? 14 : 20);
     ids.push(...await page.getByRole('article').evaluateAll(rows => rows.map(row => row.getAttribute('aria-label')!)));
     if (index < 12) await page.getByRole('button', { name: 'Next examples' }).click();
   }
-  expect(new Set(ids).size).toBe(252);
+  expect(new Set(ids).size).toBe(254);
   expect([...ids].sort()).toEqual(examples.map(example => example.id).sort());
   await expect(page.getByRole('button', { name: 'Next examples' })).toBeDisabled();
   await page.getByRole('button', { name: 'Previous examples' }).click();
@@ -55,7 +55,7 @@ test('format, provenance, country and publisher filters retain explicit bank sou
   await page.getByRole('combobox', { name: 'Format', exact: true }).selectOption({ label: 'CODA' });
   await expect(page.getByText(/No examples match these filters/)).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters' }).click();
-  await expect(page.getByRole('status').filter({ hasText: /of 252 examples/ })).toHaveText('252 of 252 examples');
+  await expect(page.getByRole('status').filter({ hasText: /of 254 examples/ })).toHaveText('254 of 254 examples');
   await expect(page.getByRole('article')).toHaveCount(20);
 });
 
@@ -63,7 +63,7 @@ test('third-party CODA and synthetic examples never imply bank authorship and re
   await page.goto('/#examples');
   await page.getByRole('combobox', { name: 'Format', exact: true }).selectOption({ label: 'CODA' });
   await page.getByRole('combobox', { name: 'Provenance', exact: true }).selectOption({ label: 'Third-party fixture' });
-  await expect(page.getByRole('status').filter({ hasText: /of 252 examples/ })).toHaveText('29 of 252 examples');
+  await expect(page.getByRole('status').filter({ hasText: /of 254 examples/ })).toHaveText('29 of 254 examples');
   await page.getByLabel('Search example files').fill(thirdParty.filename);
   const thirdPartyRow = page.getByRole('article', { name: thirdParty.id, exact: true });
   await expect(thirdPartyRow.getByText('Third-party fixture', { exact: true })).toBeVisible();
@@ -73,7 +73,7 @@ test('third-party CODA and synthetic examples never imply bank authorship and re
   await expect(page.getByRole('article').getByText('Expected rejection', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Reset filters' }).click();
   await page.getByRole('combobox', { name: 'Provenance', exact: true }).selectOption({ label: 'Synthetic test data' });
-  await expect(page.getByRole('status').filter({ hasText: /of 252 examples/ })).toHaveText('104 of 252 examples');
+  await expect(page.getByRole('status').filter({ hasText: /of 254 examples/ })).toHaveText('104 of 254 examples');
   await page.getByRole('combobox', { name: 'Country / scope', exact: true }).selectOption({ label: 'Not country-specific' });
   await page.getByLabel('Search example files').fill(synthetic.filename);
   const syntheticRow = page.getByRole('article', { name: synthetic.id, exact: true });
@@ -147,4 +147,18 @@ test('example files remain accessible and fit desktop and mobile screens', async
   await page.getByRole('article', { name: thirdParty.id, exact: true }).getByText('Provenance, verification and usage terms', { exact: true }).click();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test('Huntington inline sources expose provenance and reject altered saved publisher pages', async ({ page }) => {
+  await page.goto('/#examples?bank=huntington');
+  await expect(page.getByRole('article')).toHaveCount(2);
+  const row = page.getByRole('article', { name: 'bank:huntington-052', exact: true });
+  await expect(row.getByText('Extracted inline XML', { exact: true })).toBeVisible();
+  await expect(row).toContainText('United States');
+  await expect(row.getByText('Published schema issue', { exact: true })).toBeVisible();
+  await expect(row.getByRole('link', { name: 'Publisher Markdown source ↗' })).toHaveAttribute('href', 'https://developer.huntington.com/enterprisepayments/docs/camt052.md');
+  await row.getByLabel(/Choose saved publisher Markdown/).setInputFiles({ name: 'changed.md', mimeType: 'text/markdown', buffer: Buffer.from('changed publisher page') });
+  await expect(row.getByRole('alert')).toContainText('does not match the verified publisher source');
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

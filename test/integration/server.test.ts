@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { request, Server } from "http";
+import type { AddressInfo } from "node:net";
 import { execFileSync } from "child_process";
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "node:path";
@@ -8,8 +9,7 @@ import { startServer } from "../../src/web/server.js";
 // ── Test helpers ────────────────────────────────────────────────────────────
 
 let server: Server;
-const port = 39100 + Math.floor(Math.random() * 900);
-const baseUrl = `http://localhost:${port}`;
+let baseUrl: string;
 
 function httpFetch(
   path: string,
@@ -74,9 +74,13 @@ const minimalCoda = [
 beforeAll(() => {
   // The server serves the built Vite app; ensure it exists for the static-serving test.
   if (!existsSync("dist-web/index.html")) execFileSync("npm", ["run", "build:app"], { stdio: "ignore" });
-  return new Promise<void>((resolve) => {
-    server = startServer(port);
-    server.on("listening", resolve);
+  return new Promise<void>((resolve, reject) => {
+    server = startServer(0);
+    server.on("error", reject);
+    server.on("listening", () => {
+      baseUrl = `http://localhost:${(server.address() as AddressInfo).port}`;
+      resolve();
+    });
   });
 }, 120000);
 
@@ -272,9 +276,9 @@ function fetchOn(p: number, path: string, opts: { method?: string; body?: string
 
 describe("web server hardening", () => {
   it("echoes only the configured CORS origin, never a wildcard", async () => {
-    const p = 39200 + Math.floor(Math.random() * 300);
-    const srv = startServer(p, { corsOrigin: "https://app.example.com" });
-    await new Promise<void>((r) => srv.on("listening", () => r()));
+    const srv = startServer(0, { corsOrigin: "https://app.example.com" });
+    await new Promise<void>((r, reject) => { srv.on("error", reject); srv.on("listening", () => r()); });
+    const p = (srv.address() as AddressInfo).port;
     try {
       const res = await fetchOn(p, "/api/health");
       expect(res.headers["access-control-allow-origin"]).toBe("https://app.example.com");
@@ -285,9 +289,9 @@ describe("web server hardening", () => {
   });
 
   it("rejects an over-limit request body with 413", async () => {
-    const p = 39600 + Math.floor(Math.random() * 300);
-    const srv = startServer(p, { maxBodyBytes: 100 }); // 100-byte cap
-    await new Promise<void>((r) => srv.on("listening", () => r()));
+    const srv = startServer(0, { maxBodyBytes: 100 }); // 100-byte cap
+    await new Promise<void>((r, reject) => { srv.on("error", reject); srv.on("listening", () => r()); });
+    const p = (srv.address() as AddressInfo).port;
     try {
       const res = await fetchOn(p, "/api/convert?direction=coda-to-camt", {
         method: "POST",

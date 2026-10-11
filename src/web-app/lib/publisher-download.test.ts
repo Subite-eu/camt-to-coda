@@ -2,7 +2,7 @@ import { createHash, webcrypto } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { gzipSync, zipSync } from "fflate";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchExampleOriginal, type PublisherSource } from "./publisher-download";
+import { extractExampleOriginal, fetchExampleOriginal, type PublisherSource } from "./publisher-download";
 
 const bytes = (text: string) => new TextEncoder().encode(text);
 const original = bytes("<?xml version=\"1.0\"?>\r\n<bank/>\r\n");
@@ -35,6 +35,21 @@ beforeEach(() => vi.stubGlobal("crypto", webcrypto));
 afterEach(() => { vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe("fetchExampleOriginal", () => {
+  it("extracts unchanged inline XML bytes from a pinned Markdown container", async () => {
+    const prefix = bytes("# Bank example\n```xml\n");
+    const markdown = new Uint8Array([...prefix, ...original, ...bytes("```\nOther documentation\n")]);
+    const pins = source(markdown, { inlineRange: { offset: prefix.length, length: original.length } } as Partial<PublisherSource>);
+    expect([...await fetchExampleOriginal(pins, undefined, requestFor(markdown))]).toEqual([...original]);
+    expect([...await extractExampleOriginal(pins, markdown)]).toEqual([...original]);
+    await expect(extractExampleOriginal(pins, bytes("changed locally saved page"))).rejects.toThrow(/integrity/i);
+    const tampered = markdown.slice();
+    tampered[0] ^= 1;
+    await expect(extractExampleOriginal(pins, tampered)).rejects.toThrow(/integrity/i);
+    for (const inlineRange of [{ offset: -1, length: original.length }, { offset: 0.5, length: original.length }, { offset: markdown.length, length: original.length }, { offset: prefix.length, length: original.length - 1 }]) {
+      await expect(fetchExampleOriginal({ ...pins, inlineRange } as PublisherSource, undefined, requestFor(markdown))).rejects.toThrow(/range/i);
+    }
+    await expect(fetchExampleOriginal({ ...pins, zipMember: "example.xml" }, undefined, requestFor(markdown))).rejects.toThrow(/ambiguous/i);
+  });
   it("returns byte-identical verified direct publisher XML including its original line endings", async () => {
     const result = await fetchExampleOriginal(source(), undefined, requestFor(original));
     expect([...result]).toEqual([...original]);

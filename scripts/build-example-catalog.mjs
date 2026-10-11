@@ -6,7 +6,7 @@ const [banks, inventory, coda, synthetic] = await Promise.all([
 ]);
 const repository = 'https://github.com/Subite-eu/camt-to-coda/blob/main/examples/';
 const basename = name => name.split(/[\\/]/).at(-1);
-const sourceFields = ['url', 'downloadSha256', 'downloadBytes', 'sourceSha256', 'sourceBytes', 'zipMember', 'tarMember', 'zipMemberSha256', 'zipMemberBytes', 'payloadRange', 'allowedRedirectOrigins'];
+const sourceFields = ['url', 'downloadSha256', 'downloadBytes', 'sourceSha256', 'sourceBytes', 'zipMember', 'tarMember', 'zipMemberSha256', 'zipMemberBytes', 'payloadRange', 'inlineRange', 'allowedRedirectOrigins'];
 const source = original => Object.fromEntries(sourceFields.filter(key => original[key] != null).map(key => [key, original[key]]));
 const countryNames = {
   Denmark: ['dk', 'denmark'], Finland: ['fi', 'finland'], Norway: ['no', 'norway'], Sweden: ['se', 'sweden', 'swedish'],
@@ -32,6 +32,7 @@ const examples = inventory.cases.map(original => {
     ...geography(original, bank), status: valid ? 'XSD valid' : original.xsdStatus === 'wrapped-reference' ? 'Wrapped reference' : 'Published schema issue',
     caution: !valid, description: original.schemaNotes ?? (valid ? 'Source schema verified. Converter compatibility is not certified for every example.' : original.xsdStatus === 'missing-element-namespace' ? 'Original elements lack the required XML namespace. Preserved unchanged.' : original.xsdStatus === 'wrapped-reference' ? 'SWIFT envelope reference; the converter accepts standalone CAMT052/053.' : 'Original fails its stated ISO schema. Preserved unchanged.'),
     source: source(original), archive, member: original.zipMember ?? null, extractedPayload: !!original.payloadRange,
+    ...(original.inlineRange ? { sourceKind: 'Extracted inline XML', filenameBasis: 'Filename assigned by this library; XML code-block text is unchanged.' } : {}),
     documentationUrl: original.landingPage, termsUrl: bank.termsUrl,
     license: original.repositoryPath ? 'Bundesbank attribution and usage conditions apply.' : 'Publisher terms apply; no open redistribution licence established.',
     verifiedOn: original.retrievedOn,

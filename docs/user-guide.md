@@ -18,7 +18,7 @@ Conversion runs in a local browser worker. Bank statement contents are not uploa
 
 ## Find and download example files
 
-Open **Example files** in the header, or visit `/#examples`. The library contains **252 files: 119 bank-published CAMT originals or unchanged payloads, 29 third-party CODA fixtures, and 104 synthetic test files**. Search filenames, publishers and descriptions; filter by **Format**, **Provenance**, **Country / scope**, and **Bank or publisher**. Results appear in pages of 20. Returning to the converter preserves your loaded source and converted result.
+Open **Example files** in the header, or visit `/#examples`. The library contains **254 files: 121 bank-published CAMT originals or unchanged payloads, 29 third-party CODA fixtures, and 104 synthetic test files**. Search filenames, publishers and descriptions; filter by **Format**, **Provenance**, **Country / scope**, and **Bank or publisher**. Results appear in pages of 20. Returning to the converter preserves your loaded source and converted result.
 
 Each file identifies its publisher, bank relationship, provenance, source status, usage terms and country basis. **Bank-published original** means the source was published by the named bank or central bank. **Third-party fixture** means a developer or vendor published it; bank authorship and production origin are unverified. **Synthetic test data** uses invented identities and has no bank affiliation. No complete bank-authored CODA original has been verified.
 
@@ -29,6 +29,10 @@ Source statuses have different meanings. **XSD valid** refers to source schema v
 Browsing loads metadata only. **Save original file** explicitly fetches from the publisher and verifies the pinned download size and SHA-256 before extracting an exact ZIP or regular gzip TAR member. Reviewed embedded XML is saved as its unchanged, separately pinned byte range. The complete member and final payload hashes are checked, with an 8 MB download/expanded TAR limit and a 2 MB original limit. The app never proxies or rehosts publisher originals. Publisher terms still apply.
 
 If the browser cannot fetch the source because of CORS, a network failure, a changed file or an unreviewed redirect, the app offers the publisher link. Download there, extract the named member where needed, and upload the file to the converter. **Download test file** saves the synthetic original; **Try in converter** opens that synthetic example directly. Synthetic files and anonymized exports are for testing and review, **never bank import**.
+
+Huntington’s two **Extracted inline XML** entries come from its official Markdown documentation. Their XML code-block text is unchanged, including the final newline; this library assigns the `.xml` filenames. They are bank-authored illustrations, not customer statements. CAMT052 v8 has published schema defects and fails CODA validation; CAMT053 v2 passes XSD and conversion checks but contains US-prefixed IBAN placeholders. See the [Huntington provenance and validation record](../examples/bank-catalog/north-america/united-states/huntington/VALIDATION.md) for exact extraction boundaries and test outcomes.
+
+For blocked direct access, open **Publisher Markdown source**, save the source as a `.md` file, then choose **Extract saved publisher page** on the same entry. The browser checks the complete saved page hash/size, extracts the reviewed byte range and checks the XML hash/size before downloading it. The page stays on your computer. Edited or updated pages fail integrity checks; they are never silently accepted.
 
 ## Install the CLI and local server
 
