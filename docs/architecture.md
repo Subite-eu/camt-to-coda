@@ -75,12 +75,19 @@ src/web-app/                       React + Vite + Tailwind v4 + shadcn/ui field 
 ├── lib/{convert,fields,samples,download,cn}.ts   artifact conversion + exact field provenance
 ├── lib/{worker-client,conversion.worker,input}.ts cancellable conversion and input limits
 ├── components/{Header,FileBar,DropZone,StatementSummary,SourcePanel,OutputPanel,Inspector,ThemeToggle}.tsx
-├── components/{DownloadPanel,SampleLibrary}.tsx explicit downloads + searchable original sources
+├── components/{DownloadPanel,SampleLibrary,ExampleLibrary}.tsx converted artifacts, sample picker and downloadable examples
+├── lib/publisher-download.ts       pinned browser-only direct/ZIP/gzip TAR/payload-range retrieval
 ├── components/ui/*                shadcn primitives
 └── styles/globals.css             Warm Ink theme tokens (light + dark)
 ```
 
 The web app is a separate Vite root (`vite.config.ts` → `dist-web/`) that reuses `src/core` directly via the `fs`/`crypto` shims. It builds to a static site (Cloudflare / `camt2coda serve`). The browser worker processes inputs locally (5 MiB cap); explicit uploads to the separate [HTTP API](http-api.md) are processed on the Node server (10 MiB default body cap). The source panel retains the original while the result preview and downloads share one converted/privacy artifact. The download panel displays the artifact filename and format, keeping notes and acknowledgment beside the action. The sample picker reads independently authored `examples/catalog.json` metadata; `import.meta.glob` loads each original as a separate lazy chunk. See the [user guide](user-guide.md) for the workflow.
+
+The separate `/#examples` view reads generated `examples/download-catalog.json`: 252 metadata entries from the 119 bank originals/payloads, 29 third-party CODA fixtures and 104 synthetic originals. `scripts/build-example-catalog.mjs` validates these inputs and emits provenance, source status, explicit bank/publisher identity and country-basis fields. Search and format/provenance/country/publisher filters run locally, with 20 entries per page. Hash navigation preserves conversion state, as does the separate worldwide reference catalog.
+
+Browsing does not retrieve publisher originals. On **Save original file**, `publisher-download.ts` fetches the HTTPS publisher URL directly, checks the final redirect origin, bounds the download to its pin and 8 MB, and verifies its SHA-256 before archive extraction. Streaming `fflate` extraction bounds the exact ZIP member to 2 MB or the expanded gzip TAR to 8 MB, accepts only the exact regular TAR member, verifies reviewed embedded member/range pins, and checks the final original's size/hash without rewriting bytes. A shared abort signal and 30-second timeout cancel fetch/read work and release stream resources. CORS, network, redirect and integrity errors propagate to the UI's manual publisher-link fallback. No proxy or publisher-content hosting is introduced. Synthetic downloads load the same lazy originals as the sample picker.
+
+The library distinguishes bank publication from third-party fixtures and invented test data. Country metadata records scope and its basis rather than inferring an individual file's country from the publisher's headquarters. Source schema validation, documented conversion tests and expected rejection are separate statuses; there is no verified complete bank-authored CODA source.
 
 ## Record Builders
 

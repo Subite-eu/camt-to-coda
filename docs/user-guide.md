@@ -6,7 +6,7 @@ See the [documentation index](README.md) for mapping details, limitations and co
 
 Open [camt2coda.subite.io](https://camt2coda.subite.io) or [coda2camt.subite.io](https://coda2camt.subite.io). Both sites provide the same bidirectional app:
 
-1. Drop or select one CAMT XML or CODA file, paste its contents, or open a built-in sample. Search the **104 synthetic original samples** by scenario or version, filter by CAMT/CODA, and opt into invalid examples to test error handling. A separate **bank-published CAMT examples** section links 12 official originals from ING, ABN AMRO and Nordea: download from the bank, unzip ZIPs, then upload the XML/text member. Publisher terms apply; these illustrative files can contain known validation issues. Bundled CODA samples remain synthetic; separate [third-party CODA research fixtures](../examples/coda-published/README.md) are available for developer testing with their own provenance and documented limitations. See [provenance and limits](../examples/bank-published/README.md). The app detects the conversion direction. The input limit is **5 MiB**.
+1. Drop or select one CAMT XML or CODA file, paste its contents, or open a built-in sample. Search the **104 synthetic original samples** by scenario or version, filter by CAMT/CODA, and opt into invalid examples to test error handling. Open **Example files** in the header for the complete downloadable library described below. The app detects the conversion direction. The input limit is **5 MiB**.
 2. Review the statement summary, opening/closing balances, reconciliation and movements. A file can contain several statements; use the statement selector to review each one. Movement lists are paginated.
 3. Open the field inspector to compare source and result. Search or jump to a record; use arrow keys to navigate fields, Enter/Space to inspect and Escape to close. On small screens, switch between source and result tabs.
 4. Review conversion notes and acknowledge them before downloading. Validation errors block downloads even after notes are acknowledged. You can cancel an in-progress conversion and retry after an error.
@@ -15,6 +15,20 @@ Open [camt2coda.subite.io](https://camt2coda.subite.io) or [coda2camt.subite.io]
 Conversion runs in a local browser worker. Bank statement contents are not uploaded by the UI. The hosted page still fetches site assets and may contact Cloudflare analytics; an offline reload is not guaranteed.
 
 **Anonymize** changes the result preview and downloaded artifact together; the source panel remains original. Names, account identifiers, references and free text are removed or replaced. Amounts, dates, currencies and transaction patterns remain, and deterministic pseudonyms are linkable. Synthetic identifiers are for review, **never bank import**. Use the independently authored [example library](../examples/README.md) for shareable test data.
+
+## Find and download example files
+
+Open **Example files** in the header, or visit `/#examples`. The library contains **252 files: 119 bank-published CAMT originals or unchanged payloads, 29 third-party CODA fixtures, and 104 synthetic test files**. Search filenames, publishers and descriptions; filter by **Format**, **Provenance**, **Country / scope**, and **Bank or publisher**. Results appear in pages of 20. Returning to the converter preserves your loaded source and converted result.
+
+Each file identifies its publisher, bank relationship, provenance, source status, usage terms and country basis. **Bank-published original** means the source was published by the named bank or central bank. **Third-party fixture** means a developer or vendor published it; bank authorship and production origin are unverified. **Synthetic test data** uses invented identities and has no bank affiliation. No complete bank-authored CODA original has been verified.
+
+Country filters describe documented publisher scope where available. An ING service-scope match, for example, does not establish the country of its individual sample. Belgian CODA format scope does not verify a third-party fixture's bank or production origin; synthetic files are **Not country-specific**. Read the country basis on the file before treating a filter match as provenance.
+
+Source statuses have different meanings. **XSD valid** refers to source schema validation, without certifying every converter mapping. **Conversion tested** records the corpus's documented conversion checks and any representation limits. Schema defects and **Expected rejection** identify known negative examples; downloading an original does not repair or endorse it. Review the description and [conversion limitations](conversion-limitations.md) before using the result.
+
+Browsing loads metadata only. **Save original file** explicitly fetches from the publisher and verifies the pinned download size and SHA-256 before extracting an exact ZIP or regular gzip TAR member. Reviewed embedded XML is saved as its unchanged, separately pinned byte range. The complete member and final payload hashes are checked, with an 8 MB download/expanded TAR limit and a 2 MB original limit. The app never proxies or rehosts publisher originals. Publisher terms still apply.
+
+If the browser cannot fetch the source because of CORS, a network failure, a changed file or an unreviewed redirect, the app offers the publisher link. Download there, extract the named member where needed, and upload the file to the converter. **Download test file** saves the synthetic original; **Try in converter** opens that synthetic example directly. Synthetic files and anonymized exports are for testing and review, **never bank import**.
 
 ## Install the CLI and local server
 

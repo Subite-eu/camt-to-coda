@@ -1,5 +1,7 @@
 # External CODA example research and compatibility corpus
 
+All 29 fixtures are available in the browser’s **Example files** view (`/#examples`): filter **Provenance → Third-party fixture** and **Format → CODA**. Each file states its publisher, unverified bank authorship, Belgian format scope, acceptance/rejection status and usage terms. **Save original file** retrieves unchanged pinned bytes; the publisher link remains available if browser access is blocked. See the [download guide](../../docs/user-guide.md#find-and-download-example-files).
+
 Verified **2026-10-11**. This collection contains **29 unique, unchanged third-party CODA fixtures**, deduplicated from **65 downloaded files** and their parser-port mirrors. **No complete bank-published CODA original was verified.** A Belgian bank identifier or BIC inside a developer fixture does not establish bank authorship or production-export provenance.
 
 The [manifest](manifest.json) records immutable source URLs, exact source/container SHA-256 and byte sizes, archive members, encoding, classification, licensing evidence, equivalent mirrors and independently extracted literal facts. The [research inventory](research.json) records official Belgian bank services, specifications, unavailable examples and false positives. The separate [worldwide bank catalog](../bank-catalog/README.md) records bank-published CAMT material and bank reporting availability.

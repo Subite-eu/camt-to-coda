@@ -13,6 +13,7 @@ export function SampleLibrary({ onSelect, loading }: { onSelect: (sample: Sample
   return <section aria-label="Sample library" className="sample-library min-w-0 space-y-4">
     <div><h2 className="text-xl font-semibold">Explore sample files</h2>
       <p className="text-sm text-muted-foreground mt-1">{SAMPLES.length} independently authored synthetic samples. Try payroll, card purchases, international transfers, batches and more.</p></div>
+    <a href="#examples" className="inline-flex min-h-11 items-center rounded-md border px-4 py-2 text-sm font-medium underline underline-offset-4">Browse and download every example · bank originals, third-party CODA and test data</a>
     <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
       <label className="text-sm space-y-1">Search samples<input type="search" aria-label="Search samples" placeholder="Try salary, USD, batch or version 13" value={query} onChange={e => setQuery(e.target.value)} className="block w-full rounded-md border bg-background px-3 py-2 min-h-11" /></label>
       <label className="text-sm space-y-1">Sample format<select aria-label="Sample format" value={format} onChange={e => setFormat(e.target.value)} className="block w-full rounded-md border bg-background px-3 py-2 min-h-11"><option value="all">CAMT and CODA</option><option value="camt">CAMT XML</option><option value="coda">CODA</option></select></label>

@@ -79,6 +79,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build:web
       - run: npm run test:bank:e2e -- --project=chromium --workers=2
+      - run: npm run test:examples:downloads -- --project=chromium --workers=2
       # Publisher originals and derived downloads must never be uploaded or
       # stored in shared caches; a failed fetch/hash check fails this job.
       - if: always()

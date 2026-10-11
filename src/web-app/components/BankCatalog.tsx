@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import bankData from "../../../examples/bank-catalog/catalog.json";
 import referenceData from "../../../examples/bank-catalog/country-references.json";
+import exampleData from "../../../examples/download-catalog.json";
 
 type Resource = { kind: string; access: string; label: string; url: string };
 type Entry = {
@@ -20,9 +21,9 @@ const banks: Entry[] = bankData.banks.map(b => ({ ...b, title: b.bank, context: 
 const references: Entry[] = referenceData.references.map(r => ({ ...r, title: r.authority, context: r.reportingCoverage }));
 const controlClass = "min-h-11 w-full rounded-md border bg-background px-3 py-2 text-sm";
 
-export function BankCatalog() {
+export function BankCatalog({ initialSection = "banks" }: { initialSection?: "banks" | "references" }) {
   useEffect(() => { document.getElementById("catalog-title")?.focus(); }, []);
-  const [section, setSection] = useState<"banks" | "references">("banks");
+  const [section, setSection] = useState<"banks" | "references">(initialSection);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
   const [country, setCountry] = useState("");
@@ -50,6 +51,7 @@ export function BankCatalog() {
       <p className="text-sm text-muted-foreground">Sources checked {bankData.verifiedOn}. This is a curated inventory; an absent country or bank means coverage has not yet been verified.</p></details>
     </div>
     <nav aria-label="Catalog sections" className="flex flex-wrap gap-2">
+      <a href="#examples" className="inline-flex min-h-11 items-center rounded-md border px-4 text-sm underline underline-offset-4">Example files ({exampleData.examples.length})</a>
       <button className="min-h-11 rounded-md border px-4 text-sm aria-pressed:bg-secondary aria-pressed:font-semibold" aria-pressed={section === "banks"} onClick={() => { setSection("banks"); reset(); }}>Banks ({banks.length})</button>
       <button className="min-h-11 rounded-md border px-4 text-sm aria-pressed:bg-secondary aria-pressed:font-semibold" aria-pressed={section === "references"} onClick={() => { setSection("references"); reset(); }}>Country & regional references ({references.length})</button>
     </nav>
@@ -65,6 +67,7 @@ export function BankCatalog() {
     <div className="space-y-4">{filtered.map(e => <article key={e.id} aria-label={e.title} className="rounded-lg border p-4 sm:p-5 space-y-3 break-words">
       <div><p className="text-sm text-muted-foreground">{e.markets.map(m => `${m.region} · ${m.country}`).join(" / ")}</p><h2 className="text-lg font-semibold">{e.title}</h2></div>
       <p className="text-sm">{e.context}</p><p className="text-sm font-medium">{e.formats.join(" · ")}</p>
+      {section === "banks" && exampleData.examples.some(s => s.publisherId === `bank:${e.id}`) && <a href={`#examples?bank=${encodeURIComponent(e.id)}`} className="inline-flex min-h-11 items-center underline underline-offset-4 text-sm font-medium">View {exampleData.examples.filter(s => s.publisherId === `bank:${e.id}`).length} CAMT example files</a>}
       <ul className="space-y-2">{e.resources.filter(r => !kind || r.kind === kind).map((r, i) => <li key={`${r.url}-${i}`} className="text-sm"><a href={r.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline underline-offset-4">{r.label} ↗</a><span className="block text-muted-foreground">{resourceLabels[r.kind] ?? r.kind} · {accessLabels[r.access] ?? r.access}</span></li>)}</ul>
       <details className="text-sm"><summary className="cursor-pointer min-h-11 py-3">Scope and source notes</summary><p className="mt-2 text-muted-foreground">{e.notes}</p></details>
     </article>)}</div>
