@@ -4,6 +4,10 @@ COPY package*.json ./
 RUN npm ci
 COPY tsconfig*.json vite.config.ts ./
 COPY src/ src/
+COPY examples/catalog.json examples/catalog.json
+COPY examples/camt/ examples/camt/
+COPY examples/coda/ examples/coda/
+COPY examples/invalid/ examples/invalid/
 RUN npm run build && npm run build:app
 
 FROM node:22-alpine

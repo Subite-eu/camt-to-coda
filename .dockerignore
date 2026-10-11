@@ -7,3 +7,8 @@
 !vite.config.ts
 !src/
 !src/**
+!examples/catalog.json
+!examples/camt/*.xml
+!examples/coda/*.cod
+!examples/invalid/*.xml
+!examples/invalid/*.cod
